@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+
 int main(void)
 {
     GLFWwindow* window;
