@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include "Render/ShaderProgram.h"
 
 // GLOBAL VARIEBLES
 
@@ -91,9 +92,14 @@ int main(void)
     std::cout << "Render: " << glGetString(GL_RENDERER) << std::endl;
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 
-    glClearColor(1, 1, 1, 1);  
+    glClearColor(1, 1, 1, 1); 
 
-    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
+    std::string vertex_shader_source(vertex_shader);
+    std::string fragment_shader_source(fragment_shader);
+
+    Renderer::ShaderProgram shader_program(vertex_shader_source, fragment_shader_source);
+
+    /*GLuint vs = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vs, 1, &vertex_shader, nullptr);
     glCompileShader(vs);
 
@@ -107,7 +113,7 @@ int main(void)
     glLinkProgram(shader_program);
 
     glDeleteShader(vs);
-    glDeleteShader(fs);
+    glDeleteShader(fs);*/
 
     GLuint points_vbo = 0;
     glGenBuffers(1, &points_vbo);
@@ -137,7 +143,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shader_program);
+        shader_program.use();
         glBindVertexArray(vao);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
