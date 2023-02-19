@@ -15,7 +15,7 @@ namespace Renderer
 
 		~ShaderProgram();
 
-		bool is_compiled() const { return m_is_compiled; }
+		bool isCompiled() const { return m_is_compiled; }
 
 		void use() const;
 
