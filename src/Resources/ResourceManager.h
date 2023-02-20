@@ -26,6 +26,8 @@ namespace Resources
 	
 		std::shared_ptr<Renderer::ShaderProgram> getShaderProgram(const std::string& shader_name) const;
 
+		void loadTexture(const std::string& texture_name, const std::string& relative_path_to_texture);
+
 	private:
 
 		static std::string getFileString(const std::string& path);

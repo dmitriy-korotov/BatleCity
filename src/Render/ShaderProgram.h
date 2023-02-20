@@ -15,7 +15,7 @@ namespace Renderer
 
 		~ShaderProgram();
 
-		bool isCompiled() const { return m_is_compiled; }
+		inline bool isCompiled() const { return m_is_compiled; }
 
 		void use() const;
 
@@ -28,9 +28,9 @@ namespace Renderer
 	private:
 
 		// VARIEBLES
-		bool m_is_compiled = false;
+		bool m_is_compiled;
 
-		GLuint m_ID = 0;
+		GLuint m_ID;
 
 		// PRIVATE METHODS
 		bool CreateShader(const std::string& source_code, const GLuint type_shder, GLuint& shder_ID);

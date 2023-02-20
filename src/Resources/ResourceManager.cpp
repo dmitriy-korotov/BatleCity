@@ -3,6 +3,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_PNG
+#include "stb_image.h"
 
 namespace Resources
 {
@@ -33,6 +36,25 @@ namespace Resources
 		}
 
 		return m_shader_programs.emplace(shader_name, std::make_shared<Renderer::ShaderProgram>(virtex_source, fragment_source)).first->second;
+	}
+
+	///////////////////////////////////////////////////////
+
+	void ResourceManager::loadTexture(const std::string& texture_name, const std::string& relative_path_to_texture)
+	{
+		int channels = 0;
+		int width = 0;
+		int height = 0;
+
+		stbi_set_flip_vertically_on_load(true);
+		unsigned char* pixels = stbi_load((m_path + "/" + relative_path_to_texture).c_str(), &width, &height, &channels, 0);
+
+		if (!pixels)
+		{
+			std::cerr << "Can't load texture: " << relative_path_to_texture << std::endl;
+		}
+
+		stbi_image_free(pixels);
 	}
 
 	///////////////////////////////////////////////////////

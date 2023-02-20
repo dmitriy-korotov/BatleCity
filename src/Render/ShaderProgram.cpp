@@ -5,7 +5,7 @@
 namespace Renderer
 {
 	// PUBLIC
-	ShaderProgram::ShaderProgram(const std::string& vertex_shader, const std::string& fragment_shader)
+	ShaderProgram::ShaderProgram(const std::string& vertex_shader, const std::string& fragment_shader) : m_is_compiled(false), m_ID(0)
 	{
 		// CREATE SHDERS
 		GLuint vertex_shader_ID;
@@ -49,7 +49,7 @@ namespace Renderer
 
 	ShaderProgram::ShaderProgram(ShaderProgram&& outher_shader_program) noexcept
 	{
-		if (m_ID != outher_shader_program.m_ID)
+		if (this != &outher_shader_program)
 		{
 			m_is_compiled = outher_shader_program.m_is_compiled;
 			m_ID = outher_shader_program.m_ID;
