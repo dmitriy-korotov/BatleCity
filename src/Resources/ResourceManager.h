@@ -5,7 +5,12 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../Render/ShaderProgram.h"
+
+namespace Renderer
+{
+	class ShaderProgram;
+	class Texture2D;
+}
 
 namespace Resources
 {
@@ -26,7 +31,9 @@ namespace Resources
 	
 		std::shared_ptr<Renderer::ShaderProgram> getShaderProgram(const std::string& shader_name) const;
 
-		void loadTexture(const std::string& texture_name, const std::string& relative_path_to_texture);
+		std::shared_ptr<Renderer::Texture2D> loadTexture(const std::string& texture_name, const std::string& relative_path_to_texture);
+
+		std::shared_ptr<Renderer::Texture2D> getTexture(const std::string& texture_name) const;
 
 	private:
 
@@ -34,8 +41,10 @@ namespace Resources
 
 		// VARIEBLES
 		typedef std::map<std::string, std::shared_ptr<Renderer::ShaderProgram>> MapShaderProgram;
-
 		MapShaderProgram m_shader_programs;
+
+		typedef std::map<std::string, std::shared_ptr<Renderer::Texture2D>> MapTexture2D;
+		MapTexture2D m_textures;
 
 		std::string m_path;
 	};

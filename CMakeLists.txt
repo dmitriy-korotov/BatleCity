@@ -8,6 +8,8 @@ add_executable(${PROJECT_NAME}
 	src/main.cpp
 	src/Render/ShaderProgram.cpp
 	src/Render/ShaderProgram.h
+	src/Render/Texture2D.cpp
+	src/Render/Texture2D.h
 	src/Resources/ResourceManager.cpp
 	src/Resources/ResourceManager.h
 	src/Resources/stb_image.h 

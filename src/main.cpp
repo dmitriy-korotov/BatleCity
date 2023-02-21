@@ -88,7 +88,7 @@ int main(const int argc, const char** argv)
             return -1;
         }
 
-        resource_manager.loadTexture("Default_texture", "res/textures/map_16x16.png");
+        auto texture = resource_manager.loadTexture("Default_texture", "res/textures/map_16x16.png");
 
         GLuint points_vbo = 0;
         glGenBuffers(1, &points_vbo);

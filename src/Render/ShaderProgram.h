@@ -29,7 +29,6 @@ namespace Renderer
 
 		// VARIEBLES
 		bool m_is_compiled;
-
 		GLuint m_ID;
 
 		// PRIVATE METHODS

@@ -1,5 +1,7 @@
 #include "ResourceManager.h"
 
+#include "../Render/ShaderProgram.h"
+#include "../Render/Texture2D.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -40,7 +42,7 @@ namespace Resources
 
 	///////////////////////////////////////////////////////
 
-	void ResourceManager::loadTexture(const std::string& texture_name, const std::string& relative_path_to_texture)
+	std::shared_ptr<Renderer::Texture2D> ResourceManager::loadTexture(const std::string& texture_name, const std::string& relative_path_to_texture)
 	{
 		int channels = 0;
 		int width = 0;
@@ -54,7 +56,12 @@ namespace Resources
 			std::cerr << "Can't load texture: " << relative_path_to_texture << std::endl;
 		}
 
+		std::shared_ptr<Renderer::Texture2D> new_texture = m_textures.emplace(texture_name,
+			std::make_shared<Renderer::Texture2D>(pixels, width, height, channels, GL_NEAREST, GL_CLAMP_TO_EDGE)).first->second;
+
 		stbi_image_free(pixels);
+
+		return new_texture;
 	}
 
 	///////////////////////////////////////////////////////
@@ -62,7 +69,26 @@ namespace Resources
 	std::shared_ptr<Renderer::ShaderProgram> ResourceManager::getShaderProgram(const std::string& shader_name) const
 	{
 		MapShaderProgram::const_iterator shader_program = m_shader_programs.find(shader_name);
+
+		if (shader_program == m_shader_programs.end())
+		{
+			std::cerr << "Can't find shader program: " << shader_name << std::endl;
+			return nullptr;
+		}
+
 		return shader_program->second;
+	}
+
+	std::shared_ptr<Renderer::Texture2D> ResourceManager::getTexture(const std::string& texture_name) const
+	{
+		MapTexture2D::const_iterator texture = m_textures.find(texture_name);
+
+		if (texture == m_textures.end())
+		{
+			std::cerr << "Can't find texture: " << texture_name << std::endl;
+			return nullptr;
+		}
+		return texture->second;
 	}
 
 	///////////////////////////////////////////////////////
