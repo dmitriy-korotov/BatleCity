@@ -3,6 +3,7 @@
 #define TEXTURE_2D_H
 
 #include "glad/glad.h"
+#include <string>
 
 namespace Renderer
 {
@@ -21,6 +22,8 @@ namespace Renderer
 		~Texture2D();
 
 		void bind() const;
+
+		void setInt(const std::string& name, GLuint value) const;
 
 	private:
 

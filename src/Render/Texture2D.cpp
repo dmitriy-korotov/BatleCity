@@ -67,4 +67,9 @@ namespace Renderer
 	{
 		glBindTexture(GL_TEXTURE_2D, m_ID);
 	}
+
+	void Texture2D::setInt(const std::string& name, const GLuint value) const
+	{
+		glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
+	}
 }
