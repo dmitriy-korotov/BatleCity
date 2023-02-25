@@ -1,31 +1,17 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <iostream>
 #include "Render/ShaderProgram.h"
 #include "Resources/ResourceManager.h"
 #include "Render/Texture2D.h"
+#include "Render/Sprite2D.h"
+
+#include <cmath>
 
 // GLOBAL VARIEBLES
-
-GLfloat points[] = {
-    0.0f, 0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f
-};
-
-GLfloat colors[] = {
-    1.0f, 0.0f, 0.0f,
-    0.0f, 1.0f, 0.0f,
-    0.0f, 0.0f, 1.0f
-};
-
-GLfloat texture_coords[] = {
-    0.5f, 1.0f,
-    1.0f, 1.0f,
-    0.0f, 0.0f
-};
 
 glm::ivec2 G_WINDOW_SIZE(1024, 720);
 
@@ -82,53 +68,33 @@ int main(const int argc, const char** argv)
     std::cout << "Render: " << glGetString(GL_RENDERER) << std::endl;
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 
-    glClearColor(1, 1, 1, 1); 
+    glClearColor(0.9, 0.9, 0.9, 1); 
 
     {
         // RESUORVE MANAGER
         Resources::ResourceManager resource_manager(argv[0]);
 
-        std::shared_ptr<Renderer::ShaderProgram> shader_program = resource_manager.loadShaderProrgam("Shader_program", "res/shaders");
+        std::shared_ptr<Renderer::ShaderProgram> shader_program = resource_manager.loadShaderProrgam("Shader_program_1",
+                                                                                                     "res/shaders/vertex.txt",
+                                                                                                     "res/shaders/fragment.txt");
         if (!shader_program->isCompiled())
         {
             std::cerr << "Can't compiled shader program" << std::endl;
             return -1;
         }
-        std::shared_ptr<Renderer::Texture2D> texture = resource_manager.loadTexture("Default_texture", "res/textures/map_16x16.png");
 
-        GLuint points_vbo = 0;
-        glGenBuffers(1, &points_vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(points), &points, GL_STATIC_DRAW);
+        std::shared_ptr<Renderer::ShaderProgram> shader_program_sprite = resource_manager.loadShaderProrgam("Shader_program_2",
+                                                                                                            "res/shaders/vSprite.txt",
+                                                                                                            "res/shaders/fSprite.txt");
+        if (!shader_program_sprite->isCompiled())
+        {
+            std::cerr << "Can't compiled shader program" << std::endl;
+            return -1;
+        }
 
-        GLuint colors_vbo = 0;
-        glGenBuffers(1, &colors_vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(colors), &colors, GL_STATIC_DRAW);
+        std::shared_ptr<Renderer::Texture2D> texture = resource_manager.loadTexture("Texture_1", "res/textures/map_16x16.png");
 
-        GLuint texture_vbo = 0;
-        glGenBuffers(1, &texture_vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, texture_vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(texture_coords), &texture_coords, GL_STATIC_DRAW);
-
-        GLuint vao = 0;
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-
-        glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-
-        glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-
-        glEnableVertexAttribArray(2);
-        glBindBuffer(GL_ARRAY_BUFFER, texture_vbo);
-        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-
-        shader_program->use();
-        texture->setInt("tex", 0);
+        std::shared_ptr<Renderer::Sprite2D> sprite_1 = resource_manager.loadSprite("Sprite1", "Shader_program_2", "Texture_1", 1, 1);
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(pWindow))
@@ -136,10 +102,10 @@ int main(const int argc, const char** argv)
             /* Render here */
             glClear(GL_COLOR_BUFFER_BIT);
 
-            shader_program->use();
-            texture->bind();
-            glBindVertexArray(vao);
-            glDrawArrays(GL_TRIANGLES, 0, 3);
+            sprite_1->set_position(glm::vec2(-0.5f, -0.5f));
+            sprite_1->set_rotation(glfwGetTime() * 10.f * sin(glfwGetTime()));
+
+            sprite_1->render();
 
             /* Swap front and back buffers */
             glfwSwapBuffers(pWindow);

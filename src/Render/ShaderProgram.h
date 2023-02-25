@@ -4,6 +4,7 @@
 
 #include <glad/glad.h>
 #include <string>
+#include "glm/mat4x4.hpp"
 
 namespace Renderer
 {
@@ -24,6 +25,9 @@ namespace Renderer
 		ShaderProgram(ShaderProgram&& outher_shader_program) noexcept;
 		ShaderProgram& operator=(const ShaderProgram&) = delete;
 		ShaderProgram& operator=(ShaderProgram&& outher_shader_program) noexcept;
+
+		void setInt(const std::string& name, GLuint value) const;
+		void setMatrix4(const std::string& name, const glm::mat4& matrix) const;
 
 	private:
 

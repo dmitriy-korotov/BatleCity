@@ -1,4 +1,5 @@
 #include "Texture2D.h"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Renderer
 {
@@ -32,16 +33,13 @@ namespace Renderer
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	Texture2D::Texture2D(Texture2D&& outher_texture)
+	Texture2D::Texture2D(Texture2D&& outher_texture) noexcept
 	{
-		if (m_ID != outher_texture.m_ID)
-		{
-			m_ID = outher_texture.m_ID;
-			outher_texture.m_ID = 0;
-			m_width = outher_texture.m_width;
-			m_height = outher_texture.m_height;
-			m_mode = outher_texture.m_mode;
-		}
+		m_ID = outher_texture.m_ID;
+		outher_texture.m_ID = 0;
+		m_width = outher_texture.m_width;
+		m_height = outher_texture.m_height;
+		m_mode = outher_texture.m_mode;
 	}
 
 	Texture2D::~Texture2D()
@@ -49,27 +47,21 @@ namespace Renderer
 		glDeleteTextures(1, &m_ID);
 	}
 
-	Texture2D& Texture2D::operator=(Texture2D&& outher_texture)
+	Texture2D& Texture2D::operator=(Texture2D&& outher_texture) noexcept
 	{
-		if (m_ID != outher_texture.m_ID)
-		{
-			glDeleteTextures(1, &m_ID);
-			m_ID = outher_texture.m_ID;
-			outher_texture.m_ID = 0;
-			m_width = outher_texture.m_width;
-			m_height = outher_texture.m_height;
-			m_mode = outher_texture.m_mode;
-		}
+		glDeleteTextures(1, &m_ID);
+
+		m_ID = outher_texture.m_ID;
+		outher_texture.m_ID = 0;
+		m_width = outher_texture.m_width;
+		m_height = outher_texture.m_height;
+		m_mode = outher_texture.m_mode;
+
 		return *this;
 	}
 
 	void Texture2D::bind() const
 	{
 		glBindTexture(GL_TEXTURE_2D, m_ID);
-	}
-
-	void Texture2D::setInt(const std::string& name, const GLuint value) const
-	{
-		glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
 	}
 }

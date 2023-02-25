@@ -49,28 +49,23 @@ namespace Renderer
 
 	ShaderProgram::ShaderProgram(ShaderProgram&& outher_shader_program) noexcept
 	{
-		if (this != &outher_shader_program)
-		{
-			m_is_compiled = outher_shader_program.m_is_compiled;
-			m_ID = outher_shader_program.m_ID;
+		m_is_compiled = outher_shader_program.m_is_compiled;
+		m_ID = outher_shader_program.m_ID;
 
-			outher_shader_program.m_is_compiled = false;
-			outher_shader_program.m_ID = 0;
-		}
+		outher_shader_program.m_is_compiled = false;
+		outher_shader_program.m_ID = 0;
 	}
 
 	ShaderProgram& ShaderProgram::operator=(ShaderProgram&& outher_shader_program) noexcept
 	{
-		if (m_ID != outher_shader_program.m_ID)
-		{
-			glDeleteProgram(m_ID);
+		glDeleteProgram(m_ID);
 
-			m_is_compiled = outher_shader_program.m_is_compiled;
-			m_ID = outher_shader_program.m_ID;
+		m_is_compiled = outher_shader_program.m_is_compiled;
+		m_ID = outher_shader_program.m_ID;
 
-			outher_shader_program.m_is_compiled = false;
-			outher_shader_program.m_ID = 0;
-		}
+		outher_shader_program.m_is_compiled = false;
+		outher_shader_program.m_ID = 0;
+
 		return *this;
 	}
 
@@ -82,6 +77,16 @@ namespace Renderer
 	ShaderProgram::~ShaderProgram()
 	{
 		glDeleteProgram(m_ID);
+	}
+
+	void ShaderProgram::setInt(const std::string& name, const GLuint value) const
+	{
+		glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
+	}
+
+	void ShaderProgram::setMatrix4(const std::string& name, const glm::mat4& matrix) const
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, &matrix[0][0]);
 	}
 
 	// PRIVATE

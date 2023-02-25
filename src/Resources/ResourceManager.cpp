@@ -2,6 +2,7 @@
 
 #include "../Render/ShaderProgram.h"
 #include "../Render/Texture2D.h"
+#include "../Render/Sprite2D.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -21,19 +22,21 @@ namespace Resources
 
 	///////////////////////////////////////////////////////
 
-	std::shared_ptr<Renderer::ShaderProgram> ResourceManager::loadShaderProrgam(const std::string& shader_name, const std::string& relative_path_to_shaders)
+	std::shared_ptr<Renderer::ShaderProgram> ResourceManager::loadShaderProrgam(const std::string& shader_name,
+																				const std::string& path_to_vertex_shader_source,
+																				const std::string& path_to_fragment_shader_source)
 	{
-		std::string virtex_source = getFileString(m_path + "/" + relative_path_to_shaders + "/vertex.txt");
+		std::string virtex_source = getFileString(m_path + "/" + path_to_vertex_shader_source);
 		if (virtex_source.empty())
 		{
-			std::cerr << "Can't load vertex shader: " << relative_path_to_shaders + "/vertex.txt" << std::endl;
+			std::cerr << "Can't load vertex shader: " << path_to_vertex_shader_source << std::endl;
 			return nullptr;
 		}
 
-		std::string fragment_source = getFileString(m_path + "/" + relative_path_to_shaders + "/fragment.txt");
+		std::string fragment_source = getFileString(m_path + "/" + path_to_fragment_shader_source);
 		if (fragment_source.empty())
 		{
-			std::cerr << "Can't load fragment shader: " << relative_path_to_shaders + "/fragment.txt" << std::endl;
+			std::cerr << "Can't load fragment shader: " << path_to_fragment_shader_source << std::endl;
 			return nullptr;
 		}
 
@@ -68,27 +71,70 @@ namespace Resources
 
 	std::shared_ptr<Renderer::ShaderProgram> ResourceManager::getShaderProgram(const std::string& shader_name) const
 	{
-		MapShaderProgram::const_iterator shader_program = m_shader_programs.find(shader_name);
+		MapShaderProgram::const_iterator it = m_shader_programs.find(shader_name);
 
-		if (shader_program == m_shader_programs.end())
+		if (it == m_shader_programs.end())
 		{
 			std::cerr << "Can't find shader program: " << shader_name << std::endl;
 			return nullptr;
 		}
 
-		return shader_program->second;
+		return it->second;
 	}
 
 	std::shared_ptr<Renderer::Texture2D> ResourceManager::getTexture(const std::string& texture_name) const
 	{
-		MapTexture2D::const_iterator texture = m_textures.find(texture_name);
+		MapTexture2D::const_iterator it = m_textures.find(texture_name);
 
-		if (texture == m_textures.end())
+		if (it == m_textures.end())
 		{
 			std::cerr << "Can't find texture: " << texture_name << std::endl;
 			return nullptr;
 		}
-		return texture->second;
+		return it->second;
+	}
+
+	///////////////////////////////////////////////////////
+
+	std::shared_ptr<Renderer::Sprite2D> ResourceManager::loadSprite(const std::string& sprite_name,
+																	const std::string& shader_program_name,
+																	const std::string& texture_name,
+																	const unsigned int sprite_width,
+																	const unsigned int sprite_height)
+	{
+		std::shared_ptr<Renderer::ShaderProgram> shader_program = getShaderProgram(shader_program_name);
+		if (shader_program == nullptr)
+		{
+			std::cerr << "Can't load sprite: " << sprite_name << std::endl;
+			return nullptr;
+		}
+
+		std::shared_ptr<Renderer::Texture2D> texture = getTexture(texture_name);
+		if (texture == nullptr)
+		{
+			std::cerr << "Can't load sptite: " << sprite_name << std::endl;
+			return nullptr;
+		}
+		
+		return m_sprites.emplace(sprite_name, std::make_shared<Renderer::Sprite2D>(texture,
+																				   shader_program,
+																				   glm::vec2(0.f, 0.f),
+																				   sprite_width,
+																				   sprite_height)).first->second;
+	}
+
+	//////////////////////////////////////////////////////
+
+	std::shared_ptr<Renderer::Sprite2D> ResourceManager::getsprite(const std::string& sprite_name)
+	{
+		MapSprite2D::const_iterator it = m_sprites.find(sprite_name);
+		
+		if (it == m_sprites.end())
+		{
+			std::cerr << "Can't find sprite: " << sprite_name << std::endl;
+			return nullptr;
+		}
+		return it->second;
 	}
 
 	///////////////////////////////////////////////////////
