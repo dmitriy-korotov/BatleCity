@@ -3,6 +3,22 @@
 
 namespace Renderer
 {
+
+	///////////////////////////////////////////////////////////
+	//					  SUB TEXTURE
+	///////////////////////////////////////////////////////////
+
+	Texture2D::SubTexture2D::SubTexture2D() : left_bottom_uv(0.f, 0.f), right_top_uv(1.f, 1.f)
+	{ }
+
+	Texture2D::SubTexture2D::SubTexture2D(const glm::vec2& _left_bottom_uv, const glm::vec2& _right_top_uv)
+		: left_bottom_uv(_left_bottom_uv), right_top_uv(_right_top_uv)
+	{ }
+
+	///////////////////////////////////////////////////////////
+	//					   TEXTURE
+	///////////////////////////////////////////////////////////
+
 	Texture2D::Texture2D(const GLboolean* pixels, const GLuint width, const GLuint height,
 						const GLuint channels, const GLuint filter, const GLuint wrap_mode) : m_width(width), m_height(height)
 	{
@@ -63,5 +79,22 @@ namespace Renderer
 	void Texture2D::bind() const
 	{
 		glBindTexture(GL_TEXTURE_2D, m_ID);
+	}
+
+	void Texture2D::addSubTexture(const std::string& subTexture_name, const glm::vec2& left_bottom_uv, const glm::vec2& right_top_uv)
+	{
+		SubTexture2D new_subTexture(left_bottom_uv, right_top_uv);
+		subTextures.emplace(subTexture_name, std::move(new_subTexture));
+	}
+
+	const Texture2D::SubTexture2D& Texture2D::getSubTexture(const std::string& subTexture_name) const
+	{
+		MapSubTextures::const_iterator it = subTextures.find(subTexture_name);
+		if (it != subTextures.end())
+		{
+			return it->second;
+		}
+		const static SubTexture2D default_subTexture;
+		return default_subTexture;
 	}
 }

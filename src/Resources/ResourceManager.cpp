@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 #define STB_IMAGE_IMPLEMENTATION
-#define STBI_ONLY_PNG
+//#define STBI_ONLY_PNG
 #include "stb_image.h"
 
 namespace Resources
@@ -100,7 +100,8 @@ namespace Resources
 																	const std::string& shader_program_name,
 																	const std::string& texture_name,
 																	const unsigned int sprite_width,
-																	const unsigned int sprite_height)
+																	const unsigned int sprite_height,
+																	const std::string& subTexture_name)
 	{
 		std::shared_ptr<Renderer::ShaderProgram> shader_program = getShaderProgram(shader_program_name);
 		if (shader_program == nullptr)
@@ -118,6 +119,7 @@ namespace Resources
 		
 		return m_sprites.emplace(sprite_name, std::make_shared<Renderer::Sprite2D>(texture,
 																				   shader_program,
+																				   subTexture_name,
 																				   glm::vec2(0.f, 0.f),
 																				   sprite_width,
 																				   sprite_height)).first->second;
@@ -125,7 +127,7 @@ namespace Resources
 
 	//////////////////////////////////////////////////////
 
-	std::shared_ptr<Renderer::Sprite2D> ResourceManager::getsprite(const std::string& sprite_name)
+	std::shared_ptr<Renderer::Sprite2D> ResourceManager::getSprite(const std::string& sprite_name)
 	{
 		MapSprite2D::const_iterator it = m_sprites.find(sprite_name);
 		
@@ -135,6 +137,46 @@ namespace Resources
 			return nullptr;
 		}
 		return it->second;
+	}
+
+	std::shared_ptr<Renderer::Texture2D> ResourceManager::loadTextureAtlas(const std::string& texture_name,
+																			 const std::vector<std::string> subTexture_names,
+																			 const std::string& relative_path_to_texture,
+																			 const unsigned int width_subTexture,
+																			 const unsigned int height_subtexture)
+	{
+		std::shared_ptr<Renderer::Texture2D> texture = loadTexture(texture_name, relative_path_to_texture);
+		if (texture == nullptr)
+		{
+			std::cerr << "Can't load texture atlas: " << relative_path_to_texture << std::endl;
+			return nullptr;
+		}
+
+		const unsigned int texture_width = texture->width();
+		const unsigned int texture_height = texture->height();
+
+		unsigned int current_position_u = 0;
+		unsigned int current_position_v = texture_height;
+
+		for (const std::string& name : subTexture_names)
+		{
+			glm::vec2 left_bottom_uv(static_cast<float>(current_position_u) / texture_width,
+									 static_cast<float>(current_position_v - height_subtexture) / texture_height);
+
+			glm::vec2 right_top_uv(static_cast<float>(current_position_u + width_subTexture) / texture_width,
+								   static_cast<float>(current_position_v) / texture_height);
+
+			texture->addSubTexture(name, left_bottom_uv, right_top_uv);
+
+			current_position_u += width_subTexture;
+
+			if (current_position_u >= texture_width)
+			{
+				current_position_v -= height_subtexture;
+				current_position_u = 0;
+			}
+		}
+		return texture;
 	}
 
 	///////////////////////////////////////////////////////

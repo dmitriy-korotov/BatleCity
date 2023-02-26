@@ -4,6 +4,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <memory>
 
 namespace Renderer
@@ -11,6 +12,7 @@ namespace Renderer
 	class ShaderProgram;
 	class Texture2D;
 	class Sprite2D;
+	class subTexture2D;
 }
 
 namespace Resources
@@ -41,10 +43,17 @@ namespace Resources
 		std::shared_ptr<Renderer::Sprite2D> loadSprite(const std::string& sprite_name,
 													   const std::string& shader_program_name,
 													   const std::string& texture_name,
-													   const unsigned int sprite_width,
-													   const unsigned int sprite_height);
+													   const unsigned int sprite_width = 1,
+													   const unsigned int sprite_height = 1,
+													   const std::string& subTexture_name = "default");
 
-		std::shared_ptr<Renderer::Sprite2D> getsprite(const std::string& sprite_name);
+		std::shared_ptr<Renderer::Sprite2D> getSprite(const std::string& sprite_name);
+
+		std::shared_ptr<Renderer::Texture2D> loadTextureAtlas(const std::string& texture_name,
+																const std::vector<std::string> subTexture_names,
+																const std::string& relative_path_to_texture,
+																const unsigned int width_subTexture,
+																const unsigned int height_subtexture);
 
 	private:
 

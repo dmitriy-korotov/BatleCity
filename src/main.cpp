@@ -10,6 +10,7 @@
 #include "Render/Sprite2D.h"
 
 #include <cmath>
+#include <vector>
 
 // GLOBAL VARIEBLES
 
@@ -92,9 +93,24 @@ int main(const int argc, const char** argv)
             return -1;
         }
 
-        std::shared_ptr<Renderer::Texture2D> texture = resource_manager.loadTexture("Texture_1", "res/textures/map_16x16.png");
+        std::shared_ptr<Renderer::Texture2D> texture_1 = resource_manager.loadTexture("Texture_1", "res/textures/mylove.jpg");
 
-        std::shared_ptr<Renderer::Sprite2D> sprite_1 = resource_manager.loadSprite("Sprite1", "Shader_program_2", "Texture_1", 1, 1);
+        std::vector<std::string> names_subTextures = {"block", "topBlock", "bottomBlock", "leftBlock", "rightBlock", "leftTopBlock",
+                                                      "rightTopBlock", "leftBottomBlock", "rightBottomBlock", "beton", "topBeton",
+                                                      "bottomBeton", "leftBeton", "rightBeton", "leftTopBeton", "rightTopBeton",
+                                                      "leftBottomBeton", "rightBottomBeton"};
+
+        std::shared_ptr<Renderer::Texture2D> texture_2 = resource_manager.loadTextureAtlas("Texture_2", names_subTextures,
+                                                                                           "res/textures/map_16x16.png", 16, 16);
+
+        std::shared_ptr<Renderer::Sprite2D> sprite_1 = resource_manager.loadSprite("Sprite1", "Shader_program_2",
+                                                                                   "Texture_1", 324.f, 320.f);
+
+        std::shared_ptr<Renderer::Sprite2D> sprite_2 = resource_manager.loadSprite("Sprite2", "Shader_program_2",
+                                                                                   "Texture_2", 300.f, 300.f, "beton");
+
+        std::shared_ptr<Renderer::Sprite2D> sprite_3 = resource_manager.loadSprite("Sprite3", "Shader_program_2",
+                                                                                   "Texture_2", 300.f, 300.f, "rightBottomBeton");
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(pWindow))
@@ -102,10 +118,14 @@ int main(const int argc, const char** argv)
             /* Render here */
             glClear(GL_COLOR_BUFFER_BIT);
 
-            sprite_1->set_position(glm::vec2(-0.5f, -0.5f));
-            sprite_1->set_rotation(glfwGetTime() * 10.f * sin(glfwGetTime()));
+            sprite_1->setPosition(glm::vec2(700.f, 400.f));
+            //sprite_1->setRotation(glfwGetTime() * 10.f * sin(glfwGetTime()));
+
+            sprite_3->setPosition(glm::vec2(0.f, 420.f));
 
             sprite_1->render();
+            sprite_2->render();
+            sprite_3->render();
 
             /* Swap front and back buffers */
             glfwSwapBuffers(pWindow);

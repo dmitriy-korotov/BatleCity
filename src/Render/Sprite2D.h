@@ -17,6 +17,7 @@ namespace Renderer
 	public:
 		Sprite2D(std::shared_ptr<Texture2D> ptr_texture,
 			std::shared_ptr<ShaderProgram> ptr_shader_program,
+			std::string subTexture_name = "default",
 			const glm::vec2& position = glm::vec2(0, 0),
 			const unsigned int sprite_width = 1,
 			const unsigned int sprite_height = 1,
@@ -28,9 +29,9 @@ namespace Renderer
 		Sprite2D& operator=(const Sprite2D&) = delete;
 		Sprite2D& operator=(Sprite2D&&) = delete;
 
-		void set_position(const glm::vec2& position);
-		void set_size(const unsigned int width, const unsigned int height);
-		void set_rotation(const float angle_rotation);
+		void setPosition(const glm::vec2& position);
+		void setSize(const unsigned int width, const unsigned int height);
+		void setRotation(const float angle_rotation);
 		void render() const;
 
 	private:
