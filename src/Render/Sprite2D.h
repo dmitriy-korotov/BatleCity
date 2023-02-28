@@ -32,9 +32,9 @@ namespace Renderer
 		void setPosition(const glm::vec2& position);
 		void setSize(const unsigned int width, const unsigned int height);
 		void setRotation(const float angle_rotation);
-		void render() const;
+		virtual void render() const;
 
-	private:
+	protected:
 
 		std::shared_ptr<Texture2D> m_texture;
 		std::shared_ptr<ShaderProgram> m_shader_program;

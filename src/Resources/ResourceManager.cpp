@@ -3,6 +3,7 @@
 #include "../Render/ShaderProgram.h"
 #include "../Render/Texture2D.h"
 #include "../Render/Sprite2D.h"
+#include "../Render/AnimatedSprite2D.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -138,6 +139,53 @@ namespace Resources
 		}
 		return it->second;
 	}
+
+	//////////////////////////////////////////////////////
+
+	std::shared_ptr<Renderer::AnimatedSprite2D> ResourceManager::loadAnimatedSprite(const std::string& sprite_name,
+																				    const std::string& shader_program_name,
+																				    const std::string& texture_name,
+																				    const unsigned int sprite_width,
+																				    const unsigned int sprite_height,
+																				    const std::string& subTexture_name)
+	{
+		std::shared_ptr<Renderer::ShaderProgram> shader_program = getShaderProgram(shader_program_name);
+		if (shader_program == nullptr)
+		{
+			std::cerr << "Can't load sprite: " << sprite_name << std::endl;
+			return nullptr;
+		}
+
+		std::shared_ptr<Renderer::Texture2D> texture = getTexture(texture_name);
+		if (texture == nullptr)
+		{
+			std::cerr << "Can't load sptite: " << sprite_name << std::endl;
+			return nullptr;
+		}
+
+		return m_animated_sprites.emplace(sprite_name, std::make_shared<Renderer::AnimatedSprite2D>(texture,
+																						    shader_program,
+																							subTexture_name,
+																							glm::vec2(0.f, 0.f),
+																							sprite_width,
+																							sprite_height)).first->second;
+	}
+
+	//////////////////////////////////////////////////////
+
+	std::shared_ptr<Renderer::AnimatedSprite2D> ResourceManager::getAnimatedSprite(const std::string& sprite_name)
+	{
+		MapAnimatedSprite2D::const_iterator it = m_animated_sprites.find(sprite_name);
+
+		if (it == m_animated_sprites.end())
+		{
+			std::cerr << "Can't find animation sprite: " << sprite_name << std::endl;
+			return nullptr;
+		}
+		return it->second;
+	}
+
+	//////////////////////////////////////////////////////
 
 	std::shared_ptr<Renderer::Texture2D> ResourceManager::loadTextureAtlas(const std::string& texture_name,
 																			 const std::vector<std::string> subTexture_names,
