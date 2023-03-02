@@ -8,20 +8,38 @@
 #include <fstream>
 #include <sstream>
 #define STB_IMAGE_IMPLEMENTATION
-//#define STBI_ONLY_PNG
+#define STBI_ONLY_PNG
 #include "stb_image.h"
 
 namespace Resources
 {
+	// STATIC VARIEBLES
+	ResourceManager::MapShaderProgram ResourceManager::m_shader_programs;
+	ResourceManager::MapTexture2D ResourceManager::m_textures;
+	ResourceManager::MapSprite2D ResourceManager::m_sprites;
+	ResourceManager::MapAnimatedSprite2D ResourceManager::m_animated_sprites;
+	std::string ResourceManager::m_path;
+
+
 	// PUBLIC
-	ResourceManager::ResourceManager(const std::string& executable_path)
+	void ResourceManager::setExecutablePath(const std::string& executable_path)
 	{
 		size_t finded_index = executable_path.find_last_of("/\\");
 
 		m_path = executable_path.substr(0, finded_index);
 	}
 
-	///////////////////////////////////////////////////////
+
+
+	void ResourceManager::unloadAllResources()
+	{
+		m_animated_sprites.clear();
+		m_shader_programs.clear();
+		m_sprites.clear();
+		m_textures.clear();
+	}
+
+	
 
 	std::shared_ptr<Renderer::ShaderProgram> ResourceManager::loadShaderProrgam(const std::string& shader_name,
 																				const std::string& path_to_vertex_shader_source,
@@ -44,7 +62,7 @@ namespace Resources
 		return m_shader_programs.emplace(shader_name, std::make_shared<Renderer::ShaderProgram>(virtex_source, fragment_source)).first->second;
 	}
 
-	///////////////////////////////////////////////////////
+
 
 	std::shared_ptr<Renderer::Texture2D> ResourceManager::loadTexture(const std::string& texture_name, const std::string& relative_path_to_texture)
 	{
@@ -68,9 +86,9 @@ namespace Resources
 		return new_texture;
 	}
 
-	///////////////////////////////////////////////////////
 
-	std::shared_ptr<Renderer::ShaderProgram> ResourceManager::getShaderProgram(const std::string& shader_name) const
+
+	std::shared_ptr<Renderer::ShaderProgram> ResourceManager::getShaderProgram(const std::string& shader_name)
 	{
 		MapShaderProgram::const_iterator it = m_shader_programs.find(shader_name);
 
@@ -83,7 +101,9 @@ namespace Resources
 		return it->second;
 	}
 
-	std::shared_ptr<Renderer::Texture2D> ResourceManager::getTexture(const std::string& texture_name) const
+
+
+	std::shared_ptr<Renderer::Texture2D> ResourceManager::getTexture(const std::string& texture_name)
 	{
 		MapTexture2D::const_iterator it = m_textures.find(texture_name);
 
@@ -95,7 +115,7 @@ namespace Resources
 		return it->second;
 	}
 
-	///////////////////////////////////////////////////////
+	
 
 	std::shared_ptr<Renderer::Sprite2D> ResourceManager::loadSprite(const std::string& sprite_name,
 																	const std::string& shader_program_name,
@@ -126,7 +146,7 @@ namespace Resources
 																				   sprite_height)).first->second;
 	}
 
-	//////////////////////////////////////////////////////
+
 
 	std::shared_ptr<Renderer::Sprite2D> ResourceManager::getSprite(const std::string& sprite_name)
 	{
@@ -140,7 +160,7 @@ namespace Resources
 		return it->second;
 	}
 
-	//////////////////////////////////////////////////////
+
 
 	std::shared_ptr<Renderer::AnimatedSprite2D> ResourceManager::loadAnimatedSprite(const std::string& sprite_name,
 																				    const std::string& shader_program_name,
@@ -171,7 +191,7 @@ namespace Resources
 																							sprite_height)).first->second;
 	}
 
-	//////////////////////////////////////////////////////
+	
 
 	std::shared_ptr<Renderer::AnimatedSprite2D> ResourceManager::getAnimatedSprite(const std::string& sprite_name)
 	{
@@ -185,7 +205,7 @@ namespace Resources
 		return it->second;
 	}
 
-	//////////////////////////////////////////////////////
+
 
 	std::shared_ptr<Renderer::Texture2D> ResourceManager::loadTextureAtlas(const std::string& texture_name,
 																			 const std::vector<std::string> subTexture_names,
@@ -227,7 +247,7 @@ namespace Resources
 		return texture;
 	}
 
-	///////////////////////////////////////////////////////
+
 
 	// PRIVATE
 	std::string ResourceManager::getFileString(const std::string& path)

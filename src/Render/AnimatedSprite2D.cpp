@@ -6,25 +6,29 @@
 namespace Renderer
 {
 	AnimatedSprite2D::AnimatedSprite2D(const std::shared_ptr<Texture2D> ptr_texture,
-		const std::shared_ptr<ShaderProgram> ptr_shader_program,
-		const std::string& subTexture_name,
-		const glm::vec2 position,
-		const unsigned int sprite_width,
-		const unsigned int sprite_height,
-		const float angle_rotation) : Sprite2D(ptr_texture, ptr_shader_program,
-												   subTexture_name, position,
-												   sprite_width, sprite_height, angle_rotation),
-									  m_current_frame(0),
-									  m_current_time_animation(0),
-									  m_need_rerender(false)
+									   const std::shared_ptr<ShaderProgram> ptr_shader_program,
+									   const std::string& subTexture_name,
+									   const glm::vec2& position,
+									   const unsigned int sprite_width,
+									   const unsigned int sprite_height,
+									   const float angle_rotation) : Sprite2D(ptr_texture, ptr_shader_program,
+																			  subTexture_name, position,
+																		      sprite_width, sprite_height, angle_rotation),
+																	  m_current_frame(0),
+																	  m_current_time_animation(0),
+																	  m_need_rerender(false)
 	{
 		m_current_state = m_states.end();
 	}
+
+
 
 	void AnimatedSprite2D::addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>> frames)
 	{
 		m_states.emplace(state_name, std::move(frames));
 	}
+
+
 
 	void AnimatedSprite2D::setState(const std::string& state_name)
 	{
@@ -42,6 +46,8 @@ namespace Renderer
 			m_need_rerender = true;
 		}
 	}
+
+
 
 	void AnimatedSprite2D::update(const uint64_t delta) 
 	{
@@ -62,6 +68,8 @@ namespace Renderer
 			}
 		}
 	}
+
+
 
 	void AnimatedSprite2D::render() const
 	{

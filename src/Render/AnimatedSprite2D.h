@@ -19,7 +19,7 @@ namespace Renderer
 		AnimatedSprite2D(const std::shared_ptr<Texture2D> ptr_texture,
 						 const std::shared_ptr<ShaderProgram> ptr_shader_program,
 						 const std::string& subTexture_name = "default",
-						 const glm::vec2 position = glm::vec2(0.f, 0.f),
+						 const glm::vec2& position = glm::vec2(0.f, 0.f),
 						 const unsigned int sprite_hidth = 1,
 						 const unsigned int sprite_height = 1,
 						 const float angle_rotation = 0);
