@@ -3,10 +3,13 @@
 #define GAME_H
 
 #include <glm/vec2.hpp>
+#include <memory>
 #include <array>
 
-namespace game
+namespace batle_city
 {
+	class Tank;
+
 	class Game
 	{
 	public:
@@ -34,7 +37,7 @@ namespace game
 
 		glm::vec2 m_window_size;
 		EGameStates m_current_game_state;
-		
+		std::unique_ptr<Tank> m_tank;
 
 	};
 }

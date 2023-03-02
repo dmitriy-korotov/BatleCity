@@ -16,8 +16,9 @@
 #include <chrono>
 
 // GLOBAL VARIEBLES
-
 glm::ivec2 G_WINDOW_SIZE(1024, 720);
+
+batle_city::Game g_game(G_WINDOW_SIZE);
 
 void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height)
 {
@@ -32,6 +33,7 @@ void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int
     {
         glfwSetWindowShouldClose(pWindow, GL_TRUE);
     }
+    g_game.setKey(key, action);
 }
 
 int main(const int argc, const char** argv)
@@ -73,8 +75,6 @@ int main(const int argc, const char** argv)
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 
     {
-        game::Game g_game(G_WINDOW_SIZE);
-
         Resources::ResourceManager::setExecutablePath(argv[0]);
 
         g_game.init();
@@ -103,6 +103,7 @@ int main(const int argc, const char** argv)
             glfwPollEvents();
         }
     }
+    Resources::ResourceManager::unloadAllResources();
     glfwTerminate();
     return 0;
 }
