@@ -14,9 +14,19 @@ add_executable(${PROJECT_NAME}
 	src/Render/Sprite2D.cpp
 	src/Render/AnimatedSprite2D.h
 	src/Render/AnimatedSprite2D.cpp
+	src/Render/VertexBuffer.h
+	src/Render/VertexBuffer.cpp
+	src/Render/ElementBuffer.h
+	src/Render/ElementBuffer.cpp
+	src/Render/VertexArray.h
+	src/Render/VertexArray.cpp
+	src/Render/VertexBufferLayout.h
+	src/Render/VertexBufferLayout.cpp
+
 	src/Resources/ResourceManager.h
 	src/Resources/ResourceManager.cpp
 	src/Resources/stb_image.h 
+
 	src/Game/Game.cpp
 	src/Game/Game.h
 	src/Game/Tank.h

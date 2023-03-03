@@ -80,18 +80,13 @@ namespace Renderer
 			GLfloat texture_coords[] = {
 			//					U										V
 				current_subTexture.left_bottom_uv.x,	current_subTexture.left_bottom_uv.y,
-				current_subTexture.left_bottom_uv.x,	current_subTexture.right_top_uv.y,			// first triangle
+				current_subTexture.left_bottom_uv.x,	current_subTexture.right_top_uv.y,			
 				current_subTexture.right_top_uv.x,		current_subTexture.right_top_uv.y,
-
-				current_subTexture.right_top_uv.x,		current_subTexture.right_top_uv.y,
-				current_subTexture.right_top_uv.x,		current_subTexture.left_bottom_uv.y,			// second triangle
-				current_subTexture.left_bottom_uv.x,	current_subTexture.left_bottom_uv.y,
+				current_subTexture.right_top_uv.x,		current_subTexture.left_bottom_uv.y,		
 			};
 
-			glBindBuffer(GL_ARRAY_BUFFER, m_tex_coords_vbo);
-			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(texture_coords), &texture_coords);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+			//					2 - amount coords in one point;		4 - amount points
+			m_texture_coords_buffer.update(texture_coords, 2 * 4 * sizeof(GLfloat));
 			m_need_rerender = false;
 		}
 
