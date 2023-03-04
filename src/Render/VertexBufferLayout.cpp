@@ -1,6 +1,6 @@
 #include "VertexBufferLayout.h"
 
-namespace Renderer
+namespace RenderEngine
 {
 	void VertexBufferLayout::reserve(const size_t count)
 	{

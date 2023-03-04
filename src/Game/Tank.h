@@ -5,12 +5,12 @@
 #include <iostream>
 #include "glm/vec2.hpp"
 
-namespace Renderer
+namespace RenderEngine
 {
 	class AnimatedSprite2D;
 }
 
-namespace batle_city
+namespace BatleCity
 {
 	class Tank
 	{
@@ -24,7 +24,7 @@ namespace batle_city
 			Left
 		};
 
-		Tank(std::shared_ptr<Renderer::AnimatedSprite2D> sprite, const glm::vec2& position, const float velocity);
+		Tank(std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite, const glm::vec2& position, const float velocity);
 
 		void setOrientation(const EOrientation orientation);
 
@@ -36,7 +36,7 @@ namespace batle_city
 
 	private:
 
-		std::shared_ptr<Renderer::AnimatedSprite2D> m_sprite;
+		std::shared_ptr<RenderEngine::AnimatedSprite2D> m_sprite;
 		
 		EOrientation m_current_orientation;
 		glm::vec2 m_position;

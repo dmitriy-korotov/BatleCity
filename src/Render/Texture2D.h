@@ -7,7 +7,7 @@
 #include <glm/mat2x2.hpp>
 #include <map>
 
-namespace Renderer
+namespace RenderEngine
 {
 	class Texture2D
 	{

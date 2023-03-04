@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-namespace Renderer
+namespace RenderEngine
 {
 	AnimatedSprite2D::AnimatedSprite2D(const std::shared_ptr<Texture2D> ptr_texture,
 									   const std::shared_ptr<ShaderProgram> ptr_shader_program,
@@ -75,7 +75,7 @@ namespace Renderer
 	{
 		if (m_need_rerender)
 		{
-			Renderer::Texture2D::SubTexture2D current_subTexture = m_texture->getSubTexture(m_current_state->second[m_current_frame].first);
+			RenderEngine::Texture2D::SubTexture2D current_subTexture = m_texture->getSubTexture(m_current_state->second[m_current_frame].first);
 
 			GLfloat texture_coords[] = {
 			//					U										V

@@ -9,22 +9,24 @@
 #include "Render/Sprite2D.h"
 #include "Render/AnimatedSprite2D.h"
 #include "Game/Game.h"
+#include "Render/Renderer.h"
 
 #include <iostream>
 #include <cmath>
 #include <vector>
 #include <chrono>
 
+
 // GLOBAL VARIEBLES
 glm::ivec2 G_WINDOW_SIZE(1024, 720);
 
-batle_city::Game g_game(G_WINDOW_SIZE);
+BatleCity::Game g_game(G_WINDOW_SIZE);
 
 void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height)
 {
     G_WINDOW_SIZE.x = width;
     G_WINDOW_SIZE.y = height;
-    glViewport(0, 0, G_WINDOW_SIZE.x, G_WINDOW_SIZE.y);
+    RenderEngine::Renderer::setViewport(width, height);
 }
 
 void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mode)
@@ -81,13 +83,13 @@ int main(const int argc, const char** argv)
 
         auto last_time = std::chrono::high_resolution_clock::now();
 
-        glClearColor(0, 0, 0, 1);   
+        RenderEngine::Renderer::setClearColor(0, 0, 0);
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(pWindow))
         {
             /* Render here */
-            glClear(GL_COLOR_BUFFER_BIT);
+            RenderEngine::Renderer::clear(GL_COLOR_BUFFER_BIT);
 
             auto current_time = std::chrono::high_resolution_clock::now();
             uint64_t duration = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - last_time).count();

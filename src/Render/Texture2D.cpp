@@ -1,7 +1,7 @@
 #include "Texture2D.h"
 #include "glm/gtc/type_ptr.hpp"
 
-namespace Renderer
+namespace RenderEngine
 {
 
 	///////////////////////////////////////////////////////////

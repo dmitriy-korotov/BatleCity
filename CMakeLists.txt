@@ -22,6 +22,8 @@ add_executable(${PROJECT_NAME}
 	src/Render/VertexArray.cpp
 	src/Render/VertexBufferLayout.h
 	src/Render/VertexBufferLayout.cpp
+	src/Render/Renderer.h
+	src/Render/Renderer.cpp
 
 	src/Resources/ResourceManager.h
 	src/Resources/ResourceManager.cpp
@@ -47,6 +49,8 @@ add_subdirectory(external/glad)
 target_link_libraries(${PROJECT_NAME} glad)
 
 include_directories(external/glm)
+
+include_directories(external/rapidjson)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 

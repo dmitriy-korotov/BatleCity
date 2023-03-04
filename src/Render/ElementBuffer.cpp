@@ -1,6 +1,6 @@
 #include "ElementBuffer.h"
 
-namespace Renderer
+namespace RenderEngine
 {
 	ElementBuffer::ElementBuffer()
 	{ }
@@ -35,11 +35,13 @@ namespace Renderer
 
 
 
-	void ElementBuffer::init(const void* data, const size_t size)
+	void ElementBuffer::init(const void* data, const unsigned int count)
 	{
+		m_count = count;
+
 		glGenBuffers(1, &m_buffer_id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffer_id);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW);
 	}
 
 

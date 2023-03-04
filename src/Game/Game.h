@@ -6,7 +6,7 @@
 #include <memory>
 #include <array>
 
-namespace batle_city
+namespace BatleCity
 {
 	class Tank;
 

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace Renderer
+namespace RenderEngine
 {
 	// PUBLIC
 	ShaderProgram::ShaderProgram(const std::string& vertex_shader, const std::string& fragment_shader) : m_is_compiled(false), m_ID(0)

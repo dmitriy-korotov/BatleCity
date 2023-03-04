@@ -1,15 +1,17 @@
 #include "Game.h"
 #include "../Resources/ResourceManager.h"
+
 #include "../Render/ShaderProgram.h"
 #include "../Render/Texture2D.h"
 #include "../Render/Sprite2D.h"
 #include "../Render/AnimatedSprite2D.h"
+
 #include "Tank.h"
 
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-namespace batle_city
+namespace BatleCity
 {
 	Game::Game(const glm::vec2& window_size) : m_window_size(window_size),
 											   m_current_game_state(Game::EGameStates::Active)
@@ -28,7 +30,7 @@ namespace batle_city
 
 	bool Game::init()
 	{
-        std::shared_ptr<Renderer::ShaderProgram> shader_program = Resources::ResourceManager::loadShaderProrgam("Shader_program_1",
+        std::shared_ptr<RenderEngine::ShaderProgram> shader_program = Resources::ResourceManager::loadShaderProrgam("Shader_program_1",
             "res/shaders/vertex.txt",
             "res/shaders/fragment.txt");
         if (!shader_program->isCompiled())
@@ -37,7 +39,7 @@ namespace batle_city
             return false;
         }
 
-        std::shared_ptr<Renderer::ShaderProgram> shader_program_sprite = Resources::ResourceManager::loadShaderProrgam("Shader_program_2",
+        std::shared_ptr<RenderEngine::ShaderProgram> shader_program_sprite = Resources::ResourceManager::loadShaderProrgam("Shader_program_2",
             "res/shaders/vSprite.txt",
             "res/shaders/fSprite.txt");
         if (!shader_program_sprite->isCompiled())
@@ -52,16 +54,16 @@ namespace batle_city
                                                       "leftBottomBeton", "rightBottomBeton", "water1", "water2", "water3", "trees",
                                                       "arma", "grey", "eagle", "eagleDead" };
 
-        std::shared_ptr<Renderer::Texture2D> texture_2 = Resources::ResourceManager::loadTextureAtlas("Texture_2", names_subTextures,
+        std::shared_ptr<RenderEngine::Texture2D> texture_2 = Resources::ResourceManager::loadTextureAtlas("Texture_2", names_subTextures,
             "res/textures/map_16x16.png", 16, 16);
 
-        std::shared_ptr<Renderer::AnimatedSprite2D> sprite_1 = Resources::ResourceManager::loadAnimatedSprite("Sprite1", "Shader_program_2",
+        std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite_1 = Resources::ResourceManager::loadAnimatedSprite("Sprite1", "Shader_program_2",
             "Texture_2", 500.f, 500.f, "beton");
 
-        std::shared_ptr<Renderer::Sprite2D> sprite_2 = Resources::ResourceManager::loadSprite("Sprite2", "Shader_program_2",
+        std::shared_ptr<RenderEngine::Sprite2D> sprite_2 = Resources::ResourceManager::loadSprite("Sprite2", "Shader_program_2",
             "Texture_2", 300.f, 300.f, "beton");
 
-        std::shared_ptr<Renderer::Sprite2D> sprite_3 = Resources::ResourceManager::loadSprite("Sprite3", "Shader_program_2",
+        std::shared_ptr<RenderEngine::Sprite2D> sprite_3 = Resources::ResourceManager::loadSprite("Sprite3", "Shader_program_2",
             "Texture_2", 300.f, 300.f, "rightBottomBeton");
 
         std::vector<std::pair<std::string, uint64_t>> water_state;
@@ -88,10 +90,10 @@ namespace batle_city
         std::vector<std::string> name_tanks_subTextures = { "TankTop1", "TankTop2" , "TankLeft1" , "TankLeft2",
                                                            "TankBottom1" , "TankBottom2", "TankRight1", "TankRight2" };
 
-        std::shared_ptr<Renderer::Texture2D> tank_texture_atlas = Resources::ResourceManager::loadTextureAtlas("TankTextureAtlas", name_tanks_subTextures,
+        std::shared_ptr<RenderEngine::Texture2D> tank_texture_atlas = Resources::ResourceManager::loadTextureAtlas("TankTextureAtlas", name_tanks_subTextures,
                                                                                                                "res/textures/tanks.png", 16, 16);
 
-        std::shared_ptr<Renderer::AnimatedSprite2D> tank_sprite = Resources::ResourceManager::loadAnimatedSprite("Tank1", "Shader_program_2",
+        std::shared_ptr<RenderEngine::AnimatedSprite2D> tank_sprite = Resources::ResourceManager::loadAnimatedSprite("Tank1", "Shader_program_2",
             "TankTextureAtlas", 100.f, 100.f, "TankTop1");
 
         std::vector<std::pair<std::string, uint64_t>> tank_top;

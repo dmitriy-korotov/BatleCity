@@ -5,8 +5,9 @@
 #include "ShaderProgram.h"
 #include "Texture2D.h"
 #include "VertexBufferLayout.h"
+#include "Renderer.h"
 
-namespace Renderer
+namespace RenderEngine
 {
 	Sprite2D::Sprite2D(std::shared_ptr<Texture2D> ptr_texture,
 					   std::shared_ptr<ShaderProgram> ptr_shader_program,
@@ -18,7 +19,7 @@ namespace Renderer
 													  m_position(position), m_sprite_width(sprite_width), m_sprite_height(sprite_height),
 													  m_angle(angle_rootation)
 	{
-		Renderer::Texture2D::SubTexture2D subTexture = m_texture->getSubTexture(std::move(subTexture_name));
+		RenderEngine::Texture2D::SubTexture2D subTexture = m_texture->getSubTexture(std::move(subTexture_name));
 
 		GLfloat vertex_coords[] = {
 			0.f, 0.f,
@@ -107,8 +108,8 @@ namespace Renderer
 		m_VAO.bind();
 		glActiveTexture(GL_TEXTURE0);
 		m_texture->bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-		
+		Renderer::drawElements(GL_TRIANGLES, m_VAO, m_EBO, *m_shader_program);
+
 		m_VAO.unbind();
 	}
 }

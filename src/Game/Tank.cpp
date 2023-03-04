@@ -2,9 +2,9 @@
 
 #include "../Render/AnimatedSprite2D.h"
 
-namespace batle_city
+namespace BatleCity
 {
-	Tank::Tank(std::shared_ptr<Renderer::AnimatedSprite2D> sprite, const glm::vec2& positiion, const float velocity)
+	Tank::Tank(std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite, const glm::vec2& positiion, const float velocity)
 	  : m_sprite(std::move(sprite)),
 		m_position(positiion),
 		m_velocity(velocity),
