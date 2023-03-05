@@ -73,13 +73,17 @@ int main(const int argc, const char** argv)
         return -1;
     }
 
-    std::cout << "Render: " << glGetString(GL_RENDERER) << std::endl;
-    std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+    std::cout << "Render: " << RenderEngine::Renderer::getStringOpenGL(GL_RENDERER) << std::endl;
+    std::cout << "OpenGL version: " << RenderEngine::Renderer::getStringOpenGL(GL_VERSION) << "\n\n";
 
     {
         Resources::ResourceManager::setExecutablePath(argv[0]);
 
-        g_game.init();
+        if (!g_game.init())
+        {
+            std::cerr << "Can't inital game" << std::endl;
+            return -1;
+        }
 
         auto last_time = std::chrono::high_resolution_clock::now();
 

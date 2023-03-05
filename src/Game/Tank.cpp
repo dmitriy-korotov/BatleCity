@@ -29,19 +29,19 @@ namespace BatleCity
 		switch (m_current_orientation)
 		{
 		case Tank::EOrientation::Top:
-			m_sprite->setState("TankTopState");
+			m_sprite->setState("tankTopState");
 			m_move_offset.x = 0.f;		m_move_offset.y = 1.f;
 			break;
 		case Tank::EOrientation::Right:
-			m_sprite->setState("TankRightState");
+			m_sprite->setState("tankRightState");
 			m_move_offset.x = 1.f;		m_move_offset.y = 0.f;
 			break;
 		case Tank::EOrientation::Bottom:
-			m_sprite->setState("TankBottomState");
+			m_sprite->setState("tankBottomState");
 			m_move_offset.x = 0.f;		m_move_offset.y = -1.f;
 			break;
 		case Tank::EOrientation::Left:
-			m_sprite->setState("TankLeftState");
+			m_sprite->setState("tankLeftState");
 			m_move_offset.x = -1.f;		m_move_offset.y = 0.f;
 			break;
 		default:

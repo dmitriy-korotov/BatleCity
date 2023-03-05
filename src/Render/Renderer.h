@@ -19,6 +19,8 @@ namespace RenderEngine
 		static void setViewport(const unsigned int width, const unsigned int height,
 								const unsigned int left_offset = 0, const unsigned int bottom_offset = 0);
 
+		static std::string getStringOpenGL(const unsigned int name);
+
 	};
 }
 

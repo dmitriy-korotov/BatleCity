@@ -6,6 +6,11 @@
 #include <memory>
 #include <array>
 
+namespace RenderEngine
+{
+	class AnimatedSprite2D;
+}
+
 namespace BatleCity
 {
 	class Tank;
@@ -38,6 +43,7 @@ namespace BatleCity
 		glm::vec2 m_window_size;
 		EGameStates m_current_game_state;
 		std::unique_ptr<Tank> m_tank;
+		std::shared_ptr<RenderEngine::AnimatedSprite2D> m_water;
 
 	};
 }

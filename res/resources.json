@@ -1,7 +1,13 @@
 {
-    "sahders" : [
+    "shaders" : [
         {
-            "name"          : "spriteShader",
+            "name"          : "spriteShaderProgram",
+            "filePath_v"    : "res/shaders/vSprite.txt",
+            "filePath_f"    : "res/shaders/fSprite.txt"
+        },
+
+        {
+            "name"          : "defaultShaderProgram",
             "filePath_v"    : "res/shaders/vertex.txt",
             "filePath_f"    : "res/shaders/fragment.txt"
         }
@@ -80,7 +86,7 @@
         {
             "name"                  : "yellowTankAnimatedSprite",
             "textureAtlas"          : "tanksTextureAtlas",
-            "shaderProgram"         : "spriteShader",
+            "shaderProgram"         : "spriteShaderProgram",
             "initalWidth"           : 100,
             "initalHeight"          : 100,
             "initalSubTexture"      : "yellowTank1_Top1",
@@ -108,8 +114,8 @@
                         },
 
                         {
-                            "subTexture" : "yellowTank1_Left2",
-                            "duration" : 300000000
+                            "subTexture"    : "yellowTank1_Left2",
+                            "duration"      : 300000000
                         }
                     ]
                 },
@@ -139,6 +145,36 @@
 
                         {
                             "subTexture"    : "yellowTank1_Right2",
+                            "duration"      : 300000000
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "water",
+            "textureAtlas"          : "mapTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "initalWidth"           : 200,
+            "initalHeight"          : 200,
+            "initalSubTexture"      : "water1",
+            "states" : [
+                {
+                    "stateName"     : "default",
+                    "frames" : [
+                        {
+                            "subTexture"    : "water1",
+                            "duration"      : 300000000
+                        },
+
+                        {
+                            "subTexture"    : "water2",
+                            "duration"      : 300000000
+                        },
+
+                        {
+                            "subTexture"    : "water3",
                             "duration"      : 300000000
                         }
                     ]

@@ -7,6 +7,8 @@
 #include <vector>
 #include <memory>
 
+#include "../rapidjson/document.h"
+
 namespace RenderEngine
 {
 	class ShaderProgram;
@@ -70,9 +72,14 @@ namespace Resources
 																	 const unsigned int width_subTexture,
 																	 const unsigned int height_subtexture);
 
+		static bool loadResourcesJSON(const std::string& path_to_JSON_file);
+
 	private:
 
 		static std::string getFileString(const std::string& path);
+		static bool loadShaderProgramsJSON(const rapidjson::Document& document);
+		static bool loadTextureAtlasesJSON(const rapidjson::Document& document);
+		static bool loadAnimatedSpritesJSON(const rapidjson::Document& document);
 
 		// VARIEBLES
 		typedef std::map<std::string, std::shared_ptr<RenderEngine::ShaderProgram>> MapShaderProgram;

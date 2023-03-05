@@ -31,4 +31,11 @@ namespace RenderEngine
 	{
 		glClear(buffer_type);
 	}
+
+
+
+	std::string Renderer::getStringOpenGL(const unsigned int name)
+	{
+		return (char*)glGetString(name);
+	}
 }
