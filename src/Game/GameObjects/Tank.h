@@ -3,7 +3,9 @@
 #define TANK_H
 
 #include <iostream>
-#include "glm/vec2.hpp"
+#include <glm/vec2.hpp>
+
+#include "IGameObject.h"
 
 namespace RenderEngine
 {
@@ -12,7 +14,7 @@ namespace RenderEngine
 
 namespace BatleCity
 {
-	class Tank
+	class Tank : public IGameObject
 	{
 	public:
 
@@ -24,13 +26,13 @@ namespace BatleCity
 			Left
 		};
 
-		Tank(std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite, const glm::vec2& position, const float velocity);
+		Tank(std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite, const glm::vec2& position, const glm::vec2& size, const float velocity);
 
 		void setOrientation(const EOrientation orientation);
 
-		void update(const uint64_t delta);
+		void update(const uint64_t delta) override;
 
-		void render() const;
+		void render() const override;
 
 		void move(const bool move);
 
@@ -39,7 +41,6 @@ namespace BatleCity
 		std::shared_ptr<RenderEngine::AnimatedSprite2D> m_sprite;
 		
 		EOrientation m_current_orientation;
-		glm::vec2 m_position;
 		float m_velocity;
 		bool m_move;
 		glm::vec2 m_move_offset;

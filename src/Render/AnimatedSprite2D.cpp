@@ -7,16 +7,10 @@ namespace RenderEngine
 {
 	AnimatedSprite2D::AnimatedSprite2D(const std::shared_ptr<Texture2D> ptr_texture,
 									   const std::shared_ptr<ShaderProgram> ptr_shader_program,
-									   const std::string& subTexture_name,
-									   const glm::vec2& position,
-									   const unsigned int sprite_width,
-									   const unsigned int sprite_height,
-									   const float angle_rotation) : Sprite2D(ptr_texture, ptr_shader_program,
-																			  subTexture_name, position,
-																		      sprite_width, sprite_height, angle_rotation),
-																	  m_current_frame(0),
-																	  m_current_time_animation(0),
-																	  m_need_rerender(false)
+									   const std::string& subTexture_name) : Sprite2D(ptr_texture, ptr_shader_program, subTexture_name),
+																			 m_current_frame(0),
+																			 m_current_time_animation(0),
+																			 m_need_rerender(false)
 	{
 		m_current_state = m_states.end();
 	}
@@ -71,7 +65,7 @@ namespace RenderEngine
 
 
 
-	void AnimatedSprite2D::render() const
+	void AnimatedSprite2D::render(const glm::vec2& position, const glm::vec2& size, const float rotation) const
 	{
 		if (m_need_rerender)
 		{
@@ -90,6 +84,6 @@ namespace RenderEngine
 			m_need_rerender = false;
 		}
 
-		Sprite2D::render();
+		Sprite2D::render(position, size, rotation);
 	}
 }

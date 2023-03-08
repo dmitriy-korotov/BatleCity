@@ -5,6 +5,8 @@
 #include "../Render/Sprite2D.h"
 #include "../Render/AnimatedSprite2D.h"
 
+#include "../Game/Level.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -16,15 +18,15 @@
 
 namespace Resources
 {
-	// STATIC VARIEBLES
 	ResourceManager::MapShaderProgram ResourceManager::m_shader_programs;
 	ResourceManager::MapTexture2D ResourceManager::m_textures;
 	ResourceManager::MapSprite2D ResourceManager::m_sprites;
 	ResourceManager::MapAnimatedSprite2D ResourceManager::m_animated_sprites;
+	ResourceManager::VectorLevels ResourceManager::m_levels;
 	std::string ResourceManager::m_path;
 
 
-	// PUBLIC
+
 	void ResourceManager::setExecutablePath(const std::string& executable_path)
 	{
 		size_t finded_index = executable_path.find_last_of("/\\");
@@ -123,8 +125,6 @@ namespace Resources
 	std::shared_ptr<RenderEngine::Sprite2D> ResourceManager::loadSprite(const std::string& sprite_name,
 																		const std::string& shader_program_name,
 																		const std::string& texture_name,
-																		const unsigned int sprite_width,
-																		const unsigned int sprite_height,
 																		const std::string& subTexture_name)
 	{
 		std::shared_ptr<RenderEngine::ShaderProgram> shader_program = getShaderProgram(shader_program_name);
@@ -142,11 +142,8 @@ namespace Resources
 		}
 		
 		return m_sprites.emplace(sprite_name, std::make_shared<RenderEngine::Sprite2D>(texture,
-																				   shader_program,
-																				   subTexture_name,
-																				   glm::vec2(0.f, 0.f),
-																				   sprite_width,
-																				   sprite_height)).first->second;
+																					   shader_program,
+																					   subTexture_name)).first->second;
 	}
 
 
@@ -168,8 +165,6 @@ namespace Resources
 	std::shared_ptr<RenderEngine::AnimatedSprite2D> ResourceManager::loadAnimatedSprite(const std::string& sprite_name,
 																					    const std::string& shader_program_name,
 																						const std::string& texture_name,
-																						const unsigned int sprite_width,
-																						const unsigned int sprite_height,
 																						const std::string& subTexture_name)
 	{
 		std::shared_ptr<RenderEngine::ShaderProgram> shader_program = getShaderProgram(shader_program_name);
@@ -187,11 +182,8 @@ namespace Resources
 		}
 
 		return m_animated_sprites.emplace(sprite_name, std::make_shared<RenderEngine::AnimatedSprite2D>(texture,
-																						    shader_program,
-																							subTexture_name,
-																							glm::vec2(0.f, 0.f),
-																							sprite_width,
-																							sprite_height)).first->second;
+																										shader_program,
+																										subTexture_name)).first->second;
 	}
 
 	
@@ -252,6 +244,37 @@ namespace Resources
 
 
 
+	std::shared_ptr<BatleCity::Level> ResourceManager::loadLevel(std::vector<std::string>& level_description)
+	{
+		if (level_description.empty())
+		{
+			std::cerr << "Level description is empty can't load level" << std::endl;
+			return nullptr;
+		}
+		return m_levels.emplace_back(std::move(std::make_shared<BatleCity::Level>(std::move(level_description))));
+	}
+
+
+
+	std::shared_ptr<BatleCity::Level> ResourceManager::getLevel(const size_t level_number)
+	{
+		if (level_number > m_levels.size())
+		{
+			std::cerr << "ERROR: Level with such number not found: Number = " << level_number << std::endl;
+			return nullptr;
+		}
+		return m_levels[level_number - 1];
+	}
+
+
+
+	const std::vector<std::shared_ptr<BatleCity::Level>>& ResourceManager::getLevels()
+	{
+		return m_levels;
+	}
+
+
+
 	bool ResourceManager::loadResourcesJSON(const std::string& path_to_JSON_file)
 	{
 		const std::string JSON_string = ResourceManager::getFileString(m_path + "/" + path_to_JSON_file);
@@ -270,16 +293,17 @@ namespace Resources
 			return false;
 		}
 
-		if (!ResourceManager::loadShaderProgramsJSON(document)) { return false; };
-		if (!ResourceManager::loadTextureAtlasesJSON(document)) { return false; };
-		if (!ResourceManager::loadAnimatedSpritesJSON(document)) { return false; };
+		if (!ResourceManager::loadShaderProgramsJSON(document)) { return false; }
+		if (!ResourceManager::loadTextureAtlasesJSON(document)) { return false; }
+		if (!ResourceManager::loadSpritesJSON(document)) { return false; }
+		if (!ResourceManager::loadAnimatedSpritesJSON(document)) { return false; }
+		if (!ResourceManager::loadLevelsJSON(document)) { return false; }
 
 		return true;
 	}
 
 
 
-	// PRIVATE
 	std::string ResourceManager::getFileString(const std::string& path)
 	{
 		std::ifstream file(path, std::ios::in | std::ios::binary);
@@ -356,6 +380,32 @@ namespace Resources
 
 
 
+
+	bool ResourceManager::loadSpritesJSON(const rapidjson::Document& document)
+	{
+		auto sprites_iterator = document.FindMember("sprites");
+		if (sprites_iterator != document.MemberEnd())
+		{
+			for (const auto& current_sprite : sprites_iterator->value.GetArray())
+			{
+				std::string sprite_name = current_sprite["name"].GetString();
+				std::string texture_atlas_name = current_sprite["textureAtlas"].GetString();
+				std::string shader_program_name = current_sprite["shaderProgram"].GetString();
+				std::string subTexture_name = current_sprite["subTexture"].GetString();
+
+				auto sprite = loadSprite(sprite_name, std::move(shader_program_name), std::move(texture_atlas_name), std::move(subTexture_name));
+				if (!sprite)
+				{
+					std::cerr << "Can't load sprite from JSON: " << sprite_name << std::endl;
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+
+
 	bool ResourceManager::loadAnimatedSpritesJSON(const rapidjson::Document& document)
 	{
 		auto animated_sprites_iterator = document.FindMember("animatedSprites");
@@ -366,13 +416,12 @@ namespace Resources
 				std::string animated_sprite_name = current_animated_sprite["name"].GetString();
 				std::string animated_sprite_texture_atlas = current_animated_sprite["textureAtlas"].GetString();
 				std::string animated_sprite_shader_program = current_animated_sprite["shaderProgram"].GetString();
-				unsigned int animated_sprite_width = current_animated_sprite["initalWidth"].GetUint();
-				unsigned int animated_sprite_height = current_animated_sprite["initalHeight"].GetUint();
 				std::string animated_sprite_inital_subTexture = current_animated_sprite["initalSubTexture"].GetString();
 
-				std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite = loadAnimatedSprite(std::move(animated_sprite_name), std::move(animated_sprite_shader_program),
-																							std::move(animated_sprite_texture_atlas), std::move(animated_sprite_width),
-																							std::move(animated_sprite_height), std::move(animated_sprite_inital_subTexture));
+				std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite = loadAnimatedSprite(std::move(animated_sprite_name),
+																						    std::move(animated_sprite_shader_program),
+																							std::move(animated_sprite_texture_atlas),
+																							std::move(animated_sprite_inital_subTexture));
 				if (sprite == nullptr)
 				{
 					std::cerr << "Can't load animated sprite from JSON" << std::endl;
@@ -395,6 +444,42 @@ namespace Resources
 
 					sprite->addState(std::move(state_name), std::move(state_frames));
 				}
+			}
+		}
+		return true;
+	}
+
+
+
+	bool ResourceManager::loadLevelsJSON(const rapidjson::Document& document)
+	{
+		auto levels_iterator = document.FindMember("levels");
+		if (levels_iterator != document.MemberEnd())
+		{
+			for (const auto& level : levels_iterator->value.GetArray())
+			{
+				auto level_description = level["description"].GetArray();
+
+				std::vector<std::string> description;
+				description.reserve(level_description.Size());
+
+				unsigned int max_length = 0;
+				for (const auto& row : level_description)
+				{
+					std::string row_level = row.GetString();
+					max_length = max_length < row_level.length() ? row_level.length() : max_length;
+					description.emplace_back(std::move(row_level));
+				}
+
+				for (std::string& row : description)
+				{
+					while (max_length > row.length())
+					{
+						row.append("D");
+					}
+				}
+				
+				loadLevel(std::move(description));
 			}
 		}
 		return true;

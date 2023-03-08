@@ -14,6 +14,7 @@ namespace RenderEngine
 namespace BatleCity
 {
 	class Tank;
+	class Level;
 
 	class Game
 	{
@@ -23,11 +24,8 @@ namespace BatleCity
 		~Game();
 
 		bool init();
-
 		void setKey(const int key, const int action);
-
 		void update(const uint64_t delta);
-
 		void render();
 
 	private:
@@ -43,7 +41,7 @@ namespace BatleCity
 		glm::vec2 m_window_size;
 		EGameStates m_current_game_state;
 		std::unique_ptr<Tank> m_tank;
-		std::shared_ptr<RenderEngine::AnimatedSprite2D> m_water;
+		std::unique_ptr<Level> m_level;
 
 	};
 }

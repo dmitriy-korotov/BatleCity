@@ -9,6 +9,11 @@
 
 #include "../rapidjson/document.h"
 
+namespace BatleCity
+{
+	class Level;
+}
+
 namespace RenderEngine
 {
 	class ShaderProgram;
@@ -49,8 +54,6 @@ namespace Resources
 		static std::shared_ptr<RenderEngine::Sprite2D> loadSprite(const std::string& sprite_name,
 															  const std::string& shader_program_name,
 															  const std::string& texture_name,
-															  const unsigned int sprite_width = 1,
-															  const unsigned int sprite_height = 1,
 															  const std::string& subTexture_name = "default");
 		static std::shared_ptr<RenderEngine::Sprite2D> getSprite(const std::string& sprite_name);
 
@@ -59,8 +62,6 @@ namespace Resources
 		static std::shared_ptr<RenderEngine::AnimatedSprite2D> loadAnimatedSprite(const std::string& sprite_name,
 																			  const std::string& shader_program_name,
 																			  const std::string& texture_name,
-																			  const unsigned int sprite_width = 1,
-																			  const unsigned int sprite_height = 1,
 																			  const std::string& subTexture_name = "default");
 		static std::shared_ptr<RenderEngine::AnimatedSprite2D> getAnimatedSprite(const std::string& sprite_name);
 
@@ -72,6 +73,14 @@ namespace Resources
 																	 const unsigned int width_subTexture,
 																	 const unsigned int height_subtexture);
 
+		static std::shared_ptr<BatleCity::Level> loadLevel(std::vector<std::string>& level_description);
+		static std::shared_ptr<BatleCity::Level> getLevel(const size_t level_number);
+		static const std::vector<std::shared_ptr<BatleCity::Level>>& getLevels();
+
+
+
+
+
 		static bool loadResourcesJSON(const std::string& path_to_JSON_file);
 
 	private:
@@ -79,9 +88,11 @@ namespace Resources
 		static std::string getFileString(const std::string& path);
 		static bool loadShaderProgramsJSON(const rapidjson::Document& document);
 		static bool loadTextureAtlasesJSON(const rapidjson::Document& document);
+		static bool loadSpritesJSON(const rapidjson::Document& document);
 		static bool loadAnimatedSpritesJSON(const rapidjson::Document& document);
+		static bool loadLevelsJSON(const rapidjson::Document& document);
 
-		// VARIEBLES
+
 		typedef std::map<std::string, std::shared_ptr<RenderEngine::ShaderProgram>> MapShaderProgram;
 		static MapShaderProgram m_shader_programs;
 
@@ -93,6 +104,9 @@ namespace Resources
 
 		typedef std::map<std::string, std::shared_ptr<RenderEngine::AnimatedSprite2D>> MapAnimatedSprite2D;
 		static MapAnimatedSprite2D m_animated_sprites;
+
+		typedef std::vector<std::shared_ptr<BatleCity::Level>> VectorLevels;
+		static VectorLevels m_levels;
 
 		static std::string m_path;
 	};

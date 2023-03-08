@@ -9,28 +9,18 @@
 
 namespace RenderEngine
 {
-	//class Texture2D;
-	//class ShaderProgram;
-
 	class AnimatedSprite2D : public Sprite2D
 	{
 	public:
 
 		AnimatedSprite2D(const std::shared_ptr<Texture2D> ptr_texture,
 						 const std::shared_ptr<ShaderProgram> ptr_shader_program,
-						 const std::string& subTexture_name = "default",
-						 const glm::vec2& position = glm::vec2(0.f, 0.f),
-						 const unsigned int sprite_hidth = 1,
-						 const unsigned int sprite_height = 1,
-						 const float angle_rotation = 0);
+						 const std::string& subTexture_name = "default");
 
 		void addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>> frames);
-
 		void setState(const std::string& state_name);
-
 		void update(const uint64_t delta);
-
-		void render() const override;
+		void render(const glm::vec2& position, const glm::vec2& size, const float rotation) const override;
 
 	private:
 

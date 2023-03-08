@@ -7,18 +7,18 @@
 #include "VertexBufferLayout.h"
 #include "Renderer.h"
 
+
+
+const glm::vec2 WINDOW_SIZE = { 13 * 16, 14 * 16 };
+
+
+
 namespace RenderEngine
 {
 	Sprite2D::Sprite2D(std::shared_ptr<Texture2D> ptr_texture,
 					   std::shared_ptr<ShaderProgram> ptr_shader_program,
-					   std::string subTexture_name,
-					   const glm::vec2& position,
-					   const unsigned int sprite_width,
-					   const unsigned int sprite_height,
-					   const float angle_rootation) : m_texture(std::move(ptr_texture)), m_shader_program(std::move(ptr_shader_program)),
-													  m_position(position), m_sprite_width(sprite_width), m_sprite_height(sprite_height),
-													  m_angle(angle_rootation)
-	{
+					   std::string subTexture_name) : m_texture(std::move(ptr_texture)), m_shader_program(std::move(ptr_shader_program))
+	{												  
 		RenderEngine::Texture2D::SubTexture2D subTexture = m_texture->getSubTexture(std::move(subTexture_name));
 
 		GLfloat vertex_coords[] = {
@@ -67,38 +67,16 @@ namespace RenderEngine
 
 
 
-	void Sprite2D::setPosition(const glm::vec2& position)
-	{
-		m_position = position;
-	}
-
-
-
-	void Sprite2D::setSize(const unsigned int sprite_width, const unsigned int sprite_height)
-	{
-		m_sprite_width = sprite_width;
-		m_sprite_height = sprite_height;
-	}
-
-
-
-	void Sprite2D::setRotation(const float angle_rotation)
-	{
-		m_angle = angle_rotation;
-	}
-
-
-
-	void Sprite2D::render() const
+	void Sprite2D::render(const glm::vec2& position, const glm::vec2& size, const float rotation) const
 	{
 		glm::mat4 model_matrix(1.f); // transform matrix
-		model_matrix = glm::translate(model_matrix, glm::vec3(m_position.x, m_position.y, 0.f));
-		model_matrix = glm::translate(model_matrix, glm::vec3(0.5f * m_sprite_width, 0.5f * m_sprite_height, 0.f));
-		model_matrix = glm::rotate(model_matrix, glm::radians(m_angle), glm::vec3(0.f, 0.f, 1.f));
-		model_matrix = glm::translate(model_matrix, glm::vec3(-0.5f * m_sprite_width, -0.5f * m_sprite_height, 0.f));
-		model_matrix = glm::scale(model_matrix, glm::vec3(1.f * m_sprite_width, 1.f * m_sprite_height, 1.f));
+		model_matrix = glm::translate(model_matrix, glm::vec3(position.x, position.y, 0.f));
+		model_matrix = glm::translate(model_matrix, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.f));
+		model_matrix = glm::rotate(model_matrix, glm::radians(rotation), glm::vec3(0.f, 0.f, 1.f));
+		model_matrix = glm::translate(model_matrix, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.f));
+		model_matrix = glm::scale(model_matrix, glm::vec3(1.f * size.x, 1.f * size.y, 1.f));
 
-		glm::mat4 projection_matrix = glm::ortho(0.f, static_cast<float>(1024), 0.f, static_cast<float>(720), -100.f, 100.f);
+		glm::mat4 projection_matrix = glm::ortho(0.f, WINDOW_SIZE.x, 0.f, WINDOW_SIZE.y, -100.f, 100.f);
 		
 		m_shader_program->use();
 		m_shader_program->setInt("tex", 0);

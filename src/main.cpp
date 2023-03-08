@@ -18,7 +18,7 @@
 
 
 // GLOBAL VARIEBLES
-glm::ivec2 G_WINDOW_SIZE(1024, 720);
+glm::ivec2 G_WINDOW_SIZE(13 * 16, 14 * 16);
 
 BatleCity::Game g_game(G_WINDOW_SIZE);
 

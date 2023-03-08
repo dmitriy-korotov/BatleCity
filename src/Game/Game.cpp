@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Level.h"
+
 #include "../Resources/ResourceManager.h"
 
 #include "../Render/ShaderProgram.h"
@@ -6,7 +8,7 @@
 #include "../Render/Sprite2D.h"
 #include "../Render/AnimatedSprite2D.h"
 
-#include "Tank.h"
+#include "GameObjects/Tank.h"
 
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -34,32 +36,16 @@ namespace BatleCity
             return false;
         }
 
-        /*std::shared_ptr<RenderEngine::ShaderProgram> shader_program_sprite = Resources::ResourceManager::getShaderProgram("spriteShaderProgram");
-        if (shader_program_sprite == nullptr || !shader_program_sprite->isCompiled())
-        {
-            std::cerr << "Can't compiled shader program" << std::endl;
-            return false;
-        }*/
-
         std::shared_ptr<RenderEngine::AnimatedSprite2D> tank_sprite = Resources::ResourceManager::getAnimatedSprite("yellowTankAnimatedSprite");
         if (tank_sprite == nullptr)
         {
-            std::cerr << "Can't find animatad sprite" << std::endl;
+            std::cerr << "Can't find animatad sprite: " << "yellowTankAnimatedSprite" << std::endl;
             return false;
         }
-
-        m_water = Resources::ResourceManager::getAnimatedSprite("water");
-        if (m_water == nullptr)
-        {
-            std::cerr << "Can't find animatad sprite" << std::endl;
-            return false;
-        }
-
         tank_sprite->setState("tankTopState");
-        m_water->setState("default");
-        m_water->setPosition(glm::vec2(300, 300));
 
-        m_tank = std::make_unique<Tank>(tank_sprite, glm::vec2(0.f, 0.f), 0.0000001f);
+        m_tank = std::make_unique<Tank>(std::move(tank_sprite), glm::vec2(0.f, 0.f), glm::vec2(15.f, 15.f), 0.00000005f);
+        m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(1)));
 		
         return true;
 	}
@@ -73,6 +59,10 @@ namespace BatleCity
 
 	void Game::update(const uint64_t delta)
 	{
+       if (m_level)
+       {
+           m_level->update(delta);
+       }
        if (m_tank)
        {
            if (m_tank)
@@ -104,23 +94,19 @@ namespace BatleCity
            }
            m_tank->update(delta);
        }
-       if (m_water)
-       {
-           m_water->update(delta);
-       }
 	}
 
 
 
 	void Game::render()
 	{
+        if (m_level)
+        {
+            m_level->render();
+        }
         if (m_tank)
         {
             m_tank->render();
-        }
-        if (m_water)
-        {
-            m_water->render();
         }
 	}
 }

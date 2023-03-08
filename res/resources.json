@@ -22,25 +22,25 @@
             "subTextureWidth"       : 16,
             "subTextureHeight"      : 16,
             "subTextureNames" : [
-                                    "block",
-                                    "topBlock",
-                                    "bottomBlock",
-                                    "leftBlock",
-                                    "rightBlock",
-                                    "leftTopBlock",
-                                    "rightTopBlock",
-                                    "leftBottomBlock",
-                                    "rightBottomBlock",
+                                    "brickWall",
+                                    "brickWall_top",
+                                    "brickWall_bottom",
+                                    "brickWall_left",
+                                    "brickWall_right",
+                                    "brickWall_left_top",
+                                    "brickWall_right_top",
+                                    "brickWall_left_bottom",
+                                    "brickWall_right_bottom",
                                     
-                                    "beton",
-                                    "topBeton",
-                                    "bottomBeton",
-                                    "leftBeton",
-                                    "rightBeton",
-                                    "leftTopBeton",
-                                    "rightTopBeton",
-                                    "leftBottomBeton",
-                                    "rightBottomBeton",
+                                    "betonWall",
+                                    "betonWall_top",
+                                    "betonWall_bottom",
+                                    "betonWall_left",
+                                    "betonWall_right",
+                                    "betonWall_left_top",
+                                    "betonWall_right_top",
+                                    "betonWall_left_bottom",
+                                    "betonWall_right_bottom",
                                     
                                     "water1",
                                     "water2",
@@ -82,13 +82,76 @@
         }
     ],
 
+    "sprites" : [
+        {
+            "name" : "BrickWall",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall"
+        },
+
+        {
+            "name" : "BrickWall_Top",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_top"
+        },
+
+        {
+            "name" : "BrickWall_Bottom",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Left",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_left"
+        },
+
+        {
+            "name" : "BrickWall_Right",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_right"
+        },
+
+        {
+            "name" : "BrickWall_Left_Top",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_left_top"
+        },
+
+        {
+            "name" : "BrickWall_Right_Top",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_right_top"
+        },
+
+        {
+            "name" : "BrickWall_Left_Bottom",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_left_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Right_Bottom",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickWall_right_bottom"
+        }
+    ],
+
     "animatedSprites" : [
         {
             "name"                  : "yellowTankAnimatedSprite",
             "textureAtlas"          : "tanksTextureAtlas",
             "shaderProgram"         : "spriteShaderProgram",
-            "initalWidth"           : 100,
-            "initalHeight"          : 100,
             "initalSubTexture"      : "yellowTank1_Top1",
             "states" : [
                 {
@@ -156,8 +219,6 @@
             "name"                  : "water",
             "textureAtlas"          : "mapTextureAtlas",
             "shaderProgram"         : "spriteShaderProgram",
-            "initalWidth"           : 200,
-            "initalHeight"          : 200,
             "initalSubTexture"      : "water1",
             "states" : [
                 {
@@ -179,6 +240,27 @@
                         }
                     ]
                 }
+            ]
+        }
+    ],
+
+    "levels" : [
+        {
+            "description" : [
+                "DDDDDDDDDDDDD",
+				"D1D1D1D1D1D1D",
+				"D4D4D4D4D4D4D",
+				"D4D4D4D4D4D4D",
+				"D4D4D494D4D4D",
+				"D4D4D3D3D4D4D",
+				"D3D3D1D1D3D3D",
+				"1D11D3D3D11D1",
+				"8D33D1D1D33D8",
+				"D1D1D444D1D1D",
+				"D4D4D4D4D4D4D",
+				"D4D4D3D3D4D4D",
+				"D4D4DH1GD4D4D",
+				"DDDDD0E2DDDDD"
             ]
         }
     ]
