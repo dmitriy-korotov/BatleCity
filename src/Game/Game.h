@@ -41,6 +41,7 @@ namespace BatleCity
 		glm::vec2 m_window_size;
 		EGameStates m_current_game_state;
 		std::unique_ptr<Tank> m_tank;
+		std::unique_ptr<Tank> m_tank2;
 		std::unique_ptr<Level> m_level;
 
 	};

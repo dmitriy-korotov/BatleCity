@@ -44,7 +44,8 @@ namespace BatleCity
         }
         tank_sprite->setState("tankTopState");
 
-        m_tank = std::make_unique<Tank>(std::move(tank_sprite), glm::vec2(0.f, 0.f), glm::vec2(15.f, 15.f), 0.00000005f);
+        m_tank = std::make_unique<Tank>(tank_sprite, glm::vec2(0.f, 0.f), glm::vec2(15.f, 15.f), 0.00000005f);
+        m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), glm::vec2(30.f, 30.f), glm::vec2(15.f, 15.f), 0.00000005f);
         m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(1)));
 		
         return true;
@@ -94,19 +95,55 @@ namespace BatleCity
            }
            m_tank->update(delta);
        }
+
+       if (m_tank2)
+       {
+           if (m_tank2)
+           {
+               if (m_keys[GLFW_KEY_UP])
+               {
+                   m_tank2->setOrientation(Tank::EOrientation::Top);
+                   m_tank2->move(true);
+               }
+               else if (m_keys[GLFW_KEY_RIGHT])
+               {
+                   m_tank2->setOrientation(Tank::EOrientation::Right);
+                   m_tank2->move(true);
+               }
+               else if (m_keys[GLFW_KEY_DOWN])
+               {
+                   m_tank2->setOrientation(Tank::EOrientation::Bottom);
+                   m_tank2->move(true);
+               }
+               else if (m_keys[GLFW_KEY_LEFT])
+               {
+                   m_tank2->setOrientation(Tank::EOrientation::Left);
+                   m_tank2->move(true);
+               }
+               else
+               {
+                   m_tank2->move(false);
+               }
+           }
+           m_tank2->update(delta);
+       }
 	}
 
 
 
 	void Game::render()
 	{
-        if (m_level)
-        {
-            m_level->render();
-        }
         if (m_tank)
         {
             m_tank->render();
+        }
+        if (m_tank2)
+        {
+            m_tank2->render();
+        }
+        if (m_level)
+        {
+            m_level->render();
         }
 	}
 }
