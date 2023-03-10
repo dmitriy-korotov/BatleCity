@@ -18,22 +18,22 @@ std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(const ch
 	switch (description)
 	{
 	case '0':
-		return std::make_shared<BatleCity::BrickWall>(Resources::ResourceManager::getSprite("BrickWall_Right"), position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::BrickWall::EBrickWallType::Right, position, size, rotation);
 		break;
 	case '1':
-		return std::make_shared<BatleCity::BrickWall>(Resources::ResourceManager::getSprite("BrickWall_Bottom"), position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::BrickWall::EBrickWallType::Bottom, position, size, rotation);
 		break;
 	case '2':
-		return std::make_shared<BatleCity::BrickWall>(Resources::ResourceManager::getSprite("BrickWall_Left"), position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::BrickWall::EBrickWallType::Left, position, size, rotation);
 		break;
 	case '3':
-		return std::make_shared<BatleCity::BrickWall>(Resources::ResourceManager::getSprite("BrickWall_Top"), position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::BrickWall::EBrickWallType::Top, position, size, rotation);
 		break;
 	case '4':
-		return std::make_shared<BatleCity::BrickWall>(Resources::ResourceManager::getSprite("BrickWall"), position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::BrickWall::EBrickWallType::All, position, size, rotation);
 		break;
 	case '5':
-		return std::make_shared<BatleCity::BrickWall>(Resources::ResourceManager::getSprite("BrickWall"), position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::BrickWall::EBrickWallType::All, position, size, rotation);
 		break;
 	case 'D':
 		return nullptr;

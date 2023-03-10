@@ -12,8 +12,8 @@ add_executable(${PROJECT_NAME}
 	src/Render/Texture2D.cpp
 	src/Render/Sprite2D.h
 	src/Render/Sprite2D.cpp
-	src/Render/AnimatedSprite2D.h
-	src/Render/AnimatedSprite2D.cpp
+	src/Render/SpriteAnimator.h
+	src/Render/SpriteAnimator.cpp
 	src/Render/VertexBuffer.h
 	src/Render/VertexBuffer.cpp
 	src/Render/ElementBuffer.h

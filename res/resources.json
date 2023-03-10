@@ -164,98 +164,132 @@
             "textureAtlas" : "mapTextureAtlas",
             "shaderProgram" : "spriteShaderProgram",
             "subTexture" : "brickWall_right_bottom"
-        }
-    ],
+        },
 
-    "animatedSprites" : [
+        {
+            "name" : "BrickWall_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_full"
+        },
+
+        {
+            "name" : "yellowTank1_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Top1"
+        },
+
+        {
+            "name" : "yellowTank1_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Top2"
+        },
+
+        {
+            "name" : "yellowTank1_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Right1"
+        },
+
+        {
+            "name" : "yellowTank1_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Right2"
+        },
+
+        {
+            "name" : "yellowTank1_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Left1"
+        },
+
+        {
+            "name" : "yellowTank1_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Left2"
+        },
+
+        {
+            "name" : "yellowTank1_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Bottom1"
+        },
+
+        {
+            "name" : "yellowTank1_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank1_Bottom2"
+        },
+        
         {
             "name"                  : "yellowTankAnimatedSprite",
             "textureAtlas"          : "tanksTextureAtlas",
             "shaderProgram"         : "spriteShaderProgram",
-            "initalSubTexture"      : "yellowTank1_Top1",
+            "subTexture"            : "yellowTank1_Top1",
             "states" : [
                 {
-                    "stateName"     : "tankTopState",
+                    "stateName"             : "tankTopState",
                     "frames" : [
                         {
-                            "subTexture"    : "yellowTank1_Top1",
+                            "sprite"        : "yellowTank1_Top1",
                             "duration"      : 300000000
                         },
 
                         {
-                            "subTexture"    : "yellowTank1_Top2",
-                            "duration"      : 300000000
-                        }
-                    ]
-                },
-                {
-                    "stateName"      : "tankLeftState",
-                    "frames" : [
-                        {
-                            "subTexture"    : "yellowTank1_Left1",
-                            "duration"      : 300000000
-                        },
-
-                        {
-                            "subTexture"    : "yellowTank1_Left2",
+                            "sprite"        : "yellowTank1_Top2",
                             "duration"      : 300000000
                         }
                     ]
                 },
 
                 {
-                    "stateName"         : "tankBottomState",
+                    "stateName"             : "tankLeftState",
                     "frames" : [
                         {
-                            "subTexture"    : "yellowTank1_Bottom1",
+                            "sprite"        : "yellowTank1_Left1",
                             "duration"      : 300000000
                         },
 
                         {
-                            "subTexture"    : "yellowTank1_Bottom2",
+                            "sprite"        : "yellowTank1_Left2",
                             "duration"      : 300000000
                         }
                     ]
                 },
 
                 {
-                    "stateName"         : "tankRightState",
+                    "stateName"             : "tankBottomState",
                     "frames" : [
                         {
-                            "subTexture"    : "yellowTank1_Right1",
+                            "sprite"        : "yellowTank1_Bottom1",
                             "duration"      : 300000000
                         },
 
                         {
-                            "subTexture"    : "yellowTank1_Right2",
+                            "sprite"        : "yellowTank1_Bottom2",
                             "duration"      : 300000000
                         }
                     ]
-                }
-            ]
-        },
+                },
 
-        {
-            "name"                  : "water",
-            "textureAtlas"          : "mapTextureAtlas",
-            "shaderProgram"         : "spriteShaderProgram",
-            "initalSubTexture"      : "water1",
-            "states" : [
                 {
-                    "stateName"     : "default",
+                    "stateName"             : "tankRightState",
                     "frames" : [
                         {
-                            "subTexture"    : "water1",
+                            "sprite"        : "yellowTank1_Right1",
                             "duration"      : 300000000
                         },
 
                         {
-                            "subTexture"    : "water2",
-                            "duration"      : 300000000
-                        },
-
-                        {
-                            "subTexture"    : "water3",
+                            "sprite"        : "yellowTank1_Right2",
                             "duration"      : 300000000
                         }
                     ]

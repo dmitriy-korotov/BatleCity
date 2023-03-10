@@ -67,6 +67,21 @@ namespace RenderEngine
 
 
 
+	bool Sprite2D::isAnimated() const
+	{
+		return !m_states.empty();
+	}
+
+
+
+
+	void Sprite2D::addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>> frames)
+	{
+		m_states.emplace(std::move(state_name), std::move(frames));
+	}
+
+
+
 	void Sprite2D::render(const glm::vec2& position, const glm::vec2& size, const float rotation) const
 	{
 		glm::mat4 model_matrix(1.f); // transform matrix

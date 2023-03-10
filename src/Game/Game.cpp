@@ -36,15 +36,14 @@ namespace BatleCity
             return false;
         }
 
-        std::shared_ptr<RenderEngine::AnimatedSprite2D> tank_sprite = Resources::ResourceManager::getAnimatedSprite("yellowTankAnimatedSprite");
+        std::shared_ptr<RenderEngine::Sprite2D> tank_sprite = Resources::ResourceManager::getSprite("yellowTankAnimatedSprite");
         if (tank_sprite == nullptr)
         {
             std::cerr << "Can't find animatad sprite: " << "yellowTankAnimatedSprite" << std::endl;
             return false;
         }
-        tank_sprite->setState("tankTopState");
 
-        m_tank = std::make_unique<Tank>(tank_sprite, glm::vec2(0.f, 0.f), glm::vec2(15.f, 15.f), 0.00000005f);
+        m_tank = std::make_unique<Tank>(tank_sprite, glm::vec2(0.f, 0.f), glm::vec2(50.f, 50.f), 0.00000005f);
         m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), glm::vec2(30.f, 30.f), glm::vec2(15.f, 15.f), 0.00000005f);
         m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(1)));
 		

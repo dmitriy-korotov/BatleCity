@@ -1,12 +1,12 @@
 #include "Tank.h"
 
-#include "../../Render/AnimatedSprite2D.h"
+#include "../../Render/Sprite2D.h"
 
 namespace BatleCity
 {
-	Tank::Tank(std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite, const glm::vec2& positiion, const glm::vec2& size, const float velocity)
+	Tank::Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& positiion, const glm::vec2& size, const float velocity)
 	  : IGameObject(positiion, size, 0.f),
-		m_sprite(std::move(sprite)),
+		m_sprite(std::move(sprite_ptr)),
 		m_velocity(velocity),
 		m_current_orientation(EOrientation::Top),
 		m_move(false),
@@ -29,19 +29,19 @@ namespace BatleCity
 		switch (m_current_orientation)
 		{
 		case Tank::EOrientation::Top:
-			m_sprite->setState("tankTopState");
+			m_sprite.setState("tankTopState");
 			m_move_offset.x = 0.f;		m_move_offset.y = 1.f;
 			break;
 		case Tank::EOrientation::Right:
-			m_sprite->setState("tankRightState");
+			m_sprite.setState("tankRightState");
 			m_move_offset.x = 1.f;		m_move_offset.y = 0.f;
 			break;
 		case Tank::EOrientation::Bottom:
-			m_sprite->setState("tankBottomState");
+			m_sprite.setState("tankBottomState");
 			m_move_offset.x = 0.f;		m_move_offset.y = -1.f;
 			break;
 		case Tank::EOrientation::Left:
-			m_sprite->setState("tankLeftState");
+			m_sprite.setState("tankLeftState");
 			m_move_offset.x = -1.f;		m_move_offset.y = 0.f;
 			break;
 		default:
@@ -63,7 +63,7 @@ namespace BatleCity
 		if (m_move)
 		{
 			m_position += delta * m_velocity * m_move_offset;
-			m_sprite->update(delta);
+			m_sprite.update(delta);
 		}
 	}
 
@@ -71,6 +71,6 @@ namespace BatleCity
 
 	void Tank::render() const
 	{
-		m_sprite->render(m_position, m_size, m_rotation);
+		m_sprite.render(m_position, m_size, m_rotation);
 	}
 }

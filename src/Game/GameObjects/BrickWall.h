@@ -6,21 +6,44 @@
 
 #include "IGameObject.h"
 
+#include "../../Render/Sprite2D.h"
+
 namespace BatleCity
 {
 	class BrickWall : public IGameObject
 	{
 	public:
 
-		BrickWall(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		enum class EBrickWallType
+		{
+			All,
+			Top,
+			Right,
+			Bottom,
+			Left,
+			LeftTop,
+			LeftBottom,
+			RightBottom,
+			RightTop,
+			LeftTop_RightBottom,
+			RightTop_LeftBottom,
+			WithoutLeftTop,
+			WithoutLeftBottom,
+			WithoutRightBottom,
+			WithoutRightTop,
+			Nothing
+		};
+
+		BrickWall(const EBrickWallType brick_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
 
 		void update(const uint64_t delta) override;
 		void render() const override;
 
 	private:
 	
-		std::shared_ptr<RenderEngine::Sprite2D> m_current_sprite;
-		
+		EBrickWallType m_brick_type;
+		std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
+
 	};
 }
 

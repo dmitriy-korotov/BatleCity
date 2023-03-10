@@ -21,7 +21,6 @@ namespace Resources
 	ResourceManager::MapShaderProgram ResourceManager::m_shader_programs;
 	ResourceManager::MapTexture2D ResourceManager::m_textures;
 	ResourceManager::MapSprite2D ResourceManager::m_sprites;
-	ResourceManager::MapAnimatedSprite2D ResourceManager::m_animated_sprites;
 	ResourceManager::VectorLevels ResourceManager::m_levels;
 	std::string ResourceManager::m_path;
 
@@ -38,10 +37,10 @@ namespace Resources
 
 	void ResourceManager::unloadAllResources()
 	{
-		m_animated_sprites.clear();
 		m_shader_programs.clear();
 		m_sprites.clear();
 		m_textures.clear();
+		m_levels.clear();
 	}
 
 	
@@ -162,46 +161,6 @@ namespace Resources
 
 
 
-	std::shared_ptr<RenderEngine::AnimatedSprite2D> ResourceManager::loadAnimatedSprite(const std::string& sprite_name,
-																					    const std::string& shader_program_name,
-																						const std::string& texture_name,
-																						const std::string& subTexture_name)
-	{
-		std::shared_ptr<RenderEngine::ShaderProgram> shader_program = getShaderProgram(shader_program_name);
-		if (shader_program == nullptr)
-		{
-			std::cerr << "Can't load sprite: " << sprite_name << std::endl;
-			return nullptr;
-		}
-
-		std::shared_ptr<RenderEngine::Texture2D> texture = getTexture(texture_name);
-		if (texture == nullptr)
-		{
-			std::cerr << "Can't load sptite: " << sprite_name << std::endl;
-			return nullptr;
-		}
-
-		return m_animated_sprites.emplace(sprite_name, std::make_shared<RenderEngine::AnimatedSprite2D>(texture,
-																										shader_program,
-																										subTexture_name)).first->second;
-	}
-
-	
-
-	std::shared_ptr<RenderEngine::AnimatedSprite2D> ResourceManager::getAnimatedSprite(const std::string& sprite_name)
-	{
-		MapAnimatedSprite2D::const_iterator it = m_animated_sprites.find(sprite_name);
-
-		if (it == m_animated_sprites.end())
-		{
-			std::cerr << "Can't find animation sprite: " << sprite_name << std::endl;
-			return nullptr;
-		}
-		return it->second;
-	}
-
-
-
 	std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTextureAtlas(const std::string& texture_name,
 																			   const std::vector<std::string> subTexture_names,
 																			   const std::string& relative_path_to_texture,
@@ -296,7 +255,6 @@ namespace Resources
 		if (!ResourceManager::loadShaderProgramsJSON(document)) { return false; }
 		if (!ResourceManager::loadTextureAtlasesJSON(document)) { return false; }
 		if (!ResourceManager::loadSpritesJSON(document)) { return false; }
-		if (!ResourceManager::loadAnimatedSpritesJSON(document)) { return false; }
 		if (!ResourceManager::loadLevelsJSON(document)) { return false; }
 
 		return true;
@@ -399,50 +357,25 @@ namespace Resources
 					std::cerr << "Can't load sprite from JSON: " << sprite_name << std::endl;
 					return false;
 				}
-			}
-		}
-		return true;
-	}
 
-
-
-	bool ResourceManager::loadAnimatedSpritesJSON(const rapidjson::Document& document)
-	{
-		auto animated_sprites_iterator = document.FindMember("animatedSprites");
-		if (animated_sprites_iterator != document.MemberEnd())
-		{
-			for (const auto& current_animated_sprite : animated_sprites_iterator->value.GetArray())
-			{
-				std::string animated_sprite_name = current_animated_sprite["name"].GetString();
-				std::string animated_sprite_texture_atlas = current_animated_sprite["textureAtlas"].GetString();
-				std::string animated_sprite_shader_program = current_animated_sprite["shaderProgram"].GetString();
-				std::string animated_sprite_inital_subTexture = current_animated_sprite["initalSubTexture"].GetString();
-
-				std::shared_ptr<RenderEngine::AnimatedSprite2D> sprite = loadAnimatedSprite(std::move(animated_sprite_name),
-																						    std::move(animated_sprite_shader_program),
-																							std::move(animated_sprite_texture_atlas),
-																							std::move(animated_sprite_inital_subTexture));
-				if (sprite == nullptr)
+				auto rapid_states = current_sprite.FindMember("states");
+				if (rapid_states != current_sprite.MemberEnd())
 				{
-					std::cerr << "Can't load animated sprite from JSON" << std::endl;
-					return false;
-				}
-
-				auto rapid_states = current_animated_sprite["states"].GetArray();
-				for (const auto& state : rapid_states)
-				{
-					std::string state_name = state["stateName"].GetString();
-					auto rapid_state_frames = state["frames"].GetArray();
-
-					std::vector<std::pair<std::string, uint64_t>> state_frames;
-					state_frames.reserve(rapid_state_frames.Size());
-
-					for (const auto& frame : rapid_state_frames)
+					for (const auto& state : rapid_states->value.GetArray())
 					{
-						state_frames.emplace_back(std::make_pair(frame["subTexture"].GetString(), frame["duration"].GetUint()));
-					}
+						std::string state_name = state["stateName"].GetString();
+						auto rapid_state_frames = state["frames"].GetArray();
 
-					sprite->addState(std::move(state_name), std::move(state_frames));
+						std::vector<std::pair<std::string, uint64_t>> state_frames;
+						state_frames.reserve(rapid_state_frames.Size());
+
+						for (const auto& frame : rapid_state_frames)
+						{
+							state_frames.emplace_back(std::make_pair(frame["sprite"].GetString(), frame["duration"].GetUint()));
+						}
+
+						sprite->addState(std::move(state_name), std::move(state_frames));
+					}
 				}
 			}
 		}

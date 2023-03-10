@@ -20,7 +20,7 @@ namespace RenderEngine
 		void addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>> frames);
 		void setState(const std::string& state_name);
 		void update(const uint64_t delta);
-		void render(const glm::vec2& position, const glm::vec2& size, const float rotation) const override;
+		void render(const glm::vec2& position, const glm::vec2& size, const float rotation) const;
 
 	private:
 

@@ -59,14 +59,6 @@ namespace Resources
 
 
 
-		static std::shared_ptr<RenderEngine::AnimatedSprite2D> loadAnimatedSprite(const std::string& sprite_name,
-																			  const std::string& shader_program_name,
-																			  const std::string& texture_name,
-																			  const std::string& subTexture_name = "default");
-		static std::shared_ptr<RenderEngine::AnimatedSprite2D> getAnimatedSprite(const std::string& sprite_name);
-
-
-
 		static std::shared_ptr<RenderEngine::Texture2D> loadTextureAtlas(const std::string& texture_name,
 																	 const std::vector<std::string> subTexture_names,
 																	 const std::string& relative_path_to_texture,
@@ -89,7 +81,6 @@ namespace Resources
 		static bool loadShaderProgramsJSON(const rapidjson::Document& document);
 		static bool loadTextureAtlasesJSON(const rapidjson::Document& document);
 		static bool loadSpritesJSON(const rapidjson::Document& document);
-		static bool loadAnimatedSpritesJSON(const rapidjson::Document& document);
 		static bool loadLevelsJSON(const rapidjson::Document& document);
 
 
@@ -101,9 +92,6 @@ namespace Resources
 
 		typedef std::map<std::string, std::shared_ptr<RenderEngine::Sprite2D>> MapSprite2D;
 		static MapSprite2D m_sprites;
-
-		typedef std::map<std::string, std::shared_ptr<RenderEngine::AnimatedSprite2D>> MapAnimatedSprite2D;
-		static MapAnimatedSprite2D m_animated_sprites;
 
 		typedef std::vector<std::shared_ptr<BatleCity::Level>> VectorLevels;
 		static VectorLevels m_levels;
