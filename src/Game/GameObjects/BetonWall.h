@@ -1,6 +1,6 @@
 #pragma once 
-#ifndef BRICK_WALL_H
-#define BRICK_WALL_H
+#ifndef BETON_WALL_H
+#define BETON_WALL_H
 
 #include <memory>
 
@@ -10,11 +10,11 @@
 
 namespace BatleCity
 {
-	class BrickWall : public Wall
+	class BetonWall : public Wall
 	{
 	public:
 
-		BrickWall(const EWallType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		BetonWall(const EWallType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
 
 		void renderBlock(const EBlockLocation block_location) const override;
 

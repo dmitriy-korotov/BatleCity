@@ -1,16 +1,16 @@
-#include "BrickWall.h"
+#include "BetonWall.h"
 
 #include "../../Resources/ResourceManager.h"
 
 namespace BatleCity
 {
-	BrickWall::BrickWall(const EWallType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
+	BetonWall::BetonWall(const EWallType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
 		: Wall(wall_type, position, size, rotation)
 	{
-		m_sprite = Resources::ResourceManager::getSprite("BrickWall_8x8");
+		m_sprite = Resources::ResourceManager::getSprite("BetonWall_8x8");
 	}
 
-	void BrickWall::renderBlock(const EBlockLocation block_location) const
+	void BetonWall::renderBlock(const EBlockLocation block_location) const
 	{
 		switch (block_location)
 		{
