@@ -45,7 +45,7 @@ namespace BatleCity
 
         m_tank = std::make_unique<Tank>(tank_sprite, glm::vec2(0.f, 0.f), glm::vec2(15.f, 15.f), 0.00000005f);
         m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), glm::vec2(30.f, 30.f), glm::vec2(15.f, 15.f), 0.00000005f);
-        m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(1)));
+        m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(2)));
 		
         return true;
 	}

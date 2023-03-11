@@ -2,9 +2,13 @@
 
 #include <iostream>
 
-#include "GameObjects/Wall.h"
+#include "GameObjects/Block.h"
 #include "GameObjects/BrickWall.h"
 #include "GameObjects/BetonWAll.h"
+#include "GameObjects/Tree.h"
+#include "GameObjects/Ice.h"
+#include "GameObjects/Water.h"
+#include "GameObjects/Eagle.h"
 
 #include "../Resources/ResourceManager.h"
 
@@ -20,43 +24,55 @@ std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(const ch
 	switch (description)
 	{
 	case '0':
-		return std::make_shared<BatleCity::BrickWall>(BatleCity::Wall::EWallType::Right, position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::Block::EBlockType::Right, position, size, rotation);
 		break;
 	case '1':
-		return std::make_shared<BatleCity::BrickWall>(BatleCity::Wall::EWallType::Bottom, position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::Block::EBlockType::Bottom, position, size, rotation);
 		break;
 	case '2':
-		return std::make_shared<BatleCity::BrickWall>(BatleCity::Wall::EWallType::Left, position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::Block::EBlockType::Left, position, size, rotation);
 		break;
 	case '3':
-		return std::make_shared<BatleCity::BrickWall>(BatleCity::Wall::EWallType::Top, position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::Block::EBlockType::Top, position, size, rotation);
 		break;
 	case '4':
-		return std::make_shared<BatleCity::BrickWall>(BatleCity::Wall::EWallType::All, position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::Block::EBlockType::All, position, size, rotation);
 		break;
 	case 'H':
-		return std::make_shared<BatleCity::BrickWall>(BatleCity::Wall::EWallType::RightBottom, position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::Block::EBlockType::RightBottom, position, size, rotation);
 		break;
 	case 'G':
-		return std::make_shared<BatleCity::BrickWall>(BatleCity::Wall::EWallType::LeftBottom, position, size, rotation);
+		return std::make_shared<BatleCity::BrickWall>(BatleCity::Block::EBlockType::LeftBottom, position, size, rotation);
 		break;
 	case '5':
-		return std::make_shared<BatleCity::BetonWall>(BatleCity::Wall::EWallType::Right, position, size, rotation);
+		return std::make_shared<BatleCity::BetonWall>(BatleCity::Block::EBlockType::Right, position, size, rotation);
 		break;
 	case '6':
-		return std::make_shared<BatleCity::BetonWall>(BatleCity::Wall::EWallType::Bottom, position, size, rotation);
+		return std::make_shared<BatleCity::BetonWall>(BatleCity::Block::EBlockType::Bottom, position, size, rotation);
 		break;
 	case '7':
-		return std::make_shared<BatleCity::BetonWall>(BatleCity::Wall::EWallType::Left, position, size, rotation);
+		return std::make_shared<BatleCity::BetonWall>(BatleCity::Block::EBlockType::Left, position, size, rotation);
 		break;
 	case '8':
-		return std::make_shared<BatleCity::BetonWall>(BatleCity::Wall::EWallType::Top, position, size, rotation);
+		return std::make_shared<BatleCity::BetonWall>(BatleCity::Block::EBlockType::Top, position, size, rotation);
 		break;
 	case '9':
-		return std::make_shared<BatleCity::BetonWall>(BatleCity::Wall::EWallType::All, position, size, rotation);
+		return std::make_shared<BatleCity::BetonWall>(BatleCity::Block::EBlockType::All, position, size, rotation);
+		break;
+	case 'A':
+		return std::make_shared<BatleCity::Water>(BatleCity::Block::EBlockType::All, position, size, rotation);
+		break;
+	case 'B':
+		return std::make_shared<BatleCity::Tree>(BatleCity::Block::EBlockType::All, position, size, rotation);
+		break;
+	case 'C':
+		return std::make_shared<BatleCity::Ice>(BatleCity::Block::EBlockType::All, position, size, rotation);
 		break;
 	case 'D':
 		return nullptr;
+		break;
+	case 'E':
+		return std::make_shared<BatleCity::Eagle>(position, size, rotation);
 		break;
 	default:
 		std::cerr << "ERROR: Game object with such description not found: " << description << std::endl;

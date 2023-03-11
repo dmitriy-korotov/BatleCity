@@ -1,17 +1,15 @@
-#include "BetonWall.h"
+#include "Tree.h"
 
 #include "../../Resources/ResourceManager.h"
 
 namespace BatleCity
 {
-	BetonWall::BetonWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
+	Tree::Tree(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
 		: Block(wall_type, position, size, rotation),
-		  m_sprite(Resources::ResourceManager::getSprite("BetonWall_8x8"))
+		m_sprite(Resources::ResourceManager::getSprite("Tree_8x8"))
 	{ }
 
-
-
-	void BetonWall::renderBlock(const ESubBlockLocation subBlock_location) const
+	void Tree::renderBlock(const ESubBlockLocation subBlock_location) const
 	{
 		switch (subBlock_location)
 		{

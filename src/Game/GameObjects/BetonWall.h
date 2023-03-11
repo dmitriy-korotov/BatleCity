@@ -4,19 +4,19 @@
 
 #include <memory>
 
-#include "Wall.h"
+#include "Block.h"
 
 #include "../../Render/Sprite2D.h"
 
 namespace BatleCity
 {
-	class BetonWall : public Wall
+	class BetonWall : public Block
 	{
 	public:
 
-		BetonWall(const EWallType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		BetonWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
 
-		void renderBlock(const EBlockLocation block_location) const override;
+		void renderBlock(const ESubBlockLocation subBlock_location) const override;
 
 	private:
 

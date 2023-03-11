@@ -106,7 +106,7 @@ int main(const int argc, const char** argv)
 
         auto last_time = std::chrono::high_resolution_clock::now();
 
-        RenderEngine::Renderer::setClearColor(0.1, 0.1, 0.1);
+        RenderEngine::Renderer::setClearColor(0.f, 0.f, 0.f);
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(pWindow))

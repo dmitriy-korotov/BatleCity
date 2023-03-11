@@ -1,6 +1,6 @@
-#pragma once 
-#ifndef BRICK_WALL_H
-#define BRICK_WALL_H
+#pragma once
+#ifndef TREE_H
+#define TREE_H
 
 #include <memory>
 
@@ -10,19 +10,21 @@
 
 namespace BatleCity
 {
-	class BrickWall : public Block
+	class Tree : public Block
 	{
 	public:
 
-		BrickWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		Tree(const EBlockType tree_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
+
+	private:
 
 		void renderBlock(const ESubBlockLocation subBlock_location) const override;
 
-	private:
+
 
 		std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
 
 	};
 }
 
-#endif // !BRICK_WALL_H
+#endif // !TREE_H

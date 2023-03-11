@@ -37,7 +37,7 @@ namespace RenderEngine
 
 		bool isAnimated() const;
 		void render(const glm::vec2& position, const glm::vec2& size, const float rotation) const;
-		void addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>> frames);
+		void addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>>& frames);
 
 	protected:
 

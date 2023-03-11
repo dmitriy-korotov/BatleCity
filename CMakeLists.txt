@@ -38,12 +38,20 @@ add_executable(${PROJECT_NAME}
 	src/Game/GameObjects/IGameObject.cpp
 	src/Game/GameObjects/Tank.h
 	src/Game/GameObjects/Tank.cpp
-	src/Game/GameObjects/Wall.h
-	src/Game/GameObjects/Wall.cpp
+	src/Game/GameObjects/Block.h
+	src/Game/GameObjects/Block.cpp
 	src/Game/GameObjects/BrickWall.h
 	src/Game/GameObjects/BrickWall.cpp
-	src/Game/gameObjects/BetonWall.h
-	src/Game/gameObjects/BetonWall.cpp
+	src/Game/GameObjects/BetonWall.h
+	src/Game/GameObjects/BetonWall.cpp
+	src/Game/GameObjects/Tree.h
+	src/Game/GameObjects/Tree.cpp
+	src/Game/GameObjects/Water.h
+	src/Game/GameObjects/Water.cpp
+	src/Game/GameObjects/Ice.h
+	src/Game/GameObjects/Ice.cpp
+	src/Game/GameObjects/Eagle.h
+	src/Game/GameObjects/Eagle.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

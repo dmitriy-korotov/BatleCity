@@ -1,17 +1,15 @@
-#include "BetonWall.h"
+#include "Ice.h"
 
 #include "../../Resources/ResourceManager.h"
 
 namespace BatleCity
 {
-	BetonWall::BetonWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
+	Ice::Ice(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
 		: Block(wall_type, position, size, rotation),
-		  m_sprite(Resources::ResourceManager::getSprite("BetonWall_8x8"))
+		m_sprite(Resources::ResourceManager::getSprite("Ice_8x8"))
 	{ }
 
-
-
-	void BetonWall::renderBlock(const ESubBlockLocation subBlock_location) const
+	void Ice::renderBlock(const ESubBlockLocation subBlock_location) const
 	{
 		switch (subBlock_location)
 		{
