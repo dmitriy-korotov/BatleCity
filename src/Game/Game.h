@@ -28,6 +28,9 @@ namespace BatleCity
 		void update(const uint64_t delta);
 		void render();
 
+		size_t getCurrentLevelWidth() const;
+		size_t getCurrentLevelHeight() const;
+
 	private:
 
 		std::array<bool, 349> m_keys;

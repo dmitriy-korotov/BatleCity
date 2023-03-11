@@ -4,8 +4,8 @@
 
 namespace BatleCity
 {
-	Tank::Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& positiion, const glm::vec2& size, const float velocity)
-	  : IGameObject(positiion, size, 0.f),
+	Tank::Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& positiion, const glm::vec2& size, const float velocity, const float layer)
+	  : IGameObject(positiion, size, 0.f, layer),
 		m_sprite(std::move(sprite_ptr)),
 		m_velocity(velocity),
 		m_current_orientation(EOrientation::Top),
@@ -71,6 +71,6 @@ namespace BatleCity
 
 	void Tank::render() const
 	{
-		m_sprite.render(m_position, m_size, m_rotation);
+		m_sprite.render(m_position, m_size, m_rotation, m_layer);
 	}
 }

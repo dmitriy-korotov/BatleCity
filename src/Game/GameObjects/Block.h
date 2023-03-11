@@ -32,7 +32,7 @@ namespace BatleCity
 			Nothing
 		};
 
-		Block(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		Block(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
 		virtual void update(const uint64_t delta) override;
 		virtual void render() const override;
@@ -57,7 +57,7 @@ namespace BatleCity
 	
 
 
-		EBlockType m_brick_type;
+		EBlockType m_block_type;
 
 	};
 }

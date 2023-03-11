@@ -27,6 +27,7 @@ namespace RenderEngine
 		ShaderProgram& operator=(ShaderProgram&& outher_shader_program) noexcept;
 
 		void setInt(const std::string& name, GLuint value) const;
+		void setFloat(const std::string& name, GLfloat value) const;
 		void setMatrix4(const std::string& name, const glm::mat4& matrix) const;
 
 	private:

@@ -11,6 +11,7 @@
 #include "GameObjects/Tank.h"
 
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
 namespace BatleCity
@@ -36,6 +37,13 @@ namespace BatleCity
             return false;
         }
 
+        std::shared_ptr<RenderEngine::ShaderProgram> shader_program = Resources::ResourceManager::getShaderProgram("spriteShaderProgram");
+        if (shader_program == nullptr)
+        {
+            std::cerr << "Can't load shader program " << "spriteShaderProgram" << std::endl;
+            return false;
+        }
+
         std::shared_ptr<RenderEngine::Sprite2D> tank_sprite = Resources::ResourceManager::getSprite("yellowTankAnimatedSprite");
         if (tank_sprite == nullptr)
         {
@@ -46,7 +54,12 @@ namespace BatleCity
         m_tank = std::make_unique<Tank>(tank_sprite, glm::vec2(0.f, 0.f), glm::vec2(15.f, 15.f), 0.00000005f);
         m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), glm::vec2(30.f, 30.f), glm::vec2(15.f, 15.f), 0.00000005f);
         m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(2)));
-		
+
+        glm::mat4 projection_matrix = glm::ortho<float>(0.f, m_level->getLevelWidth(), 0.f, m_level->getLevelHeight(), -100.f, 100.f);
+        shader_program->use();
+        shader_program->setMatrix4("clip_matrix", projection_matrix);
+
+
         return true;
 	}
 
@@ -145,4 +158,18 @@ namespace BatleCity
             m_level->render();
         }
 	}
+
+
+
+    size_t Game::getCurrentLevelWidth() const
+    {
+        return m_level->getLevelWidth();
+    }
+
+
+
+    size_t Game::getCurrentLevelHeight() const
+    {
+        return m_level->getLevelHeight();
+    }
 }

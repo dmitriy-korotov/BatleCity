@@ -29,7 +29,7 @@ namespace BatleCity
 			Left
 		};
 
-		Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size, const float velocity);
+		Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size, const float velocity, const float layer = 0.f);
 
 		void setOrientation(const EOrientation orientation);
 		void update(const uint64_t delta) override;

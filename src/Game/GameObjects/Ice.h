@@ -14,7 +14,7 @@ namespace BatleCity
 	{
 	public:
 
-		Ice(const EBlockType ice_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		Ice(const EBlockType ice_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
 	private:
 

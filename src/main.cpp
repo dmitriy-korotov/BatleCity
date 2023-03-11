@@ -11,6 +11,7 @@
 #include "Game/Game.h"
 #include "Render/Renderer.h"
 
+#include <memory>
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -20,17 +21,17 @@
 // GLOBAL VARIEBLES
 glm::ivec2 G_WINDOW_SIZE(13 * 16, 14 * 16);
 
-BatleCity::Game g_game(G_WINDOW_SIZE);
+std::unique_ptr<BatleCity::Game> g_game = std::make_unique<BatleCity::Game>(G_WINDOW_SIZE);
 
 void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height)
 {
     G_WINDOW_SIZE.x = width;
     G_WINDOW_SIZE.y = height;
 
-    const float map_aspect_ratio = 13.f / 14.f;
+    const float map_aspect_ratio = static_cast<float>(g_game->getCurrentLevelWidth()) / g_game->getCurrentLevelHeight();
 
-    unsigned int view_port_width = width;
-    unsigned int view_port_height = height;
+    unsigned int view_port_width = G_WINDOW_SIZE.x;
+    unsigned int view_port_height = G_WINDOW_SIZE.y;
     unsigned int view_port_left_offset = 0;
     unsigned int view_port_bottom_offset = 0;
 
@@ -54,7 +55,7 @@ void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int
     {
         glfwSetWindowShouldClose(pWindow, GL_TRUE);
     }
-    g_game.setKey(key, action);
+    g_game->setKey(key, action);
 }
 
 int main(const int argc, const char** argv)
@@ -98,28 +99,31 @@ int main(const int argc, const char** argv)
     {
         Resources::ResourceManager::setExecutablePath(argv[0]);
 
-        if (!g_game.init())
+        if (!g_game->init())
         {
             std::cerr << "Can't inital game" << std::endl;
             return -1;
         }
-
+        glfwSetWindowSize(pWindow, static_cast<int>(g_game->getCurrentLevelWidth()), static_cast<int>(g_game->getCurrentLevelHeight()));
+        
         auto last_time = std::chrono::high_resolution_clock::now();
 
         RenderEngine::Renderer::setClearColor(0.f, 0.f, 0.f);
+        RenderEngine::Renderer::setDepthTest(true);
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(pWindow))
         {
             /* Render here */
             RenderEngine::Renderer::clear(GL_COLOR_BUFFER_BIT);
+            RenderEngine::Renderer::clear(GL_DEPTH_BUFFER_BIT);
 
             auto current_time = std::chrono::high_resolution_clock::now();
             uint64_t duration = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - last_time).count();
             last_time = current_time;
 
-            g_game.update(duration);
-            g_game.render();
+            g_game->update(duration);
+            g_game->render();
 
             /* Swap front and back buffers */
             glfwSwapBuffers(pWindow);

@@ -6,10 +6,10 @@
 
 namespace BatleCity
 {
-	Block::Block(const EBlockType brick_type, const glm::vec2& position,
-						 const glm::vec2& size, const float rotation) : 
-																		IGameObject(position, size, rotation),
-																		m_brick_type(brick_type)
+	Block::Block(const EBlockType block_type, const glm::vec2& position,
+				 const glm::vec2& size, const float rotation, const float layer) :
+																					IGameObject(position, size, rotation, layer),
+																					m_block_type(block_type)
 	{ }
 
 
@@ -21,7 +21,7 @@ namespace BatleCity
 
 	void Block::render() const
 	{
-		switch (m_brick_type)
+		switch (m_block_type)
 		{
 		case BatleCity::Block::EBlockType::All:
 			renderBlock(ESubBlockLocation::LeftBottom);

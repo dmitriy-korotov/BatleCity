@@ -14,7 +14,7 @@ namespace BatleCity
 	{
 	public:
 
-		BrickWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		BrickWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
 		void renderBlock(const ESubBlockLocation subBlock_location) const override;
 

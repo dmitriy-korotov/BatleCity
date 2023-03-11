@@ -7,9 +7,10 @@ out vec2 tex_coords;
 
 uniform mat4 model_matrix;
 uniform mat4 clip_matrix;
+uniform float layer;
 
 void main() 
 {
-   gl_Position = clip_matrix * model_matrix * vec4(vertex_position, 0.0, 1.0);
+   gl_Position = clip_matrix * model_matrix * vec4(vertex_position, layer, 1.0);
    tex_coords = texture_coords;
 }

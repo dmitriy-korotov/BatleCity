@@ -7,12 +7,6 @@
 #include "VertexBufferLayout.h"
 #include "Renderer.h"
 
-
-
-const glm::vec2 WINDOW_SIZE = { 13 * 16, 14 * 16 };
-
-
-
 namespace RenderEngine
 {
 	Sprite2D::Sprite2D(std::shared_ptr<Texture2D> ptr_texture,
@@ -82,7 +76,7 @@ namespace RenderEngine
 
 
 
-	void Sprite2D::render(const glm::vec2& position, const glm::vec2& size, const float rotation) const
+	void Sprite2D::render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const
 	{
 		glm::mat4 model_matrix(1.f); // transform matrix
 		model_matrix = glm::translate(model_matrix, glm::vec3(position.x, position.y, 0.f));
@@ -91,12 +85,10 @@ namespace RenderEngine
 		model_matrix = glm::translate(model_matrix, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.f));
 		model_matrix = glm::scale(model_matrix, glm::vec3(1.f * size.x, 1.f * size.y, 1.f));
 
-		glm::mat4 projection_matrix = glm::ortho(0.f, WINDOW_SIZE.x, 0.f, WINDOW_SIZE.y, -100.f, 100.f);
-		
 		m_shader_program->use();
 		m_shader_program->setInt("tex", 0);
+		m_shader_program->setFloat("layer", layer);
 		m_shader_program->setMatrix4("model_matrix", model_matrix);
-		m_shader_program->setMatrix4("clip_matrix", projection_matrix);
 
 		m_VAO.bind();
 		glActiveTexture(GL_TEXTURE0);

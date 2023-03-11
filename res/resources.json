@@ -53,7 +53,7 @@
                                     "eagle",
                                     "eagleDead",
 
-                                    "nothing",
+                                    "border",
 
                                     "respawn1",
                                     "respawn2",
@@ -94,7 +94,7 @@
 
                                     "tree",
                                     "ice",
-                                    "nothing"
+                                    "border"
             ]
         },
 
@@ -166,6 +166,13 @@
             "textureAtlas" : "mapTextureAtlas_8x8",
             "shaderProgram" : "spriteShaderProgram",
             "subTexture" : "ice"
+        },
+
+        {
+            "name" : "Border_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "border"
         },
 
         {

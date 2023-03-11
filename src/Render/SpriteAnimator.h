@@ -20,7 +20,7 @@ namespace RenderEngine
 
 		void setState(const std::string& state_name);
 		void update(const uint64_t delta);
-		void render(const glm::vec2& position, const glm::vec2& size, const float rotation) const;
+		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const;
 
 	private:
 

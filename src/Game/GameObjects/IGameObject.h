@@ -16,8 +16,8 @@ namespace BatleCity
 	public:
 
 		IGameObject() = default;
-		IGameObject(const glm::vec2& position, const glm::vec2& size, const float rotation)
-			: m_size(size), m_position(position), m_rotation(rotation)
+		IGameObject(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
+			: m_size(size), m_position(position), m_rotation(rotation), m_layer(layer)
 		{ }
 
 		virtual ~IGameObject()
@@ -29,12 +29,14 @@ namespace BatleCity
 		inline void setPosition(const glm::vec2& positiion) { m_position = positiion; }
 		inline void setSize(const glm::vec2& size) { m_size = size; }
 		inline void setRotation(const float rotation) { m_rotation = rotation; }
+		inline void setLayer(const float layer) { m_layer = layer; }
 
 	protected:
 
 		glm::vec2 m_size;
 		glm::vec2 m_position;
 		float m_rotation;
+		float m_layer;
 
 	};
 }

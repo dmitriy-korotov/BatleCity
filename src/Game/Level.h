@@ -24,6 +24,9 @@ namespace BatleCity
 		Level(Level&& other) noexcept;
 		Level& operator=(Level&& _right) noexcept;
 
+		size_t getLevelWidth() const;
+		size_t getLevelHeight() const;
+
 		void update(const uint64_t delta);
 		void render() const;
 
