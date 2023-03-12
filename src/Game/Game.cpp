@@ -51,9 +51,10 @@ namespace BatleCity
             return false;
         }
 
-        m_tank = std::make_unique<Tank>(tank_sprite, glm::vec2(0.f, 0.f), glm::vec2(15.f, 15.f), 0.00000005f);
-        m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), glm::vec2(30.f, 30.f), glm::vec2(15.f, 15.f), 0.00000005f);
         m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(2)));
+
+        m_tank = std::make_unique<Tank>(tank_sprite, m_level->getEnemy1Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.00000005f);
+        m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), m_level->getEnemy3Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.00000005f);
 
         glm::mat4 projection_matrix = glm::ortho<float>(0.f, m_level->getLevelWidth(), 0.f, m_level->getLevelHeight(), -100.f, 100.f);
         shader_program->use();

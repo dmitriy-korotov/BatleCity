@@ -15,10 +15,6 @@
 
 
 
-const unsigned int BLOCK_SIZE = 16;
-
-
-
 std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(const char description, const glm::vec2& position,
 																		const glm::vec2& size, const float rotation)
 {
@@ -98,12 +94,42 @@ namespace BatleCity
 
 			m_map_objects.reserve(m_width * m_height + 4);
 
+
+			// set default respawns
+			m_player1_respawn = { (m_width / 2 - 1) * BLOCK_SIZE,	BLOCK_SIZE / 2.f };
+			m_player2_respawn = { (m_width / 2 + 2) * BLOCK_SIZE,	BLOCK_SIZE / 2.f };
+			m_enemy1_respawn  = { BLOCK_SIZE,                       m_width * BLOCK_SIZE - BLOCK_SIZE / 2.f };
+			m_enemy2_respawn  = { (m_width / 2) * BLOCK_SIZE,		m_width * BLOCK_SIZE - BLOCK_SIZE / 2.f };
+			m_enemy3_respawn  = { m_width * BLOCK_SIZE,				m_width * BLOCK_SIZE - BLOCK_SIZE / 2.f };
+
+
+
 			unsigned int current_offset_y = (m_height - 0.5f) * BLOCK_SIZE;
 			for (const std::string& current_row : level_description)
 			{
 				unsigned int current_offset_x = BLOCK_SIZE;
 				for (const char current_row_element : current_row)
 				{
+					switch (current_row_element)
+					{
+					case 'K':
+						m_player1_respawn = { current_offset_x, current_offset_y };
+						break;
+					case 'L':
+						m_player2_respawn = { current_offset_x, current_offset_y };
+						break;
+					case 'M':
+						m_enemy1_respawn = { current_offset_x, current_offset_y };
+						break;
+					case 'N':
+						m_enemy2_respawn = { current_offset_x, current_offset_y };
+						break;
+					case 'O':
+						m_enemy3_respawn = { current_offset_x, current_offset_y };
+						break;
+					default:
+						break;
+					}
 					m_map_objects.emplace_back(std::move(createGameObjectFromDescription(current_row_element,
 																						 glm::vec2(current_offset_x, current_offset_y),
 																						 glm::vec2(BLOCK_SIZE, BLOCK_SIZE),
@@ -131,9 +157,21 @@ namespace BatleCity
 
 
 
-	Level::Level(Level&& other) noexcept : m_height(other.m_height), m_width(other.m_width), m_map_objects(std::move(other.m_map_objects))
+	Level::Level(Level&& other) noexcept
+		: m_height(other.m_height), m_width(other.m_width),
+		  m_map_objects(std::move(other.m_map_objects)),
+		  m_player1_respawn(other.m_player1_respawn),
+		  m_player2_respawn(other.m_player2_respawn),
+		  m_enemy1_respawn(other.m_enemy1_respawn),
+		  m_enemy2_respawn(other.m_enemy2_respawn),
+		  m_enemy3_respawn(other.m_enemy3_respawn)
 	{
 		other.m_height = other.m_width = 0;
+		other.m_player1_respawn = glm::vec2(0.f);
+		other.m_player2_respawn = glm::vec2(0.f);
+		other.m_enemy1_respawn = glm::vec2(0.f);
+		other.m_enemy2_respawn = glm::vec2(0.f);
+		other.m_enemy3_respawn = glm::vec2(0.f);
 	}
 
 
@@ -145,7 +183,17 @@ namespace BatleCity
 			m_map_objects = std::move(_right.m_map_objects);
 			m_width = _right.m_width;
 			m_height = _right.m_height;
+			m_player1_respawn = _right.m_player1_respawn;
+			m_player2_respawn = _right.m_player2_respawn;
+			m_enemy1_respawn = _right.m_enemy1_respawn;
+			m_enemy2_respawn = _right.m_enemy2_respawn;
+			m_enemy3_respawn = _right.m_enemy3_respawn;
 			_right.m_height = _right.m_width = 0;
+			_right.m_player1_respawn = glm::vec2(0.f);
+			_right.m_player2_respawn = glm::vec2(0.f);
+			_right.m_enemy1_respawn = glm::vec2(0.f);
+			_right.m_enemy2_respawn = glm::vec2(0.f);
+			_right.m_enemy3_respawn = glm::vec2(0.f);
 		}
 		return *this;
 	}
