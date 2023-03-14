@@ -366,12 +366,12 @@ namespace Resources
 						std::string state_name = state["stateName"].GetString();
 						auto rapid_state_frames = state["frames"].GetArray();
 
-						std::vector<std::pair<std::string, uint64_t>> state_frames;
+						std::vector<std::pair<std::string, double>> state_frames;
 						state_frames.reserve(rapid_state_frames.Size());
 
 						for (const auto& frame : rapid_state_frames)
 						{
-							state_frames.emplace_back(std::make_pair(frame["sprite"].GetString(), frame["duration"].GetUint()));
+							state_frames.emplace_back(std::make_pair(frame["sprite"].GetString(), frame["duration"].GetDouble()));
 						}
 
 						sprite->addState(std::move(state_name), std::move(state_frames));

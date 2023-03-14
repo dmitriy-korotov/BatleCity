@@ -53,8 +53,8 @@ namespace BatleCity
 
         m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(2)));
 
-        m_tank = std::make_unique<Tank>(tank_sprite, m_level->getEnemy1Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.00000005f);
-        m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), m_level->getEnemy3Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.00000005f);
+        m_tank = std::make_unique<Tank>(tank_sprite, m_level->getPlayer1Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
+        m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), m_level->getPlayer2Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
 
         glm::mat4 projection_matrix = glm::ortho<float>(0.f, m_level->getLevelWidth(), 0.f, m_level->getLevelHeight(), -100.f, 100.f);
         shader_program->use();
@@ -71,7 +71,7 @@ namespace BatleCity
         m_keys[key] = action;
 	}
 
-	void Game::update(const uint64_t delta)
+	void Game::update(const double delta)
 	{
        if (m_level)
        {

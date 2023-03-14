@@ -85,6 +85,11 @@ namespace BatleCity
 	{
 		if (level_description.empty())
 		{
+			m_player1_respawn = glm::vec2(0.f);
+			m_player2_respawn = glm::vec2(0.f);
+			m_enemy1_respawn = glm::vec2(0.f);
+			m_enemy2_respawn = glm::vec2(0.f);
+			m_enemy3_respawn = glm::vec2(0.f);
 			std::cerr << "Level description is empty" << std::endl;
 		}
 		else
@@ -92,15 +97,15 @@ namespace BatleCity
 			m_width = level_description[0].length();
 			m_height = level_description.size();
 
-			m_map_objects.reserve(m_width * m_height + 4);
+			m_map_objects.reserve(static_cast<size_t>(m_width * m_height + 4));
 
 
 			// set default respawns
 			m_player1_respawn = { (m_width / 2 - 1) * BLOCK_SIZE,	BLOCK_SIZE / 2.f };
-			m_player2_respawn = { (m_width / 2 + 2) * BLOCK_SIZE,	BLOCK_SIZE / 2.f };
-			m_enemy1_respawn  = { BLOCK_SIZE,                       m_width * BLOCK_SIZE - BLOCK_SIZE / 2.f };
-			m_enemy2_respawn  = { (m_width / 2) * BLOCK_SIZE,		m_width * BLOCK_SIZE - BLOCK_SIZE / 2.f };
-			m_enemy3_respawn  = { m_width * BLOCK_SIZE,				m_width * BLOCK_SIZE - BLOCK_SIZE / 2.f };
+			m_player2_respawn = { (m_width / 2 + 3) * BLOCK_SIZE,	BLOCK_SIZE / 2.f };
+			m_enemy1_respawn  = { BLOCK_SIZE,                       m_height * BLOCK_SIZE - BLOCK_SIZE / 2.f };
+			m_enemy2_respawn  = { (m_width / 2) * BLOCK_SIZE,		m_height * BLOCK_SIZE - BLOCK_SIZE / 2.f };
+			m_enemy3_respawn  = { m_width * BLOCK_SIZE,				m_height * BLOCK_SIZE - BLOCK_SIZE / 2.f };
 
 
 
@@ -202,19 +207,19 @@ namespace BatleCity
 
 	size_t Level::getLevelWidth() const
 	{
-		return BLOCK_SIZE * (m_width + 3);
+		return static_cast<size_t>(BLOCK_SIZE * (m_width + 3));
 	}
 
 
 
 	size_t Level::getLevelHeight() const
 	{
-		return BLOCK_SIZE * (m_height + 1);
+		return static_cast<size_t>(BLOCK_SIZE * (m_height + 1));
 	}
 
 
 
-	void Level::update(const uint64_t delta)
+	void Level::update(const double delta)
 	{
 		for (const auto& current_map_object : m_map_objects)
 		{

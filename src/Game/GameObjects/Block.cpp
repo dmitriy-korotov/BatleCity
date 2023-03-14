@@ -92,6 +92,6 @@ namespace BatleCity
 
 
 
-	void Block::update(const uint64_t delta)
+	void Block::update(const double delta)
 	{ }
 }

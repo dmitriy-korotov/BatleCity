@@ -37,13 +37,11 @@ namespace RenderEngine
 
 		bool isAnimated() const;
 		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const;
-		void addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>>& frames);
+		void addState(const std::string& state_name, std::vector<std::pair<std::string, double>>& frames);
 
 	protected:
 
-		/*typedef std::pair<std::string, uint64_t> Frame;
-		typedef std::vector<Frame> State;*/
-		using MapStates = std::map<std::string, std::vector<std::pair<std::string, uint64_t>>>;
+		using MapStates = std::map<std::string, std::vector<std::pair<std::string, double>>>;
 
 		MapStates m_states;
 

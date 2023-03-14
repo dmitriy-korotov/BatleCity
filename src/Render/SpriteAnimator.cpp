@@ -34,7 +34,7 @@ namespace RenderEngine
 
 
 
-	void SpriteAnimator::update(const uint64_t delta)
+	void SpriteAnimator::update(const double delta)
 	{
 		if (m_current_state != m_animated_sprite->m_states.end())
 		{

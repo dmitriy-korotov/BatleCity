@@ -8,7 +8,7 @@ uniform sampler2D tex;
 void main()
 {
    frag_color = texture(tex, tex_coords);
-   if (frag_color.rgb == vec3(0.f, 0.f, 0.f))
+   if (frag_color.r < 0.01f && frag_color.g < 0.01f && frag_color.b < 0.01f)
    {
       discard;
    }

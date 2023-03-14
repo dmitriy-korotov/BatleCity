@@ -36,7 +36,7 @@ namespace BatleCity
 		inline const glm::vec2& getEnemy2Respawn()  const { return m_enemy2_respawn; }
 		inline const glm::vec2& getEnemy3Respawn()  const { return m_enemy3_respawn; }
 
-		void update(const uint64_t delta);
+		void update(const double delta);
 		void render() const;
 
 	private:

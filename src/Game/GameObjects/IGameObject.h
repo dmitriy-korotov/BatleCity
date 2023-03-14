@@ -23,7 +23,7 @@ namespace BatleCity
 		virtual ~IGameObject()
 		{ }
 
-		virtual void update(const uint64_t daleta) = 0;
+		virtual void update(const double daleta) = 0;
 		virtual void render() const = 0;
 
 		inline void setPosition(const glm::vec2& positiion) { m_position = positiion; }

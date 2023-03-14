@@ -25,7 +25,7 @@ namespace BatleCity
 
 		bool init();
 		void setKey(const int key, const int action);
-		void update(const uint64_t delta);
+		void update(const double delta);
 		void render();
 
 		size_t getCurrentLevelWidth() const;

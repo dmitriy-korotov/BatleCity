@@ -1,4 +1,4 @@
-{
+    {
     "shaders" : [
         {
             "name"          : "spriteShaderProgram",
@@ -58,7 +58,15 @@
                                     "respawn1",
                                     "respawn2",
                                     "respawn3",
-                                    "respawn4"
+                                    "respawn4",
+
+                                    "bullet_top",
+                                    "bullet_bottom",
+                                    "bullet_left",
+                                    "bullet_right",
+
+                                    "shield1",
+                                    "shield2"
             ]
         },
 
@@ -190,6 +198,62 @@
         },
 
         {
+            "name" : "Respawn1",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "respawn1"
+        },
+
+        {
+            "name" : "Respawn2",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "respawn2"
+        },
+
+        {
+            "name" : "Respawn3",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "respawn3"
+        },
+
+        {
+            "name" : "Respawn4",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "respawn4"
+        },
+
+        {
+            "name" : "Respawn3",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "respawn3"
+        },
+
+        {
+            "name" : "Respawn4",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "respawn4"
+        },
+
+        {
+            "name" : "Shield1",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "shield1"
+        },
+
+        {
+            "name" : "Shield2",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "shield2"
+        },
+
+        {
             "name" : "yellowTank1_Top1",
             "textureAtlas" : "tanksTextureAtlas",
             "shaderProgram" : "spriteShaderProgram",
@@ -256,12 +320,12 @@
                     "frames" : [
                         {
                             "sprite"        : "yellowTank1_Top1",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         },
 
                         {
                             "sprite"        : "yellowTank1_Top2",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         }
                     ]
                 },
@@ -271,12 +335,12 @@
                     "frames" : [
                         {
                             "sprite"        : "yellowTank1_Left1",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         },
 
                         {
                             "sprite"        : "yellowTank1_Left2",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         }
                     ]
                 },
@@ -286,12 +350,12 @@
                     "frames" : [
                         {
                             "sprite"        : "yellowTank1_Bottom1",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         },
 
                         {
                             "sprite"        : "yellowTank1_Bottom2",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         }
                     ]
                 },
@@ -301,12 +365,12 @@
                     "frames" : [
                         {
                             "sprite"        : "yellowTank1_Right1",
-                            "duration"      : 300000000
+                            "duration"      : 30
                         },
 
                         {
                             "sprite"        : "yellowTank1_Right2",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         }
                     ]
                 }
@@ -324,17 +388,73 @@
                     "frames" : [
                         {
                             "sprite"        : "Water1_8x8",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         },
 
                         {
                             "sprite"        : "Water2_8x8",
-                            "duration"      : 300000000
+                            "duration"      : 300
                         },
 
                         {
                             "sprite"        : "Water3_8x8",
-                            "duration"      : 300000000
+                            "duration"      : 300
+                        }
+                    ]
+                }               
+            ]
+        },
+
+        {
+            "name"                  : "RespawnAnimation",
+            "textureAtlas"          : "mapTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "Respawn1",
+            "states" : [
+                {
+                    "stateName"             : "default",
+                    "frames" : [
+                        {
+                            "sprite"        : "Respawn1",
+                            "duration"      : 150
+                        },
+
+                        {
+                            "sprite"        : "Respawn2",
+                            "duration"      : 150
+                        },
+
+                        {
+                            "sprite"        : "Respawn3",
+                            "duration"      : 150
+                        },
+
+                        {
+                            "sprite"        : "Respawn4",
+                            "duration"      : 150
+                        }
+                    ]
+                }               
+            ]
+        },
+
+        {
+            "name"                  : "ShieldAnimation",
+            "textureAtlas"          : "mapTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "Shield1",
+            "states" : [
+                {
+                    "stateName"             : "default",
+                    "frames" : [
+                        {
+                            "sprite"        : "Shield1",
+                            "duration"      : 100
+                        },
+
+                        {
+                            "sprite"        : "Shield2",
+                            "duration"      : 100
                         }
                     ]
                 }               
@@ -357,6 +477,25 @@
 				"D1D1D444D1D1D",
 				"D4D4D4D4D4D4D",
 				"D4D4D3D3D4D4D",
+				"D4D4DH1GD4D4D",
+				"DDDDD0E2DDDDD"
+			]
+		},
+
+        {
+			"description" : [
+				"DDDDDDDDDDDDD",
+				"D1D1D1D1D1D1D",
+				"D4D4D4B4D4D4D",
+				"D4D4D4B4D4D4D",
+				"D4D4D494D4D4D",
+				"D4D4D3D3D4D4D",
+				"D3D3D1D1D3D3D",
+				"1D11D3D3D11D1",
+				"8D33D111D33D8",
+				"D1D1D4A4D1D1D",
+				"D4D4D4A4D4D4D",
+				"D4D4D333D4D4D",
 				"D4D4DH1GD4D4D",
 				"DDDDD0E2DDDDD"
 			]

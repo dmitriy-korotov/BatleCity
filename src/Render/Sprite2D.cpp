@@ -69,7 +69,7 @@ namespace RenderEngine
 
 
 
-	void Sprite2D::addState(const std::string& state_name, std::vector<std::pair<std::string, uint64_t>>& frames)
+	void Sprite2D::addState(const std::string& state_name, std::vector<std::pair<std::string, double>>& frames)
 	{
 		m_states.emplace(state_name, std::move(frames));
 	}

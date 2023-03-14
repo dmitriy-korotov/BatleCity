@@ -19,7 +19,7 @@ namespace RenderEngine
 		SpriteAnimator(std::shared_ptr<Sprite2D> sprite_ptr);
 
 		void setState(const std::string& state_name);
-		void update(const uint64_t delta);
+		void update(const double delta);
 		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const;
 
 	private:
@@ -28,7 +28,7 @@ namespace RenderEngine
 		mutable std::shared_ptr<Sprite2D> m_currnet_sprite;
 
 		Sprite2D::MapStates::const_iterator m_current_state;
-		uint64_t m_current_time_animation = 0;
+		double m_current_time_animation = 0;
 		unsigned int m_current_frame = 0;
 
 		mutable bool m_is_need_rerender = false;

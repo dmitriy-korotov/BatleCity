@@ -104,7 +104,7 @@ int main(const int argc, const char** argv)
             std::cerr << "Can't inital game" << std::endl;
             return -1;
         }
-        glfwSetWindowSize(pWindow, static_cast<int>(g_game->getCurrentLevelWidth()), static_cast<int>(g_game->getCurrentLevelHeight()));
+        glfwSetWindowSize(pWindow, 3 * static_cast<int>(g_game->getCurrentLevelWidth()), 3 * static_cast<int>(g_game->getCurrentLevelHeight()));
         
         auto last_time = std::chrono::high_resolution_clock::now();
 
@@ -119,7 +119,7 @@ int main(const int argc, const char** argv)
             RenderEngine::Renderer::clear(GL_DEPTH_BUFFER_BIT);
 
             auto current_time = std::chrono::high_resolution_clock::now();
-            uint64_t duration = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - last_time).count();
+            double duration = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time).count();
             last_time = current_time;
 
             g_game->update(duration);

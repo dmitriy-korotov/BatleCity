@@ -9,6 +9,8 @@
 
 #include "../../Render/SpriteAnimator.h"
 
+#include "../../System/Timer.h"
+
 namespace RenderEngine
 {
 	class Sprite2D;
@@ -29,20 +31,25 @@ namespace BatleCity
 			Left
 		};
 
-		Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size, const float velocity, const float layer = 0.f);
+		Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size,
+		     const double velocity, const float layer = 0.f);
 
 		void setOrientation(const EOrientation orientation);
-		void update(const uint64_t delta) override;
+		void update(const double delta) override;
 		void render() const override;
 		void move(const bool move);
 
 	private:
 
-		RenderEngine::SpriteAnimator m_sprite;
+		RenderEngine::SpriteAnimator m_tank_sprite;
+		std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_respawn_animation;
+		std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_shield_animation;
 		
 		EOrientation m_current_orientation;
-		float m_velocity;
+		double m_velocity;
 		bool m_move;
+		bool m_is_respawn;
+		bool m_has_shild;
 		glm::vec2 m_move_offset;
 
 	};

@@ -32,7 +32,7 @@ namespace BatleCity
 		}
 	}
 
-	void Water::update(const uint64_t delta)
+	void Water::update(const double delta)
 	{
 		m_sprite.update(delta);
 	}

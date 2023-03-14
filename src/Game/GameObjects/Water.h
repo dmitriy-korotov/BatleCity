@@ -16,7 +16,7 @@ namespace BatleCity
 
 		Water(const EBlockType water_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
-		void update(const uint64_t delta) override;
+		void update(const double delta) override;
 
 	private:
 
