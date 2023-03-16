@@ -3,13 +3,17 @@
 #include <glm/vec2.hpp>
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "Render/ShaderProgram.h"
 #include "Resources/ResourceManager.h"
+
+#include "Render/ShaderProgram.h"
 #include "Render/Texture2D.h"
 #include "Render/Sprite2D.h"
 #include "Render/AnimatedSprite2D.h"
-#include "Game/Game.h"
 #include "Render/Renderer.h"
+
+#include "Physics/PhysicsEngine.h"
+
+#include "Game/Game.h"
 
 #include <memory>
 #include <iostream>
@@ -98,6 +102,7 @@ int main(const int argc, const char** argv)
 
     {
         Resources::ResourceManager::setExecutablePath(argv[0]);
+        Physics::PhysicsEngine::init();
 
         if (!g_game->init())
         {
@@ -133,6 +138,7 @@ int main(const int argc, const char** argv)
         }
     }
     Resources::ResourceManager::unloadAllResources();
+    Physics::PhysicsEngine::terminate();
     glfwTerminate();
     return 0;
 }

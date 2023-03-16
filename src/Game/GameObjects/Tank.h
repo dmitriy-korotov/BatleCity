@@ -5,7 +5,7 @@
 #include <iostream>
 #include <glm/vec2.hpp>
 
-#include "IGameObject.h"
+#include "IDynamicGameObject.h"
 
 #include "../../Render/SpriteAnimator.h"
 
@@ -19,7 +19,7 @@ namespace RenderEngine
 
 namespace BatleCity
 {
-	class Tank : public IGameObject
+	class Tank : public IDynamicGameObject
 	{
 	public:
 
@@ -32,12 +32,14 @@ namespace BatleCity
 		};
 
 		Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size,
-		     const double velocity, const float layer = 0.f);
+		     double max_velocity, const glm::vec2& direction = glm::vec2(0.f, 1.f), double velocity = 0, float layer = 0.f);
 
+		void setVelocity(double velocity) override;
 		void setOrientation(const EOrientation orientation);
 		void update(const double delta) override;
 		void render() const override;
-		void move(const bool move);
+
+		double getMaxVelocity() const;
 
 	private:
 
@@ -46,11 +48,9 @@ namespace BatleCity
 		std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_shield_animation;
 		
 		EOrientation m_current_orientation;
-		double m_velocity;
-		bool m_move;
+		double m_max_velocity;
 		bool m_is_respawn;
 		bool m_has_shild;
-		glm::vec2 m_move_offset;
 
 	};
 }

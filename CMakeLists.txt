@@ -25,6 +25,9 @@ add_executable(${PROJECT_NAME}
 	src/Render/Renderer.h
 	src/Render/Renderer.cpp
 
+	src/Physics/PhysicsEngine.h
+	src/Physics/PhysicsEngine.cpp
+
 	src/Resources/ResourceManager.h
 	src/Resources/ResourceManager.cpp
 	src/Resources/stb_image.h 
@@ -36,6 +39,8 @@ add_executable(${PROJECT_NAME}
 
 	src/Game/GameObjects/IGameObject.h
 	src/Game/GameObjects/IGameObject.cpp
+	src/Game/GameObjects/IDynamicGameObject.h
+	src/Game/GameObjects/IDynamicGameObject.cpp
 	src/Game/GameObjects/Tank.h
 	src/Game/GameObjects/Tank.cpp
 	src/Game/GameObjects/Block.h

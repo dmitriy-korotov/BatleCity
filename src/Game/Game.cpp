@@ -8,6 +8,8 @@
 #include "../Render/Sprite2D.h"
 #include "../Render/AnimatedSprite2D.h"
 
+#include "../Physics/PhysicsEngine.h"
+
 #include "GameObjects/Tank.h"
 
 #include <GLFW/glfw3.h>
@@ -51,10 +53,13 @@ namespace BatleCity
             return false;
         }
 
-        m_level = std::make_unique<Level>(std::move(*Resources::ResourceManager::getLevel(2)));
+        m_level = std::make_shared<Level>(std::move(*Resources::ResourceManager::getLevel(2)));
 
-        m_tank = std::make_unique<Tank>(tank_sprite, m_level->getPlayer1Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
-        m_tank2 = std::make_unique<Tank>(std::move(tank_sprite), m_level->getPlayer2Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
+        m_tank = std::make_shared<Tank>(tank_sprite, m_level->getPlayer1Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
+        m_tank2 = std::make_shared<Tank>(std::move(tank_sprite), m_level->getPlayer2Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
+
+        Physics::PhysicsEngine::addDynamicGameObject(m_tank);
+        Physics::PhysicsEngine::addDynamicGameObject(m_tank2);
 
         glm::mat4 projection_matrix = glm::ortho<float>(0.f, m_level->getLevelWidth(), 0.f, m_level->getLevelHeight(), -100.f, 100.f);
         shader_program->use();
@@ -84,26 +89,26 @@ namespace BatleCity
                if (m_keys[GLFW_KEY_W])
                {
                    m_tank->setOrientation(Tank::EOrientation::Top);
-                   m_tank->move(true);
+                   m_tank->setVelocity(m_tank->getMaxVelocity());
                }
                else if (m_keys[GLFW_KEY_D])
                {
                    m_tank->setOrientation(Tank::EOrientation::Right);
-                   m_tank->move(true);
+                   m_tank->setVelocity(m_tank->getMaxVelocity());
                }
                else if (m_keys[GLFW_KEY_S])
                {
                    m_tank->setOrientation(Tank::EOrientation::Bottom);
-                   m_tank->move(true);
+                   m_tank->setVelocity(m_tank->getMaxVelocity());
                }
                else if (m_keys[GLFW_KEY_A])
                {
                    m_tank->setOrientation(Tank::EOrientation::Left);
-                   m_tank->move(true);
+                   m_tank->setVelocity(m_tank->getMaxVelocity());
                }
                else
                {
-                   m_tank->move(false);
+                   m_tank->setVelocity(0);
                }
            }
            m_tank->update(delta);
@@ -116,30 +121,31 @@ namespace BatleCity
                if (m_keys[GLFW_KEY_UP])
                {
                    m_tank2->setOrientation(Tank::EOrientation::Top);
-                   m_tank2->move(true);
+                   m_tank2->setVelocity(m_tank->getMaxVelocity());
                }
                else if (m_keys[GLFW_KEY_RIGHT])
                {
                    m_tank2->setOrientation(Tank::EOrientation::Right);
-                   m_tank2->move(true);
+                   m_tank2->setVelocity(m_tank->getMaxVelocity());
                }
                else if (m_keys[GLFW_KEY_DOWN])
                {
                    m_tank2->setOrientation(Tank::EOrientation::Bottom);
-                   m_tank2->move(true);
+                   m_tank2->setVelocity(m_tank->getMaxVelocity());
                }
                else if (m_keys[GLFW_KEY_LEFT])
                {
                    m_tank2->setOrientation(Tank::EOrientation::Left);
-                   m_tank2->move(true);
+                   m_tank2->setVelocity(m_tank->getMaxVelocity());
                }
                else
                {
-                   m_tank2->move(false);
+                   m_tank2->setVelocity(0);
                }
            }
            m_tank2->update(delta);
        }
+       Physics::PhysicsEngine::update(delta);
 	}
 
 
