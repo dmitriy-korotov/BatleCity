@@ -2,7 +2,11 @@
 #ifndef I_GAME_OBJECT_H
 #define I_GAME_OBJECT_H
 
+#include <vector>
+
 #include <glm/vec2.hpp>
+
+#include "../../Physics/AxisAlignedBoundingBox.h"
 
 namespace RenderEngine
 {
@@ -17,7 +21,10 @@ namespace BatleCity
 
 		IGameObject() = default;
 		IGameObject(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-			: m_size(size), m_position(position), m_rotation(rotation), m_layer(layer)
+			: m_size(size)
+			, m_position(position)
+			, m_rotation(rotation)
+			, m_layer(layer)
 		{ }
 
 		virtual ~IGameObject()
@@ -31,8 +38,13 @@ namespace BatleCity
 		inline void setRotation(const float rotation) { m_rotation = rotation; }
 		inline void setLayer(const float layer) { m_layer = layer; }
 
+		inline const std::vector<Physics::AABB>& getColliders() const { return m_colliders; }
+		inline const glm::vec2& getPosition() const { return m_position; }
+		inline const glm::vec2& getSize() const { return m_size; }
+
 	protected:
 
+		std::vector<Physics::AABB> m_colliders;
 		glm::vec2 m_size;
 		glm::vec2 m_position;
 		float m_rotation;

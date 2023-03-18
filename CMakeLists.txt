@@ -27,6 +27,7 @@ add_executable(${PROJECT_NAME}
 
 	src/Physics/PhysicsEngine.h
 	src/Physics/PhysicsEngine.cpp
+	src/Physics/AxisAlignedBoundingBox.h
 
 	src/Resources/ResourceManager.h
 	src/Resources/ResourceManager.cpp

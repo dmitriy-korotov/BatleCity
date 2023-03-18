@@ -31,6 +31,8 @@ namespace BatleCity
 		m_shield_animation.second.setCallBack([&]() {
 			m_has_shild = false;
 		});
+
+		m_colliders.emplace_back(glm::vec2(0.f), m_size);
 	}
 
 

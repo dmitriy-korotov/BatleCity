@@ -46,20 +46,21 @@ namespace BatleCity
             return false;
         }
 
-        std::shared_ptr<RenderEngine::Sprite2D> tank_sprite = Resources::ResourceManager::getSprite("yellowTankAnimatedSprite");
+        std::shared_ptr<RenderEngine::Sprite2D> tank_sprite = Resources::ResourceManager::getSprite("Border_8x8");
         if (tank_sprite == nullptr)
         {
             std::cerr << "Can't find animatad sprite: " << "yellowTankAnimatedSprite" << std::endl;
             return false;
         }
 
-        m_level = std::make_shared<Level>(std::move(*Resources::ResourceManager::getLevel(2)));
+        m_level = std::make_shared<Level>(std::move(*Resources::ResourceManager::getLevel(3)));
 
         m_tank = std::make_shared<Tank>(tank_sprite, m_level->getPlayer1Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
         m_tank2 = std::make_shared<Tank>(std::move(tank_sprite), m_level->getPlayer2Respawn(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.05f);
 
         Physics::PhysicsEngine::addDynamicGameObject(m_tank);
         Physics::PhysicsEngine::addDynamicGameObject(m_tank2);
+        Physics::PhysicsEngine::setCurrentLevel(m_level);
 
         glm::mat4 projection_matrix = glm::ortho<float>(0.f, m_level->getLevelWidth(), 0.f, m_level->getLevelHeight(), -100.f, 100.f);
         shader_program->use();
