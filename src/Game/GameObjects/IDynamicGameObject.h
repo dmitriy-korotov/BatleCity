@@ -8,9 +8,21 @@ namespace BatleCity
 	{
 	public:
 
+
+		enum class EOrientation
+		{
+			Top = 0,
+			Right,
+			Bottom,
+			Left
+		};
+
+
 		IDynamicGameObject() = default;
 		IDynamicGameObject(const glm::vec2& position, const glm::vec2& size, float rotation,
 						  float layer, const glm::vec2& direction, double velocity);
+
+		virtual void onCollision() = 0;
 
 		void move(const glm::vec2& offset);
 		virtual void setVelocity(double velocity);

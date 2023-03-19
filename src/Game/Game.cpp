@@ -46,7 +46,7 @@ namespace BatleCity
             return false;
         }
 
-        std::shared_ptr<RenderEngine::Sprite2D> tank_sprite = Resources::ResourceManager::getSprite("Border_8x8");
+        std::shared_ptr<RenderEngine::Sprite2D> tank_sprite = Resources::ResourceManager::getSprite("yellowTankAnimatedSprite");
         if (tank_sprite == nullptr)
         {
             std::cerr << "Can't find animatad sprite: " << "yellowTankAnimatedSprite" << std::endl;
@@ -106,6 +106,10 @@ namespace BatleCity
                {
                    m_tank->setOrientation(Tank::EOrientation::Left);
                    m_tank->setVelocity(m_tank->getMaxVelocity());
+               }
+               else if (m_keys[GLFW_KEY_SPACE])
+               {
+                   m_tank->fair();
                }
                else
                {

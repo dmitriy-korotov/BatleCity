@@ -44,6 +44,8 @@ add_executable(${PROJECT_NAME}
 	src/Game/GameObjects/IDynamicGameObject.cpp
 	src/Game/GameObjects/Tank.h
 	src/Game/GameObjects/Tank.cpp
+	src/Game/GameObjects/Bullet.h
+	src/Game/GameObjects/Bullet.cpp
 	src/Game/GameObjects/Block.h
 	src/Game/GameObjects/Block.cpp
 	src/Game/GameObjects/Border.h

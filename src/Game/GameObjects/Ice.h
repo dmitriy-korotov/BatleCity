@@ -20,8 +20,6 @@ namespace BatleCity
 
 		void renderBlock(const ESubBlockLocation subBlock_location) const override;
 
-
-
 		std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
 
 	};

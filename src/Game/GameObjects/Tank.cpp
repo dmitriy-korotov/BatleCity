@@ -1,8 +1,12 @@
 #include "Tank.h"
 
+#include "Bullet.h"
+
 #include "../../Render/Sprite2D.h"
 
 #include "../../Resources/ResourceManager.h"
+
+#include "../../Physics/PhysicsEngine.h"
 
 namespace BatleCity
 {
@@ -124,6 +128,27 @@ namespace BatleCity
 				m_shield_animation.first.render(m_position, m_size, m_rotation, m_layer);
 			}
 			m_tank_sprite.render(m_position, m_size, m_rotation, m_layer);
+			if (m_bullet && m_is_fair)
+			{
+				m_bullet->render();
+			}
 		}
+	}
+
+
+
+	void Tank::fair() const
+	{
+		m_is_fair = true;
+		m_bullet = std::make_shared<Bullet>(m_current_orientation, m_size / 2.f, m_layer, 2 * m_max_velocity);
+		m_bullet->fire(m_position, m_direction, m_bullet->getMaxVelocity());
+		Physics::PhysicsEngine::addDynamicGameObject(m_bullet);
+	}
+
+
+
+	void Tank::onCollision()
+	{
+
 	}
 }

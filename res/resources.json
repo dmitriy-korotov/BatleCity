@@ -102,7 +102,12 @@
 
                                     "tree",
                                     "ice",
-                                    "border"
+                                    "border",
+
+                                    "bullet_top",
+                                    "bullet_bottom",
+                                    "bullet_left",
+                                    "bullet_right"
             ]
         },
 
@@ -181,6 +186,34 @@
             "textureAtlas" : "mapTextureAtlas_8x8",
             "shaderProgram" : "spriteShaderProgram",
             "subTexture" : "border"
+        },
+
+        {
+            "name" : "Bullet_Top_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "bullet_top"
+        },
+
+        {
+            "name" : "Bullet_Bottom_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "bullet_bottom"
+        },
+
+        {
+            "name" : "Bullet_Left_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "bullet_left"
+        },
+
+        {
+            "name" : "Bullet_Right_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "bullet_right"
         },
 
         {
@@ -307,6 +340,54 @@
             "textureAtlas" : "tanksTextureAtlas",
             "shaderProgram" : "spriteShaderProgram",
             "subTexture" : "yellowTank1_Bottom2"
+        },
+
+        {
+            "name"                  : "Bullet",
+            "textureAtlas"          : "mapTextureAtlas_8x8",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "bullet_top",
+            "states" : [
+                {
+                    "stateName"             : "BulletTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "bullet_top",
+                            "duration"      : 3000
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "BulletBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "bullet_bottom",
+                            "duration"      : 3000
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "BulletLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "bullet_left",
+                            "duration"      : 3000
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "BulletRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "bullet_right",
+                            "duration"      : 3000
+                        }
+                    ]
+                }
+            ]
         },
         
         {

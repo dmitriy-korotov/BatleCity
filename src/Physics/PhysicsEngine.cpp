@@ -17,7 +17,7 @@ namespace Physics
 	void PhysicsEngine::terminate()
 	{
 		m_dynamic_game_objects.clear();
-		m_current_level.reset();		// check
+		m_current_level.reset();		
 	}
 
 
@@ -49,6 +49,7 @@ namespace Physics
 				{
 					if (isIntersection(object->getColliders(), object->getPosition(), game_object->getColliders(), new_position))
 					{
+						game_object->onCollision();
 						is_intersection = true;
 						break;
 					}
