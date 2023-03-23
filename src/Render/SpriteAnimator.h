@@ -22,6 +22,8 @@ namespace RenderEngine
 		void update(const double delta);
 		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const;
 
+		double getDurationAnimation(const std::string& animation_name) const;
+
 	private:
 
 		std::shared_ptr<Sprite2D> m_animated_sprite;

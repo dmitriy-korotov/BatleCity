@@ -28,6 +28,7 @@ add_executable(${PROJECT_NAME}
 	src/Physics/PhysicsEngine.h
 	src/Physics/PhysicsEngine.cpp
 	src/Physics/AxisAlignedBoundingBox.h
+	src/Physics/AxisAlignedBoundingBox.cpp
 
 	src/Resources/ResourceManager.h
 	src/Resources/ResourceManager.cpp
@@ -37,6 +38,9 @@ add_executable(${PROJECT_NAME}
 	src/Game/Game.cpp
 	src/Game/Level.h
 	src/Game/Level.cpp
+
+	src/Game/GameObjectContainers/BulletCollector.h
+	src/Game/GameObjectContainers/BulletCollector.cpp
 
 	src/Game/GameObjects/IGameObject.h
 	src/Game/GameObjects/IGameObject.cpp

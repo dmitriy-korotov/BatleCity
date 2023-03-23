@@ -33,16 +33,18 @@ namespace BatleCity
 
 	private:
 
-		std::array<bool, 349> m_keys;
-
 		enum class EGameStates
 		{
 			Active,
 			Pause
 		};
 
+		std::array<bool, 349> m_keys;
+
 		glm::vec2 m_window_size;
+
 		EGameStates m_current_game_state;
+
 		std::shared_ptr<Tank> m_tank;
 		std::shared_ptr<Tank> m_tank2;
 		std::shared_ptr<Level> m_level;

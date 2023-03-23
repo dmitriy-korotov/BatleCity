@@ -5,8 +5,8 @@
 namespace BatleCity
 {
 	BetonWall::BetonWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-		: Block(wall_type, position, size, rotation, layer),
-		  m_sprite(Resources::ResourceManager::getSprite("BetonWall_8x8"))
+		: Block(EGameObjectType::BetonWall, wall_type, position, size, rotation, layer)
+		, m_sprite(Resources::ResourceManager::getSprite("BetonWall_8x8"))
 	{ }
 
 

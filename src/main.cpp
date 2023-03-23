@@ -127,6 +127,8 @@ int main(const int argc, const char** argv)
             double duration = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time).count();
             last_time = current_time;
 
+            //std::cout << "FPS:\t" << static_cast<double>(1000) / duration << std::endl;
+
             g_game->update(duration);
             g_game->render();
 

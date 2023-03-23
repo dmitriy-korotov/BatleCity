@@ -7,6 +7,8 @@
 #include "VertexBufferLayout.h"
 #include "Renderer.h"
 
+#include <iostream>
+
 namespace RenderEngine
 {
 	Sprite2D::Sprite2D(std::shared_ptr<Texture2D> ptr_texture,
@@ -76,6 +78,28 @@ namespace RenderEngine
 
 
 
+	double Sprite2D::getDurationStateAnimation(const std::string& state_name) const
+	{
+		if (!m_states.empty())
+		{
+			auto state = m_states.find(state_name);
+			if (state == m_states.end())
+			{
+				std::cerr << "Can't find state: " << state_name << std::endl;
+				return 0;
+			}
+			double common_duration = 0;
+			for (const auto& frame : (*state).second)
+			{
+				common_duration += frame.second;
+			}
+			return common_duration;
+		}
+		return 0;
+	}
+
+
+
 	void Sprite2D::render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const
 	{
 		glm::mat4 model_matrix(1.f); // transform matrix
@@ -90,8 +114,6 @@ namespace RenderEngine
 		m_shader_program->setFloat("layer", layer);
 		m_shader_program->setMatrix4("model_matrix", model_matrix);
 
-		m_VAO.bind();
-		glActiveTexture(GL_TEXTURE0);
 		m_texture->bind();
 		Renderer::drawElements(GL_TRIANGLES, m_VAO, m_EBO, *m_shader_program);
 

@@ -293,6 +293,10 @@ namespace BatleCity
 			if (current_map_object)
 			{
 				current_map_object->render();
+				for (const auto& collider : current_map_object->getColliders())
+				{
+					collider.render(current_map_object->getPosition(), current_map_object->getRotation());
+				}
 			}
 		}
 	}

@@ -17,12 +17,14 @@ namespace my_system
 		void update(const double delta);
 		void setCallBack(const std::function<void()>& function);
 
+		void reset() noexcept;
+
 	private:
 
-		std::function<void()> m_call_back_function;
+		std::function<void()> m_call_back_function = []() {};
 
-		bool m_is_active;
-		double m_duration;
+		bool m_is_active = false;
+		double m_duration = 0;
 
 	};
 }

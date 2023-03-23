@@ -24,44 +24,35 @@ namespace Physics
 
 	void PhysicsEngine::update(double delta)
 	{
+		std::vector<std::shared_ptr<BatleCity::IDynamicGameObject>> destroyed_game_objects(m_dynamic_game_objects.size());
+
 		for (auto& game_object : m_dynamic_game_objects)
 		{
 			if (game_object->getVelocity() > 0)
 			{
-			    const glm::vec2 game_object_direction = game_object->getDirection();
-				glm::vec2 new_position(0.f);
-
-				if (game_object_direction.x == 0.f)
+				const glm::vec2 new_position = getNewPosition(game_object, delta);
+				auto objects = m_current_level->getObjectsFromArea(new_position, game_object->getSize());
+				bool is_intersection = isInersectionWithObjects(game_object, new_position, objects);
+				
+				if (game_object->isDestroy())
 				{
-					new_position.x = static_cast<float>(static_cast<int>(game_object->getPosition().x / 4.f + 0.5f) * 4);
-					new_position.y = game_object->getPosition().y + game_object_direction.y * static_cast<float>(game_object->getVelocity() * delta);
+					destroyed_game_objects.emplace_back(game_object);
 				}
 				else
 				{
-					new_position.y = static_cast<float>(static_cast<int>(game_object->getPosition().y / 4.f + 0.5f) * 4);
-					new_position.x = game_object->getPosition().x + game_object_direction.x * static_cast<float>(game_object->getVelocity() * delta);
-				}
-				
-				auto objects = m_current_level->getObjectsFromArea(new_position, game_object->getSize());
-
-				bool is_intersection = false;
-				for (const auto& object : objects)
-				{
-					if (isIntersection(object->getColliders(), object->getPosition(), game_object->getColliders(), new_position))
+					if (!is_intersection)
 					{
-						game_object->onCollision();
-						is_intersection = true;
-						break;
+						game_object->setPosition(new_position);
 					}
-				}
-				
-				if (!is_intersection)
-				{
-					game_object->setPosition(new_position);
 				}
 			}
 		}
+		for (const auto& destroyed_game_object : destroyed_game_objects)
+		{
+			m_dynamic_game_objects.erase(destroyed_game_object);
+		}
 	}
+
 
 
 	void PhysicsEngine::setCurrentLevel(std::shared_ptr<BatleCity::Level> current_level)
@@ -78,6 +69,26 @@ namespace Physics
 
 
 
+	glm::vec2 PhysicsEngine::getNewPosition(const std::shared_ptr<BatleCity::IDynamicGameObject>& game_object, double delta)
+	{
+		const glm::vec2 game_object_direction = game_object->getDirection();
+		glm::vec2 new_position(0.f);
+
+		if (game_object_direction.x == 0.f)
+		{
+			new_position.x = static_cast<float>(static_cast<int>(game_object->getPosition().x / 4.f + 0.5f) * 4);
+			new_position.y = game_object->getPosition().y + game_object_direction.y * static_cast<float>(game_object->getVelocity() * delta);
+		}
+		else
+		{
+			new_position.y = static_cast<float>(static_cast<int>(game_object->getPosition().y / 4.f + 0.5f) * 4);
+			new_position.x = game_object->getPosition().x + game_object_direction.x * static_cast<float>(game_object->getVelocity() * delta);
+		}
+		return new_position;
+	}
+
+
+
 	bool PhysicsEngine::isIntersection(const std::vector<AABB>& first_object, const glm::vec2& position_object1,
 									   const std::vector<AABB>& second_object, const glm::vec2& position_object2)
 	{
@@ -85,22 +96,39 @@ namespace Physics
 		{
 			for (const auto& second_collision : second_object)
 			{
-				if (first_collision.left_bottom.x + position_object1.x >= second_collision.right_top.x + position_object2.x)
+				if (first_collision.getLeftBottom().x + position_object1.x >= second_collision.getRightTop().x + position_object2.x)
 				{
 					continue;
 				}
-				if (first_collision.right_top.x + position_object1.x <= second_collision.left_bottom.x + position_object2.x)
+				if (first_collision.getRightTop().x + position_object1.x <= second_collision.getLeftBottom().x + position_object2.x)
 				{
 					continue;
 				}
-				if (first_collision.left_bottom.y + position_object1.y >= second_collision.right_top.y + position_object2.y)
+				if (first_collision.getLeftBottom().y + position_object1.y >= second_collision.getRightTop().y + position_object2.y)
 				{
 					continue;
 				}
-				if (first_collision.right_top.y + position_object1.y <= second_collision.left_bottom.y + position_object2.y)
+				if (first_collision.getRightTop().y + position_object1.y <= second_collision.getLeftBottom().y + position_object2.y)
 				{
 					continue;
 				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
+	bool PhysicsEngine::isInersectionWithObjects(const std::shared_ptr<BatleCity::IDynamicGameObject>& current_game_object,
+												 const glm::vec2& new_position,
+												 const std::vector<std::shared_ptr<BatleCity::IGameObject>>& other_objects)
+	{
+		for (const auto& object : other_objects)
+		{
+			if (isIntersection(object->getColliders(), object->getPosition(), current_game_object->getColliders(), new_position))
+			{
+				current_game_object->onCollision(object->getGameObjectType());
 				return true;
 			}
 		}

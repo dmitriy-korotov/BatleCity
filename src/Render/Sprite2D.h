@@ -41,6 +41,8 @@ namespace RenderEngine
 
 	protected:
 
+		double getDurationStateAnimation(const std::string& state_name) const;
+
 		using MapStates = std::map<std::string, std::vector<std::pair<std::string, double>>>;
 
 		MapStates m_states;

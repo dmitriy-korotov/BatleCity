@@ -39,12 +39,19 @@ namespace BatleCity
             return false;
         }
 
-        std::shared_ptr<RenderEngine::ShaderProgram> shader_program = Resources::ResourceManager::getShaderProgram("spriteShaderProgram");
-        if (shader_program == nullptr)
+        std::shared_ptr<RenderEngine::ShaderProgram> shader_program_sprites = Resources::ResourceManager::getShaderProgram("spriteShaderProgram");
+        if (shader_program_sprites == nullptr)
         {
             std::cerr << "Can't load shader program " << "spriteShaderProgram" << std::endl;
             return false;
         }
+        std::shared_ptr<RenderEngine::ShaderProgram> shader_program_colliders = Resources::ResourceManager::getShaderProgram("ColliderShaderProgram");
+        if (shader_program_colliders == nullptr)
+        {
+            std::cerr << "Can't load shader program " << "ColliderShaderProgram" << std::endl;
+            return false;
+        }
+
 
         std::shared_ptr<RenderEngine::Sprite2D> tank_sprite = Resources::ResourceManager::getSprite("yellowTankAnimatedSprite");
         if (tank_sprite == nullptr)
@@ -63,9 +70,11 @@ namespace BatleCity
         Physics::PhysicsEngine::setCurrentLevel(m_level);
 
         glm::mat4 projection_matrix = glm::ortho<float>(0.f, m_level->getLevelWidth(), 0.f, m_level->getLevelHeight(), -100.f, 100.f);
-        shader_program->use();
-        shader_program->setMatrix4("clip_matrix", projection_matrix);
+        shader_program_sprites->use();
+        shader_program_sprites->setMatrix4("clip_matrix", projection_matrix);
 
+        shader_program_colliders->use();
+        shader_program_colliders->setMatrix4("clip_matrix", projection_matrix);
 
         return true;
 	}
@@ -76,6 +85,8 @@ namespace BatleCity
 	{
         m_keys[key] = action;
 	}
+
+
 
 	void Game::update(const double delta)
 	{
@@ -150,6 +161,7 @@ namespace BatleCity
            }
            m_tank2->update(delta);
        }
+
        Physics::PhysicsEngine::update(delta);
 	}
 
@@ -160,10 +172,18 @@ namespace BatleCity
         if (m_tank)
         {
             m_tank->render();
+            for (const auto& collider : m_tank->getColliders())
+            {
+                collider.render(m_tank->getPosition(), m_tank->getRotation());
+            }
         }
         if (m_tank2)
         {
             m_tank2->render();
+            for (const auto& collider : m_tank2->getColliders())
+            {
+                collider.render(m_tank2->getPosition(), m_tank2->getRotation());
+            }
         }
         if (m_level)
         {

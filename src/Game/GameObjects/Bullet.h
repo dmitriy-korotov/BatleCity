@@ -8,6 +8,8 @@
 
 #include "../../Render/SpriteAnimator.h"
 
+#include "../../System/Timer.h"
+
 namespace BatleCity
 {
 	class Bullet : public IDynamicGameObject
@@ -21,15 +23,17 @@ namespace BatleCity
 		void update(double delta) override;
 		void render() const override;
 
-		double getMaxVelocity() const { return m_max_velocity; }
+		double getMaxVelocity() const noexcept { return m_max_velocity; }
 
-		void onCollision() override;
+		void onCollision(EGameObjectType game_object_type) override;
 
 	private:
 
 		std::shared_ptr<RenderEngine::Sprite2D> m_sprite = nullptr;
+		std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_explosion_animation;
 		double m_max_velocity = 0;
 		bool m_is_fire = false;
+		bool m_is_exploded = false;
 
 	};
 }

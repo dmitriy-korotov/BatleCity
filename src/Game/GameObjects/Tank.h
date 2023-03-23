@@ -3,9 +3,12 @@
 #define TANK_H
 
 #include <iostream>
+#include <unordered_set>
 #include <glm/vec2.hpp>
 
 #include "IDynamicGameObject.h"
+
+#include "../GameObjectContainers/BulletCollector.h"
 
 #include "../../Render/SpriteAnimator.h"
 
@@ -19,24 +22,24 @@ namespace RenderEngine
 
 namespace BatleCity
 {
-	class Bullet;
-
 	class Tank : public IDynamicGameObject
 	{
 	public:
 
 		Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size,
-		     double max_velocity, const glm::vec2& direction = glm::vec2(0.f, 1.f), double velocity = 0, float layer = 0.f);
+			 double max_velocity, double delay_between_shots = 1000, const glm::vec2& direction = glm::vec2(0.f, 1.f),
+			 double velocity = 0, float layer = 0.f);
 
 		void setVelocity(double velocity) override;
 		void setOrientation(const EOrientation orientation);
+
 		void update(const double delta) override;
 		void render() const override;
 
 		double getMaxVelocity() const;
 
 		void fair() const;
-		void onCollision() override;
+		void onCollision(EGameObjectType game_object_type) override;
 
 	private:
 
@@ -44,13 +47,15 @@ namespace BatleCity
 		std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_respawn_animation;
 		std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_shield_animation;
 		
-		mutable std::shared_ptr<Bullet> m_bullet = nullptr;
+		mutable my_system::Timer m_timer_for_shots;
+		mutable BulletCollector m_bullets;
 		mutable bool m_is_fair = false;
+		double m_delay_between_shots = 0;
 
-		EOrientation m_current_orientation;
+		EOrientation m_current_orientation = EOrientation::Top;
 		double m_max_velocity = 0;
-		bool m_is_respawn = 0;
-		bool m_has_shild = 0;
+		bool m_is_respawn = true;
+		bool m_has_shild = false;
 
 	};
 }

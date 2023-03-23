@@ -33,6 +33,12 @@ namespace RenderEngine
 
 
 
+	double SpriteAnimator::getDurationAnimation(const std::string& animation_name) const
+	{
+		return m_animated_sprite->getDurationStateAnimation(animation_name);
+	}
+
+
 
 	void SpriteAnimator::update(const double delta)
 	{

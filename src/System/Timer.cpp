@@ -3,9 +3,6 @@
 namespace my_system
 {
 	Timer::Timer()
-		: m_is_active(false),
-		  m_duration(0),
-		  m_call_back_function([]() {})
 	{ }
 
 	void Timer::start(const double duration)
@@ -29,5 +26,13 @@ namespace my_system
 	void Timer::setCallBack(const std::function<void()>& function)
 	{
 		m_call_back_function = function;
+	}
+
+
+
+	void Timer::reset() noexcept
+	{
+		m_is_active = false;
+		m_duration = 0;
 	}
 }

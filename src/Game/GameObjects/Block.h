@@ -12,7 +12,7 @@ namespace BatleCity
 	{
 	public:
 
-		enum class EBlockType
+		enum class EBlockType : uint8_t
 		{
 			All,
 			Top,
@@ -32,14 +32,15 @@ namespace BatleCity
 			Nothing
 		};
 
-		Block(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
+		Block(EGameObjectType game_object_type, const EBlockType wall_type, const glm::vec2& position,
+			  const glm::vec2& size, const float rotation, const float layer);
 
 		virtual void update(const double delta) override;
 		virtual void render() const override;
 
 	protected:
 		
-		enum class ESubBlockLocation
+		enum class ESubBlockLocation : uint8_t
 		{
 			LeftTop,
 			RightTop,
@@ -47,7 +48,7 @@ namespace BatleCity
 			RightBottom
 		};
 
-		enum class ESubBlockState
+		enum class ESubBlockState : uint8_t
 		{
 			Enable,
 			Destroy

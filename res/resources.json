@@ -7,7 +7,7 @@
         },
 
         {
-            "name"          : "defaultShaderProgram",
+            "name"          : "ColliderShaderProgram",
             "filePath_v"    : "res/shaders/vertex.txt",
             "filePath_f"    : "res/shaders/fragment.txt"
         }
@@ -66,7 +66,11 @@
                                     "bullet_right",
 
                                     "shield1",
-                                    "shield2"
+                                    "shield2",
+
+                                    "explosion1",
+                                    "explosion2",
+                                    "explosion3"
             ]
         },
 
@@ -287,6 +291,27 @@
         },
 
         {
+            "name" : "Explosion1",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "explosion1"
+        },
+
+        {
+            "name" : "Explosion2",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "explosion2"
+        },
+
+        {
+            "name" : "Explosion3",
+            "textureAtlas" : "mapTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "explosion3"
+        },
+
+        {
             "name" : "yellowTank1_Top1",
             "textureAtlas" : "tanksTextureAtlas",
             "shaderProgram" : "spriteShaderProgram",
@@ -343,47 +368,27 @@
         },
 
         {
-            "name"                  : "Bullet",
-            "textureAtlas"          : "mapTextureAtlas_8x8",
+            "name"                  : "ExplosionAnimation",
+            "textureAtlas"          : "mapTextureAtlas",
             "shaderProgram"         : "spriteShaderProgram",
-            "subTexture"            : "bullet_top",
+            "subTexture"            : "Explosion1",
             "states" : [
                 {
-                    "stateName"             : "BulletTopState",
+                    "stateName"             : "default",
                     "frames" : [
                         {
-                            "sprite"        : "bullet_top",
-                            "duration"      : 3000
-                        }
-                    ]
-                },
+                            "sprite"        : "Explosion1",
+                            "duration"      : 150
+                        },
 
-                {
-                    "stateName"             : "BulletBottomState",
-                    "frames" : [
                         {
-                            "sprite"        : "bullet_bottom",
-                            "duration"      : 3000
-                        }
-                    ]
-                },
+                            "sprite"        : "Explosion2",
+                            "duration"      : 150
+                        },
 
-                {
-                    "stateName"             : "BulletLeftState",
-                    "frames" : [
                         {
-                            "sprite"        : "bullet_left",
-                            "duration"      : 3000
-                        }
-                    ]
-                },
-
-                {
-                    "stateName"             : "BulletRightState",
-                    "frames" : [
-                        {
-                            "sprite"        : "bullet_right",
-                            "duration"      : 3000
+                            "sprite"        : "Explosion3",
+                            "duration"      : 150
                         }
                     ]
                 }
@@ -598,6 +603,24 @@
 				"DCDDGDDHDDDDD",
 				"DDDDDH1GDDJJD",
 				"DDDDK0E2LDDDD"
+			]
+		},
+
+        {
+			"description" : [
+				"DDDDDDDDDDDDD",
+                "DDDDDDDDDDDDD",
+				"DDDDDDDDDDDDD",
+				"DD0DDDDDD1DDD",
+				"DDDDDDDDDDDDD",
+				"DDDDDDDDDDDDD",
+				"DDDDDD4DDDDDD",
+				"DDDDDDDDDDDDD",
+				"DD3DDDDDD2DDD",
+				"DDDDDDDDDDDDD",
+				"DDDDDDDDDDDDD",
+				"DDDDDDDDDDDDD",
+				"DDDDDDDDDDDDD"
 			]
 		}
     ]

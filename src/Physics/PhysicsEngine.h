@@ -2,6 +2,7 @@
 #ifndef PHYSICS_ENGINE_H
 #define PHYSICS_ENGINE_H
 
+#include <vector>
 #include <unordered_set>
 #include <memory>
 
@@ -32,8 +33,14 @@ namespace Physics
 
 	private:
 
+		static glm::vec2 getNewPosition(const std::shared_ptr<BatleCity::IDynamicGameObject>& game_object, double delta);
+
 		static bool isIntersection(const std::vector<AABB>& first_object, const glm::vec2& position_object1,
 								   const std::vector<AABB>& second_object, const glm::vec2& position_object2);
+
+		static bool isInersectionWithObjects(const std::shared_ptr<BatleCity::IDynamicGameObject>& current_game_object,
+											 const glm::vec2& new_position,
+											 const std::vector<std::shared_ptr<BatleCity::IGameObject>>& other_objects);
 
 		static std::unordered_set<std::shared_ptr<BatleCity::IDynamicGameObject>> m_dynamic_game_objects;
 		static std::shared_ptr<BatleCity::Level> m_current_level;

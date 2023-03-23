@@ -2,11 +2,12 @@
 
 namespace BatleCity
 {
-	IDynamicGameObject::IDynamicGameObject(const glm::vec2& position, const glm::vec2& size, float rotation,
-										 float layer, const glm::vec2& direction, double velocity)
-			: IGameObject(position, size, rotation, layer)
-			, m_direction(direction)
-			, m_velocity(velocity)
+	IDynamicGameObject::IDynamicGameObject(EGameObjectType game_object_type, const glm::vec2& position, const glm::vec2& size,
+										   float rotation, float layer, const glm::vec2& direction, double velocity)
+
+				: IGameObject(game_object_type, position, size, rotation, layer)
+				, m_direction(direction)
+				, m_velocity(velocity)
 	{ }
 
 

@@ -5,8 +5,8 @@
 namespace BatleCity
 {
 	Ice::Ice(const EBlockType ice_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-		: Block(ice_type, position, size, rotation, layer),
-		m_sprite(Resources::ResourceManager::getSprite("Ice_8x8"))
+		: Block(EGameObjectType::Ice, ice_type, position, size, rotation, layer)
+		, m_sprite(Resources::ResourceManager::getSprite("Ice_8x8"))
 	{ }
 
 	void Ice::renderBlock(const ESubBlockLocation subBlock_location) const

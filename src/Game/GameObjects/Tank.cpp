@@ -11,15 +11,15 @@
 namespace BatleCity
 {
 	Tank::Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& positiion, const glm::vec2& size,
-			   const double max_velocity, const glm::vec2& direction, double velocity, const float layer)
-	  : IDynamicGameObject(positiion, size, 0.f, layer, direction, velocity),
-		m_tank_sprite(std::move(sprite_ptr)),
-		m_respawn_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("RespawnAnimation")), my_system::Timer()},
-		m_shield_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("ShieldAnimation")), my_system::Timer() },
-		m_max_velocity(max_velocity),
-		m_current_orientation(EOrientation::Top),
-		m_is_respawn(true),
-		m_has_shild(false)
+		       const double max_velocity, double delay_between_shots, const glm::vec2& direction, double velocity, const float layer)
+
+		  : IDynamicGameObject(EGameObjectType::Tank, positiion, size, 0.f, layer, direction, velocity)
+		  ,	m_tank_sprite(std::move(sprite_ptr))
+		  ,	m_respawn_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("RespawnAnimation")), my_system::Timer()}
+		  ,	m_shield_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("ShieldAnimation")), my_system::Timer() }
+		  ,	m_max_velocity(max_velocity)
+		  , m_delay_between_shots(delay_between_shots)
+		  ,	m_current_orientation(EOrientation::Top)
 	{
 		setPosition(m_position);
 
@@ -35,6 +35,10 @@ namespace BatleCity
 		m_shield_animation.second.setCallBack([&]() {
 			m_has_shild = false;
 		});
+
+		m_timer_for_shots.setCallBack([&]() {
+				m_is_fair = false;
+			});
 
 		m_colliders.emplace_back(glm::vec2(0.f), m_size);
 	}
@@ -94,6 +98,10 @@ namespace BatleCity
 
 	void Tank::update(const double delta)
 	{
+		if (m_is_fair)
+		{
+			m_timer_for_shots.update(delta);
+		}
 		if (m_is_respawn)
 		{
 			m_respawn_animation.first.update(delta);
@@ -110,6 +118,7 @@ namespace BatleCity
 				m_shield_animation.first.update(delta);
 				m_shield_animation.second.update(delta);
 			}
+			m_bullets.updateBullets(delta);
 		}
 	}
 
@@ -128,10 +137,8 @@ namespace BatleCity
 				m_shield_animation.first.render(m_position, m_size, m_rotation, m_layer);
 			}
 			m_tank_sprite.render(m_position, m_size, m_rotation, m_layer);
-			if (m_bullet && m_is_fair)
-			{
-				m_bullet->render();
-			}
+
+			m_bullets.renderBullets();
 		}
 	}
 
@@ -139,15 +146,21 @@ namespace BatleCity
 
 	void Tank::fair() const
 	{
-		m_is_fair = true;
-		m_bullet = std::make_shared<Bullet>(m_current_orientation, m_size / 2.f, m_layer, 2 * m_max_velocity);
-		m_bullet->fire(m_position, m_direction, m_bullet->getMaxVelocity());
-		Physics::PhysicsEngine::addDynamicGameObject(m_bullet);
+		if (!m_is_respawn && !m_is_fair)
+		{
+			m_is_fair = true;
+			auto bullet = std::make_shared<Bullet>(m_current_orientation, m_size / 2.f, m_layer, 3 * m_max_velocity);
+			bullet->fire(m_position, m_direction, bullet->getMaxVelocity());
+			m_bullets.addBullet(bullet);
+			Physics::PhysicsEngine::addDynamicGameObject(std::move(bullet));
+
+			m_timer_for_shots.start(m_delay_between_shots);
+		}
 	}
 
 
 
-	void Tank::onCollision()
+	void Tank::onCollision(EGameObjectType game_object_type)
 	{
 
 	}
