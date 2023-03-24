@@ -10,6 +10,8 @@ add_executable(${PROJECT_NAME}
 	src/Render/ShaderProgram.cpp
 	src/Render/Texture2D.h
 	src/Render/Texture2D.cpp
+	src/Render/IRenderObjectRect2D.h
+	src/Render/IRenderObjectRect2D.cpp
 	src/Render/Sprite2D.h
 	src/Render/Sprite2D.cpp
 	src/Render/SpriteAnimator.h
@@ -44,6 +46,8 @@ add_executable(${PROJECT_NAME}
 
 	src/Game/GameObjects/IGameObject.h
 	src/Game/GameObjects/IGameObject.cpp
+	src/Game/GameObjects/GameObjectCollider.h
+	src/Game/GameObjects/GameObjectCollider.cpp
 	src/Game/GameObjects/IDynamicGameObject.h
 	src/Game/GameObjects/IDynamicGameObject.cpp
 	src/Game/GameObjects/Tank.h

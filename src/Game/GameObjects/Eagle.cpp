@@ -11,7 +11,9 @@ namespace BatleCity
 							Resources::ResourceManager::getSprite("Eagle_Elive"),
 						    Resources::ResourceManager::getSprite("Eagle_Dead") 
 						   }
-	{ }
+	{ 
+		m_colliders.addCollider(glm::vec2(0.f), m_size);
+	}
 
 	void Eagle::render() const
 	{

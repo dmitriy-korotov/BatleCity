@@ -40,7 +40,7 @@ namespace BatleCity
 				m_is_fair = false;
 			});
 
-		m_colliders.emplace_back(glm::vec2(0.f), m_size);
+		m_colliders.addCollider(glm::vec2(0.f), m_size);
 	}
 
 

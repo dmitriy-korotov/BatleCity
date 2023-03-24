@@ -42,10 +42,7 @@ namespace BatleCity
 		for (const auto& bullet : m_bullets)
 		{
 			bullet->render();
-			for (const auto& collider : bullet->getColliders())
-			{
-				collider.render(bullet->getPosition(), bullet->getRotation());
-			}
+			bullet->renderColliders();
 		}
 	}
 }

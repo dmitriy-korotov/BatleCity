@@ -172,18 +172,12 @@ namespace BatleCity
         if (m_tank)
         {
             m_tank->render();
-            for (const auto& collider : m_tank->getColliders())
-            {
-                collider.render(m_tank->getPosition(), m_tank->getRotation());
-            }
+            m_tank->renderColliders();
         }
         if (m_tank2)
         {
             m_tank2->render();
-            for (const auto& collider : m_tank2->getColliders())
-            {
-                collider.render(m_tank2->getPosition(), m_tank2->getRotation());
-            }
+            m_tank2->renderColliders();
         }
         if (m_level)
         {

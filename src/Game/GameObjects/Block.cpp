@@ -15,31 +15,31 @@ namespace BatleCity
 		switch (m_block_type)
 		{
 		case BatleCity::Block::EBlockType::All:
-			m_colliders.emplace_back(glm::vec2(0.f), m_size);
+			m_colliders.addCollider(glm::vec2(0.f), m_size);
 			break;
 		case BatleCity::Block::EBlockType::Top:
-			m_colliders.emplace_back(glm::vec2(0.f, m_size.y / 2.f), m_size);
+			m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f), m_size);
 			break;
 		case BatleCity::Block::EBlockType::Right:
-			m_colliders.emplace_back(glm::vec2(m_size.x / 2.f, 0.f), m_size);
+			m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f), m_size);
 			break;
 		case BatleCity::Block::EBlockType::Bottom:
-			m_colliders.emplace_back(glm::vec2(0.f), glm::vec2(m_size.x, m_size.y / 2.f));
+			m_colliders.addCollider(glm::vec2(0.f), glm::vec2(m_size.x, m_size.y / 2.f));
 			break;
 		case BatleCity::Block::EBlockType::Left:
-			m_colliders.emplace_back(glm::vec2(0.f), glm::vec2(m_size.x / 2.f, m_size.y));
+			m_colliders.addCollider(glm::vec2(0.f), glm::vec2(m_size.x / 2.f, m_size.y));
 			break;
 		case BatleCity::Block::EBlockType::LeftTop:
-			m_colliders.emplace_back(glm::vec2(0.f, m_size.y / 2.f), m_size / 2.f);
+			m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f), m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::LeftBottom:
-			m_colliders.emplace_back(glm::vec2(0.f), m_size / 2.f);
+			m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::RightBottom:
-			m_colliders.emplace_back(glm::vec2(m_size.x / 2.f, 0.f), glm::vec2(m_size.x, m_size.y / 2.f));
+			m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f), glm::vec2(m_size.x, m_size.y / 2.f));
 			break;
 		case BatleCity::Block::EBlockType::RightTop:
-			m_colliders.emplace_back(m_size / 2.f, m_size / 2.f);
+			m_colliders.addCollider(m_size / 2.f, m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::LeftTop_RightBottom:
 			break;

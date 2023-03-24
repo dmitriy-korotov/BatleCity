@@ -27,7 +27,7 @@ namespace BatleCity
 			break;
 		}
 
-		m_colliders.emplace_back(glm::vec2(0.f), m_size / 2.f + glm::vec2(0.1f, 0.1f));
+		m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f + glm::vec2(0.1f, 0.1f));
 
 		m_explosion_animation.first.setState("default");
 		m_explosion_animation.second.setCallBack([&]() {

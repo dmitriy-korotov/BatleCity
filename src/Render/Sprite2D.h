@@ -4,22 +4,18 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 #include <map>
 #include <glm/vec2.hpp>
 #include <glad/glad.h>
 
-#include "VertexBuffer.h"
-#include "ElementBuffer.h"
-#include "VertexArray.h"
+#include "IRenderObjectRect2D.h"
 
 namespace RenderEngine
 {
 	class Texture2D;
-	class ShaderProgram;
 	class SpriteAnimator;
 
-	class Sprite2D
+	class Sprite2D : IRenderObjectRect2D
 	{
 
 		friend SpriteAnimator;
@@ -36,7 +32,7 @@ namespace RenderEngine
 		Sprite2D& operator=(Sprite2D&&) = delete;
 
 		bool isAnimated() const;
-		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const;
+		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const override;
 		void addState(const std::string& state_name, std::vector<std::pair<std::string, double>>& frames);
 
 	protected:
@@ -48,12 +44,7 @@ namespace RenderEngine
 		MapStates m_states;
 
 		std::shared_ptr<Texture2D> m_texture;
-		std::shared_ptr<ShaderProgram> m_shader_program;
-		
-		VertexArray m_VAO;
-		VertexBuffer m_vertex_coords_buffer;
 		VertexBuffer m_texture_coords_buffer;
-		ElementBuffer m_EBO;
 	};
 }
 
