@@ -15,11 +15,27 @@ namespace BatleCity
 		m_colliders.addCollider(glm::vec2(0.f), m_size);
 	}
 
+
+
 	void Eagle::render() const
 	{
 		m_eagle_sprites[static_cast<size_t>(m_eagle_state)]->render(m_position, m_size, m_rotation, m_layer);
 	}
 
+
+
 	void Eagle::update(const double delta)
 	{ }
+
+
+
+	bool Eagle::onCollision(EGameObjectType game_object_type, const glm::vec2& direction)
+	{
+		if (game_object_type == EGameObjectType::Bullet)
+		{
+			m_eagle_state = EEagleState::Dead;
+			m_colliders.deleteAllColliders();
+		}
+		return true;
+	}
 }

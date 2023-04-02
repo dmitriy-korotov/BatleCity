@@ -17,8 +17,11 @@ namespace BatleCity
 		BrickWall(const EBlockType wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
 		void renderBlock(const ESubBlockLocation subBlock_location) const override;
+		bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction) override;
 
 	private:
+
+		void changeBrickWallAfterCollisionWithBullet(const glm::vec2& direction);
 
 		std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
 

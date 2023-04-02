@@ -14,13 +14,15 @@ namespace RenderEngine
 namespace BatleCity
 {
 	class Tank;
+	class IGameState;
 	class Level;
+	class StartScreen;
 
 	class Game
 	{
 	public:
 
-		Game(const glm::vec2& window_size);
+		Game();
 		~Game();
 
 		bool init();
@@ -28,26 +30,21 @@ namespace BatleCity
 		void update(const double delta);
 		void render();
 
-		size_t getCurrentLevelWidth() const;
-		size_t getCurrentLevelHeight() const;
+		size_t getCurrentGameWidth() const;
+		size_t getCurrentGameHeight() const;
 
 	private:
 
-		enum class EGameStates
-		{
-			Active,
-			Pause
-		};
-
 		std::array<bool, 349> m_keys;
 
-		glm::vec2 m_window_size;
+		//std::shared_ptr<StartScreen> m_start_screen;
+		//std::shared_ptr<Level> m_level;
 
-		EGameStates m_current_game_state;
+		std::shared_ptr<IGameState> m_current_game_state;
 
-		std::shared_ptr<Tank> m_tank;
-		std::shared_ptr<Tank> m_tank2;
-		std::shared_ptr<Level> m_level;
+		//std::shared_ptr<Tank> m_tank;
+		//std::shared_ptr<Tank> m_tank2;
+		//std::shared_ptr<Level> m_level;
 
 	};
 }

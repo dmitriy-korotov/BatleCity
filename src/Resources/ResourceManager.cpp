@@ -5,7 +5,9 @@
 #include "../Render/Sprite2D.h"
 #include "../Render/AnimatedSprite2D.h"
 
-#include "../Game/Level.h"
+#include "../Game/GameStates/IGameState.h"
+#include "../Game/GameStates/Level.h"
+#include "../Game/GameStates/StartScreen.h"
 
 #include <iostream>
 #include <fstream>
@@ -21,7 +23,7 @@ namespace Resources
 	ResourceManager::MapShaderProgram ResourceManager::m_shader_programs;
 	ResourceManager::MapTexture2D ResourceManager::m_textures;
 	ResourceManager::MapSprite2D ResourceManager::m_sprites;
-	ResourceManager::VectorLevels ResourceManager::m_levels;
+	ResourceManager::MapGameStates ResourceManager::m_game_states;
 	std::string ResourceManager::m_path;
 
 
@@ -40,7 +42,7 @@ namespace Resources
 		m_shader_programs.clear();
 		m_sprites.clear();
 		m_textures.clear();
-		m_levels.clear();
+		m_game_states.clear();
 	}
 
 	
@@ -203,33 +205,39 @@ namespace Resources
 
 
 
-	std::shared_ptr<BatleCity::Level> ResourceManager::loadLevel(std::vector<std::string>& level_description)
+	std::shared_ptr<BatleCity::IGameState> ResourceManager::loadLevel(std::string& name, std::vector<std::string>& level_description)
 	{
 		if (level_description.empty())
 		{
 			std::cerr << "Level description is empty can't load level" << std::endl;
 			return nullptr;
 		}
-		return m_levels.emplace_back(std::move(std::make_shared<BatleCity::Level>(std::move(level_description))));
+		return m_game_states.emplace(std::move(name), std::move(std::make_shared<BatleCity::Level>(std::move(level_description)))).first->second;
 	}
 
 
 
-	std::shared_ptr<BatleCity::Level> ResourceManager::getLevel(const size_t level_number)
+	std::shared_ptr<BatleCity::IGameState> ResourceManager::loadStartScreen(std::string& name, std::vector<std::string>& start_screen_description)
 	{
-		if (level_number > m_levels.size())
+		if (start_screen_description.empty())
 		{
-			std::cerr << "ERROR: Level with such number not found: Number = " << level_number << std::endl;
+			std::cerr << "Start screen description is empty can't load start screen" << std::endl;
 			return nullptr;
 		}
-		return m_levels[level_number - 1];
+		return m_game_states.emplace(std::move(name), std::move(std::make_shared<BatleCity::StartScreen>(std::move(start_screen_description)))).first->second;
 	}
 
 
 
-	const std::vector<std::shared_ptr<BatleCity::Level>>& ResourceManager::getLevels()
+	std::shared_ptr<BatleCity::IGameState> ResourceManager::getGameState(const std::string& name)
 	{
-		return m_levels;
+		const auto& game_state = m_game_states.find(name);
+		if (game_state == m_game_states.end())
+		{
+			std::cerr << "ERROR: Game state with such name not found: name = " << name << std::endl;
+			return nullptr;
+		}
+		return game_state->second;
 	}
 
 
@@ -255,7 +263,7 @@ namespace Resources
 		if (!ResourceManager::loadShaderProgramsJSON(document)) { return false; }
 		if (!ResourceManager::loadTextureAtlasesJSON(document)) { return false; }
 		if (!ResourceManager::loadSpritesJSON(document)) { return false; }
-		if (!ResourceManager::loadLevelsJSON(document)) { return false; }
+		if (!ResourceManager::loadGameStatesJSON(document)) { return false; }
 
 		return true;
 	}
@@ -384,24 +392,26 @@ namespace Resources
 
 
 
-	bool ResourceManager::loadLevelsJSON(const rapidjson::Document& document)
+	bool ResourceManager::loadGameStatesJSON(const rapidjson::Document& document)
 	{
-		auto levels_iterator = document.FindMember("levels");
-		if (levels_iterator != document.MemberEnd())
+		auto game_states_iterator = document.FindMember("game_states");
+		if (game_states_iterator != document.MemberEnd())
 		{
-			for (const auto& level : levels_iterator->value.GetArray())
+			for (const auto& game_state : game_states_iterator->value.GetArray())
 			{
-				auto level_description = level["description"].GetArray();
+				std::string type_game_state = game_state["type"].GetString();
+				std::string name_game_state = game_state["name"].GetString();
+				auto game_state_description = game_state["description"].GetArray();
 
 				std::vector<std::string> description;
-				description.reserve(level_description.Size());
+				description.reserve(game_state_description.Size());
 
 				unsigned int max_length = 0;
-				for (const auto& row : level_description)
+				for (const auto& row : game_state_description)
 				{
-					std::string row_level = row.GetString();
-					max_length = max_length < row_level.length() ? row_level.length() : max_length;
-					description.emplace_back(std::move(row_level));
+					std::string row_game_state = row.GetString();
+					max_length = max_length < row_game_state.length() ? row_game_state.length() : max_length;
+					description.emplace_back(std::move(row_game_state));
 				}
 
 				for (std::string& row : description)
@@ -412,7 +422,14 @@ namespace Resources
 					}
 				}
 				
-				loadLevel(std::move(description));
+				if (type_game_state == "start_screen")
+				{
+					loadStartScreen(std::move(name_game_state), std::move(description));
+				}
+				else if (type_game_state == "level")
+				{
+					loadLevel(std::move(name_game_state), std::move(description));
+				}
 			}
 		}
 		return true;

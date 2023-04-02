@@ -72,6 +72,13 @@ namespace BatleCity
 
 
 
+	void GameObjectCollider::swap(std::vector<Physics::AABB>& rect_colliders)
+	{
+		std::swap(m_rect_colliders, rect_colliders);
+	}
+
+
+
 	GameObjectCollider::~GameObjectCollider()
 	{ }
 }

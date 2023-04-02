@@ -25,28 +25,28 @@
 // GLOBAL VARIEBLES
 glm::ivec2 G_WINDOW_SIZE(13 * 16, 14 * 16);
 
-std::unique_ptr<BatleCity::Game> g_game = std::make_unique<BatleCity::Game>(G_WINDOW_SIZE);
+std::unique_ptr<BatleCity::Game> g_game = std::make_unique<BatleCity::Game>();
 
 void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height)
 {
     G_WINDOW_SIZE.x = width;
     G_WINDOW_SIZE.y = height;
 
-    const float map_aspect_ratio = static_cast<float>(g_game->getCurrentLevelWidth()) / g_game->getCurrentLevelHeight();
+    const float game_aspect_ratio = static_cast<float>(g_game->getCurrentGameWidth()) / g_game->getCurrentGameHeight();
 
     unsigned int view_port_width = G_WINDOW_SIZE.x;
     unsigned int view_port_height = G_WINDOW_SIZE.y;
     unsigned int view_port_left_offset = 0;
     unsigned int view_port_bottom_offset = 0;
 
-    if (static_cast<float>(view_port_width) / view_port_height > map_aspect_ratio)
+    if (static_cast<float>(view_port_width) / view_port_height > game_aspect_ratio)
     {
-        view_port_width = view_port_height * map_aspect_ratio;
+        view_port_width = view_port_height * game_aspect_ratio;
         view_port_left_offset = (G_WINDOW_SIZE.x - view_port_width) / 2;
     }
     else
     {
-        view_port_height = view_port_width / map_aspect_ratio;
+        view_port_height = view_port_width / game_aspect_ratio;
         view_port_bottom_offset = (G_WINDOW_SIZE.y - view_port_height) / 2;
     }
 
@@ -109,7 +109,7 @@ int main(const int argc, const char** argv)
             std::cerr << "Can't inital game" << std::endl;
             return -1;
         }
-        glfwSetWindowSize(pWindow, 3 * static_cast<int>(g_game->getCurrentLevelWidth()), 3 * static_cast<int>(g_game->getCurrentLevelHeight()));
+        glfwSetWindowSize(pWindow, 3 * static_cast<int>(g_game->getCurrentGameWidth()), 3 * static_cast<int>(g_game->getCurrentGameHeight()));
         
         auto last_time = std::chrono::high_resolution_clock::now();
 
@@ -124,8 +124,9 @@ int main(const int argc, const char** argv)
             RenderEngine::Renderer::clear(GL_DEPTH_BUFFER_BIT);
 
             auto current_time = std::chrono::high_resolution_clock::now();
-            double duration = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time).count();
+            double duration = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time).count() + 1;
             last_time = current_time;
+
 
             //std::cout << "FPS:\t" << static_cast<double>(1000) / duration << std::endl;
 

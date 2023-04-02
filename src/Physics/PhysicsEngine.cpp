@@ -1,5 +1,8 @@
 #include "PhysicsEngine.h"
 
+#include <algorithm>
+#include <iostream>
+
 namespace Physics
 {
 	std::unordered_set<std::shared_ptr<BatleCity::IDynamicGameObject>> PhysicsEngine::m_dynamic_game_objects;
@@ -24,32 +27,45 @@ namespace Physics
 
 	void PhysicsEngine::update(double delta)
 	{
-		std::vector<std::shared_ptr<BatleCity::IDynamicGameObject>> destroyed_game_objects(m_dynamic_game_objects.size());
+		std::vector<std::shared_ptr<BatleCity::IDynamicGameObject>> destroyed_game_objects;
+		destroyed_game_objects.reserve(m_dynamic_game_objects.size());
 
-		for (auto& game_object : m_dynamic_game_objects)
+		for (auto& dynamic_game_object : m_dynamic_game_objects)
 		{
-			if (game_object->getVelocity() > 0)
+			if (dynamic_game_object->isDestroy())
 			{
-				const glm::vec2 new_position = getNewPosition(game_object, delta);
-				auto objects = m_current_level->getObjectsFromArea(new_position, game_object->getSize());
-				bool is_intersection = isInersectionWithObjects(game_object, new_position, objects);
-				
-				if (game_object->isDestroy())
+				destroyed_game_objects.emplace_back(dynamic_game_object);
+			}
+			else
+			{
+				if (dynamic_game_object->getVelocity() > 0)
 				{
-					destroyed_game_objects.emplace_back(game_object);
-				}
-				else
-				{
+					const glm::vec2 new_position = getNewPosition(dynamic_game_object, delta);
+					auto objects = m_current_level->getObjectsFromArea(new_position, dynamic_game_object->getSize());
+					bool is_intersection = isInersectionWithObjects(dynamic_game_object, new_position, objects);
+
 					if (!is_intersection)
 					{
-						game_object->setPosition(new_position);
+						dynamic_game_object->setPosition(new_position);
 					}
+
+					/*for (auto& other_game_object : m_dynamic_game_objects)
+					{
+						if (isIntersection(game_object->getColliders(), game_object->getPosition(), other_game_object->getColliders(), other_game_object->getPosition()))
+						{
+							game_object->onCollision(other_game_object->getGameObjectType());
+						}
+					}*/
 				}
 			}
 		}
-		for (const auto& destroyed_game_object : destroyed_game_objects)
+		
+		if (!destroyed_game_objects.empty())
 		{
-			m_dynamic_game_objects.erase(destroyed_game_object);
+			for (const auto& destroyed_game_object : destroyed_game_objects)
+			{
+				m_dynamic_game_objects.erase(destroyed_game_object);
+			}
 		}
 	}
 
@@ -128,8 +144,9 @@ namespace Physics
 		{
 			if (isIntersection(object->getColliders(), object->getPosition(), current_game_object->getColliders(), new_position))
 			{
-				current_game_object->onCollision(object->getGameObjectType());
-				return true;
+				const bool is_stoped = current_game_object->onCollision(object->getGameObjectType());
+				object->onCollision(current_game_object->getGameObjectType(), current_game_object->getDirection());
+				if (is_stoped)		return true;
 			}
 		}
 		return false;

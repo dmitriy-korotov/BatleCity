@@ -25,6 +25,8 @@ namespace BatleCity
 
 		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const override;
 
+		void swap(std::vector<Physics::AABB>& rect_colliders);
+
 		~GameObjectCollider() override;
 
 	private:

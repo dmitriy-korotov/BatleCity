@@ -144,6 +144,104 @@
         },
 
         {
+            "name" : "BrickWall_Left_Top_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_left_top"
+        },
+
+        {
+            "name" : "BrickWall_Right_Top_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_right_top"
+        },
+
+        {
+            "name" : "BrickWall_Top_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_top"
+        },
+
+        {
+            "name" : "BrickWall_Left_Bottom_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_left_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Left_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_left"
+        },
+
+        {
+            "name" : "BrickWall_Left_Bottom_Right_Top_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_left_bottom_right_top"
+        },
+
+        {
+            "name" : "BrickWall_Without_Right_Bottom_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_without_right_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Right_Bottom_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_right_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Left_Top_Right_Bottom_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_left_top_right_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Right_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_right"
+        },
+
+        {
+            "name" : "BrickWall_Without_Left_Bottom_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_without_left_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Bottom_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_bottom"
+        },
+
+        {
+            "name" : "BrickWall_Without_Right_Top_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_without_right_top"
+        },
+
+        {
+            "name" : "BrickWall_Without_Left_Top_8x8",
+            "textureAtlas" : "mapTextureAtlas_8x8",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "brickBlock_without_left_top"
+        },
+
+        {
             "name" : "BetonWall_8x8",
             "textureAtlas" : "mapTextureAtlas_8x8",
             "shaderProgram" : "spriteShaderProgram",
@@ -548,8 +646,26 @@
         }
     ],
 
-    "levels" : [
+    "game_states" : [
         {
+            "type"          : "start_screen",
+            "name"          : "StartScreen1",
+            "description"   : [
+                "CCCFFC4F8CC48CC484FF8CC4",
+                "0FA5E1B4FA5FFA5FA5FFA5FF",
+                "03B40CE5FA5FFA5FA5FFA73F",
+                "0CE10FA5FA5FFA5FADC4ADC4",
+                "FFFFFFFFFFFFFFFFFFFFFFFF",
+                "FFFFF8C4FCCCFCCCFCFCFFFF",
+                "FFFF87F3FF0FFF0FF0F0FFFF",
+                "FFFFA5FFFF0FFF0FF201FFFF",
+                "FFFFFBC7FC0CFF0FFF0FFFFF"
+            ]
+        },
+
+        {
+            "type"        : "level",
+            "name"        : "Level1",
 			"description" : [
 				"DDDDDDDDDDDDD",
 				"D1D1D1D1D1D1D",
@@ -569,6 +685,8 @@
 		},
 
         {
+            "type"        : "level",
+            "name"        : "Level2",
 			"description" : [
 				"DDDDDDDDDDDDD",
 				"D1D1D1D1D1D1D",
@@ -588,6 +706,8 @@
 		},
 		
 		{
+            "type"        : "level",
+            "name"        : "Level3",
 			"description" : [
 				"MDDDDDNDDDDDO",
 				"D00D11D22D33D",
@@ -607,6 +727,8 @@
 		},
 
         {
+            "type"        : "level",
+            "name"        : "Level4",
 			"description" : [
 				"DDDDDDDDDDDDD",
                 "DDDDDDDDDDDDD",
@@ -620,7 +742,59 @@
 				"DDDDDDDDDDDDD",
 				"DDDDDDDDDDDDD",
 				"DDDDDDDDDDDDD",
-				"DDDDDDDDDDDDD"
+				"DDDDDDDDDDDDD",
+                "DDDDDDDDDDDDD"
+			]
+		},
+
+        {
+            "type"        : "level",
+            "name"        : "Level5",
+			"description" : [
+				"DDDDDDDDDDDDD",
+				"D1D1D1D1D1D1D",
+				"D4D4D4B4D4D4D",
+				"D4D4D4B4D4D4D",
+				"D4D4D494D4D4D",
+				"D4D4D3D3D4D4D",
+				"D3D3D1D1D3D3D",
+				"1D11D3D3D11D1",
+				"8D33D111D33D8",
+				"D1D1D4A4D1D1D",
+				"D4D4D4A4D4D4D",
+				"D4D4D333D4D4D",
+				"D4D4DH1GD4D4D",
+				"DDDDD0E2DDDDD",
+                "D3D3D1D1D3D3D",
+				"1D11D3D3D11D1",
+                "D1D1D4A4D1D1D",
+				"D4D4D4A4D4D4D",
+				"D4D4D333D4D4D",
+				"D4D4DH1GD4D4D",
+				"DDDDD0E2DDDDD",
+                "D3D3D1D1D3D3D",
+				"1D11D3D3D11D1"
+			]
+		},
+
+        {
+            "type"        : "level",
+            "name"        : "Level6",
+			"description" : [
+				"DDDDDDDDDDDDDDDDDDDD",
+				"D1D1D1D1D1D1DDDDD3DD",
+				"D4D4D4B4D4D4DDDDDDDD",
+				"D4D4D4B4D4D4DDDDDDDD",
+				"D4D4D494D4D4DDDDDDDD",
+				"D4D4D3D3D4D4DDDDDDDD",
+				"D3D3D1D1D3D3DDDDD1DD",
+				"1D11D3D3D11D1DDDDDDD",
+				"8D33D111D33D8DDDD1DD",
+				"D1D1D4A4D1D1DDDDD1DD",
+				"D4D4D4A4D4D4DDDDD2DD",
+				"D4D4D333D4D4DDDDDDDD",
+				"D4D4DH1GD4D4DDDDD2DD",
+				"DDDDD0E2DDDDDDDDDDDD"
 			]
 		}
     ]

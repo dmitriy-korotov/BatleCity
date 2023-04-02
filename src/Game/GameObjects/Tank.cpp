@@ -13,13 +13,12 @@ namespace BatleCity
 	Tank::Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& positiion, const glm::vec2& size,
 		       const double max_velocity, double delay_between_shots, const glm::vec2& direction, double velocity, const float layer)
 
-		  : IDynamicGameObject(EGameObjectType::Tank, positiion, size, 0.f, layer, direction, velocity)
+		  : IDynamicGameObject(EGameObjectType::Tank, positiion, size, 0.f, layer, direction, velocity, max_velocity)
 		  ,	m_tank_sprite(std::move(sprite_ptr))
 		  ,	m_respawn_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("RespawnAnimation")), my_system::Timer()}
 		  ,	m_shield_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("ShieldAnimation")), my_system::Timer() }
-		  ,	m_max_velocity(max_velocity)
+		  , m_min_velocity(max_velocity / 2)
 		  , m_delay_between_shots(delay_between_shots)
-		  ,	m_current_orientation(EOrientation::Top)
 	{
 		setPosition(m_position);
 
@@ -45,7 +44,7 @@ namespace BatleCity
 
 
 	
-	void Tank::setOrientation(const Tank::EOrientation orietation)
+	void Tank::setOrientation(const EOrientation orietation)
 	{
 		if (!m_is_respawn)
 		{
@@ -58,19 +57,19 @@ namespace BatleCity
 
 			switch (m_current_orientation)
 			{
-			case Tank::EOrientation::Top:
+			case EOrientation::Top:
 				m_tank_sprite.setState("tankTopState");
 				m_direction.x = 0.f;		m_direction.y = 1.f;
 				break;
-			case Tank::EOrientation::Right:
+			case EOrientation::Right:
 				m_tank_sprite.setState("tankRightState");
 				m_direction.x = 1.f;		m_direction.y = 0.f;
 				break;
-			case Tank::EOrientation::Bottom:
+			case EOrientation::Bottom:
 				m_tank_sprite.setState("tankBottomState");
 				m_direction.x = 0.f;		m_direction.y = -1.f;
 				break;
-			case Tank::EOrientation::Left:
+			case EOrientation::Left:
 				m_tank_sprite.setState("tankLeftState");
 				m_direction.x = -1.f;		m_direction.y = 0.f;
 				break;
@@ -85,13 +84,6 @@ namespace BatleCity
 	void Tank::setVelocity(double velocity)
 	{
 		if (!m_is_respawn)		m_velocity = velocity;
-	}
-
-
-
-	double Tank::getMaxVelocity() const
-	{
-		return m_max_velocity;
 	}
 
 
@@ -132,13 +124,16 @@ namespace BatleCity
 		}
 		else
 		{
-			if (m_has_shild)
+			if (!m_is_destroy)
 			{
-				m_shield_animation.first.render(m_position, m_size, m_rotation, m_layer);
-			}
-			m_tank_sprite.render(m_position, m_size, m_rotation, m_layer);
+				if (m_has_shild)
+				{
+					m_shield_animation.first.render(m_position, m_size, m_rotation, m_layer);
+				}
+				m_tank_sprite.render(m_position, m_size, m_rotation, m_layer);
 
-			m_bullets.renderBullets();
+				m_bullets.renderBullets();
+			}
 		}
 	}
 
@@ -149,7 +144,7 @@ namespace BatleCity
 		if (!m_is_respawn && !m_is_fair)
 		{
 			m_is_fair = true;
-			auto bullet = std::make_shared<Bullet>(m_current_orientation, m_size / 2.f, m_layer, 3 * m_max_velocity);
+			auto bullet = std::make_shared<Bullet>(m_current_orientation, m_size / 2.f, m_layer + 0.1f, 3 * m_max_velocity);
 			bullet->fire(m_position, m_direction, bullet->getMaxVelocity());
 			m_bullets.addBullet(bullet);
 			Physics::PhysicsEngine::addDynamicGameObject(std::move(bullet));
@@ -160,8 +155,16 @@ namespace BatleCity
 
 
 
-	void Tank::onCollision(EGameObjectType game_object_type)
+	bool Tank::onCollision(EGameObjectType game_object_type, const glm::vec2& direction)
 	{
-
+		if (game_object_type == EGameObjectType::Tree || game_object_type == EGameObjectType::Ice)
+		{
+			return false;
+		}
+		else if (game_object_type == EGameObjectType::Bullet)
+		{
+			m_is_destroy = true;
+		}
+		return true;
 	}
 }

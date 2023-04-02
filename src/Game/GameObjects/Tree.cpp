@@ -8,7 +8,7 @@ namespace BatleCity
 		: Block(EGameObjectType::Tree, tree_type, position, size, rotation, layer)
 		, m_sprite(Resources::ResourceManager::getSprite("Tree_8x8"))
 	{ 
-		m_colliders.deleteAllColliders();
+		m_colliders.addCollider(glm::vec2(0.f), m_size);
 	}
 
 	void Tree::renderBlock(const ESubBlockLocation subBlock_location) const

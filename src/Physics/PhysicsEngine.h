@@ -8,7 +8,7 @@
 
 #include "../Game/GameObjects/IGameObject.h"
 #include "../Game/GameObjects/IDynamicGameObject.h"
-#include "../Game/Level.h"
+#include "../Game/GameStates/Level.h"
 
 #include "AxisAlignedBoundingBox.h"
 

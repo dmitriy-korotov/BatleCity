@@ -140,4 +140,11 @@ namespace BatleCity
 
 	void Block::update(const double delta)
 	{ }
+
+
+
+	bool Block::onCollision(EGameObjectType game_object_type, const glm::vec2& direction)
+	{
+		return true;
+	}
 }

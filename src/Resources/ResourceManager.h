@@ -11,7 +11,7 @@
 
 namespace BatleCity
 {
-	class Level;
+	class IGameState;
 }
 
 namespace RenderEngine
@@ -65,11 +65,9 @@ namespace Resources
 																	 const unsigned int width_subTexture,
 																	 const unsigned int height_subtexture);
 
-		static std::shared_ptr<BatleCity::Level> loadLevel(std::vector<std::string>& level_description);
-		static std::shared_ptr<BatleCity::Level> getLevel(const size_t level_number);
-		static const std::vector<std::shared_ptr<BatleCity::Level>>& getLevels();
-
-
+		static std::shared_ptr<BatleCity::IGameState> loadLevel(std::string& name, std::vector<std::string>& level_description);
+		static std::shared_ptr<BatleCity::IGameState> loadStartScreen(std::string& name, std::vector<std::string>& start_screen_description);
+		static std::shared_ptr<BatleCity::IGameState> getGameState(const std::string& name);
 
 
 
@@ -81,7 +79,7 @@ namespace Resources
 		static bool loadShaderProgramsJSON(const rapidjson::Document& document);
 		static bool loadTextureAtlasesJSON(const rapidjson::Document& document);
 		static bool loadSpritesJSON(const rapidjson::Document& document);
-		static bool loadLevelsJSON(const rapidjson::Document& document);
+		static bool loadGameStatesJSON(const rapidjson::Document& document);
 
 
 		typedef std::map<std::string, std::shared_ptr<RenderEngine::ShaderProgram>> MapShaderProgram;
@@ -93,8 +91,8 @@ namespace Resources
 		typedef std::map<std::string, std::shared_ptr<RenderEngine::Sprite2D>> MapSprite2D;
 		static MapSprite2D m_sprites;
 
-		typedef std::vector<std::shared_ptr<BatleCity::Level>> VectorLevels;
-		static VectorLevels m_levels;
+		typedef std::map<std::string, std::shared_ptr<BatleCity::IGameState>> MapGameStates;
+		static MapGameStates m_game_states;
 
 		static std::string m_path;
 	};

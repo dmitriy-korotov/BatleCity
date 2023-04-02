@@ -15,7 +15,8 @@ namespace BatleCity
 	{
 		if (!m_bullets.empty())
 		{
-			std::vector<std::shared_ptr<Bullet>> deleted_bullets(m_bullets.size());
+			std::vector<std::shared_ptr<Bullet>> deleted_bullets;
+			deleted_bullets.reserve(m_bullets.size());
 
 			for (const auto& bullet : m_bullets)
 			{

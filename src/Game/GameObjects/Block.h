@@ -35,8 +35,9 @@ namespace BatleCity
 		Block(EGameObjectType game_object_type, const EBlockType wall_type, const glm::vec2& position,
 			  const glm::vec2& size, const float rotation, const float layer);
 
-		virtual void update(const double delta) override;
-		virtual void render() const override;
+		void update(const double delta) override;
+		void render() const override;
+		bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction) override;
 
 	protected:
 		

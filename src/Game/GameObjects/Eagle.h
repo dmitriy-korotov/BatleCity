@@ -23,8 +23,9 @@ namespace BatleCity
 
 		Eagle(const glm::vec2& positiion, const glm::vec2& size, const float rotation, const float layer);
 
-		void render() const override;
-		void update(const double delta) override;
+		void render() const final;
+		void update(const double delta) final;
+		bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction = glm::vec2(0.f)) final;
 
 	private:
 

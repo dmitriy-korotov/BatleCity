@@ -31,15 +31,13 @@ namespace BatleCity
 			 double velocity = 0, float layer = 0.f);
 
 		void setVelocity(double velocity) override;
-		void setOrientation(const EOrientation orientation);
+		void setOrientation(const EOrientation orientation) override;
 
 		void update(const double delta) override;
 		void render() const override;
 
-		double getMaxVelocity() const;
-
 		void fair() const;
-		void onCollision(EGameObjectType game_object_type) override;
+		bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction = glm::vec2(0.f)) override;
 
 	private:
 
@@ -52,8 +50,7 @@ namespace BatleCity
 		mutable bool m_is_fair = false;
 		double m_delay_between_shots = 0;
 
-		EOrientation m_current_orientation = EOrientation::Top;
-		double m_max_velocity = 0;
+		double m_min_velocity = 0;
 		bool m_is_respawn = true;
 		bool m_has_shild = false;
 
