@@ -37,15 +37,15 @@ namespace BatleCity
 
 		void update(const double delta) override;
 		void render() const override;
-		bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction) override;
+		bool onCollision(EGameObjectType game_object_type, std::shared_ptr<Physics::AABB> target_collider, const glm::vec2& direction) override;
 
 	protected:
 		
 		enum class ESubBlockLocation : uint8_t
 		{
+			LeftBottom = 0,
 			LeftTop,
 			RightTop,
-			LeftBottom,
 			RightBottom
 		};
 
@@ -55,7 +55,7 @@ namespace BatleCity
 			Destroy
 		};
 
-		virtual void renderBlock(const ESubBlockLocation block_type) const;
+		virtual void renderBlock(const ESubBlockLocation subBlock_location) const;
 	
 
 

@@ -27,6 +27,9 @@ namespace BatleCity
 
 		void swap(std::vector<Physics::AABB>& rect_colliders);
 
+		inline size_t size() const noexcept { return m_rect_colliders.size(); }
+		Physics::AABB& operator[](size_t index) noexcept;
+
 		~GameObjectCollider() override;
 
 	private:

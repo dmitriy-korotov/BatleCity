@@ -29,7 +29,7 @@ namespace BatleCity
 
 
 
-	bool Eagle::onCollision(EGameObjectType game_object_type, const glm::vec2& direction)
+	bool Eagle::onCollision(EGameObjectType game_object_type, std::shared_ptr<Physics::AABB> target_collider, const glm::vec2& direction)
 	{
 		if (game_object_type == EGameObjectType::Bullet)
 		{

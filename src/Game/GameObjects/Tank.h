@@ -27,7 +27,7 @@ namespace BatleCity
 	public:
 
 		Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& position, const glm::vec2& size,
-			 double max_velocity, double delay_between_shots = 1000, const glm::vec2& direction = glm::vec2(0.f, 1.f),
+			 double max_velocity, double delay_between_shots = 200, const glm::vec2& direction = glm::vec2(0.f, 1.f),
 			 double velocity = 0, float layer = 0.f);
 
 		void setVelocity(double velocity) override;
@@ -37,7 +37,7 @@ namespace BatleCity
 		void render() const override;
 
 		void fair() const;
-		bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction = glm::vec2(0.f)) override;
+		bool onCollision(EGameObjectType game_object_type, std::shared_ptr<Physics::AABB> target_collider, const glm::vec2& direction = glm::vec2(0.f)) override;
 
 	private:
 

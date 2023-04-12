@@ -78,6 +78,8 @@ add_executable(${PROJECT_NAME}
 
 	src/System/Timer.h
 	src/System/Timer.cpp
+	src/System/Window.h
+	src/System/Window.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

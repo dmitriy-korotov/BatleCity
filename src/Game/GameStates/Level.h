@@ -19,6 +19,11 @@ namespace BatleCity
 	{
 	public:
 
+		static constexpr unsigned int BLOCK_SIZE = 16;
+
+
+
+
 		Level(const std::vector<std::string>& level_description);
 		~Level() override { };
 
@@ -39,7 +44,7 @@ namespace BatleCity
 		std::vector<std::shared_ptr<BatleCity::IGameObject>> getObjectsFromArea(const glm::vec2& position, const glm::vec2& size) const;
 
 		bool start() const noexcept override;
-		void update(const double delta, const std::array<bool, 349>& keyboard) override;
+		void update(const double delta, std::array<bool, 349>& keyboard) override;
 		void render() const override;
 
 	private:

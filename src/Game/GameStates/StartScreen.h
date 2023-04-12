@@ -8,13 +8,28 @@
 
 #include <vector>
 
+
+
+namespace RenderEngine
+{
+	class Sprite2D;
+}
+
+
 namespace BatleCity
 {
 	class StartScreen : public IGameState
 	{
 	public:
 
-		StartScreen(const std::vector<std::string>& start_screen_description);
+		static constexpr unsigned int BLOCK_SIZE = 8;
+		static constexpr unsigned int MENU_SELECTION_WIDTH = 128;
+		static constexpr unsigned int MENU_SELECTION_HEIGHT = 16;
+
+
+
+		StartScreen(const std::vector<std::string>& start_screen_description, uint16_t left_offset, uint16_t bottom_offset,
+					uint16_t menu_position_x, uint16_t menu_position_y);
 		~StartScreen() { };
 
 		size_t getGameStateWidth() const noexcept override;
@@ -22,12 +37,15 @@ namespace BatleCity
 
 		bool start() const noexcept override;
 		void render() const override;
-		void update(double delta, const std::array<bool, 349>& keyboard) override;
+		void update(double delta, std::array<bool, 349>& keyboard) override;
 
 	private:
 
-		std::vector<std::shared_ptr<IGameObject>> m_start_screen_elements;
+		std::vector<std::pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>> m_start_screen_elements;
 
+		std::vector<std::pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>> m_menu_selections;
+		std::pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2> m_menu_selector;
+		
 	};
 }
 

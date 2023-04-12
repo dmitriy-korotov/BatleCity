@@ -35,8 +35,8 @@ namespace Physics
 
 		static glm::vec2 getNewPosition(const std::shared_ptr<BatleCity::IDynamicGameObject>& game_object, double delta);
 
-		static bool isIntersection(const std::vector<AABB>& first_object, const glm::vec2& position_object1,
-								   const std::vector<AABB>& second_object, const glm::vec2& position_object2);
+		static std::pair<std::shared_ptr<AABB>, std::shared_ptr<AABB>> isIntersection(const std::vector<AABB>& first_object, const glm::vec2& position_object1,
+																					  const std::vector<AABB>& second_object, const glm::vec2& position_object2);
 
 		static bool isInersectionWithObjects(const std::shared_ptr<BatleCity::IDynamicGameObject>& current_game_object,
 											 const glm::vec2& new_position,

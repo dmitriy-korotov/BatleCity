@@ -53,20 +53,23 @@ namespace BatleCity
 	void GameObjectCollider::render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer) const
 	{
 		glm::mat4 model_matrix(1.f);
-		
+		m_shader_program->use();
+		m_shader_program->setFloat("layer", layer);
+
 		for (const auto& rect_collider : m_rect_colliders)
 		{
-			model_matrix = glm::translate(model_matrix, glm::vec3(position + rect_collider.getLeftBottom(), 0.f));
-			model_matrix = glm::translate(model_matrix, glm::vec3(0.5f * (rect_collider.getRightTop() - rect_collider.getLeftBottom()), 0.f));
-			model_matrix = glm::rotate(model_matrix, glm::radians(rotation), glm::vec3(0.f, 0.f, 1.f));
-			model_matrix = glm::translate(model_matrix, glm::vec3(-0.5f * (rect_collider.getRightTop() - rect_collider.getLeftBottom()), 0.f));
-			model_matrix = glm::scale(model_matrix, glm::vec3(rect_collider.getRightTop() - rect_collider.getLeftBottom(), 1.f));
+			if (rect_collider.isActive())
+			{
+				model_matrix = glm::translate(model_matrix, glm::vec3(position + rect_collider.getLeftBottom(), 0.f));
+				model_matrix = glm::translate(model_matrix, glm::vec3(0.5f * (rect_collider.getRightTop() - rect_collider.getLeftBottom()), 0.f));
+				model_matrix = glm::rotate(model_matrix, glm::radians(rotation), glm::vec3(0.f, 0.f, 1.f));
+				model_matrix = glm::translate(model_matrix, glm::vec3(-0.5f * (rect_collider.getRightTop() - rect_collider.getLeftBottom()), 0.f));
+				model_matrix = glm::scale(model_matrix, glm::vec3(rect_collider.getRightTop() - rect_collider.getLeftBottom(), 1.f));
 
-			m_shader_program->use();
-			m_shader_program->setFloat("layer", layer);
-			m_shader_program->setMatrix4("model_matrix", model_matrix);
+				m_shader_program->setMatrix4("model_matrix", model_matrix);
 
-			RenderEngine::Renderer::drawElements(GL_LINE_STRIP, m_VAO, m_EBO, *m_shader_program);
+				RenderEngine::Renderer::drawElements(GL_LINE_STRIP, m_VAO, m_EBO, *m_shader_program);
+			}
 		}
 	}
 
@@ -75,6 +78,13 @@ namespace BatleCity
 	void GameObjectCollider::swap(std::vector<Physics::AABB>& rect_colliders)
 	{
 		std::swap(m_rect_colliders, rect_colliders);
+	}
+
+
+
+	Physics::AABB& GameObjectCollider::operator[](size_t index) noexcept
+	{
+		return m_rect_colliders[index];
 	}
 
 

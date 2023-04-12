@@ -132,6 +132,20 @@
                                     "yellowTank1_Right1",
                                     "yellowTank1_Right2"
             ]
+        },
+
+        {
+            "name"                  : "menuTextureAtlas",
+            "filePath"              : "res/textures/menu_128x64.png",
+            "width"                 : 128,
+            "height"                : 64,
+            "subTextureWidth"       : 128,
+            "subTextureHeight"      : 16,
+            "subTextureNames" : [
+                                    "one_player_selection",
+                                    "two_players_selection",
+                                    "construction_selection"
+            ] 
         }
     ],
 
@@ -466,6 +480,27 @@
         },
 
         {
+            "name" : "One_Player_Selection",
+            "textureAtlas" : "menuTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "one_player_selection"
+        },
+
+        {
+            "name" : "Two_Players_Selection",
+            "textureAtlas" : "menuTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "two_players_selection"
+        },
+
+        {
+            "name" : "Construction_Selection",
+            "textureAtlas" : "menuTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "construction_selection"
+        },
+
+        {
             "name"                  : "ExplosionAnimation",
             "textureAtlas"          : "mapTextureAtlas",
             "shaderProgram"         : "spriteShaderProgram",
@@ -646,7 +681,7 @@
         }
     ],
 
-    "game_states" : [
+    "start_screens" : [
         {
             "type"          : "start_screen",
             "name"          : "StartScreen1",
@@ -659,10 +694,23 @@
                 "FFFFF8C4FCCCFCCCFCFCFFFF",
                 "FFFF87F3FF0FFF0FF0F0FFFF",
                 "FFFFA5FFFF0FFF0FF201FFFF",
-                "FFFFFBC7FC0CFF0FFF0FFFFF"
-            ]
-        },
+                "FFFFFBC7FC0CFF0FFF0FFFFF",
+                "FFFFFFFFFFFFFFFFFFFFFFFF",
+                "FFFFFFFFFFFFFFFFFFFFFFFF",
+                "FFFFFFFFFFFFFFFFFFFFFFFF",
+                "FFFFFFFFFFFFFFFFFFFFFFFF",
+                "FFFFFFFFFFFFFFFFFFFFFFFF",
+                "FFFFFFFFFFFFFFFFFFFFFFFF",
+                "FFFFFFFFFFFFFFFFFFFFFFFF"
+            ],
+            "left_offset"       : 50, 
+            "bottom_offset"     : 50,
+            "menu_position_x"   : 110,
+            "menu_position_y"   : 70
+        }
+    ],
 
+    "levels" : [
         {
             "type"        : "level",
             "name"        : "Level1",

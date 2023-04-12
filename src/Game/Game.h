@@ -2,9 +2,15 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <glm/vec2.hpp>
 #include <memory>
 #include <array>
+
+
+
+namespace my_system
+{
+	class Window;
+}
 
 namespace RenderEngine
 {
@@ -35,16 +41,14 @@ namespace BatleCity
 
 	private:
 
+		std::shared_ptr<my_system::Window> m_window = nullptr;
+
 		std::array<bool, 349> m_keys;
 
-		//std::shared_ptr<StartScreen> m_start_screen;
-		//std::shared_ptr<Level> m_level;
+		std::shared_ptr<StartScreen> m_start_screen = nullptr;
+		std::shared_ptr<Level> m_level = nullptr;
 
-		std::shared_ptr<IGameState> m_current_game_state;
-
-		//std::shared_ptr<Tank> m_tank;
-		//std::shared_ptr<Tank> m_tank2;
-		//std::shared_ptr<Level> m_level;
+		std::shared_ptr<IGameState> m_current_game_state = nullptr;
 
 	};
 }

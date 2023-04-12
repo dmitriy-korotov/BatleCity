@@ -25,7 +25,7 @@ namespace BatleCity
 
 		void render() const final;
 		void update(const double delta) final;
-		bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction = glm::vec2(0.f)) final;
+		bool onCollision(EGameObjectType game_object_type, std::shared_ptr<Physics::AABB> target_collider, const glm::vec2& direction = glm::vec2(0.f)) final;
 
 	private:
 

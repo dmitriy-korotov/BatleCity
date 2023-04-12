@@ -1,29 +1,25 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <glm/vec2.hpp>
-#include "glm/gtc/matrix_transform.hpp"
 
 #include "Resources/ResourceManager.h"
 
-#include "Render/ShaderProgram.h"
-#include "Render/Texture2D.h"
-#include "Render/Sprite2D.h"
-#include "Render/AnimatedSprite2D.h"
 #include "Render/Renderer.h"
 
 #include "Physics/PhysicsEngine.h"
 
+#include "System/Window.h"
+
 #include "Game/Game.h"
 
-#include <memory>
+
+
 #include <iostream>
-#include <cmath>
-#include <vector>
+#include <memory>
 #include <chrono>
 
 
-// GLOBAL VARIEBLES
-glm::ivec2 G_WINDOW_SIZE(13 * 16, 14 * 16);
+
+static glm::ivec2 G_WINDOW_SIZE(13 * 16, 14 * 16);
 
 std::unique_ptr<BatleCity::Game> g_game = std::make_unique<BatleCity::Game>();
 
@@ -62,38 +58,37 @@ void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int
     g_game->setKey(key, action);
 }
 
+
+
 int main(const int argc, const char** argv)
 {
-    /* Initialize the library */
-    if (!glfwInit())
+    if (!my_system::Window::initWindows())
     {
-        std::cout << "glfwInit failed" << std::endl;
+        std::cout << "ERROR: Windows init failed" << std::endl;
         return -1;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    my_system::Window::setHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    my_system::Window::setHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+    my_system::Window::setHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    /* Create a windowed mode window and its OpenGL context */
-    GLFWwindow* pWindow = glfwCreateWindow(G_WINDOW_SIZE.x, G_WINDOW_SIZE.y, "GameOpenGL", nullptr, nullptr);
-    if (!pWindow)
+
+    my_system::Window window(G_WINDOW_SIZE.x, G_WINDOW_SIZE.y, "BatleCity");
+    if (!window.isCreated())
     {
-        std::cout << "glfwCreateWindow failed" << std::endl;
-        glfwTerminate();
+        std::cout << "ERROR: Window creating failed" << std::endl;
+        my_system::Window::terminate();
         return -1;
     }
+    
+    window.setResizeCallBack(glfwWindowSizeCallback);
+    window.setKeyCallBack(glfwKeyCallback);
 
-    // Callbacks
-    glfwSetWindowSizeCallback(pWindow, glfwWindowSizeCallback);
-    glfwSetKeyCallback(pWindow, glfwKeyCallback);
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(pWindow);
+    window.makeContextCurrent();
 
     if (!gladLoadGL())
     {
-        std::cout << "Can't load GLAD" << std::endl;
+        std::cout << "ERROR: Can't load GLAD" << std::endl;
         return -1;
     }
 
@@ -106,20 +101,20 @@ int main(const int argc, const char** argv)
 
         if (!g_game->init())
         {
-            std::cerr << "Can't inital game" << std::endl;
+            std::cerr << "ERROR: Can't inital game" << std::endl;
             return -1;
         }
-        glfwSetWindowSize(pWindow, 3 * static_cast<int>(g_game->getCurrentGameWidth()), 3 * static_cast<int>(g_game->getCurrentGameHeight()));
+        window.setSize(3 * static_cast<int>(g_game->getCurrentGameWidth()), 3 * static_cast<int>(g_game->getCurrentGameHeight()));
         
         auto last_time = std::chrono::high_resolution_clock::now();
 
         RenderEngine::Renderer::setClearColor(0.f, 0.f, 0.f);
         RenderEngine::Renderer::setDepthTest(true);
 
-        /* Loop until the user closes the window */
-        while (!glfwWindowShouldClose(pWindow))
+
+
+        while (!window.ShouldClose())
         {
-            /* Render here */
             RenderEngine::Renderer::clear(GL_COLOR_BUFFER_BIT);
             RenderEngine::Renderer::clear(GL_DEPTH_BUFFER_BIT);
 
@@ -133,15 +128,16 @@ int main(const int argc, const char** argv)
             g_game->update(duration);
             g_game->render();
 
-            /* Swap front and back buffers */
-            glfwSwapBuffers(pWindow);
+            window.swapBuffers();
 
-            /* Poll for and process events */
-            glfwPollEvents();
+            window.pollEvents();
         }
     }
+    
     Resources::ResourceManager::unloadAllResources();
     Physics::PhysicsEngine::terminate();
-    glfwTerminate();
+
+    my_system::Window::terminate();
+    
     return 0;
 }

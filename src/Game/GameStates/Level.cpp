@@ -315,7 +315,7 @@ namespace BatleCity
 
 
 
-	void Level::update(const double delta, const std::array<bool, 349>& keyboard)
+	void Level::update(const double delta, std::array<bool, 349>& keyboard)
 	{
 		for (const auto& current_static_map_object : m_static_map_objects)
 		{

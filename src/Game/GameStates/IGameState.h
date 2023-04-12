@@ -4,15 +4,13 @@
 
 #include <array>
 
+
+
 namespace BatleCity
 {
 	class IGameState
 	{
 	public:
-
-		static constexpr unsigned int BLOCK_SIZE = 16;
-
-
 
 		enum class EGameStates
 		{
@@ -27,8 +25,10 @@ namespace BatleCity
 		virtual size_t getGameStateWidth() const noexcept = 0;
 		virtual size_t getGameStateHeight() const noexcept = 0;
 		virtual bool start() const noexcept = 0;
-		virtual void update(const double delta, const std::array<bool, 349>& keyboard) = 0;
+		virtual void update(const double delta, std::array<bool, 349>& keyboard) = 0;
 		virtual void render() const = 0;
+
+		EGameStates getGameStateType() const noexcept;
 
 	protected:
 

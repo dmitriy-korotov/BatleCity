@@ -2,6 +2,9 @@
 
 #include <algorithm>
 #include <iostream>
+#include <memory>
+
+
 
 namespace Physics
 {
@@ -105,33 +108,36 @@ namespace Physics
 
 
 
-	bool PhysicsEngine::isIntersection(const std::vector<AABB>& first_object, const glm::vec2& position_object1,
-									   const std::vector<AABB>& second_object, const glm::vec2& position_object2)
+	std::pair<std::shared_ptr<AABB>, std::shared_ptr<AABB>> PhysicsEngine::isIntersection(const std::vector<AABB>& first_object, const glm::vec2& position_object1,
+																						  const std::vector<AABB>& second_object, const glm::vec2& position_object2)
 	{
 		for (const auto& first_collision : first_object)
 		{
 			for (const auto& second_collision : second_object)
 			{
-				if (first_collision.getLeftBottom().x + position_object1.x >= second_collision.getRightTop().x + position_object2.x)
+				if (first_collision.isActive() && second_collision.isActive())
 				{
-					continue;
+					if (first_collision.getLeftBottom().x + position_object1.x >= second_collision.getRightTop().x + position_object2.x)
+					{
+						continue;
+					}
+					if (first_collision.getRightTop().x + position_object1.x <= second_collision.getLeftBottom().x + position_object2.x)
+					{
+						continue;
+					}
+					if (first_collision.getLeftBottom().y + position_object1.y >= second_collision.getRightTop().y + position_object2.y)
+					{
+						continue;
+					}
+					if (first_collision.getRightTop().y + position_object1.y <= second_collision.getLeftBottom().y + position_object2.y)
+					{
+						continue;
+					}
+					return std::make_pair<std::shared_ptr<AABB>, std::shared_ptr<AABB>>(std::make_shared<AABB>(first_collision), std::make_shared<AABB>(second_collision));
 				}
-				if (first_collision.getRightTop().x + position_object1.x <= second_collision.getLeftBottom().x + position_object2.x)
-				{
-					continue;
-				}
-				if (first_collision.getLeftBottom().y + position_object1.y >= second_collision.getRightTop().y + position_object2.y)
-				{
-					continue;
-				}
-				if (first_collision.getRightTop().y + position_object1.y <= second_collision.getLeftBottom().y + position_object2.y)
-				{
-					continue;
-				}
-				return true;
 			}
 		}
-		return false;
+		return std::make_pair<std::shared_ptr<AABB>, std::shared_ptr<AABB>>(nullptr, nullptr);
 	}
 
 
@@ -142,10 +148,11 @@ namespace Physics
 	{
 		for (const auto& object : other_objects)
 		{
-			if (isIntersection(object->getColliders(), object->getPosition(), current_game_object->getColliders(), new_position))
+			auto colliders_pair = isIntersection(current_game_object->getColliders(), new_position, object->getColliders(), object->getPosition());
+			if (colliders_pair.first != nullptr && colliders_pair.second != nullptr)
 			{
-				const bool is_stoped = current_game_object->onCollision(object->getGameObjectType());
-				object->onCollision(current_game_object->getGameObjectType(), current_game_object->getDirection());
+				const bool is_stoped = current_game_object->onCollision(object->getGameObjectType(), colliders_pair.first);
+				object->onCollision(current_game_object->getGameObjectType(), colliders_pair.second, current_game_object->getDirection());
 				if (is_stoped)		return true;
 			}
 		}

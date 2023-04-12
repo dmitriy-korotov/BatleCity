@@ -10,6 +10,8 @@
 
 #include "../../Resources/ResourceManager.h"
 
+
+
 namespace RenderEngine
 {
 	class Sprite2D;
@@ -49,7 +51,7 @@ namespace BatleCity
 		virtual ~IGameObject()
 		{ }
 
-		virtual bool onCollision(EGameObjectType game_object_type, const glm::vec2& direction = glm::vec2(0.f)) = 0;
+		virtual bool onCollision(EGameObjectType game_object_type, std::shared_ptr<Physics::AABB> target_collider, const glm::vec2& direction = glm::vec2(0.f)) = 0;
 		virtual void update(const double daleta) = 0;
 		virtual void render() const = 0;
 

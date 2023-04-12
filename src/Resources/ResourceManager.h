@@ -2,16 +2,20 @@
 #ifndef RESOURCE_MANAGER_H
 #define RESOURCE_MANAGER_H
 
+#include "../rapidjson/document.h"
+
 #include <string>
 #include <map>
 #include <vector>
 #include <memory>
 
-#include "../rapidjson/document.h"
+
 
 namespace BatleCity
 {
 	class IGameState;
+	class StartScreen;
+	class Level;
 }
 
 namespace RenderEngine
@@ -65,9 +69,12 @@ namespace Resources
 																	 const unsigned int width_subTexture,
 																	 const unsigned int height_subtexture);
 
-		static std::shared_ptr<BatleCity::IGameState> loadLevel(std::string& name, std::vector<std::string>& level_description);
-		static std::shared_ptr<BatleCity::IGameState> loadStartScreen(std::string& name, std::vector<std::string>& start_screen_description);
-		static std::shared_ptr<BatleCity::IGameState> getGameState(const std::string& name);
+		static std::shared_ptr<BatleCity::IGameState> loadLevel(std::string& level_name, std::vector<std::string>& level_description);
+		static std::shared_ptr<BatleCity::IGameState> loadStartScreen(std::string& start_screeen_name, std::vector<std::string>& start_screen_description,
+																	  unsigned int left_offset, unsigned int bottom_offset,
+																	  unsigned int menu_position_x, unsigned int menu_position_y);
+		static std::shared_ptr<BatleCity::StartScreen> getStartScreen(const std::string& start_screen_name);
+		static std::shared_ptr<BatleCity::Level> getLevel(const std::string& level_name);
 
 
 
@@ -79,7 +86,8 @@ namespace Resources
 		static bool loadShaderProgramsJSON(const rapidjson::Document& document);
 		static bool loadTextureAtlasesJSON(const rapidjson::Document& document);
 		static bool loadSpritesJSON(const rapidjson::Document& document);
-		static bool loadGameStatesJSON(const rapidjson::Document& document);
+		static bool loadLevelsJSON(const rapidjson::Document& document);
+		static bool loadStartScreensJSON(const rapidjson::Document& document);
 
 
 		typedef std::map<std::string, std::shared_ptr<RenderEngine::ShaderProgram>> MapShaderProgram;

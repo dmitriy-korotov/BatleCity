@@ -42,16 +42,28 @@ namespace BatleCity
 			m_colliders.addCollider(m_size / 2.f, m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::LeftTop_RightBottom:
+			m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f), m_size / 2.f);
+			m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f), glm::vec2(m_size.x, m_size.y / 2.f));
 			break;
 		case BatleCity::Block::EBlockType::RightTop_LeftBottom:
+			m_colliders.addCollider(m_size / 2.f, m_size / 2.f);
+			m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::WithoutLeftTop:
+			m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f), m_size);
+			m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::WithoutLeftBottom:
+			m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f), m_size);
+			m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f), m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::WithoutRightBottom:
+			m_colliders.addCollider(glm::vec2(0.f), glm::vec2(m_size.x / 2.f, m_size.y));
+			m_colliders.addCollider(m_size / 2.f, m_size / 2.f);
 			break;
 		case BatleCity::Block::EBlockType::WithoutRightTop:
+			m_colliders.addCollider(glm::vec2(0.f), glm::vec2(m_size.x / 2.f, m_size.y));
+			m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f), glm::vec2(m_size.x, m_size.y / 2.f));
 			break;
 		case BatleCity::Block::EBlockType::Nothing:
 			break;
@@ -60,7 +72,7 @@ namespace BatleCity
 
 
 
-	void Block::renderBlock(const ESubBlockLocation block_location) const
+	void Block::renderBlock(const ESubBlockLocation subBlock_location) const
 	{ }
 
 
@@ -143,7 +155,7 @@ namespace BatleCity
 
 
 
-	bool Block::onCollision(EGameObjectType game_object_type, const glm::vec2& direction)
+	bool Block::onCollision(EGameObjectType game_object_type, std::shared_ptr<Physics::AABB> target_collider, const glm::vec2& direction)
 	{
 		return true;
 	}
