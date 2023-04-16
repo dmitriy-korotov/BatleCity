@@ -1,5 +1,7 @@
 #include "IDynamicGameObject.h"
 
+
+
 namespace BatleCity
 {
 	IDynamicGameObject::IDynamicGameObject(EGameObjectType game_object_type, const glm::vec2& position, const glm::vec2& size,

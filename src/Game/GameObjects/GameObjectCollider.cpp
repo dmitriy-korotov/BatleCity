@@ -1,9 +1,11 @@
 #include "GameObjectCollider.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "../../Render/VertexBufferLayout.h"
 #include "../../Render/Renderer.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+
 
 namespace BatleCity
 {

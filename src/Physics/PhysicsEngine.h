@@ -29,7 +29,7 @@ namespace Physics
 		static void terminate();
 		static void update(double delta);
 		static void addDynamicGameObject(std::shared_ptr<BatleCity::IDynamicGameObject> dynamic_game_object);
-		static void setCurrentLevel(std::shared_ptr<BatleCity::Level> current_level);
+		static void setCurrentLevel(std::shared_ptr<const BatleCity::Level> current_level);
 
 	private:
 
@@ -43,7 +43,7 @@ namespace Physics
 											 const std::vector<std::shared_ptr<BatleCity::IGameObject>>& other_objects);
 
 		static std::unordered_set<std::shared_ptr<BatleCity::IDynamicGameObject>> m_dynamic_game_objects;
-		static std::shared_ptr<BatleCity::Level> m_current_level;
+		static std::shared_ptr<const BatleCity::Level> m_current_level;
 
 	};
 }

@@ -62,16 +62,50 @@ namespace my_system
 
 
 
-	void Window::setResizeCallBack(void(*_size_call_back)(GLFWwindow*, int, int)) const noexcept
+	void Window::setResizeCallBack(void(*_resize_call_back)(GLFWwindow*, int, int)) noexcept
 	{
-		glfwSetWindowSizeCallback(m_window_ptr, reinterpret_cast<GLFWwindowsizefun&>(_size_call_back));
+		m_window_resize_call_back = _resize_call_back;
+		glfwSetWindowSizeCallback(m_window_ptr, reinterpret_cast<GLFWwindowsizefun&>(_resize_call_back));
 	}
 
 
 
-	void Window::setKeyCallBack(void(*_key_call_back)(GLFWwindow*, int, int, int, int)) const noexcept
+	void Window::setKeyCallBack(void(*_key_call_back)(GLFWwindow*, int, int, int, int)) noexcept
 	{
+		m_key_call_back = _key_call_back;
 		glfwSetKeyCallback(m_window_ptr, reinterpret_cast<GLFWkeyfun&>(_key_call_back));
+	}
+
+
+
+	void Window::callResizeCallBack(int width, int height) const noexcept
+	{
+		m_window_resize_call_back(m_window_ptr, width, height);
+	}
+
+
+
+	void Window::callKeyCallBack(int key, int scancode, int action, int mode) const noexcept
+	{
+		m_key_call_back(m_window_ptr, key, scancode, action, mode);
+	}
+
+
+
+	unsigned int Window::getWindowWidth() const noexcept
+	{
+		int width = 0, height = 0;
+		glfwGetWindowSize(m_window_ptr, &width, &height);
+		return width;
+	}
+
+
+
+	unsigned int Window::getWindowHeight() const noexcept
+	{
+		int width = 0, height = 0;
+		glfwGetWindowSize(m_window_ptr, &width, &height);
+		return height;
 	}
 
 

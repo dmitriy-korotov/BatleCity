@@ -8,13 +8,15 @@
 
 #include "../../Physics/PhysicsEngine.h"
 
+
+
 namespace BatleCity
 {
-	Tank::Tank(std::shared_ptr<RenderEngine::Sprite2D> sprite_ptr, const glm::vec2& positiion, const glm::vec2& size,
+	Tank::Tank(ETankType tank_type, const glm::vec2& positiion, const glm::vec2& size,
 		       const double max_velocity, double delay_between_shots, const glm::vec2& direction, double velocity, const float layer)
 
 		  : IDynamicGameObject(EGameObjectType::Tank, positiion, size, 0.f, layer, direction, velocity, max_velocity)
-		  ,	m_tank_sprite(std::move(sprite_ptr))
+		  ,	m_tank_sprite(Resources::ResourceManager::getSprite(m_all_kinds_tank_sprites[static_cast<size_t>(tank_type)]))
 		  ,	m_respawn_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("RespawnAnimation")), my_system::Timer()}
 		  ,	m_shield_animation{ RenderEngine::SpriteAnimator(Resources::ResourceManager::getSprite("ShieldAnimation")), my_system::Timer() }
 		  , m_min_velocity(max_velocity / 2)

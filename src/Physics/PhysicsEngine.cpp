@@ -9,7 +9,7 @@
 namespace Physics
 {
 	std::unordered_set<std::shared_ptr<BatleCity::IDynamicGameObject>> PhysicsEngine::m_dynamic_game_objects;
-	std::shared_ptr<BatleCity::Level> PhysicsEngine::m_current_level;
+	std::shared_ptr<const BatleCity::Level> PhysicsEngine::m_current_level;
 
 
 
@@ -43,9 +43,14 @@ namespace Physics
 			{
 				if (dynamic_game_object->getVelocity() > 0)
 				{
+					bool is_intersection = false;
 					const glm::vec2 new_position = getNewPosition(dynamic_game_object, delta);
-					auto objects = m_current_level->getObjectsFromArea(new_position, dynamic_game_object->getSize());
-					bool is_intersection = isInersectionWithObjects(dynamic_game_object, new_position, objects);
+					
+					if (m_current_level)
+					{
+						auto objects = m_current_level->getObjectsFromArea(new_position, dynamic_game_object->getSize());
+						is_intersection = isInersectionWithObjects(dynamic_game_object, new_position, objects);
+					}
 
 					if (!is_intersection)
 					{
@@ -74,7 +79,7 @@ namespace Physics
 
 
 
-	void PhysicsEngine::setCurrentLevel(std::shared_ptr<BatleCity::Level> current_level)
+	void PhysicsEngine::setCurrentLevel(std::shared_ptr<const BatleCity::Level> current_level)
 	{
 		m_current_level.swap(current_level);
 	}

@@ -214,7 +214,7 @@ namespace Resources
 			std::cerr << "Level description is empty can't load level" << std::endl;
 			return nullptr;
 		}
-		return m_game_states.emplace(std::move(level_name), std::move(std::make_shared<BatleCity::Level>(std::move(level_description)))).first->second;
+		return m_game_states.emplace(std::move(level_name), std::make_shared<BatleCity::Level>(std::move(level_description))).first->second;
 	}
 
 
@@ -281,7 +281,7 @@ namespace Resources
 
 
 
-	bool ResourceManager::loadResourcesJSON(const std::string& path_to_JSON_file)
+	bool ResourceManager::loadAllResourcesJSON(const std::string& path_to_JSON_file)
 	{
 		const std::string JSON_string = ResourceManager::getFileString(m_path + "/" + path_to_JSON_file);
 		if (JSON_string.empty())

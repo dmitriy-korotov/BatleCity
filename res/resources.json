@@ -7,7 +7,7 @@
         },
 
         {
-            "name"          : "ColliderShaderProgram",
+            "name"          : "colliderShaderProgram",
             "filePath_v"    : "res/shaders/vertex.txt",
             "filePath_f"    : "res/shaders/fragment.txt"
         }
@@ -130,7 +130,205 @@
                                     "yellowTank1_Bottom1",
                                     "yellowTank1_Bottom2",
                                     "yellowTank1_Right1",
-                                    "yellowTank1_Right2"
+                                    "yellowTank1_Right2",
+
+                                    "whiteTank1_Top1",
+                                    "whiteTank1_Top2",
+                                    "whiteTank1_Left1",
+                                    "whiteTank1_Left2",
+                                    "whiteTank1_Bottom1",
+                                    "whiteTank1_Bottom2",
+                                    "whiteTank1_Right1",
+                                    "whiteTank1_Right2",
+
+                                    "yellowTank2_Top1",
+                                    "yellowTank2_Top2",
+                                    "yellowTank2_Left1",
+                                    "yellowTank2_Left2",
+                                    "yellowTank2_Bottom1",
+                                    "yellowTank2_Bottom2",
+                                    "yellowTank2_Right1",
+                                    "yellowTank2_Right2",
+
+                                    "whiteTank2_Top1",
+                                    "whiteTank2_Top2",
+                                    "whiteTank2_Left1",
+                                    "whiteTank2_Left2",
+                                    "whiteTank2_Bottom1",
+                                    "whiteTank2_Bottom2",
+                                    "whiteTank2_Right1",
+                                    "whiteTank2_Right2",
+
+                                    "yellowTank3_Top1",
+                                    "yellowTank3_Top2",
+                                    "yellowTank3_Left1",
+                                    "yellowTank3_Left2",
+                                    "yellowTank3_Bottom1",
+                                    "yellowTank3_Bottom2",
+                                    "yellowTank3_Right1",
+                                    "yellowTank3_Right2",
+
+                                    "whiteTank3_Top1",
+                                    "whiteTank3_Top2",
+                                    "whiteTank3_Left1",
+                                    "whiteTank3_Left2",
+                                    "whiteTank3_Bottom1",
+                                    "whiteTank3_Bottom2",
+                                    "whiteTank3_Right1",
+                                    "whiteTank3_Right2",
+
+                                    "yellowTank4_Top1",
+                                    "yellowTank4_Top2",
+                                    "yellowTank4_Left1",
+                                    "yellowTank4_Left2",
+                                    "yellowTank4_Bottom1",
+                                    "yellowTank4_Bottom2",
+                                    "yellowTank4_Right1",
+                                    "yellowTank4_Right2",
+
+                                    "whiteTank4_Top1",
+                                    "whiteTank4_Top2",
+                                    "whiteTank4_Left1",
+                                    "whiteTank4_Left2",
+                                    "whiteTank4_Bottom1",
+                                    "whiteTank4_Bottom2",
+                                    "whiteTank4_Right1",
+                                    "whiteTank4_Right2",
+
+                                    "greenTank1_Top1",
+                                    "greenTank1_Top2",
+                                    "greenTank1_Left1",
+                                    "greenTank1_Left2",
+                                    "greenTank1_Bottom1",
+                                    "greenTank1_Bottom2",
+                                    "greenTank1_Right1",
+                                    "greenTank1_Right2",
+
+                                    "greenTank2_Top1",
+                                    "greenTank2_Top2",
+                                    "greenTank2_Left1",
+                                    "greenTank2_Left2",
+                                    "greenTank2_Bottom1",
+                                    "greenTank2_Bottom2",
+                                    "greenTank2_Right1",
+                                    "greenTank2_Right2",
+
+                                    "greenTank3_Top1",
+                                    "greenTank3_Top2",
+                                    "greenTank3_Left1",
+                                    "greenTank3_Left2",
+                                    "greenTank3_Bottom1",
+                                    "greenTank3_Bottom2",
+                                    "greenTank3_Right1",
+                                    "greenTank3_Right2",
+
+                                    "greenTank4_Top1",
+                                    "greenTank4_Top2",
+                                    "greenTank4_Left1",
+                                    "greenTank4_Left2",
+                                    "greenTank4_Bottom1",
+                                    "greenTank4_Bottom2",
+                                    "greenTank4_Right1",
+                                    "greenTank4_Right2",
+
+                                    "greenTank5_Top1",
+                                    "greenTank5_Top2",
+                                    "greenTank5_Left1",
+                                    "greenTank5_Left2",
+                                    "greenTank5_Bottom1",
+                                    "greenTank5_Bottom2",
+                                    "greenTank5_Right1",
+                                    "greenTank5_Right2",
+
+                                    "greenTank6_Top1",
+                                    "greenTank6_Top2",
+                                    "greenTank6_Left1",
+                                    "greenTank6_Left2",
+                                    "greenTank6_Bottom1",
+                                    "greenTank6_Bottom2",
+                                    "greenTank6_Right1",
+                                    "greenTank6_Right2",
+
+                                    "greenTank7_Top1",
+                                    "greenTank7_Top2",
+                                    "greenTank7_Left1",
+                                    "greenTank7_Left2",
+                                    "greenTank7_Bottom1",
+                                    "greenTank7_Bottom2",
+                                    "greenTank7_Right1",
+                                    "greenTank7_Right2",
+
+                                    "greenTank8_Top1",
+                                    "greenTank8_Top2",
+                                    "greenTank8_Left1",
+                                    "greenTank8_Left2",
+                                    "greenTank8_Bottom1",
+                                    "greenTank8_Bottom2",
+                                    "greenTank8_Right1",
+                                    "greenTank8_Right2",
+
+                                    "redTank1_Top1",
+                                    "redTank1_Top2",
+                                    "redTank1_Left1",
+                                    "redTank1_Left2",
+                                    "redTank1_Bottom1",
+                                    "redTank1_Bottom2",
+                                    "redTank1_Right1",
+                                    "redTank1_Right2",
+
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+
+                                    "redTank2_Top1",
+                                    "redTank2_Top2",
+                                    "redTank2_Left1",
+                                    "redTank2_Left2",
+                                    "redTank2_Bottom1",
+                                    "redTank2_Bottom2",
+                                    "redTank2_Right1",
+                                    "redTank2_Right2",
+
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+
+                                    "redTank3_Top1",
+                                    "redTank3_Top2",
+                                    "redTank3_Left1",
+                                    "redTank3_Left2",
+                                    "redTank3_Bottom1",
+                                    "redTank3_Bottom2",
+                                    "redTank3_Right1",
+                                    "redTank3_Right2",
+
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+
+                                    "redTank4_Top1",
+                                    "redTank4_Top2",
+                                    "redTank4_Left1",
+                                    "redTank4_Left2",
+                                    "redTank4_Bottom1",
+                                    "redTank4_Bottom2",
+                                    "redTank4_Right1",
+                                    "redTank4_Right2"
             ]
         },
 
@@ -480,6 +678,1070 @@
         },
 
         {
+            "name" : "yellowTank2_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Top1"
+        },
+
+        {
+            "name" : "yellowTank2_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Top2"
+        },
+
+        {
+            "name" : "yellowTank2_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Right1"
+        },
+
+        {
+            "name" : "yellowTank2_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Right2"
+        },
+
+        {
+            "name" : "yellowTank2_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Left1"
+        },
+
+        {
+            "name" : "yellowTank2_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Left2"
+        },
+
+        {
+            "name" : "yellowTank2_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Bottom1"
+        },
+
+        {
+            "name" : "yellowTank2_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank2_Bottom2"
+        },
+
+        {
+            "name" : "yellowTank3_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Top1"
+        },
+
+        {
+            "name" : "yellowTank3_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Top2"
+        },
+
+        {
+            "name" : "yellowTank3_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Right1"
+        },
+
+        {
+            "name" : "yellowTank3_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Right2"
+        },
+
+        {
+            "name" : "yellowTank3_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Left1"
+        },
+
+        {
+            "name" : "yellowTank3_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Left2"
+        },
+
+        {
+            "name" : "yellowTank3_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Bottom1"
+        },
+
+        {
+            "name" : "yellowTank3_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank3_Bottom2"
+        },
+
+        {
+            "name" : "yellowTank4_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Top1"
+        },
+
+        {
+            "name" : "yellowTank4_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Top2"
+        },
+
+        {
+            "name" : "yellowTank4_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Right1"
+        },
+
+        {
+            "name" : "yellowTank4_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Right2"
+        },
+
+        {
+            "name" : "yellowTank4_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Left1"
+        },
+
+        {
+            "name" : "yellowTank4_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Left2"
+        },
+
+        {
+            "name" : "yellowTank4_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Bottom1"
+        },
+
+        {
+            "name" : "yellowTank4_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "yellowTank4_Bottom2"
+        },
+
+        {
+            "name" : "whiteTank1_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Top1"
+        },
+
+        {
+            "name" : "whiteTank1_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Top2"
+        },
+
+        {
+            "name" : "whiteTank1_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Right1"
+        },
+
+        {
+            "name" : "whiteTank1_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Right2"
+        },
+
+        {
+            "name" : "whiteTank1_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Left1"
+        },
+
+        {
+            "name" : "whiteTank1_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Left2"
+        },
+
+        {
+            "name" : "whiteTank1_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Bottom1"
+        },
+
+        {
+            "name" : "whiteTank1_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank1_Bottom2"
+        },
+
+        {
+            "name" : "whiteTank2_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Top1"
+        },
+
+        {
+            "name" : "whiteTank2_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Top2"
+        },
+
+        {
+            "name" : "whiteTank2_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Right1"
+        },
+
+        {
+            "name" : "whiteTank2_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Right2"
+        },
+
+        {
+            "name" : "whiteTank2_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Left1"
+        },
+
+        {
+            "name" : "whiteTank2_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Left2"
+        },
+
+        {
+            "name" : "whiteTank2_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Bottom1"
+        },
+
+        {
+            "name" : "whiteTank2_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank2_Bottom2"
+        },
+
+        {
+            "name" : "whiteTank3_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Top1"
+        },
+
+        {
+            "name" : "whiteTank3_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Top2"
+        },
+
+        {
+            "name" : "whiteTank3_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Right1"
+        },
+
+        {
+            "name" : "whiteTank3_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Right2"
+        },
+
+        {
+            "name" : "whiteTank3_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Left1"
+        },
+
+        {
+            "name" : "whiteTank3_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Left2"
+        },
+
+        {
+            "name" : "whiteTank3_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Bottom1"
+        },
+
+        {
+            "name" : "whiteTank3_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank3_Bottom2"
+        },
+
+        {
+            "name" : "whiteTank4_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Top1"
+        },
+
+        {
+            "name" : "whiteTank4_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Top2"
+        },
+
+        {
+            "name" : "whiteTank4_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Right1"
+        },
+
+        {
+            "name" : "whiteTank4_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Right2"
+        },
+
+        {
+            "name" : "whiteTank4_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Left1"
+        },
+
+        {
+            "name" : "whiteTank4_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Left2"
+        },
+
+        {
+            "name" : "whiteTank4_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Bottom1"
+        },
+
+        {
+            "name" : "whiteTank4_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "whiteTank4_Bottom2"
+        },
+
+        {
+            "name" : "greenTank1_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Top1"
+        },
+
+        {
+            "name" : "greenTank1_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Top2"
+        },
+
+        {
+            "name" : "greenTank1_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Right1"
+        },
+
+        {
+            "name" : "greenTank1_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Right2"
+        },
+
+        {
+            "name" : "greenTank1_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Left1"
+        },
+
+        {
+            "name" : "greenTank1_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Left2"
+        },
+
+        {
+            "name" : "greenTank1_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Bottom1"
+        },
+
+        {
+            "name" : "greenTank1_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank1_Bottom2"
+        },
+
+        {
+            "name" : "greenTank2_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Top1"
+        },
+
+        {
+            "name" : "greenTank2_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Top2"
+        },
+
+        {
+            "name" : "greenTank2_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Right1"
+        },
+
+        {
+            "name" : "greenTank2_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Right2"
+        },
+
+        {
+            "name" : "greenTank2_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Left1"
+        },
+
+        {
+            "name" : "greenTank2_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Left2"
+        },
+
+        {
+            "name" : "greenTank2_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Bottom1"
+        },
+
+        {
+            "name" : "greenTank2_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank2_Bottom2"
+        },
+
+        {
+            "name" : "greenTank3_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Top1"
+        },
+
+        {
+            "name" : "greenTank3_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Top2"
+        },
+
+        {
+            "name" : "greenTank3_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Right1"
+        },
+
+        {
+            "name" : "greenTank3_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Right2"
+        },
+
+        {
+            "name" : "greenTank3_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Left1"
+        },
+
+        {
+            "name" : "greenTank3_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Left2"
+        },
+
+        {
+            "name" : "greenTank3_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Bottom1"
+        },
+
+        {
+            "name" : "greenTank3_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank3_Bottom2"
+        },
+
+        {
+            "name" : "greenTank4_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Top1"
+        },
+
+        {
+            "name" : "greenTank4_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Top2"
+        },
+
+        {
+            "name" : "greenTank4_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Right1"
+        },
+
+        {
+            "name" : "greenTank4_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Right2"
+        },
+
+        {
+            "name" : "greenTank4_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Left1"
+        },
+
+        {
+            "name" : "greenTank4_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Left2"
+        },
+
+        {
+            "name" : "greenTank4_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Bottom1"
+        },
+
+        {
+            "name" : "greenTank4_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank4_Bottom2"
+        },
+
+        {
+            "name" : "greenTank5_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Top1"
+        },
+
+        {
+            "name" : "greenTank5_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Top2"
+        },
+
+        {
+            "name" : "greenTank5_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Right1"
+        },
+
+        {
+            "name" : "greenTank5_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Right2"
+        },
+
+        {
+            "name" : "greenTank5_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Left1"
+        },
+
+        {
+            "name" : "greenTank5_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Left2"
+        },
+
+        {
+            "name" : "greenTank5_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Bottom1"
+        },
+
+        {
+            "name" : "greenTank5_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank5_Bottom2"
+        },
+
+        {
+            "name" : "greenTank6_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Top1"
+        },
+
+        {
+            "name" : "greenTank6_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Top2"
+        },
+
+        {
+            "name" : "greenTank6_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Right1"
+        },
+
+        {
+            "name" : "greenTank6_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Right2"
+        },
+
+        {
+            "name" : "greenTank6_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Left1"
+        },
+
+        {
+            "name" : "greenTank6_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Left2"
+        },
+
+        {
+            "name" : "greenTank6_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Bottom1"
+        },
+
+        {
+            "name" : "greenTank6_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank6_Bottom2"
+        },
+
+        {
+            "name" : "greenTank7_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Top1"
+        },
+
+        {
+            "name" : "greenTank7_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Top2"
+        },
+
+        {
+            "name" : "greenTank7_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Right1"
+        },
+
+        {
+            "name" : "greenTank7_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Right2"
+        },
+
+        {
+            "name" : "greenTank7_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Left1"
+        },
+
+        {
+            "name" : "greenTank7_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Left2"
+        },
+
+        {
+            "name" : "greenTank7_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Bottom1"
+        },
+
+        {
+            "name" : "greenTank7_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank7_Bottom2"
+        },
+
+        {
+            "name" : "greenTank8_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Top1"
+        },
+
+        {
+            "name" : "greenTank8_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Top2"
+        },
+
+        {
+            "name" : "greenTank8_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Right1"
+        },
+
+        {
+            "name" : "greenTank8_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Right2"
+        },
+
+        {
+            "name" : "greenTank8_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Left1"
+        },
+
+        {
+            "name" : "greenTank8_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Left2"
+        },
+
+        {
+            "name" : "greenTank8_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Bottom1"
+        },
+
+        {
+            "name" : "greenTank8_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "greenTank8_Bottom2"
+        },
+
+        {
+            "name" : "redTank1_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Top1"
+        },
+
+        {
+            "name" : "redTank1_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Top2"
+        },
+
+        {
+            "name" : "redTank1_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Right1"
+        },
+
+        {
+            "name" : "redTank1_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Right2"
+        },
+
+        {
+            "name" : "redTank1_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Left1"
+        },
+
+        {
+            "name" : "redTank1_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Left2"
+        },
+
+        {
+            "name" : "redTank1_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Bottom1"
+        },
+
+        {
+            "name" : "redTank1_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank1_Bottom2"
+        },
+
+        {
+            "name" : "redTank2_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Top1"
+        },
+
+        {
+            "name" : "redTank2_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Top2"
+        },
+
+        {
+            "name" : "redTank2_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Right1"
+        },
+
+        {
+            "name" : "redTank2_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Right2"
+        },
+
+        {
+            "name" : "redTank2_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Left1"
+        },
+
+        {
+            "name" : "redTank2_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Left2"
+        },
+
+        {
+            "name" : "redTank2_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Bottom1"
+        },
+
+        {
+            "name" : "redTank2_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank2_Bottom2"
+        },
+
+        {
+            "name" : "redTank3_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Top1"
+        },
+
+        {
+            "name" : "redTank3_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Top2"
+        },
+
+        {
+            "name" : "redTank3_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Right1"
+        },
+
+        {
+            "name" : "redTank3_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Right2"
+        },
+
+        {
+            "name" : "redTank3_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Left1"
+        },
+
+        {
+            "name" : "redTank3_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Left2"
+        },
+
+        {
+            "name" : "redTank3_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Bottom1"
+        },
+
+        {
+            "name" : "redTank3_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank3_Bottom2"
+        },
+
+        {
+            "name" : "redTank4_Top1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Top1"
+        },
+
+        {
+            "name" : "redTank4_Top2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Top2"
+        },
+
+        {
+            "name" : "redTank4_Right1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Right1"
+        },
+
+        {
+            "name" : "redTank4_Right2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Right2"
+        },
+
+        {
+            "name" : "redTank4_Left1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Left1"
+        },
+
+        {
+            "name" : "redTank4_Left2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Left2"
+        },
+
+        {
+            "name" : "redTank4_Bottom1",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Bottom1"
+        },
+
+        {
+            "name" : "redTank4_Bottom2",
+            "textureAtlas" : "tanksTextureAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "redTank4_Bottom2"
+        },
+
+        {
             "name" : "One_Player_Selection",
             "textureAtlas" : "menuTextureAtlas",
             "shaderProgram" : "spriteShaderProgram",
@@ -529,7 +1791,7 @@
         },
         
         {
-            "name"                  : "yellowTankAnimatedSprite",
+            "name"                  : "yellowTank1AnimatedSprite",
             "textureAtlas"          : "tanksTextureAtlas",
             "shaderProgram"         : "spriteShaderProgram",
             "subTexture"            : "yellowTank1_Top1",
@@ -584,11 +1846,1303 @@
                     "frames" : [
                         {
                             "sprite"        : "yellowTank1_Right1",
-                            "duration"      : 30
+                            "duration"      : 300
                         },
 
                         {
                             "sprite"        : "yellowTank1_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+        
+        {
+            "name"                  : "yellowTank2AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "yellowTank2_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank2_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank2_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank2_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank2_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank2_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank2_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank2_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank2_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "yellowTank3AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "yellowTank3_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank3_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank3_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank3_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank3_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank3_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank3_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank3_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank3_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "yellowTank4AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "yellowTank4_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank4_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank4_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank4_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank4_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank4_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank4_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "yellowTank4_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "yellowTank4_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "whiteTank1AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "whiteTank1_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank1_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank1_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank1_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank1_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank1_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank1_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank1_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank1_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "whiteTank2AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "whiteTank2_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank2_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank2_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank2_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank2_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank2_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank2_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank2_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank2_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "whiteTank3AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "whiteTank3_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank3_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank3_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank3_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank3_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank3_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank3_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank3_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank3_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "whiteTank4AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "whiteTank4_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank4_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank4_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank4_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank4_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank4_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank4_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "whiteTank4_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "whiteTank4_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank1AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank1_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank1_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank1_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank1_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank1_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank1_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank1_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank1_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank1_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank2AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank2_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank2_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank2_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank2_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank2_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank2_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank2_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank2_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank2_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank3AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank3_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank3_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank3_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank3_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank3_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank3_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank3_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank3_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank3_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank4AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank4_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank4_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank4_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank4_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank4_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank4_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank4_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank4_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank4_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank5AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank5_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank5_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank5_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank5_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank5_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank5_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank5_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank5_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank5_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank6AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank6_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank6_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank6_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank6_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank6_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank6_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank6_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank6_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank6_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank7AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank7_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank7_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank7_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank7_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank7_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank7_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank7_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank7_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank7_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "greenTank8AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "greenTank1_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank8_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank8_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank8_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank8_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank8_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank8_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "greenTank8_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "greenTank8_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "redTank1AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "redTank1_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank1_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank1_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank1_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank1_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank1_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank1_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank1_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank1_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "redTank2AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "redTank2_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank2_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank2_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank2_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank2_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank2_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank2_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank2_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank2_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "redTank3AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "redTank3_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank3_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank3_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank3_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank3_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank3_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank3_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank3_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank3_Right2",
+                            "duration"      : 300
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name"                  : "redTank4AnimatedSprite",
+            "textureAtlas"          : "tanksTextureAtlas",
+            "shaderProgram"         : "spriteShaderProgram",
+            "subTexture"            : "redTank4_Top1",
+            "states" : [
+                {
+                    "stateName"             : "tankTopState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank4_Top1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank4_Top2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankLeftState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank4_Left1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank4_Left2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankBottomState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank4_Bottom1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank4_Bottom2",
+                            "duration"      : 300
+                        }
+                    ]
+                },
+
+                {
+                    "stateName"             : "tankRightState",
+                    "frames" : [
+                        {
+                            "sprite"        : "redTank4_Right1",
+                            "duration"      : 300
+                        },
+
+                        {
+                            "sprite"        : "redTank4_Right2",
                             "duration"      : 300
                         }
                     ]

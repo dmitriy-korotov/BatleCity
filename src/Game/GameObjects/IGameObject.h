@@ -2,13 +2,13 @@
 #ifndef I_GAME_OBJECT_H
 #define I_GAME_OBJECT_H
 
-#include <vector>
-
 #include <glm/vec2.hpp>
 
 #include "GameObjectCollider.h"
 
 #include "../../Resources/ResourceManager.h"
+
+#include <vector>
 
 
 
@@ -39,14 +39,7 @@ namespace BatleCity
 
 
 		IGameObject() = default;
-		IGameObject(EGameObjectType game_object_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-			: m_game_object_type(game_object_type)
-			, m_colliders(Resources::ResourceManager::getShaderProgram("ColliderShaderProgram"))
-			, m_size(size)
-			, m_position(position)
-			, m_rotation(rotation)
-			, m_layer(layer)
-		{ }
+		IGameObject(EGameObjectType game_object_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
 		virtual ~IGameObject()
 		{ }

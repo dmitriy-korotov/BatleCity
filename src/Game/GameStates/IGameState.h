@@ -3,8 +3,14 @@
 #define I_GAME_STATE_H
 
 #include <array>
+#include <memory>
 
 
+
+namespace RenderEngine
+{
+	class ShaderProgram;
+}
 
 namespace BatleCity
 {

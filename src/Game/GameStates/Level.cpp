@@ -1,16 +1,10 @@
 #include "Level.h"
 
-#include <iostream>
-#include <algorithm>
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../GameObjects/IGameObject.h"
-#include "../GameObjects/IDynamicGameObject.h"
-#include "../GameObjects/Block.h"
 #include "../GameObjects/BrickWall.h"
 #include "../GameObjects/BetonWAll.h"
 #include "../GameObjects/Tree.h"
@@ -24,10 +18,18 @@
 
 #include "../../Resources/ResourceManager.h"
 
+#include <iostream>
+#include <algorithm>
 
 
-std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(const char description, const glm::vec2& position,
-																		const glm::vec2& size, const float rotation)
+
+static constexpr char* GAME_OBJECTS_SHADER_PROGRAM_NAME = "spriteShaderProgram";
+static constexpr char* COLLIDERS_SHADER_PROGRAM_NAME = "colliderShaderProgram";
+
+
+
+static std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(const char description, const glm::vec2& position,
+																			   const glm::vec2& size, const float rotation)
 {
 	switch (description)
 	{
@@ -92,9 +94,23 @@ std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(const ch
 
 namespace BatleCity
 {
+	std::shared_ptr<RenderEngine::ShaderProgram> Level::m_game_obgects_shader_program = nullptr;
+	std::shared_ptr<RenderEngine::ShaderProgram> Level::m_colliders_shader_program = nullptr;
+
+
+
 	Level::Level(const std::vector<std::string>& level_description)
 		: IGameState(EGameStates::Level)
 	{
+		if (!m_game_obgects_shader_program)
+		{
+			setGameObjectsShaderProgram(Resources::ResourceManager::getShaderProgram(GAME_OBJECTS_SHADER_PROGRAM_NAME));
+		}
+		if (!m_colliders_shader_program)
+		{
+			setCollidersShaderProgram(Resources::ResourceManager::getShaderProgram(COLLIDERS_SHADER_PROGRAM_NAME));
+		}
+
 		if (level_description.empty())
 		{
 			std::cerr << "Level description is empty" << std::endl;
@@ -164,92 +180,83 @@ namespace BatleCity
 																	   glm::vec2(BLOCK_SIZE * 2.f, BLOCK_SIZE * (m_height_blocks + 1)), 0.f, 0.f));
 		
 			// add tanks
-			m_dynamic_map_objects.emplace_back(std::make_shared<Tank>(Resources::ResourceManager::getSprite("yellowTankAnimatedSprite"),
+			m_dynamic_map_objects.emplace_back(std::make_shared<Tank>(Tank::ETankType::RedTank1,
 											   m_player1_respawn, glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f));
 
-			m_dynamic_map_objects.emplace_back(std::make_shared<Tank>(Resources::ResourceManager::getSprite("yellowTankAnimatedSprite"),
+			m_dynamic_map_objects.emplace_back(std::make_shared<Tank>(Tank::ETankType::GreenTank5,
 											   m_player2_respawn, glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f));
 		}
 	}
 
 
 
-	Level::Level(Level&& other) noexcept
-		: IGameState(EGameStates::Level)
-		//, m_height_blocks(other.m_height_blocks)
-		//, m_width_blocks(other.m_width_blocks)
-		//, m_height_pixels(other.m_height_pixels)
-		//, m_width_pixels(other.m_width_pixels)
-		, m_static_map_objects(std::move(other.m_static_map_objects))
-		, m_dynamic_map_objects(std::move(other.m_dynamic_map_objects))
-		, m_player1_respawn(other.m_player1_respawn)
-		, m_player2_respawn(other.m_player2_respawn)
-		, m_enemy1_respawn(other.m_enemy1_respawn)
-		, m_enemy2_respawn(other.m_enemy2_respawn)
-		, m_enemy3_respawn(other.m_enemy3_respawn)
+	void Level::setGameObjectsShaderProgram(std::shared_ptr<RenderEngine::ShaderProgram>& shader_program) noexcept
 	{
-		other.m_height_blocks =		other.m_width_blocks = 0;
-		other.m_player1_respawn =	glm::vec2(0.f);
-		other.m_player2_respawn =	glm::vec2(0.f);
-		other.m_enemy1_respawn =	glm::vec2(0.f);
-		other.m_enemy2_respawn =	glm::vec2(0.f);
-		other.m_enemy3_respawn =	glm::vec2(0.f);
+		m_game_obgects_shader_program = std::move(shader_program);
 	}
 
 
 
-	Level& Level::operator=(Level&& _right) noexcept
+	void Level::setCollidersShaderProgram(std::shared_ptr<RenderEngine::ShaderProgram>& shader_program) noexcept
 	{
-		if (this != &_right)
+		m_colliders_shader_program = std::move(shader_program);
+	}
+
+
+
+	void Level::initPhysics() const
+	{
+		Physics::PhysicsEngine::addDynamicGameObject(m_dynamic_map_objects[0]);
+		Physics::PhysicsEngine::addDynamicGameObject(m_dynamic_map_objects[1]);
+
+		try
 		{
-			m_static_map_objects =		std::move(_right.m_static_map_objects);
-			m_dynamic_map_objects =		std::move(_right.m_dynamic_map_objects);
-			m_game_state =				_right.m_game_state;
-			m_width_blocks =			_right.m_width_blocks;
-			m_height_blocks =			_right.m_height_blocks;
-			m_player1_respawn =			_right.m_player1_respawn;
-			m_player2_respawn =			_right.m_player2_respawn;
-			m_enemy1_respawn =			_right.m_enemy1_respawn;
-			m_enemy2_respawn =			_right.m_enemy2_respawn;
-			m_enemy3_respawn =			_right.m_enemy3_respawn;
-			_right.m_height_blocks =	_right.m_width_blocks = 0;
-			_right.m_player1_respawn =	glm::vec2(0.f);
-			_right.m_player2_respawn =	glm::vec2(0.f);
-			_right.m_enemy1_respawn =	glm::vec2(0.f);
-			_right.m_enemy2_respawn =	glm::vec2(0.f);
-			_right.m_enemy3_respawn =	glm::vec2(0.f);
+			std::shared_ptr<const Level> ptr = shared_from_this();
 		}
-		return *this;
+		catch (...)
+		{
+			std::cerr << "ERROR: Exception" << std::endl;
+		}
+	}
+
+
+
+	bool Level::setProjectiomMatrix() const noexcept
+	{
+		glm::mat4 projection_matrix = glm::ortho<float>(0.f, getGameStateWidth(), 0.f, getGameStateHeight(), -100.f, 100.f);
+
+		if (m_game_obgects_shader_program)
+		{
+			m_game_obgects_shader_program->use();
+			m_game_obgects_shader_program->setMatrix4("clip_matrix", projection_matrix);
+		}
+		else
+		{
+			return false;
+		}
+
+		if (m_colliders_shader_program)
+		{
+			m_colliders_shader_program->use();
+			m_colliders_shader_program->setMatrix4("clip_matrix", projection_matrix);
+		}
+		else
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 
 
 	bool Level::start() const noexcept
 	{
-		std::shared_ptr<RenderEngine::ShaderProgram> shader_program_sprites = Resources::ResourceManager::getShaderProgram("spriteShaderProgram");
-		if (shader_program_sprites == nullptr)
+		if (!setProjectiomMatrix())
 		{
-			std::cerr << "=> ERROR: Can't start level: => Can't load shader program: " << "spriteShaderProgram" << std::endl;
 			return false;
 		}
-
-		std::shared_ptr<RenderEngine::ShaderProgram> shader_program_colliders = Resources::ResourceManager::getShaderProgram("ColliderShaderProgram");
-		if (shader_program_colliders == nullptr)
-		{
-			std::cerr << "=> ERROR: Can't start level: => Can't load shader program: " << "ColliderShaderProgram" << std::endl;
-			return false;
-		}
-
-		glm::mat4 projection_matrix = glm::ortho<float>(0.f, getGameStateWidth(), 0.f, getGameStateHeight(), -100.f, 100.f);
-		shader_program_sprites->use();
-		shader_program_sprites->setMatrix4("clip_matrix", projection_matrix);
-
-		shader_program_colliders->use();
-		shader_program_colliders->setMatrix4("clip_matrix", projection_matrix);
-
-		Physics::PhysicsEngine::addDynamicGameObject(m_dynamic_map_objects[0]);
-		Physics::PhysicsEngine::addDynamicGameObject(m_dynamic_map_objects[1]);
-
+		initPhysics();
 		return true;
 	}
 

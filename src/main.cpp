@@ -73,18 +73,18 @@ int main(const int argc, const char** argv)
     my_system::Window::setHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-    my_system::Window window(G_WINDOW_SIZE.x, G_WINDOW_SIZE.y, "BatleCity");
-    if (!window.isCreated())
+    std::shared_ptr<my_system::Window> window_ptr = std::make_shared<my_system::Window>(G_WINDOW_SIZE.x, G_WINDOW_SIZE.y, "BatleCity");
+    if (!window_ptr->isCreated())
     {
         std::cout << "ERROR: Window creating failed" << std::endl;
         my_system::Window::terminate();
         return -1;
     }
     
-    window.setResizeCallBack(glfwWindowSizeCallback);
-    window.setKeyCallBack(glfwKeyCallback);
+    window_ptr->setResizeCallBack(glfwWindowSizeCallback);
+    window_ptr->setKeyCallBack(glfwKeyCallback);
 
-    window.makeContextCurrent();
+    window_ptr->makeContextCurrent();
 
     if (!gladLoadGL())
     {
@@ -99,12 +99,12 @@ int main(const int argc, const char** argv)
         Resources::ResourceManager::setExecutablePath(argv[0]);
         Physics::PhysicsEngine::init();
 
-        if (!g_game->init())
+        if (!g_game->init(window_ptr))
         {
             std::cerr << "ERROR: Can't inital game" << std::endl;
             return -1;
         }
-        window.setSize(3 * static_cast<int>(g_game->getCurrentGameWidth()), 3 * static_cast<int>(g_game->getCurrentGameHeight()));
+        window_ptr->setSize(3 * static_cast<int>(g_game->getCurrentGameWidth()), 3 * static_cast<int>(g_game->getCurrentGameHeight()));
         
         auto last_time = std::chrono::high_resolution_clock::now();
 
@@ -113,7 +113,7 @@ int main(const int argc, const char** argv)
 
 
 
-        while (!window.ShouldClose())
+        while (!window_ptr->ShouldClose())
         {
             RenderEngine::Renderer::clear(GL_COLOR_BUFFER_BIT);
             RenderEngine::Renderer::clear(GL_DEPTH_BUFFER_BIT);
@@ -128,9 +128,9 @@ int main(const int argc, const char** argv)
             g_game->update(duration);
             g_game->render();
 
-            window.swapBuffers();
+            window_ptr->swapBuffers();
 
-            window.pollEvents();
+            window_ptr->pollEvents();
         }
     }
     

@@ -2,6 +2,8 @@
 
 #include "VertexBufferLayout.h"
 
+
+
 namespace RenderEngine
 {
 	IRenderObjectRect2D::IRenderObjectRect2D(std::shared_ptr<ShaderProgram> shader_program)

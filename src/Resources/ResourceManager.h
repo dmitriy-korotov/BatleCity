@@ -78,7 +78,7 @@ namespace Resources
 
 
 
-		static bool loadResourcesJSON(const std::string& path_to_JSON_file);
+		static bool loadAllResourcesJSON(const std::string& path_to_JSON_file);
 
 	private:
 

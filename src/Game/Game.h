@@ -14,6 +14,7 @@ namespace my_system
 
 namespace RenderEngine
 {
+	class ShaderProgram;
 	class AnimatedSprite2D;
 }
 
@@ -31,7 +32,7 @@ namespace BatleCity
 		Game();
 		~Game();
 
-		bool init();
+		bool init(std::shared_ptr<my_system::Window> window_ptr);
 		void setKey(const int key, const int action);
 		void update(const double delta);
 		void render();
@@ -41,7 +42,11 @@ namespace BatleCity
 
 	private:
 
-		std::shared_ptr<my_system::Window> m_window = nullptr;
+		void resetWindowSizeToCurrentGameState() noexcept;
+
+
+
+		std::shared_ptr<my_system::Window> m_window_ptr = nullptr;
 
 		std::array<bool, 349> m_keys;
 
