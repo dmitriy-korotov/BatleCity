@@ -14,9 +14,10 @@
 
 #include "../System/Window.h"
 
+#include <GLFW/glfw3.h>
+
 #include <iostream>
 
-#include <GLFW/glfw3.h>
 
 
 namespace BatleCity
@@ -99,11 +100,17 @@ namespace BatleCity
                 switch (reinterpret_cast<std::shared_ptr<StartScreen>&>(m_current_game_state)->select())
                 {
                 case StartScreen::EMenuPuncts::LevelTwoPlayers:
+                    m_level->setLevelType(Level::ELevelType::TwoPlayers);
                     m_current_game_state = m_level;
                     m_current_game_state->start();
-                    resetWindowSizeToCurrentGameState();
+                    break;
+                case StartScreen::EMenuPuncts::LevelOnePlayer:
+                    m_level->setLevelType(Level::ELevelType::OnePlayer);
+                    m_current_game_state = m_level;
+                    m_current_game_state->start();
                     break;
                 }
+                resetWindowSizeToCurrentGameState();
             }
         }
         if (m_current_game_state->getGameStateType() == IGameState::EGameStates::Level)

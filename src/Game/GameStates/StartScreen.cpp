@@ -207,17 +207,19 @@ namespace BatleCity
 
 	void StartScreen::update(double delta, std::array<bool, 349>& keyboard)
 	{ 
-		if (keyboard[GLFW_KEY_S])
+		if (keyboard[GLFW_KEY_S] || keyboard[GLFW_KEY_DOWN])
 		{
 			bool is_above_than_bottom_selection = m_menu_selector.second.y > m_menu_selections[m_menu_selections.size() - 1].second.y;
 			m_menu_selector.second.y = is_above_than_bottom_selection ? m_menu_selector.second.y - BLOCK_SIZE * 2 : m_menu_selections[0].second.y;
 			keyboard[GLFW_KEY_S] = false;
+			keyboard[GLFW_KEY_DOWN] = false;
 		}
-		else if (keyboard[GLFW_KEY_W])
+		else if (keyboard[GLFW_KEY_W] || keyboard[GLFW_KEY_UP])
 		{
 			bool is_less_than_upper_selection = m_menu_selector.second.y < m_menu_selections[0].second.y;
 			m_menu_selector.second.y = is_less_than_upper_selection ? m_menu_selector.second.y + BLOCK_SIZE * 2 : m_menu_selections[m_menu_selections.size() - 1].second.y;
 			keyboard[GLFW_KEY_W] = false;
+			keyboard[GLFW_KEY_UP] = false;
 		}
 	}
 

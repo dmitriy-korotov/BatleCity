@@ -13,6 +13,7 @@
 #include "../GameObjects/Eagle.h"
 #include "../GameObjects/Border.h"
 #include "../GameObjects/Tank.h"
+#include "../GameObjects/EnemyTank.h"
 
 #include "../../Physics/PhysicsEngine.h"
 
@@ -97,10 +98,14 @@ namespace BatleCity
 	std::shared_ptr<RenderEngine::ShaderProgram> Level::m_game_obgects_shader_program = nullptr;
 	std::shared_ptr<RenderEngine::ShaderProgram> Level::m_colliders_shader_program = nullptr;
 
+	const std::vector<uint16_t> Level::m_player2_keys = { GLFW_KEY_A, GLFW_KEY_D, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_LEFT_SHIFT, GLFW_KEY_SPACE };
+	const std::vector<uint16_t> Level::m_player1_keys = { GLFW_KEY_LEFT, GLFW_KEY_RIGHT, GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_RIGHT_SHIFT, GLFW_KEY_ENTER };
 
 
-	Level::Level(const std::vector<std::string>& level_description)
-		: IGameState(EGameStates::Level)
+
+	Level::Level(std::vector<std::string>&& level_description)
+			: IGameState(EGameStates::Level)
+			, m_description(std::move(level_description))
 	{
 		if (!m_game_obgects_shader_program)
 		{
@@ -111,14 +116,14 @@ namespace BatleCity
 			setCollidersShaderProgram(Resources::ResourceManager::getShaderProgram(COLLIDERS_SHADER_PROGRAM_NAME));
 		}
 
-		if (level_description.empty())
+		if (m_description.empty())
 		{
 			std::cerr << "Level description is empty" << std::endl;
 		}
 		else
 		{
-			m_width_blocks = level_description[0].length();
-			m_height_blocks = level_description.size();
+			m_width_blocks = m_description[0].length();
+			m_height_blocks = m_description.size();
 			m_width_pixels = m_width_blocks * BLOCK_SIZE;
 			m_height_pixels = m_height_blocks * BLOCK_SIZE;
 
@@ -131,7 +136,7 @@ namespace BatleCity
 			m_static_map_objects.reserve(static_cast<size_t>(m_width_blocks * m_height_blocks + 4));
 
 			unsigned int current_offset_y = (m_height_blocks - 0.5f) * BLOCK_SIZE;
-			for (const std::string& current_row : level_description)
+			for (const std::string& current_row : m_description)
 			{
 				unsigned int current_offset_x = BLOCK_SIZE;
 				for (const char current_row_element : current_row)
@@ -166,25 +171,18 @@ namespace BatleCity
 			}
 
 			// border bottom
-			m_static_map_objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, 0.f), glm::vec2(m_width_pixels, BLOCK_SIZE / 2.f), 0.f, 0.f));
+			m_static_map_objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, 0.f), glm::vec2(m_width_pixels, BOTTOM_BORDER_HEIGHT), 0.f, 0.f));
 
 			// border top
 			m_static_map_objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, m_height_pixels + BLOCK_SIZE / 2.f),
-																	   glm::vec2(m_width_pixels, BLOCK_SIZE / 2.f), 0.f, 0.f));
+																	   glm::vec2(m_width_pixels, TOP_BORDER_HEIGHT), 0.f, 0.f));
 
 			// border left
-			m_static_map_objects.emplace_back(std::make_shared<Border>(glm::vec2(0.f, 0.f), glm::vec2(BLOCK_SIZE, BLOCK_SIZE * (m_height_blocks + 1)), 0.f, 0.f));
+			m_static_map_objects.emplace_back(std::make_shared<Border>(glm::vec2(0.f, 0.f), glm::vec2(LEFT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f, 0.f));
 
 			// border right
 			m_static_map_objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE * (m_width_blocks + 1), 0.f),
-																	   glm::vec2(BLOCK_SIZE * 2.f, BLOCK_SIZE * (m_height_blocks + 1)), 0.f, 0.f));
-		
-			// add tanks
-			m_dynamic_map_objects.emplace_back(std::make_shared<Tank>(Tank::ETankType::RedTank1,
-											   m_player1_respawn, glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f));
-
-			m_dynamic_map_objects.emplace_back(std::make_shared<Tank>(Tank::ETankType::GreenTank5,
-											   m_player2_respawn, glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f));
+																	   glm::vec2(RIGHT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f, 0.f));
 		}
 	}
 
@@ -204,19 +202,118 @@ namespace BatleCity
 
 
 
+	void Level::setLevelType(ELevelType level_type) noexcept
+	{
+		m_level_type = level_type;
+	}
+
+
+
+	const std::vector<std::string>& Level::getLevelDescription() const noexcept
+	{
+		return m_description;
+	}
+
+
+
+	uint8_t Level::getLeftOffset() noexcept
+	{
+		return LEFT_BORDER_WIDTH;
+	}
+
+
+
+	uint8_t Level::getRightOffset() noexcept
+	{
+		return RIGHT_BORDER_WIDTH;
+	}
+
+
+
+	uint8_t Level::getBottomOffset() noexcept
+	{
+		return BOTTOM_BORDER_HEIGHT;
+	}
+
+
+
+	uint8_t Level::getTopOffset() noexcept
+	{
+		return TOP_BORDER_HEIGHT;
+	}
+
+
+
+	uint8_t Level::getBlockSize() noexcept
+	{
+		return BLOCK_SIZE;
+	}
+
+
+
 	void Level::initPhysics() const
 	{
-		Physics::PhysicsEngine::addDynamicGameObject(m_dynamic_map_objects[0]);
-		Physics::PhysicsEngine::addDynamicGameObject(m_dynamic_map_objects[1]);
+		std::for_each(m_enemy_tanks.cbegin(), m_enemy_tanks.cend(),
+			[](std::shared_ptr<IDynamicGameObject> dynamic_game_object) -> void
+			{
+				Physics::PhysicsEngine::addDynamicGameObject(std::move(dynamic_game_object));
+			});
+		if (m_player1)
+		{
+			Physics::PhysicsEngine::addDynamicGameObject(m_player1);
+		}
+		if (m_player2)
+		{
+			Physics::PhysicsEngine::addDynamicGameObject(m_player2);
+		}
 
 		try
 		{
-			std::shared_ptr<const Level> ptr = shared_from_this();
+			Physics::PhysicsEngine::setCurrentLevel(shared_from_this());
 		}
-		catch (...)
+		catch (const std::exception& ex)
 		{
-			std::cerr << "ERROR: Exception" << std::endl;
+			std::cerr << "ERROR: shared_from_this exception (Level):" << std::endl;
+			std::cerr << ex.what() << std::endl;
 		}
+	}
+
+
+
+	void Level::createTanks() const noexcept
+	{
+		switch (m_level_type)
+		{
+		case BatleCity::Level::ELevelType::TwoPlayers:
+			m_player2 = std::make_shared<Tank>(Tank::ETankType::GreenTank5, m_player1_respawn, glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f);
+			[[fallthrough]];
+		case BatleCity::Level::ELevelType::OnePlayer:
+			m_player1 = std::make_shared<Tank>(Tank::ETankType::RedTank1, m_player2_respawn, glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f);
+			break;
+		}		
+	}
+
+
+
+	void Level::createEnemyTanks() const noexcept
+	{
+		try
+		{
+			m_enemy_tanks.emplace_back(std::make_shared<EnemyTank>(shared_from_this(), Tank::ETankType::WhiteTank3,
+																   m_enemy1_respawn, glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.03f, 1000));
+		}
+		catch (const std::exception& ex)
+		{
+			std::cerr << "ERROR: Can't create enemy tanks: " << ex.what() << std::endl;
+		}
+	}
+
+
+
+	void Level::startAI() const noexcept
+	{
+		createEnemyTanks();
+		reinterpret_cast<const std::shared_ptr<EnemyTank>&>(m_enemy_tanks[0])->active();//////////////////////////////////
 	}
 
 
@@ -256,7 +353,9 @@ namespace BatleCity
 		{
 			return false;
 		}
-		initPhysics();
+		createTanks();		//	1
+		startAI();			//	2		this ordering really important 
+		initPhysics();		//	3
 		return true;
 	}
 
@@ -322,7 +421,70 @@ namespace BatleCity
 
 
 
-	void Level::update(const double delta, std::array<bool, 349>& keyboard)
+	void Level::updateTank(std::shared_ptr<Tank>& tank, std::array<bool, 349>& keyboard, const std::vector<uint16_t>& keys_for_this_tank_actions) noexcept
+	{
+		if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::MoveTop)]])
+		{
+			tank->setOrientation(IDynamicGameObject::EOrientation::Top);
+			if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::SlowDown)]])
+			{
+				tank->setVelocity(tank->getMaxVelocity() / 2);
+			}
+			else
+			{
+				tank->setVelocity(tank->getMaxVelocity());
+			}
+		}
+		else if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::MoveRight)]])
+		{
+			tank->setOrientation(IDynamicGameObject::EOrientation::Right);
+			if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::SlowDown)]])
+			{
+				tank->setVelocity(tank->getMaxVelocity() / 2);
+			}
+			else
+			{
+				tank->setVelocity(tank->getMaxVelocity());
+			}
+		}
+		else if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::MoveBottom)]])
+		{
+			tank->setOrientation(IDynamicGameObject::EOrientation::Bottom);
+			if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::SlowDown)]])
+			{
+				tank->setVelocity(tank->getMaxVelocity() / 2);
+			}
+			else
+			{
+				tank->setVelocity(tank->getMaxVelocity());
+			}
+		}
+		else if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::MoveLeft)]])
+		{
+			tank->setOrientation(IDynamicGameObject::EOrientation::Left);
+			if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::SlowDown)]])
+			{
+				tank->setVelocity(tank->getMaxVelocity() / 2);
+			}
+			else
+			{
+				tank->setVelocity(tank->getMaxVelocity());
+			}
+		}
+		else
+		{
+			tank->setVelocity(0);
+		}
+
+		if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(ETankActions::Fire)]])
+		{
+			reinterpret_cast<const std::shared_ptr<Tank>&>(tank)->fair();
+		}
+	}
+
+
+
+	void Level::updateStaticMapObjects(double delta) noexcept
 	{
 		for (const auto& current_static_map_object : m_static_map_objects)
 		{
@@ -331,14 +493,37 @@ namespace BatleCity
 				current_static_map_object->update(delta);
 			}
 		}
+	}
 
-		for (const auto& current_dynamic_map_object : m_dynamic_map_objects)
+
+
+	void Level::updateDynamicMapObjects(double delta) noexcept
+	{
+		for (const auto& current_dynamic_map_object : m_enemy_tanks)
 		{
 			if (current_dynamic_map_object)
 			{
 				current_dynamic_map_object->update(delta);
 			}
 		}
+
+		if (m_player1)
+		{
+			m_player1->update(delta);
+		}
+		if (m_player2)
+		{
+			m_player2->update(delta);
+		}
+	}
+
+
+
+
+	void Level::update(const double delta, std::array<bool, 349>& keyboard)
+	{
+		updateStaticMapObjects(delta);
+		updateDynamicMapObjects(delta);
 
 		if (keyboard[GLFW_KEY_F])
 		{
@@ -348,101 +533,15 @@ namespace BatleCity
 		{
 			IGameObject::disableRenderingColliders();
 		}
-		if (keyboard[GLFW_KEY_W])
-		{
-			m_dynamic_map_objects[0]->setOrientation(IDynamicGameObject::EOrientation::Top);
-			if (keyboard[GLFW_KEY_LEFT_SHIFT])
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity() / 2);
-			}
-			else
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity());
-			}
-		}
-		else if (keyboard[GLFW_KEY_D])
-		{
-			m_dynamic_map_objects[0]->setOrientation(IDynamicGameObject::EOrientation::Right);
-			if (keyboard[GLFW_KEY_LEFT_SHIFT])
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity() / 2);
-			}
-			else
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity());
-			}
-		}
-		else if (keyboard[GLFW_KEY_S])
-		{
-			m_dynamic_map_objects[0]->setOrientation(IDynamicGameObject::EOrientation::Bottom);
-			if (keyboard[GLFW_KEY_LEFT_SHIFT])
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity() / 2);
-			}
-			else
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity());
-			}
-		}
-		else if (keyboard[GLFW_KEY_A])
-		{
-			m_dynamic_map_objects[0]->setOrientation(IDynamicGameObject::EOrientation::Left);
-			if (keyboard[GLFW_KEY_LEFT_SHIFT])
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity() / 2);
-			}
-			else
-			{
-				m_dynamic_map_objects[0]->setVelocity(m_dynamic_map_objects[0]->getMaxVelocity());
-			}
-		}
-		else
-		{
-			m_dynamic_map_objects[0]->setVelocity(0);
-		}
 
-		if (keyboard[GLFW_KEY_UP])
+		switch (m_level_type)
 		{
-			m_dynamic_map_objects[1]->setOrientation(Tank::EOrientation::Top);
-			m_dynamic_map_objects[1]->setVelocity(m_dynamic_map_objects[1]->getMaxVelocity());
-		}
-		else if (keyboard[GLFW_KEY_RIGHT])
-		{
-			m_dynamic_map_objects[1]->setOrientation(Tank::EOrientation::Right);
-			m_dynamic_map_objects[1]->setVelocity(m_dynamic_map_objects[1]->getMaxVelocity());
-		}
-		else if (keyboard[GLFW_KEY_DOWN])
-		{
-			m_dynamic_map_objects[1]->setOrientation(Tank::EOrientation::Bottom);
-			m_dynamic_map_objects[1]->setVelocity(m_dynamic_map_objects[1]->getMaxVelocity());
-		}
-		else if (keyboard[GLFW_KEY_LEFT])
-		{
-			m_dynamic_map_objects[1]->setOrientation(Tank::EOrientation::Left);
-			m_dynamic_map_objects[1]->setVelocity(m_dynamic_map_objects[1]->getMaxVelocity());
-		}
-		else
-		{
-			m_dynamic_map_objects[1]->setVelocity(0);
-		}
-
-		static Tank* tank1_ptr = dynamic_cast<Tank*>(&(*m_dynamic_map_objects[0]));
-		static Tank* tank2_ptr = dynamic_cast<Tank*>(&(*m_dynamic_map_objects[1]));
-
-		if (tank1_ptr)
-		{
-			if (keyboard[GLFW_KEY_SPACE])
-			{
-				tank1_ptr->fair();
-			}
-		}
-
-		if (tank2_ptr)
-		{
-			if (keyboard[GLFW_KEY_ENTER])
-			{
-				tank2_ptr->fair();
-			}
+		case BatleCity::Level::ELevelType::TwoPlayers:
+			updateTank(m_player2, keyboard, m_player2_keys);
+			[[fallthrough]];
+		case BatleCity::Level::ELevelType::OnePlayer:
+			updateTank(m_player1, keyboard, m_player1_keys);
+			break;
 		}
 
 		Physics::PhysicsEngine::update(delta);
@@ -460,13 +559,22 @@ namespace BatleCity
 				current_static_map_object->renderColliders();
 			}
 		}
-		for (const auto& current_dynamic_map_object : m_dynamic_map_objects)
+		for (const auto& current_dynamic_map_object : m_enemy_tanks)
 		{
 			if (current_dynamic_map_object)
 			{
 				current_dynamic_map_object->render();
 				current_dynamic_map_object->renderColliders();
 			}
+		}
+
+		if (m_player1)
+		{
+			m_player1->render();
+		}
+		if (m_player2)
+		{
+			m_player2->render();
 		}
 	}
 }

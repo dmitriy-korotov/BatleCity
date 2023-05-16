@@ -2,10 +2,12 @@ cmake_minimum_required(VERSION 3.26 FATAL_ERROR)
 
 set(PROJECT_NAME GameOpenGL)
 
-project(${PROJECT_NAME})
+project(${PROJECT_NAME} VERSION 1.0 LANGUAGES CXX)
 
 add_executable(${PROJECT_NAME}
+
 	src/main.cpp
+
 	src/Render/ShaderProgram.h
 	src/Render/ShaderProgram.cpp
 	src/Render/Texture2D.h
@@ -57,6 +59,8 @@ add_executable(${PROJECT_NAME}
 	src/Game/GameObjects/IDynamicGameObject.cpp
 	src/Game/GameObjects/Tank.h
 	src/Game/GameObjects/Tank.cpp
+	src/Game/GameObjects/EnemyTank.h
+	src/Game/GameObjects/EnemyTank.cpp
 	src/Game/GameObjects/Bullet.h
 	src/Game/GameObjects/Bullet.cpp
 	src/Game/GameObjects/Block.h
@@ -75,6 +79,9 @@ add_executable(${PROJECT_NAME}
 	src/Game/GameObjects/Ice.cpp
 	src/Game/GameObjects/Eagle.h
 	src/Game/GameObjects/Eagle.cpp
+
+	src/Game/GameAI/EnemyTankAI.h
+	src/GAme/GameAI/EnemyTankAI.cpp
 
 	src/System/Timer.h
 	src/System/Timer.cpp
