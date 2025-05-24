@@ -6,27 +6,22 @@
 
 #include "../GameObjects/Bullet.h"
 
-namespace BatleCity
-{
-	class BulletCollector
-	{
-	public:
+namespace BatleCity {
+class BulletCollector {
+ public:
+  BulletCollector() = default;
+  BulletCollector(const BulletCollector&) = default;
+  BulletCollector(BulletCollector&&) = default;
+  ~BulletCollector() = default;
 
-		BulletCollector() = default;
-		BulletCollector(const BulletCollector&) = default;
-		BulletCollector(BulletCollector&&) = default;
-		~BulletCollector() = default;
+  void addBullet(std::shared_ptr<Bullet> bullet);
 
-		void addBullet(std::shared_ptr<Bullet> bullet);
+  void updateBullets(double delta);
+  void renderBullets() const;
 
-		void updateBullets(double delta);
-		void renderBullets() const;
+ private:
+  std::unordered_set<std::shared_ptr<Bullet>> m_bullets;
+};
+}  // namespace BatleCity
 
-	private:
-
-		std::unordered_set<std::shared_ptr<Bullet>> m_bullets;
-
-	};
-}
-
-#endif // !BULLET_COLLECTOR_H
+#endif  // !BULLET_COLLECTOR_H

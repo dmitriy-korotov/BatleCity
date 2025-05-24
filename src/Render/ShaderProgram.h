@@ -8,41 +8,37 @@
 
 #include <string>
 
+namespace RenderEngine {
+class ShaderProgram {
+ public:
+  ShaderProgram(const std::string& vertex_shader,
+                const std::string& fragment_shader);
 
+  ~ShaderProgram();
 
-namespace RenderEngine
-{
-	class ShaderProgram
-	{
-	public:
+  inline bool isCompiled() const { return m_is_compiled; }
 
-		ShaderProgram(const std::string& vertex_shader, const std::string& fragment_shader);
+  void use() const;
 
-		~ShaderProgram();
+  ShaderProgram() = delete;
+  ShaderProgram(const ShaderProgram&) = delete;
+  ShaderProgram(ShaderProgram&& outher_shader_program) noexcept;
+  ShaderProgram& operator=(const ShaderProgram&) = delete;
+  ShaderProgram& operator=(ShaderProgram&& outher_shader_program) noexcept;
 
-		inline bool isCompiled() const { return m_is_compiled; }
+  void setInt(const std::string& name, GLuint value) const;
+  void setFloat(const std::string& name, GLfloat value) const;
+  void setMatrix4(const std::string& name, const glm::mat4& matrix) const;
 
-		void use() const;
+ private:
+  // VARIEBLES
+  bool m_is_compiled;
+  GLuint m_ID;
 
-		ShaderProgram() = delete;
-		ShaderProgram(const ShaderProgram&) = delete;
-		ShaderProgram(ShaderProgram&& outher_shader_program) noexcept;
-		ShaderProgram& operator=(const ShaderProgram&) = delete;
-		ShaderProgram& operator=(ShaderProgram&& outher_shader_program) noexcept;
-
-		void setInt(const std::string& name, GLuint value) const;
-		void setFloat(const std::string& name, GLfloat value) const;
-		void setMatrix4(const std::string& name, const glm::mat4& matrix) const;
-
-	private:
-
-		// VARIEBLES
-		bool m_is_compiled;
-		GLuint m_ID;
-
-		// PRIVATE METHODS
-		bool CreateShader(const std::string& source_code, const GLuint type_shder, GLuint& shder_ID);
-	};
-}
+  // PRIVATE METHODS
+  bool CreateShader(const std::string& source_code, const GLuint type_shder,
+                    GLuint& shder_ID);
+};
+}  // namespace RenderEngine
 
 #endif

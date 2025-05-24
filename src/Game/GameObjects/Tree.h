@@ -8,23 +8,17 @@
 
 #include "../../Render/Sprite2D.h"
 
-namespace BatleCity
-{
-	class Tree : public Block
-	{
-	public:
+namespace BatleCity {
+class Tree : public Block {
+ public:
+  Tree(const EBlockType tree_type, const glm::vec2& position,
+       const glm::vec2& size, const float rotation, const float layer);
 
-		Tree(const EBlockType tree_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
+ private:
+  void renderBlock(const ESubBlockLocation subBlock_location) const override;
 
-	private:
+  std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
+};
+}  // namespace BatleCity
 
-		void renderBlock(const ESubBlockLocation subBlock_location) const override;
-
-
-
-		std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
-
-	};
-}
-
-#endif // !TREE_H
+#endif  // !TREE_H

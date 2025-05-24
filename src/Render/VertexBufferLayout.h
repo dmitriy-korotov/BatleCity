@@ -5,35 +5,29 @@
 #include <glad/glad.h>
 #include <vector>
 
-namespace RenderEngine
-{
-	struct VertexBufferLayoutElement
-	{
-		GLuint count;
-		GLuint type;
-		GLboolean normalized;
-		unsigned int size;
-	};
+namespace RenderEngine {
+struct VertexBufferLayoutElement {
+  GLuint count;
+  GLuint type;
+  GLboolean normalized;
+  unsigned int size;
+};
 
-	class VertexBufferLayout
-	{
-	public:
+class VertexBufferLayout {
+ public:
+  VertexBufferLayout() = default;
+  ~VertexBufferLayout() = default;
 
+  inline GLuint getStride() const { return m_stride; }
+  void reserve(const std::size_t count);
+  void addBufferLayoutElementFloat(const GLuint count,
+                                   const GLboolean normalized);
+  const std::vector<VertexBufferLayoutElement>& getLayoutElements() const;
 
-		VertexBufferLayout() = default;
-		~VertexBufferLayout() = default;
+ private:
+  std::vector<VertexBufferLayoutElement> m_layout_elements_of_buffer;
+  GLuint m_stride = 0;
+};
+}  // namespace RenderEngine
 
-		inline GLuint getStride() const { return m_stride; }
-		void reserve(const size_t count);
-		void addBufferLayoutElementFloat(const GLuint count, const GLboolean normalized);
-		const std::vector<VertexBufferLayoutElement>& getLayoutElements() const;
-
-	private:
-
-		std::vector<VertexBufferLayoutElement> m_layout_elements_of_buffer;
-		GLuint m_stride = 0;
-
-	};
-}
-
-#endif // VERTEX_BUFFER_LAYOUT_H
+#endif  // VERTEX_BUFFER_LAYOUT_H

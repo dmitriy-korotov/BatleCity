@@ -8,21 +8,17 @@
 
 #include "../../Render/SpriteAnimator.h"
 
-namespace BatleCity
-{
-	class Border : public Block
-	{
-	public:
+namespace BatleCity {
+class Border : public Block {
+ public:
+  Border(const glm::vec2& position, const glm::vec2& size, const float rotation,
+         const float layer);
 
-		Border(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
+  void render() const override;
 
-		void render() const override;
+ private:
+  std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
+};
+}  // namespace BatleCity
 
-	private:
-
-		std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
-
-	};
-}
-
-#endif // !BORDER_H
+#endif  // !BORDER_H

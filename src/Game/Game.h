@@ -2,60 +2,49 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <memory>
 #include <array>
+#include <memory>
 
-
-
-namespace my_system
-{
-	class Window;
+namespace my_system {
+class Window;
 }
 
-namespace RenderEngine
-{
-	class ShaderProgram;
-	class AnimatedSprite2D;
-}
+namespace RenderEngine {
+class ShaderProgram;
+class AnimatedSprite2D;
+}  // namespace RenderEngine
 
-namespace BatleCity
-{
-	class Tank;
-	class IGameState;
-	class Level;
-	class StartScreen;
+namespace BatleCity {
+class Tank;
+class IGameState;
+class Level;
+class StartScreen;
 
-	class Game
-	{
-	public:
+class Game {
+ public:
+  Game();
+  ~Game();
 
-		Game();
-		~Game();
+  bool init(std::shared_ptr<my_system::Window> window_ptr);
+  void setKey(const int key, const int action);
+  void update(const double delta);
+  void render();
 
-		bool init(std::shared_ptr<my_system::Window> window_ptr);
-		void setKey(const int key, const int action);
-		void update(const double delta);
-		void render();
+  size_t getCurrentGameWidth() const;
+  size_t getCurrentGameHeight() const;
 
-		size_t getCurrentGameWidth() const;
-		size_t getCurrentGameHeight() const;
+ private:
+  void resetWindowSizeToCurrentGameState() noexcept;
 
-	private:
+  std::shared_ptr<my_system::Window> m_window_ptr = nullptr;
 
-		void resetWindowSizeToCurrentGameState() noexcept;
+  std::array<bool, 349> m_keys;
 
+  std::shared_ptr<StartScreen> m_start_screen = nullptr;
+  std::shared_ptr<Level> m_level = nullptr;
 
+  std::shared_ptr<IGameState> m_current_game_state = nullptr;
+};
+}  // namespace BatleCity
 
-		std::shared_ptr<my_system::Window> m_window_ptr = nullptr;
-
-		std::array<bool, 349> m_keys;
-
-		std::shared_ptr<StartScreen> m_start_screen = nullptr;
-		std::shared_ptr<Level> m_level = nullptr;
-
-		std::shared_ptr<IGameState> m_current_game_state = nullptr;
-
-	};
-}
-
-#endif // !GAME_H
+#endif  // !GAME_H

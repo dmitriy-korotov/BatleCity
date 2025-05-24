@@ -8,25 +8,19 @@
 
 #include "../../Render/SpriteAnimator.h"
 
-namespace BatleCity
-{
-	class Water : public Block
-	{
-	public:
+namespace BatleCity {
+class Water : public Block {
+ public:
+  Water(const EBlockType water_type, const glm::vec2& position,
+        const glm::vec2& size, const float rotation, const float layer);
 
-		Water(const EBlockType water_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
+  void update(const double delta) override;
 
-		void update(const double delta) override;
+ private:
+  void renderBlock(const ESubBlockLocation subBlock_location) const override;
 
-	private:
+  RenderEngine::SpriteAnimator m_sprite;
+};
+}  // namespace BatleCity
 
-		void renderBlock(const ESubBlockLocation subBlock_location) const override;
-
-
-
-		RenderEngine::SpriteAnimator m_sprite;
-
-	};
-}
-
-#endif // !WATER_H
+#endif  // !WATER_H

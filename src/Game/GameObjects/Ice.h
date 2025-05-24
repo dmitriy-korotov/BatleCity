@@ -8,21 +8,17 @@
 
 #include "../../Render/Sprite2D.h"
 
-namespace BatleCity
-{
-	class Ice : public Block
-	{
-	public:
+namespace BatleCity {
+class Ice : public Block {
+ public:
+  Ice(const EBlockType ice_type, const glm::vec2& position,
+      const glm::vec2& size, const float rotation, const float layer);
 
-		Ice(const EBlockType ice_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
+ private:
+  void renderBlock(const ESubBlockLocation subBlock_location) const override;
 
-	private:
+  std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
+};
+}  // namespace BatleCity
 
-		void renderBlock(const ESubBlockLocation subBlock_location) const override;
-
-		std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
-
-	};
-}
-
-#endif // !ICE_H
+#endif  // !ICE_H

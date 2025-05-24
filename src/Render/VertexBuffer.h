@@ -4,31 +4,28 @@
 
 #include <glad/glad.h>
 
-namespace RenderEngine
-{
-	class VertexBuffer
-	{
-	public:
+#include <cstddef>
 
-		VertexBuffer();
-		~VertexBuffer();
+namespace RenderEngine {
+class VertexBuffer {
+ public:
+  VertexBuffer();
+  ~VertexBuffer();
 
-		VertexBuffer(const VertexBuffer&) = delete;
-		VertexBuffer& operator=(const VertexBuffer&) = delete;
+  VertexBuffer(const VertexBuffer&) = delete;
+  VertexBuffer& operator=(const VertexBuffer&) = delete;
 
-		VertexBuffer(VertexBuffer&& outher_vertex_buffer) noexcept;
-		VertexBuffer& operator=(VertexBuffer&& outher_vertex_buffer) noexcept;
+  VertexBuffer(VertexBuffer&& outher_vertex_buffer) noexcept;
+  VertexBuffer& operator=(VertexBuffer&& outher_vertex_buffer) noexcept;
 
-		void init(const void* data, const size_t size);
-		void update(const void* data, const size_t size) const;
-		void bind() const;
-		void unbind() const;
+  void init(const void* data, const size_t size);
+  void update(const void* data, const size_t size) const;
+  void bind() const;
+  void unbind() const;
 
-	private:
+ private:
+  GLuint m_buffer_id = 0;
+};
+}  // namespace RenderEngine
 
-		GLuint m_buffer_id = 0;
-
-	};
-}
-
-#endif // !VERTEX_BUFFER_H
+#endif  // !VERTEX_BUFFER_H

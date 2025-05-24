@@ -81,7 +81,7 @@ add_executable(${PROJECT_NAME}
 	src/Game/GameObjects/Eagle.cpp
 
 	src/Game/GameAI/EnemyTankAI.h
-	src/GAme/GameAI/EnemyTankAI.cpp
+	src/Game/GameAI/EnemyTankAI.cpp
 
 	src/System/Timer.h
 	src/System/Timer.cpp
