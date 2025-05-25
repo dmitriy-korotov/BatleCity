@@ -73,8 +73,8 @@ void AnimatedSprite2D::render(const glm::vec2& position, const glm::vec2& size,
         current_subTexture.left_bottom_uv.y,
     };
 
-    //					2 - amount coords in one point;		4 -
-    //amount points
+    //					2 - amount coords in one point; 4
+    //- amount points
     m_texture_coords_buffer.update(texture_coords, 2 * 4 * sizeof(GLfloat));
     m_need_rerender = false;
   }

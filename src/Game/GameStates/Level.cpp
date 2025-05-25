@@ -1,4 +1,5 @@
 #include "Level.h"
+#include <memory>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -200,7 +201,7 @@ Level::Level(std::vector<std::string>&& level_description)
         glm::vec2(LEFT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
         0.f));
 
-    // border right
+    // // border right
     m_static_map_objects.emplace_back(std::make_shared<Border>(
         glm::vec2(BLOCK_SIZE * (m_width_blocks + 1), 0.f),
         glm::vec2(RIGHT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
@@ -285,8 +286,7 @@ void Level::createEnemyTanks() const noexcept {
 
 void Level::startAI() const noexcept {
   createEnemyTanks();
-  reinterpret_cast<const std::shared_ptr<EnemyTank>&>(m_enemy_tanks[0])
-      ->active();  //////////////////////////////////
+  std::static_pointer_cast<EnemyTank>(m_enemy_tanks[0])->active();
 }
 
 bool Level::setProjectiomMatrix() const noexcept {

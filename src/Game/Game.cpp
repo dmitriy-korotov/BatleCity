@@ -8,15 +8,12 @@
 
 #include "../Resources/ResourceManager.h"
 
-#include "../Render/ShaderProgram.h"
-
-#include "../Physics/PhysicsEngine.h"
-
 #include "../System/Window.h"
 
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <memory>
 
 namespace BatleCity {
 Game::Game() { m_keys.fill(false); }
@@ -24,38 +21,34 @@ Game::Game() { m_keys.fill(false); }
 Game::~Game() {}
 
 bool Game::init(std::shared_ptr<my_system::Window> window_ptr) {
-  if (!m_window_ptr) {
-    if (!Resources::ResourceManager::loadAllResourcesJSON(
-            "res/resources.json")) {
-      std::cerr
-          << "ERROR: => Can't load all resources from JSON:\tres/resources.json"
-          << std::endl;
-      return false;
-    }
-    m_window_ptr = std::move(window_ptr);
-
-    m_start_screen = Resources::ResourceManager::getStartScreen("StartScreen1");
-    if (m_start_screen == nullptr) {
-      std::cerr << "ERROR: Can't load start screen" << std::endl;
-      return false;
-    }
-
-    m_level = Resources::ResourceManager::getLevel("Level6");
-    if (m_level == nullptr) {
-      std::cerr << "ERROR: Can't load level" << std::endl;
-    }
-
-    m_current_game_state =
-        reinterpret_cast<std::shared_ptr<IGameState>&>(m_start_screen);
-    if (!m_current_game_state->start()) {
-      return false;
-    }
-
-    return true;
-  } else {
+  if (m_window_ptr) {
     std::cerr << "ERROR: Game already initializated" << std::endl;
     return false;
   }
+  if (!Resources::ResourceManager::loadAllResourcesJSON("res/resources.json")) {
+    std::cerr
+        << "ERROR: => Can't load all resources from JSON:\tres/resources.json"
+        << std::endl;
+    return false;
+  }
+  m_window_ptr = std::move(window_ptr);
+
+  m_start_screen = Resources::ResourceManager::getStartScreen("StartScreen1");
+  if (m_start_screen == nullptr) {
+    std::cerr << "ERROR: Can't load start screen" << std::endl;
+    return false;
+  }
+
+  m_level = Resources::ResourceManager::getLevel("Level2");
+  if (m_level == nullptr) {
+    std::cerr << "ERROR: Can't load level" << std::endl;
+  }
+
+  m_current_game_state = m_start_screen;
+  if (!m_current_game_state->start()) {
+    return false;
+  }
+  return true;
 }
 
 void Game::setKey(const int key, const int action) { m_keys[key] = action; }
@@ -69,9 +62,8 @@ void Game::update(const double delta) {
   if (m_current_game_state->getGameStateType() ==
       IGameState::EGameStates::StartScreen) {
     if (m_keys[GLFW_KEY_ENTER]) {
-      switch (
-          reinterpret_cast<std::shared_ptr<StartScreen>&>(m_current_game_state)
-              ->select()) {
+      switch (std::static_pointer_cast<StartScreen>(m_current_game_state)
+                  ->select()) {
         case StartScreen::EMenuPuncts::LevelTwoPlayers:
           m_level->setLevelType(Level::ELevelType::TwoPlayers);
           m_current_game_state = m_level;
@@ -82,6 +74,8 @@ void Game::update(const double delta) {
           m_current_game_state = m_level;
           m_current_game_state->start();
           break;
+        case StartScreen::EMenuPuncts::Constructor:
+          std::cout << "Constructor is not implemented yet" << std::endl;
       }
       resetWindowSizeToCurrentGameState();
     }
@@ -89,8 +83,7 @@ void Game::update(const double delta) {
   if (m_current_game_state->getGameStateType() ==
       IGameState::EGameStates::Level) {
     if (m_keys[GLFW_KEY_Q]) {
-      m_current_game_state =
-          reinterpret_cast<std::shared_ptr<IGameState>&>(m_start_screen);
+      m_current_game_state = m_start_screen;
       m_current_game_state->start();
       resetWindowSizeToCurrentGameState();
     }

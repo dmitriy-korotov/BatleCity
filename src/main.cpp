@@ -1,3 +1,4 @@
+#include <cstdlib>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
@@ -57,12 +58,8 @@ void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action,
 int main(const int argc, const char** argv) {
   if (!my_system::Window::initWindows()) {
     std::cout << "ERROR: Windows init failed" << std::endl;
-    return -1;
+    return EXIT_FAILURE;
   }
-
-  // my_system::Window::setHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  // my_system::Window::setHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-  // my_system::Window::setHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   std::shared_ptr<my_system::Window> window_ptr =
       std::make_shared<my_system::Window>(G_WINDOW_SIZE.x, G_WINDOW_SIZE.y,
@@ -70,7 +67,7 @@ int main(const int argc, const char** argv) {
   if (!window_ptr->isCreated()) {
     std::cout << "ERROR: Window creating failed" << std::endl;
     my_system::Window::terminate();
-    return -1;
+    return EXIT_FAILURE;
   }
 
   window_ptr->setResizeCallBack(glfwWindowSizeCallback);
@@ -80,7 +77,7 @@ int main(const int argc, const char** argv) {
 
   if (!gladLoadGL()) {
     std::cout << "ERROR: Can't load GLAD" << std::endl;
-    return -1;
+    return EXIT_FAILURE;
   }
 
   std::cout << "Render: "
@@ -130,5 +127,5 @@ int main(const int argc, const char** argv) {
 
   my_system::Window::terminate();
 
-  return 0;
+  return EXIT_SUCCESS;
 }

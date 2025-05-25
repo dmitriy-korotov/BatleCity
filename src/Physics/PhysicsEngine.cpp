@@ -1,7 +1,5 @@
 #include "PhysicsEngine.h"
 
-#include <algorithm>
-#include <iostream>
 #include <memory>
 
 namespace Physics {
@@ -24,40 +22,41 @@ void PhysicsEngine::update(double delta) {
   for (auto& dynamic_game_object : m_dynamic_game_objects) {
     if (dynamic_game_object->isDestroy()) {
       destroyed_game_objects.emplace_back(dynamic_game_object);
-    } else {
-      if (dynamic_game_object->getVelocity() > 0) {
-        bool is_intersection = false;
-        const glm::vec2 new_position =
-            getNewPosition(dynamic_game_object, delta);
+      continue;
+    }
+    if (dynamic_game_object->getVelocity() > 0) {
+      bool is_intersection = false;
+      const glm::vec2 new_position = getNewPosition(dynamic_game_object, delta);
 
-        if (m_current_level) {
-          auto objects = m_current_level->getObjectsFromArea(
-              new_position, dynamic_game_object->getSize());
-          is_intersection = isInersectionWithObjects(dynamic_game_object,
-                                                     new_position, objects);
+      if (m_current_level) {
+        auto objects = m_current_level->getObjectsFromArea(
+            new_position, dynamic_game_object->getSize());
+        is_intersection = isInersectionWithObjects(dynamic_game_object,
+                                                   new_position, objects);
+      }
+
+      for (auto& other_game_object : m_dynamic_game_objects) {
+        if (dynamic_game_object.get() == other_game_object.get()) {
+          continue;
         }
-
-        if (!is_intersection) {
-          dynamic_game_object->setPosition(new_position);
+        const auto [first, second] =
+            isIntersection(dynamic_game_object->getColliders(),
+                           dynamic_game_object->getPosition(),
+                           other_game_object->getColliders(),
+                           other_game_object->getPosition());
+        if (second) {
+          is_intersection |= dynamic_game_object->onCollision(
+              other_game_object->getGameObjectType(), second);
         }
+      }
 
-        /*for (auto& other_game_object : m_dynamic_game_objects)
-        {
-                if (isIntersection(game_object->getColliders(),
-        game_object->getPosition(), other_game_object->getColliders(),
-        other_game_object->getPosition()))
-                {
-                        game_object->onCollision(other_game_object->getGameObjectType());
-                }
-        }*/
+      if (!is_intersection) {
+        dynamic_game_object->setPosition(new_position);
       }
     }
   }
-
-  if (!destroyed_game_objects.empty()) {
-    for (const auto& destroyed_game_object : destroyed_game_objects) {
-      m_dynamic_game_objects.erase(destroyed_game_object);
-    }
+  for (const auto& destroyed_game_object : destroyed_game_objects) {
+    m_dynamic_game_objects.erase(destroyed_game_object);
   }
 }
 
