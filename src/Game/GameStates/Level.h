@@ -6,6 +6,10 @@
 
 #include "IGameState.h"
 
+#include "../GameObjects/Eagle.h"
+#include "../../System/Timer.h"
+#include "../../Render/Sprite2D.h"
+
 #include <memory>
 #include <string>
 #include <vector>
@@ -41,6 +45,8 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
 
   void setLevelType(ELevelType level_type) noexcept;
 
+  bool isFinished() const noexcept { return m_is_finished; }
+
   bool start() const noexcept override;
   void update(const double delta, std::array<bool, 349>& keyboard) override;
   void render() const override;
@@ -63,6 +69,7 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
     Fire
   };
 
+  void LoadMap() const;
   bool setProjectiomMatrix() const noexcept;
   void initPhysics() const;
   void startAI() const noexcept;
@@ -99,17 +106,22 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
 
   std::vector<std::string> m_description;
 
-  glm::vec2 m_player1_respawn = glm::vec2(0.f);
-  glm::vec2 m_player2_respawn = glm::vec2(0.f);
-  glm::vec2 m_enemy1_respawn = glm::vec2(0.f);
-  glm::vec2 m_enemy2_respawn = glm::vec2(0.f);
-  glm::vec2 m_enemy3_respawn = glm::vec2(0.f);
+  mutable glm::vec2 m_player1_respawn = glm::vec2(0.f);
+  mutable glm::vec2 m_player2_respawn = glm::vec2(0.f);
+  mutable glm::vec2 m_enemy1_respawn = glm::vec2(0.f);
+  mutable glm::vec2 m_enemy2_respawn = glm::vec2(0.f);
+  mutable glm::vec2 m_enemy3_respawn = glm::vec2(0.f);
 
-  std::vector<std::shared_ptr<IGameObject>> m_static_map_objects;
+  mutable std::vector<std::shared_ptr<IGameObject>> m_static_map_objects;
 
   mutable std::shared_ptr<Tank> m_player1 = nullptr;
   mutable std::shared_ptr<Tank> m_player2 = nullptr;
   mutable std::vector<std::shared_ptr<IDynamicGameObject>> m_enemy_tanks;
+
+  mutable my_system::Timer m_spawn_enemy_timer;
+  mutable std::shared_ptr<RenderEngine::Sprite2D> m_game_over = nullptr;
+  mutable std::shared_ptr<Eagle> m_eagle = nullptr;
+  mutable bool m_is_finished = false;
 };
 }  // namespace BatleCity
 

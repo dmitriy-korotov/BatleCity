@@ -1,5 +1,7 @@
 #include "Level.h"
+#include <cstdlib>
 #include <memory>
+#include "glm/ext/vector_float2.hpp"
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -113,12 +115,73 @@ std::shared_ptr<RenderEngine::ShaderProgram>
 std::shared_ptr<RenderEngine::ShaderProgram> Level::m_colliders_shader_program =
     nullptr;
 
-const std::vector<uint16_t> Level::m_player2_keys = {
+const std::vector<uint16_t> Level::m_player1_keys = {
     GLFW_KEY_A, GLFW_KEY_D,          GLFW_KEY_W,
     GLFW_KEY_S, GLFW_KEY_LEFT_SHIFT, GLFW_KEY_SPACE};
-const std::vector<uint16_t> Level::m_player1_keys = {
+const std::vector<uint16_t> Level::m_player2_keys = {
     GLFW_KEY_LEFT, GLFW_KEY_RIGHT,       GLFW_KEY_UP,
     GLFW_KEY_DOWN, GLFW_KEY_RIGHT_SHIFT, GLFW_KEY_ENTER};
+
+void Level::LoadMap() const {
+  unsigned int current_offset_y = (m_height_blocks - 0.5f) * BLOCK_SIZE;
+  for (const std::string& current_row : m_description) {
+    unsigned int current_offset_x = BLOCK_SIZE;
+    for (const char current_row_element : current_row) {
+      switch (current_row_element) {
+        case 'K':
+          m_player1_respawn = {current_offset_x, current_offset_y};
+          break;
+        case 'L':
+          m_player2_respawn = {current_offset_x, current_offset_y};
+          break;
+        case 'M':
+          m_enemy1_respawn = {current_offset_x, current_offset_y};
+          break;
+        case 'N':
+          m_enemy2_respawn = {current_offset_x, current_offset_y};
+          break;
+        case 'O':
+          m_enemy3_respawn = {current_offset_x, current_offset_y};
+          break;
+        default: {
+          auto object = createGameObjectFromDescription(
+                  current_row_element,
+                  glm::vec2(current_offset_x, current_offset_y),
+                  glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f);
+          if (object && object->getGameObjectType() == IGameObject::EGameObjectType::Eagle) {
+            m_eagle = std::static_pointer_cast<Eagle>(object);
+          }
+          m_static_map_objects.emplace_back(object);
+          break;
+        }
+      }
+      current_offset_x += BLOCK_SIZE;
+    }
+    current_offset_y -= BLOCK_SIZE;
+  }
+
+  // border bottom
+  m_static_map_objects.emplace_back(std::make_shared<Border>(
+      glm::vec2(BLOCK_SIZE, 0.f),
+      glm::vec2(m_width_pixels, BOTTOM_BORDER_HEIGHT), 0.f, 0.f));
+
+  // border top
+  m_static_map_objects.emplace_back(std::make_shared<Border>(
+      glm::vec2(BLOCK_SIZE, m_height_pixels + BLOCK_SIZE / 2.f),
+      glm::vec2(m_width_pixels, TOP_BORDER_HEIGHT), 0.f, 0.f));
+
+  // border left
+  m_static_map_objects.emplace_back(std::make_shared<Border>(
+      glm::vec2(0.f, 0.f),
+      glm::vec2(LEFT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
+      0.f));
+
+  // // border right
+  m_static_map_objects.emplace_back(std::make_shared<Border>(
+      glm::vec2(BLOCK_SIZE * (m_width_blocks + 1), 0.f),
+      glm::vec2(RIGHT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
+      0.f));
+}
 
 Level::Level(std::vector<std::string>&& level_description)
     : IGameState(EGameStates::Level),
@@ -152,61 +215,10 @@ Level::Level(std::vector<std::string>&& level_description)
     m_static_map_objects.reserve(
         static_cast<size_t>(m_width_blocks * m_height_blocks + 4));
 
-    unsigned int current_offset_y = (m_height_blocks - 0.5f) * BLOCK_SIZE;
-    for (const std::string& current_row : m_description) {
-      unsigned int current_offset_x = BLOCK_SIZE;
-      for (const char current_row_element : current_row) {
-        switch (current_row_element) {
-          case 'K':
-            m_player1_respawn = {current_offset_x, current_offset_y};
-            break;
-          case 'L':
-            m_player2_respawn = {current_offset_x, current_offset_y};
-            break;
-          case 'M':
-            m_enemy1_respawn = {current_offset_x, current_offset_y};
-            break;
-          case 'N':
-            m_enemy2_respawn = {current_offset_x, current_offset_y};
-            break;
-          case 'O':
-            m_enemy3_respawn = {current_offset_x, current_offset_y};
-            break;
-          default:
-            m_static_map_objects.emplace_back(
-                std::move(createGameObjectFromDescription(
-                    current_row_element,
-                    glm::vec2(current_offset_x, current_offset_y),
-                    glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f)));
-            break;
-        }
-        current_offset_x += BLOCK_SIZE;
-      }
-      current_offset_y -= BLOCK_SIZE;
-    }
-
-    // border bottom
-    m_static_map_objects.emplace_back(std::make_shared<Border>(
-        glm::vec2(BLOCK_SIZE, 0.f),
-        glm::vec2(m_width_pixels, BOTTOM_BORDER_HEIGHT), 0.f, 0.f));
-
-    // border top
-    m_static_map_objects.emplace_back(std::make_shared<Border>(
-        glm::vec2(BLOCK_SIZE, m_height_pixels + BLOCK_SIZE / 2.f),
-        glm::vec2(m_width_pixels, TOP_BORDER_HEIGHT), 0.f, 0.f));
-
-    // border left
-    m_static_map_objects.emplace_back(std::make_shared<Border>(
-        glm::vec2(0.f, 0.f),
-        glm::vec2(LEFT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
-        0.f));
-
-    // // border right
-    m_static_map_objects.emplace_back(std::make_shared<Border>(
-        glm::vec2(BLOCK_SIZE * (m_width_blocks + 1), 0.f),
-        glm::vec2(RIGHT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
-        0.f));
+    LoadMap();
   }
+
+  m_game_over = Resources::ResourceManager::getSprite("GameOver");
 }
 
 void Level::setGameObjectsShaderProgram(
@@ -268,7 +280,7 @@ void Level::createTanks() const noexcept {
       [[fallthrough]];
     case BatleCity::Level::ELevelType::OnePlayer:
       m_player1 =
-          std::make_shared<Tank>(Tank::ETankType::RedTank1, m_player2_respawn,
+          std::make_shared<Tank>(Tank::ETankType::YellowTank1, m_player2_respawn,
                                  glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f);
       break;
   }
@@ -276,17 +288,33 @@ void Level::createTanks() const noexcept {
 
 void Level::createEnemyTanks() const noexcept {
   try {
-    m_enemy_tanks.emplace_back(std::make_shared<EnemyTank>(
-        shared_from_this(), Tank::ETankType::WhiteTank3, m_enemy1_respawn,
-        glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.03f, 1000));
+    auto spawn_number = std::rand() % 3;
+    glm::vec2 spawn_pos;
+    if (spawn_number == 0) {
+      spawn_pos = m_enemy1_respawn;
+    } else if (spawn_number == 1) {
+      spawn_pos = m_enemy2_respawn;
+    } else {
+      spawn_pos = m_enemy3_respawn;
+    }
+    auto enemy = std::make_shared<EnemyTank>(
+        shared_from_this(), Tank::ETankType::WhiteTank3, spawn_pos,
+        glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.03f, 1000);
+    enemy->active();
+    Physics::PhysicsEngine::addDynamicGameObject(enemy);
+    m_enemy_tanks.emplace_back(std::move(enemy));
   } catch (const std::exception& ex) {
     std::cerr << "ERROR: Can't create enemy tanks: " << ex.what() << std::endl;
   }
 }
 
 void Level::startAI() const noexcept {
-  createEnemyTanks();
-  std::static_pointer_cast<EnemyTank>(m_enemy_tanks[0])->active();
+  auto callback = [this]() {
+    createEnemyTanks();
+    m_spawn_enemy_timer.start(5000);
+  };
+  callback();
+  m_spawn_enemy_timer.setCallBack(std::move(callback));
 }
 
 bool Level::setProjectiomMatrix() const noexcept {
@@ -311,6 +339,11 @@ bool Level::setProjectiomMatrix() const noexcept {
 }
 
 bool Level::start() const noexcept {
+  m_enemy_tanks.clear();
+  m_static_map_objects.clear();
+  LoadMap();
+  Physics::PhysicsEngine::removeAllDynamicObjects();
+  m_is_finished = false;
   if (!setProjectiomMatrix()) {
     return false;
   }
@@ -457,6 +490,13 @@ void Level::updateDynamicMapObjects(double delta) noexcept {
 }
 
 void Level::update(const double delta, std::array<bool, 349>& keyboard) {
+  if (m_eagle && m_eagle->getState() == Eagle::EEagleState::Dead) {
+    m_is_finished = true;
+  }
+  if (m_is_finished) {
+    return;
+  }
+
   updateStaticMapObjects(delta);
   updateDynamicMapObjects(delta);
 
@@ -475,6 +515,8 @@ void Level::update(const double delta, std::array<bool, 349>& keyboard) {
       updateTank(m_player1, keyboard, m_player1_keys);
       break;
   }
+
+  m_spawn_enemy_timer.update(delta);
 
   Physics::PhysicsEngine::update(delta);
 }
@@ -495,9 +537,17 @@ void Level::render() const {
 
   if (m_player1) {
     m_player1->render();
+    m_player1->renderColliders();
   }
   if (m_player2) {
     m_player2->render();
+    m_player2->renderColliders();
+  }
+
+  if (m_is_finished) {
+    auto size = glm::vec2(150.f, 150.f);
+    auto pos = glm::vec2(getGameStateWidth(), getGameStateHeight()) / 2.f - size / 2.f;
+    m_game_over->render(pos, size, 0.f, 5);
   }
 }
 }  // namespace BatleCity

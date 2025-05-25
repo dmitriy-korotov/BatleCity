@@ -15,6 +15,18 @@
 
     "textureAtlases" : [
         {
+            "name"                  : "gameOverAtlas",
+            "filePath"              : "res/textures/game_over_358_370.png",
+            "width"                 : 358,
+            "height"                : 370,
+            "subTextureWidth"       : 358,
+            "subTextureHeight"      : 370,
+            "subTextureNames" : [
+                                    "game_over"
+            ]
+        },
+
+        {
             "name"                  : "mapTextureAtlas",
             "filePath"              : "res/textures/map_16x16.png",
             "width"                 : 128,
@@ -348,6 +360,13 @@
     ],
 
     "sprites" : [
+        {
+            "name" : "GameOver",
+            "textureAtlas" : "gameOverAtlas",
+            "shaderProgram" : "spriteShaderProgram",
+            "subTexture" : "game_over"
+        },
+
         {
             "name" : "BrickWall_8x8",
             "textureAtlas" : "mapTextureAtlas_8x8",

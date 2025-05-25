@@ -1,12 +1,11 @@
 #pragma once
+#include <memory>
 #ifndef I_GAME_OBJECT_H
 #define I_GAME_OBJECT_H
 
 #include <glm/vec2.hpp>
 
 #include "GameObjectCollider.h"
-
-#include "../../Resources/ResourceManager.h"
 
 #include <vector>
 
@@ -29,13 +28,15 @@ class IGameObject {
     Eagle
   };
 
-  IGameObject() = default;
   IGameObject(EGameObjectType game_object_type, const glm::vec2& position,
               const glm::vec2& size, const float rotation, const float layer);
 
   virtual ~IGameObject() {}
 
+  virtual std::size_t getID() const noexcept;
+
   virtual bool onCollision(EGameObjectType game_object_type,
+                           std::shared_ptr<IGameObject> object,
                            std::shared_ptr<Physics::AABB> target_collider,
                            const glm::vec2& direction = glm::vec2(0.f)) = 0;
   virtual void update(const double daleta) = 0;
@@ -80,6 +81,7 @@ class IGameObject {
   glm::vec2 m_position = glm::vec2(0.f);
   float m_rotation = 0.f;
   float m_layer = 0.f;
+  std::size_t m_id = 0;
 };
 }  // namespace BatleCity
 

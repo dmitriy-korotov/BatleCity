@@ -28,13 +28,16 @@ class EnemyTankAI {
  private:
   std::optional<Point> findEaglePosition() const noexcept;
   std::optional<Path> calculatePathToEagle() const noexcept;
-  std::pair<std::vector<std::vector<int64_t>>, Point> getFilledDynamic(
-      const Point& tank_position,
-      const std::optional<Point>& eagle_position) const noexcept;
+  std::pair<std::vector<std::vector<int64_t>>, EnemyTankAI::Point> 
+  calculateDistanceMap(const Point& start_pos) const noexcept;
   Path getPathFromDynamic(std::vector<std::vector<int64_t>>& dp,
                           const Point& last_visited_point,
                           const Point& tank_position) const noexcept;
   Point getIndexesTankPosition() const noexcept;
+  EnemyTankAI::Path reconstructPath(
+    const std::vector<std::vector<int64_t>>& dist,
+    const Point& start,
+    const Point& end) const noexcept;
 
  private:
   static constexpr char EAGLE_SYMBOL = 'E';

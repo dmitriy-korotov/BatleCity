@@ -18,7 +18,7 @@
 namespace BatleCity {
 Game::Game() { m_keys.fill(false); }
 
-Game::~Game() {}
+Game::~Game() { }
 
 bool Game::init(std::shared_ptr<my_system::Window> window_ptr) {
   if (m_window_ptr) {

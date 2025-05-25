@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #ifndef TANK_H
 #define TANK_H
 
@@ -57,6 +58,7 @@ class Tank : public IDynamicGameObject {
 
   void fair() const;
   bool onCollision(EGameObjectType game_object_type,
+                   std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction = glm::vec2(0.f)) override;
 
@@ -73,6 +75,8 @@ class Tank : public IDynamicGameObject {
   double m_min_velocity = 0;
   bool m_is_respawn = true;
   bool m_has_shild = false;
+
+  std::size_t HP = 3;
 
   inline static std::vector<std::string> m_all_kinds_tank_sprites = {
       "yellowTank1AnimatedSprite", "yellowTank2AnimatedSprite",

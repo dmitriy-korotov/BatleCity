@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "GLFW/glfw3.h"
 
 namespace my_system {
 Window::Window(unsigned int _width, unsigned int _height,
@@ -10,6 +11,7 @@ Window::Window(unsigned int _width, unsigned int _height,
     glfwGetError(&message);
     std::cerr << "ERROR: " << message << std::endl;
   }
+  glfwSetWindowPos(m_window_ptr, 0, 0);
 }
 
 Window::Window(Window&& _other) noexcept : m_window_ptr(_other.m_window_ptr) {

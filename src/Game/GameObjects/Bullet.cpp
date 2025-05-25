@@ -3,10 +3,11 @@
 #include "../../Resources/ResourceManager.h"
 
 namespace BatleCity {
-Bullet::Bullet(EOrientation bullet_type, const glm::vec2& size, float layer,
+Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& size, float layer,
                double max_velocity)
     : IDynamicGameObject(EGameObjectType::Bullet, glm::vec2(0.f), size, 0.f,
                          layer, glm::vec2(0.f, 1.f), 0, max_velocity),
+      m_owner_id(owner_id),
       m_explosion_animation{
           Resources::ResourceManager::getSprite("ExplosionAnimation"),
           my_system::Timer()} {
@@ -87,11 +88,18 @@ void Bullet::render() const {
 }
 
 bool Bullet::onCollision(EGameObjectType game_object_type,
+                         std::shared_ptr<IGameObject> object,
                          std::shared_ptr<Physics::AABB> target_collider,
                          const glm::vec2& direction) {
   if (game_object_type != EGameObjectType::Water &&
       game_object_type != EGameObjectType::Tree &&
       game_object_type != EGameObjectType::Ice) {
+    if (game_object_type == EGameObjectType::Tank && object->getID() == m_owner_id) {
+      return false;
+    }
+
+    m_colliders.deleteAllColliders();
+
     m_velocity = 0;
     m_sprite.reset();
     m_is_fire = false;

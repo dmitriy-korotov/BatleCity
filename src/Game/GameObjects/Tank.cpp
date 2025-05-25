@@ -123,7 +123,7 @@ void Tank::render() const {
 void Tank::fair() const {
   if (!m_is_respawn && !m_is_fair) {
     m_is_fair = true;
-    auto bullet = std::make_shared<Bullet>(m_current_orientation, m_size / 2.f,
+    auto bullet = std::make_shared<Bullet>(getID(), m_current_orientation, m_size / 2.f,
                                            m_layer + 0.1f, 3 * m_max_velocity);
     bullet->fire(m_position, m_direction, bullet->getMaxVelocity());
     m_bullets.addBullet(bullet);
@@ -134,13 +134,20 @@ void Tank::fair() const {
 }
 
 bool Tank::onCollision(EGameObjectType game_object_type,
+                       std::shared_ptr<IGameObject> object,
                        std::shared_ptr<Physics::AABB> target_collider,
                        const glm::vec2& direction) {
   if (game_object_type == EGameObjectType::Tree ||
       game_object_type == EGameObjectType::Ice) {
     return false;
   } else if (game_object_type == EGameObjectType::Bullet) {
-    m_is_destroy = true;
+    if (!m_bullets.has(object->getID())) {
+      if (HP == 1) {
+        m_is_destroy = true;
+      } else {
+        HP -= 1;
+      }
+    }
   }
   return true;
 }

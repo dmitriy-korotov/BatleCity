@@ -9,6 +9,10 @@ std::shared_ptr<const BatleCity::Level> PhysicsEngine::m_current_level;
 
 void PhysicsEngine::init() {}
 
+void PhysicsEngine::removeAllDynamicObjects() {
+  m_dynamic_game_objects.clear();
+}
+
 void PhysicsEngine::terminate() {
   m_dynamic_game_objects.clear();
   m_current_level.reset();
@@ -41,12 +45,12 @@ void PhysicsEngine::update(double delta) {
         }
         const auto [first, second] =
             isIntersection(dynamic_game_object->getColliders(),
-                           dynamic_game_object->getPosition(),
+                           new_position,
                            other_game_object->getColliders(),
                            other_game_object->getPosition());
         if (second) {
           is_intersection |= dynamic_game_object->onCollision(
-              other_game_object->getGameObjectType(), second);
+              other_game_object->getGameObjectType(), other_game_object, second);
         }
       }
 
@@ -136,8 +140,8 @@ bool PhysicsEngine::isInersectionWithObjects(
                        object->getColliders(), object->getPosition());
     if (colliders_pair.first != nullptr && colliders_pair.second != nullptr) {
       const bool is_stoped = current_game_object->onCollision(
-          object->getGameObjectType(), colliders_pair.first);
-      object->onCollision(current_game_object->getGameObjectType(),
+          object->getGameObjectType(), object, colliders_pair.first);
+      object->onCollision(current_game_object->getGameObjectType(), current_game_object,
                           colliders_pair.second,
                           current_game_object->getDirection());
       if (is_stoped) return true;

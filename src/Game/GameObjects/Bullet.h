@@ -13,7 +13,7 @@
 namespace BatleCity {
 class Bullet : public IDynamicGameObject {
  public:
-  Bullet(EOrientation bullet_type, const glm::vec2& size, float layer,
+  Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& size, float layer,
          double max_velocity);
 
   void fire(const glm::vec2& position, const glm::vec2& direction,
@@ -23,10 +23,12 @@ class Bullet : public IDynamicGameObject {
   void render() const override;
 
   bool onCollision(EGameObjectType game_object_type,
+                   std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction = glm::vec2(0.f)) override;
 
  private:
+  std::size_t m_owner_id = 0;
   std::shared_ptr<RenderEngine::Sprite2D> m_sprite = nullptr;
   std::pair<RenderEngine::SpriteAnimator, my_system::Timer>
       m_explosion_animation;

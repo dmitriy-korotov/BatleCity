@@ -7,7 +7,6 @@ class IDynamicGameObject : public IGameObject {
  public:
   enum class EOrientation { Top = 0, Right, Bottom, Left };
 
-  IDynamicGameObject() = default;
   IDynamicGameObject(EGameObjectType game_object_type,
                      const glm::vec2& position, const glm::vec2& size,
                      float rotation, float layer, const glm::vec2& direction,

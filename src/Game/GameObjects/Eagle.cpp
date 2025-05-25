@@ -20,6 +20,7 @@ void Eagle::render() const {
 void Eagle::update(const double delta) {}
 
 bool Eagle::onCollision(EGameObjectType game_object_type,
+                        std::shared_ptr<IGameObject> object,
                         std::shared_ptr<Physics::AABB> target_collider,
                         const glm::vec2& direction) {
   if (game_object_type == EGameObjectType::Bullet) {

@@ -14,6 +14,8 @@ class BulletCollector {
   BulletCollector(BulletCollector&&) = default;
   ~BulletCollector() = default;
 
+  bool has(std::size_t id) const;
+
   void addBullet(std::shared_ptr<Bullet> bullet);
 
   void updateBullets(double delta);

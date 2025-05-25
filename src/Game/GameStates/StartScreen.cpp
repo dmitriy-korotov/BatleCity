@@ -131,10 +131,10 @@ StartScreen::StartScreen(
             Resources::ResourceManager::getSprite("Two_Players_Selection"),
             glm::vec2(menu_position_x, menu_position_y - BLOCK_SIZE * 2)));
 
-    m_menu_selections.emplace_back(
-        std::make_pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>(
-            Resources::ResourceManager::getSprite("Construction_Selection"),
-            glm::vec2(menu_position_x, menu_position_y - BLOCK_SIZE * 4)));
+    // m_menu_selections.emplace_back(
+    //     std::make_pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>(
+    //         Resources::ResourceManager::getSprite("Construction_Selection"),
+    //         glm::vec2(menu_position_x, menu_position_y - BLOCK_SIZE * 4)));
 
     // menu selector
     m_menu_selector =

@@ -25,6 +25,7 @@ class PhysicsEngine {
   static void init();
   static void terminate();
   static void update(double delta);
+  static void removeAllDynamicObjects();
   static void addDynamicGameObject(
       std::shared_ptr<BatleCity::IDynamicGameObject> dynamic_game_object);
   static void setCurrentLevel(

@@ -122,6 +122,8 @@ int main(const int argc, const char** argv) {
     }
   }
 
+  g_game.reset();
+
   Resources::ResourceManager::unloadAllResources();
   Physics::PhysicsEngine::terminate();
 

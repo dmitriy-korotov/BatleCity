@@ -149,6 +149,7 @@ void Block::render() const {
 void Block::update(const double delta) {}
 
 bool Block::onCollision(EGameObjectType game_object_type,
+                        std::shared_ptr<IGameObject> object,
                         std::shared_ptr<Physics::AABB> target_collider,
                         const glm::vec2& direction) {
   return true;

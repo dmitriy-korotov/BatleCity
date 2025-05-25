@@ -3,6 +3,15 @@
 #include <vector>
 
 namespace BatleCity {
+bool BulletCollector::has(std::size_t id) const {
+  for (const auto& bullet : m_bullets) {
+    if (bullet->getID() == id) {
+      return true;
+    }
+  }
+  return false;
+}
+
 void BulletCollector::addBullet(std::shared_ptr<Bullet> bullet) {
   m_bullets.insert(std::move(bullet));
 }

@@ -35,6 +35,7 @@ class Block : public IGameObject {
   void update(const double delta) override;
   void render() const override;
   bool onCollision(EGameObjectType game_object_type,
+                   std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction) override;
 

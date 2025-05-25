@@ -160,6 +160,7 @@ void BrickWall::renderBlock(const ESubBlockLocation subBlock_location) const {
 }
 
 bool BrickWall::onCollision(EGameObjectType game_object_type,
+                            std::shared_ptr<IGameObject> object,
                             std::shared_ptr<Physics::AABB> target_collider,
                             const glm::vec2& direction) {
   if (game_object_type == EGameObjectType::Bullet) {
