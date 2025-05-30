@@ -1,5 +1,5 @@
-#include "Window.h"
-#include "GLFW/glfw3.h"
+#include <BatleCity/System/Window.h>
+#include <GLFW/glfw3.h>
 
 #include <iostream>
 

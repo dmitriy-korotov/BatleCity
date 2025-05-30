@@ -2,15 +2,15 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-#include "Resources/ResourceManager.h"
+#include <BatleCity/Resources/ResourceManager.h>
 
-#include "Render/Renderer.h"
+#include <BatleCity/Render/Renderer.h>
 
-#include "Physics/PhysicsEngine.h"
+#include <BatleCity/Physics/PhysicsEngine.h>
 
-#include "System/Window.h"
+#include <BatleCity/System/Window.h>
 
-#include "Game/Game.h"
+#include <BatleCity/Game/Game.h>
 
 #include <chrono>
 #include <iostream>

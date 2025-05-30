@@ -10,85 +10,85 @@ add_executable(${PROJECT_NAME}
 
 	src/main.cpp
 
-	src/Render/ShaderProgram.h
-	src/Render/ShaderProgram.cpp
-	src/Render/Texture2D.h
-	src/Render/Texture2D.cpp
-	src/Render/IRenderObjectRect2D.h
-	src/Render/IRenderObjectRect2D.cpp
-	src/Render/Sprite2D.h
-	src/Render/Sprite2D.cpp
-	src/Render/SpriteAnimator.h
-	src/Render/SpriteAnimator.cpp
-	src/Render/VertexBuffer.h
-	src/Render/VertexBuffer.cpp
-	src/Render/ElementBuffer.h
-	src/Render/ElementBuffer.cpp
-	src/Render/VertexArray.h
-	src/Render/VertexArray.cpp
-	src/Render/VertexBufferLayout.h
-	src/Render/VertexBufferLayout.cpp
-	src/Render/Renderer.h
-	src/Render/Renderer.cpp
+	src/BatleCity/Render/ShaderProgram.h
+	src/BatleCity/Render/ShaderProgram.cpp
+	src/BatleCity/Render/Texture2D.h
+	src/BatleCity/Render/Texture2D.cpp
+	src/BatleCity/Render/IRenderObjectRect2D.h
+	src/BatleCity/Render/IRenderObjectRect2D.cpp
+	src/BatleCity/Render/Sprite2D.h
+	src/BatleCity/Render/Sprite2D.cpp
+	src/BatleCity/Render/SpriteAnimator.h
+	src/BatleCity/Render/SpriteAnimator.cpp
+	src/BatleCity/Render/VertexBuffer.h
+	src/BatleCity/Render/VertexBuffer.cpp
+	src/BatleCity/Render/ElementBuffer.h
+	src/BatleCity/Render/ElementBuffer.cpp
+	src/BatleCity/Render/VertexArray.h
+	src/BatleCity/Render/VertexArray.cpp
+	src/BatleCity/Render/VertexBufferLayout.h
+	src/BatleCity/Render/VertexBufferLayout.cpp
+	src/BatleCity/Render/Renderer.h
+	src/BatleCity/Render/Renderer.cpp
 
-	src/Physics/PhysicsEngine.h
-	src/Physics/PhysicsEngine.cpp
-	src/Physics/AxisAlignedBoundingBox.h
-	src/Physics/AxisAlignedBoundingBox.cpp
+	src/BatleCity/Physics/PhysicsEngine.h
+	src/BatleCity/Physics/PhysicsEngine.cpp
+	src/BatleCity/Physics/AxisAlignedBoundingBox.h
+	src/BatleCity/Physics/AxisAlignedBoundingBox.cpp
 
-	src/Resources/ResourceManager.h
-	src/Resources/ResourceManager.cpp
-	src/Resources/stb_image.h 
+	src/BatleCity/Resources/ResourceManager.h
+	src/BatleCity/Resources/ResourceManager.cpp
+	src/BatleCity/Resources/stb_image.h 
 
-	src/Game/Game.h
-	src/Game/Game.cpp
+	src/BatleCity/Game/Game.h
+	src/BatleCity/Game/Game.cpp
 	
-	src/Game/GameStates/Level.h
-	src/Game/GameStates/Level.cpp
-	src/Game/GameStates/IGameState.h
-	src/Game/GameStates/IGameState.cpp
-	src/Game/GameStates/StartScreen.h
-	src/Game/GameStates/StartScreen.cpp
+	src/BatleCity/Game/GameStates/Level.h
+	src/BatleCity/Game/GameStates/Level.cpp
+	src/BatleCity/Game/GameStates/IGameState.h
+	src/BatleCity/Game/GameStates/IGameState.cpp
+	src/BatleCity/Game/GameStates/StartScreen.h
+	src/BatleCity/Game/GameStates/StartScreen.cpp
 
-	src/Game/GameObjectContainers/BulletCollector.h
-	src/Game/GameObjectContainers/BulletCollector.cpp
+	src/BatleCity/Game/GameObjectContainers/BulletCollector.h
+	src/BatleCity/Game/GameObjectContainers/BulletCollector.cpp
 
-	src/Game/GameObjects/IGameObject.h
-	src/Game/GameObjects/IGameObject.cpp
-	src/Game/GameObjects/GameObjectCollider.h
-	src/Game/GameObjects/GameObjectCollider.cpp
-	src/Game/GameObjects/IDynamicGameObject.h
-	src/Game/GameObjects/IDynamicGameObject.cpp
-	src/Game/GameObjects/Tank.h
-	src/Game/GameObjects/Tank.cpp
-	src/Game/GameObjects/EnemyTank.h
-	src/Game/GameObjects/EnemyTank.cpp
-	src/Game/GameObjects/Bullet.h
-	src/Game/GameObjects/Bullet.cpp
-	src/Game/GameObjects/Block.h
-	src/Game/GameObjects/Block.cpp
-	src/Game/GameObjects/Border.h
-	src/Game/GameObjects/Border.cpp
-	src/Game/GameObjects/BrickWall.h
-	src/Game/GameObjects/BrickWall.cpp
-	src/Game/GameObjects/BetonWall.h
-	src/Game/GameObjects/BetonWall.cpp
-	src/Game/GameObjects/Tree.h
-	src/Game/GameObjects/Tree.cpp
-	src/Game/GameObjects/Water.h
-	src/Game/GameObjects/Water.cpp
-	src/Game/GameObjects/Ice.h
-	src/Game/GameObjects/Ice.cpp
-	src/Game/GameObjects/Eagle.h
-	src/Game/GameObjects/Eagle.cpp
+	src/BatleCity/Game/GameObjects/IGameObject.h
+	src/BatleCity/Game/GameObjects/IGameObject.cpp
+	src/BatleCity/Game/GameObjects/GameObjectCollider.h
+	src/BatleCity/Game/GameObjects/GameObjectCollider.cpp
+	src/BatleCity/Game/GameObjects/IDynamicGameObject.h
+	src/BatleCity/Game/GameObjects/IDynamicGameObject.cpp
+	src/BatleCity/Game/GameObjects/Tank.h
+	src/BatleCity/Game/GameObjects/Tank.cpp
+	src/BatleCity/Game/GameObjects/EnemyTank.h
+	src/BatleCity/Game/GameObjects/EnemyTank.cpp
+	src/BatleCity/Game/GameObjects/Bullet.h
+	src/BatleCity/Game/GameObjects/Bullet.cpp
+	src/BatleCity/Game/GameObjects/Block.h
+	src/BatleCity/Game/GameObjects/Block.cpp
+	src/BatleCity/Game/GameObjects/Border.h
+	src/BatleCity/Game/GameObjects/Border.cpp
+	src/BatleCity/Game/GameObjects/BrickWall.h
+	src/BatleCity/Game/GameObjects/BrickWall.cpp
+	src/BatleCity/Game/GameObjects/BetonWall.h
+	src/BatleCity/Game/GameObjects/BetonWall.cpp
+	src/BatleCity/Game/GameObjects/Tree.h
+	src/BatleCity/Game/GameObjects/Tree.cpp
+	src/BatleCity/Game/GameObjects/Water.h
+	src/BatleCity/Game/GameObjects/Water.cpp
+	src/BatleCity/Game/GameObjects/Ice.h
+	src/BatleCity/Game/GameObjects/Ice.cpp
+	src/BatleCity/Game/GameObjects/Eagle.h
+	src/BatleCity/Game/GameObjects/Eagle.cpp
 
-	src/Game/GameAI/EnemyTankAI.h
-	src/Game/GameAI/EnemyTankAI.cpp
+	src/BatleCity/Game/GameAI/EnemyTankAI.h
+	src/BatleCity/Game/GameAI/EnemyTankAI.cpp
 
-	src/System/Timer.h
-	src/System/Timer.cpp
-	src/System/Window.h
-	src/System/Window.cpp
+	src/BatleCity/System/Timer.h
+	src/BatleCity/System/Timer.cpp
+	src/BatleCity/System/Window.h
+	src/BatleCity/System/Window.cpp
 )
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
@@ -109,6 +109,8 @@ target_link_libraries(${PROJECT_NAME} glad)
 include_directories(external/glm)
 
 include_directories(external/rapidjson)
+
+target_include_directories(${PROJECT_NAME} PUBLIC src/)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 
