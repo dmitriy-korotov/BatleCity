@@ -2,6 +2,8 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 
+#include <BatleCity/Game/Game.h>
+
 #include "Renderer.h"
 #include "ShaderProgram.h"
 #include "Texture2D.h"
@@ -80,6 +82,7 @@ void Sprite2D::render(const glm::vec2& position, const glm::vec2& size,
   m_shader_program->setMatrix4("model_matrix", model_matrix);
 
   m_texture->bind();
-  Renderer::drawElements(GL_TRIANGLES, m_VAO, m_EBO, *m_shader_program);
+  BatleCity::Game::Instance().GetRenderer()->DrawElements(
+      GL_TRIANGLES, m_VAO, m_EBO, *m_shader_program);
 }
 }  // namespace RenderEngine

@@ -3,8 +3,8 @@
 #include "../../Resources/ResourceManager.h"
 
 namespace BatleCity {
-Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& size, float layer,
-               double max_velocity)
+Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type,
+               const glm::vec2& size, float layer, double max_velocity)
     : IDynamicGameObject(EGameObjectType::Bullet, glm::vec2(0.f), size, 0.f,
                          layer, glm::vec2(0.f, 1.f), 0, max_velocity),
       m_owner_id(owner_id),
@@ -94,7 +94,8 @@ bool Bullet::onCollision(EGameObjectType game_object_type,
   if (game_object_type != EGameObjectType::Water &&
       game_object_type != EGameObjectType::Tree &&
       game_object_type != EGameObjectType::Ice) {
-    if (game_object_type == EGameObjectType::Tank && object->getID() == m_owner_id) {
+    if (game_object_type == EGameObjectType::Tank &&
+        object->getID() == m_owner_id) {
       return false;
     }
 
@@ -106,7 +107,7 @@ bool Bullet::onCollision(EGameObjectType game_object_type,
     if (game_object_type != EGameObjectType::Bullet) {
       m_is_exploded = true;
       m_explosion_animation.second.Start(
-        m_explosion_animation.first.getDurationAnimation("default"));
+          m_explosion_animation.first.getDurationAnimation("default"));
     }
     return true;
   }

@@ -122,8 +122,9 @@ void Tank::render() const {
 void Tank::fair() const {
   if (!m_is_destroy && !m_is_respawn && !m_is_fair) {
     m_is_fair = true;
-    auto bullet = std::make_shared<Bullet>(getID(), m_current_orientation, m_size / 2.f,
-                                           m_layer + 0.1f, 3 * m_max_velocity);
+    auto bullet =
+        std::make_shared<Bullet>(getID(), m_current_orientation, m_size / 2.f,
+                                 m_layer + 0.1f, 3 * m_max_velocity);
     bullet->fire(m_position, m_direction, bullet->getMaxVelocity());
     m_bullets.addBullet(bullet);
     Physics::PhysicsEngine::addDynamicGameObject(std::move(bullet));

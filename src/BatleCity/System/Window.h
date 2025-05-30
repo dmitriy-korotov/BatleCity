@@ -18,9 +18,6 @@ class Window final {
   Window& operator=(Window&& _right) noexcept;
   ~Window();
 
-  static bool InitWindows() noexcept;
-  static void Terminate() noexcept;
-
   void SetResizeCallBack(void (*_resize_call_back)(GLFWwindow*, int,
                                                    int)) noexcept;
   void SetKeyCallBack(void (*_key_call_back)(GLFWwindow*, int, int, int,

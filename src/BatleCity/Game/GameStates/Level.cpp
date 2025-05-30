@@ -145,10 +145,11 @@ void Level::LoadMap() const {
           break;
         default: {
           auto object = createGameObjectFromDescription(
-                  current_row_element,
-                  glm::vec2(current_offset_x, current_offset_y),
-                  glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f);
-          if (object && object->getGameObjectType() == IGameObject::EGameObjectType::Eagle) {
+              current_row_element,
+              glm::vec2(current_offset_x, current_offset_y),
+              glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f);
+          if (object && object->getGameObjectType() ==
+                            IGameObject::EGameObjectType::Eagle) {
             m_eagle = std::static_pointer_cast<Eagle>(object);
           }
           m_static_map_objects.emplace_back(object);
@@ -281,9 +282,9 @@ void Level::createTanks() const noexcept {
                                  glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f);
       [[fallthrough]];
     case BatleCity::Level::ELevelType::OnePlayer:
-      m_player1 =
-          std::make_shared<Tank>(Tank::ETankType::YellowTank1, m_player2_respawn,
-                                 glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f);
+      m_player1 = std::make_shared<Tank>(
+          Tank::ETankType::YellowTank1, m_player2_respawn,
+          glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.05f);
       break;
   }
 }
@@ -557,7 +558,8 @@ void Level::render() const {
 
   if (m_is_finished) {
     auto size = glm::vec2(150.f, 150.f);
-    auto pos = glm::vec2(getGameStateWidth(), getGameStateHeight()) / 2.f - size / 2.f;
+    auto pos =
+        glm::vec2(getGameStateWidth(), getGameStateHeight()) / 2.f - size / 2.f;
     m_game_over->render(pos, size, 0.f, 5);
   }
 }

@@ -18,9 +18,7 @@ IGameObject::IGameObject(EGameObjectType game_object_type,
   m_id = std::rand();
 }
 
-std::size_t IGameObject::getID() const noexcept {
-  return m_id;
-}
+std::size_t IGameObject::getID() const noexcept { return m_id; }
 
 void IGameObject::renderColliders() const {
   if (m_is_rendering_colliders) {

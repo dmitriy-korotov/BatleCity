@@ -44,15 +44,16 @@ void PhysicsEngine::update(double delta) {
           continue;
         }
         const auto [first, second] =
-            isIntersection(dynamic_game_object->getColliders(),
-                           new_position,
+            isIntersection(dynamic_game_object->getColliders(), new_position,
                            other_game_object->getColliders(),
                            other_game_object->getPosition());
         if (second) {
           is_intersection |= dynamic_game_object->onCollision(
-              other_game_object->getGameObjectType(), other_game_object, second);
+              other_game_object->getGameObjectType(), other_game_object,
+              second);
           other_game_object->onCollision(
-              dynamic_game_object->getGameObjectType(), dynamic_game_object, first);
+              dynamic_game_object->getGameObjectType(), dynamic_game_object,
+              first);
         }
       }
 
@@ -143,8 +144,8 @@ bool PhysicsEngine::isInersectionWithObjects(
     if (colliders_pair.first != nullptr && colliders_pair.second != nullptr) {
       const bool is_stoped = current_game_object->onCollision(
           object->getGameObjectType(), object, colliders_pair.first);
-      object->onCollision(current_game_object->getGameObjectType(), current_game_object,
-                          colliders_pair.second,
+      object->onCollision(current_game_object->getGameObjectType(),
+                          current_game_object, colliders_pair.second,
                           current_game_object->getDirection());
       if (is_stoped) return true;
     }

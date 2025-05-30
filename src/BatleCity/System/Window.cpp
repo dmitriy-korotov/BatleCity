@@ -6,6 +6,11 @@
 namespace System {
 Window::Window(unsigned int _width, unsigned int _height,
                const std::string& _name) {
+  if (!glfwInit()) {
+    const char* message;
+    glfwGetError(&message);
+    std::cerr << "ERROR: " << message << std::endl;
+  }
   m_window_ptr =
       glfwCreateWindow(_width, _height, _name.c_str(), nullptr, nullptr);
   if (!m_window_ptr) {
@@ -34,11 +39,8 @@ Window::~Window() {
   if (m_window_ptr) {
     glfwDestroyWindow(m_window_ptr);
   }
+  glfwTerminate();
 }
-
-bool Window::InitWindows() noexcept { return glfwInit(); }
-
-void Window::Terminate() noexcept { glfwTerminate(); }
 
 void Window::SetResizeCallBack(void (*_resize_call_back)(GLFWwindow*, int,
                                                          int)) noexcept {

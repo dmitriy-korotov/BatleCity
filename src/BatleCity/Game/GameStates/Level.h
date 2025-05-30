@@ -6,9 +6,9 @@
 
 #include "IGameState.h"
 
-#include "../GameObjects/Eagle.h"
-#include "../../System/Timer.h"
 #include "../../Render/Sprite2D.h"
+#include "../../System/Timer.h"
+#include "../GameObjects/Eagle.h"
 
 #include <memory>
 #include <string>

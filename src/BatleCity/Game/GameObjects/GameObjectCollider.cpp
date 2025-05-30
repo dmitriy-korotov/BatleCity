@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <BatleCity/Game/Game.h>
+
 #include "../../Render/Renderer.h"
 #include "../../Render/VertexBufferLayout.h"
 
@@ -61,8 +63,8 @@ void GameObjectCollider::render(const glm::vec2& position,
 
       m_shader_program->setMatrix4("model_matrix", model_matrix);
 
-      RenderEngine::Renderer::drawElements(GL_LINE_STRIP, m_VAO, m_EBO,
-                                           *m_shader_program);
+      Game::Instance().GetRenderer()->DrawElements(GL_LINE_STRIP, m_VAO, m_EBO,
+                                                   *m_shader_program);
     }
   }
 }

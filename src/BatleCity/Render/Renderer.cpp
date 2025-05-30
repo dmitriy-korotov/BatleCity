@@ -1,7 +1,17 @@
-#include "Renderer.h"
+#include <BatleCity/Render/Renderer.h>
+
+#include <iostream>
 
 namespace RenderEngine {
-void Renderer::drawElements(const unsigned int primitive_type,
+bool Renderer::Init() {
+  if (!gladLoadGL()) {
+    std::cout << "ERROR: Can't load GLAD" << std::endl;
+    return false;
+  }
+  return true;
+}
+
+void Renderer::DrawElements(const unsigned int primitive_type,
                             const VertexArray& vertex_array,
                             const ElementBuffer& element_buffer,
                             const ShaderProgram& shader_program) {
@@ -11,27 +21,27 @@ void Renderer::drawElements(const unsigned int primitive_type,
                  nullptr);
 }
 
-void Renderer::setViewport(const unsigned int width, const unsigned int height,
+void Renderer::SetViewport(const unsigned int width, const unsigned int height,
                            const unsigned int left_offset,
                            const unsigned int bottom_offset) {
   glViewport(left_offset, bottom_offset, width, height);
 }
 
-void Renderer::setDepthTest(const bool enable) {
+void Renderer::SetDepthTest(const bool enable) {
   if (enable)
     glEnable(GL_DEPTH_TEST);
   else
     glDisable(GL_DEPTH_TEST);
 }
 
-void Renderer::setClearColor(const float r, const float g, const float b,
+void Renderer::SetClearColor(const float r, const float g, const float b,
                              const float a) {
   glClearColor(r, g, b, a);
 }
 
-void Renderer::clear(const unsigned int buffer_type) { glClear(buffer_type); }
+void Renderer::Clear(const unsigned int buffer_type) { glClear(buffer_type); }
 
-std::string Renderer::getStringOpenGL(const unsigned int name) {
+std::string Renderer::GetStringOpenGL(const unsigned int name) {
   return (char*)glGetString(name);
 }
 }  // namespace RenderEngine

@@ -13,8 +13,8 @@
 namespace BatleCity {
 class Bullet : public IDynamicGameObject {
  public:
-  Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& size, float layer,
-         double max_velocity);
+  Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& size,
+         float layer, double max_velocity);
 
   void fire(const glm::vec2& position, const glm::vec2& direction,
             double velocity);
@@ -30,8 +30,7 @@ class Bullet : public IDynamicGameObject {
  private:
   std::size_t m_owner_id = 0;
   std::shared_ptr<RenderEngine::Sprite2D> m_sprite = nullptr;
-  std::pair<RenderEngine::SpriteAnimator, System::Timer>
-      m_explosion_animation;
+  std::pair<RenderEngine::SpriteAnimator, System::Timer> m_explosion_animation;
   bool m_is_fire = false;
   bool m_is_exploded = false;
 };
