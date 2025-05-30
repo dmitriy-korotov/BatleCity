@@ -24,7 +24,7 @@ std::size_t IGameObject::GetID() const noexcept { return m_id; }
 
 void IGameObject::RenderColliders() const {
   if (m_is_rendering_colliders) {
-    m_colliders.render(m_position, m_size, m_rotation, 1.f);
+    m_colliders.Render(m_position, m_size, m_rotation, 1.f);
   }
 }
 }  // namespace BatleCity

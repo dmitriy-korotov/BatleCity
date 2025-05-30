@@ -15,25 +15,25 @@ Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type,
     case BatleCity::Bullet::EOrientation::Top:
       m_sprite =
           Game::Instance().GetResourcesManager()->GetSprite("Bullet_Top_8x8");
-      m_colliders.addCollider(glm::vec2(m_size.x / 1.4f, m_size.y * 1.6f),
+      m_colliders.AddCollider(glm::vec2(m_size.x / 1.4f, m_size.y * 1.6f),
                               glm::vec2(m_size.x * 1.2f, m_size.y * 2.2f));
       break;
     case BatleCity::Bullet::EOrientation::Bottom:
       m_sprite = Game::Instance().GetResourcesManager()->GetSprite(
           "Bullet_Bottom_8x8");
-      m_colliders.addCollider(glm::vec2(m_size.x / 1.4f, -m_size.y / 3.5f),
+      m_colliders.AddCollider(glm::vec2(m_size.x / 1.4f, -m_size.y / 3.5f),
                               glm::vec2(m_size.x * 1.2f, m_size.y / 3.f));
       break;
     case BatleCity::Bullet::EOrientation::Left:
       m_sprite =
           Game::Instance().GetResourcesManager()->GetSprite("Bullet_Left_8x8");
-      m_colliders.addCollider(glm::vec2(-m_size.x / 4.f, m_size.y / 1.2f),
+      m_colliders.AddCollider(glm::vec2(-m_size.x / 4.f, m_size.y / 1.2f),
                               glm::vec2(m_size.x / 2.5f, m_size.y * 1.3f));
       break;
     case BatleCity::Bullet::EOrientation::Right:
       m_sprite =
           Game::Instance().GetResourcesManager()->GetSprite("Bullet_Right_8x8");
-      m_colliders.addCollider(glm::vec2(m_size.x * 1.7f, m_size.y / 1.2f),
+      m_colliders.AddCollider(glm::vec2(m_size.x * 1.7f, m_size.y / 1.2f),
                               glm::vec2(m_size.x * 2.3f, m_size.y * 1.3f));
       break;
     default:
@@ -48,7 +48,7 @@ Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type,
   });
 }
 
-void Bullet::fire(const glm::vec2& position, const glm::vec2& direction,
+void Bullet::Fire(const glm::vec2& position, const glm::vec2& direction,
                   double velocity) {
   if (!m_is_fire) {
     m_is_fire = true;
@@ -65,33 +65,33 @@ void Bullet::Update(double delta) {
   }
 }
 
-void Bullet::render() const {
+void Bullet::Render() const {
   if (m_is_fire) {
-    m_sprite->render(m_position + m_size / 2.f + m_direction * m_size.x, m_size,
+    m_sprite->Render(m_position + m_size / 2.f + m_direction * m_size.x, m_size,
                      m_rotation, m_layer);
   }
   if (m_is_exploded) {
     if (m_direction == glm::vec2(-1.f, 0.f)) {
-      m_explosion_animation.first.render(
+      m_explosion_animation.first.Render(
           glm::vec2(m_position.x - m_size.x, m_position.y), m_size * 2.f,
           m_rotation, m_layer);
     } else if (m_direction == glm::vec2(0.f, 1.f)) {
-      m_explosion_animation.first.render(
+      m_explosion_animation.first.Render(
           glm::vec2(m_position.x, m_position.y + m_size.y), m_size * 2.f,
           m_rotation, m_layer);
     } else if (m_direction == glm::vec2(0.f, -1.f)) {
-      m_explosion_animation.first.render(
+      m_explosion_animation.first.Render(
           glm::vec2(m_position.x, m_position.y - m_size.y), m_size * 2.f,
           m_rotation, m_layer);
     } else {
-      m_explosion_animation.first.render(
+      m_explosion_animation.first.Render(
           glm::vec2(m_position.x + m_size.x, m_position.y), m_size * 2.f,
           m_rotation, m_layer);
     }
   }
 }
 
-bool Bullet::onCollision(EGameObjectType game_object_type,
+bool Bullet::OnCollision(EGameObjectType game_object_type,
                          std::shared_ptr<IGameObject> object,
                          std::shared_ptr<Physics::AABB> target_collider,
                          const glm::vec2& direction) {
@@ -103,7 +103,7 @@ bool Bullet::onCollision(EGameObjectType game_object_type,
       return false;
     }
 
-    m_colliders.deleteAllColliders();
+    m_colliders.DeleteAllColliders();
 
     m_velocity = 0;
     m_sprite.reset();

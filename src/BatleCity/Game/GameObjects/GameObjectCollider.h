@@ -18,13 +18,13 @@ class GameObjectCollider : RenderEngine::IRenderObjectRect2D {
       std::shared_ptr<RenderEngine::ShaderProgram> shader_program,
       const glm::vec3& color = glm::vec3(1.f, 0.f, 0.f));
 
-  void addCollider(const glm::vec2& bottom_left, const glm::vec2& right_top);
-  void deleteAllColliders();
-  inline const std::vector<Physics::AABB>& getColliders() const noexcept {
+  void AddCollider(const glm::vec2& bottom_left, const glm::vec2& right_top);
+  void DeleteAllColliders();
+  inline const std::vector<Physics::AABB>& GetColliders() const noexcept {
     return m_rect_colliders;
   }
 
-  void render(const glm::vec2& position, const glm::vec2& size,
+  void Render(const glm::vec2& position, const glm::vec2& size,
               const float rotation, const float layer) const override;
 
   void swap(std::vector<Physics::AABB>& rect_colliders);

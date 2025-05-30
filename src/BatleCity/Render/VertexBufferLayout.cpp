@@ -1,20 +1,20 @@
-#include "VertexBufferLayout.h"
+#include <BatleCity/Render/VertexBufferLayout.h>
 
 namespace RenderEngine {
-void VertexBufferLayout::reserve(const std::size_t count) {
-  m_layout_elements_of_buffer.reserve(count);
+void VertexBufferLayout::Reserve(const std::size_t count) {
+  m_layoutElementsOfBuffer.reserve(count);
 }
 
-void VertexBufferLayout::addBufferLayoutElementFloat(
+void VertexBufferLayout::AddBufferLayoutElementFloat(
     const GLuint count, const GLboolean normalized) {
-  m_layout_elements_of_buffer.push_back(
+  m_layoutElementsOfBuffer.push_back(
       {count, GL_FLOAT, normalized,
        static_cast<unsigned int>(count * sizeof(GLfloat))});
-  m_stride += m_layout_elements_of_buffer.back().count * sizeof(GLfloat);
+  m_stride += m_layoutElementsOfBuffer.back().count * sizeof(GLfloat);
 }
 
 const std::vector<VertexBufferLayoutElement>&
-VertexBufferLayout::getLayoutElements() const {
-  return m_layout_elements_of_buffer;
+VertexBufferLayout::GetLayoutElements() const {
+  return m_layoutElementsOfBuffer;
 }
 }  // namespace RenderEngine

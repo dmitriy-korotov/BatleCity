@@ -36,7 +36,7 @@ class StartScreen : public IGameState {
   size_t GetGameStateHeight() const noexcept override;
 
   bool start() const noexcept override;
-  void render() const override;
+  void Render() const override;
   void Update(double delta, KeyboardType& keyboard) override;
 
   EMenuPuncts select() const noexcept;

@@ -16,85 +16,85 @@ BrickWall::BrickWall(const EBlockType wall_type, const glm::vec2& position,
           "BrickWall_Right_Bottom_8x8")),
       m_right_top_sprite(Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Right_Top_8x8")) {
-  m_colliders.deleteAllColliders();
+  m_colliders.DeleteAllColliders();
 
   switch (wall_type) {
     case BatleCity::Block::EBlockType::All:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
-      m_colliders.addCollider(m_size / 2.f, m_size);
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::Top:
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
-      m_colliders.addCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(m_size / 2.f, m_size);
       break;
     case BatleCity::Block::EBlockType::Right:
-      m_colliders.addCollider(m_size / 2.f, m_size);
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::Bottom:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::Left:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
       break;
     case BatleCity::Block::EBlockType::LeftTop:
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
       break;
     case BatleCity::Block::EBlockType::LeftBottom:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
       break;
     case BatleCity::Block::EBlockType::RightBottom:
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::RightTop:
-      m_colliders.addCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(m_size / 2.f, m_size);
       break;
     case BatleCity::Block::EBlockType::LeftTop_RightBottom:
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::RightTop_LeftBottom:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
-      m_colliders.addCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(m_size / 2.f, m_size);
       break;
     case BatleCity::Block::EBlockType::WithoutLeftTop:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
-      m_colliders.addCollider(m_size / 2.f, m_size);
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::WithoutLeftBottom:
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
-      m_colliders.addCollider(m_size / 2.f, m_size);
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::WithoutRightBottom:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
-      m_colliders.addCollider(m_size / 2.f, m_size);
+      m_colliders.AddCollider(m_size / 2.f, m_size);
       break;
     case BatleCity::Block::EBlockType::WithoutRightTop:
-      m_colliders.addCollider(glm::vec2(0.f), m_size / 2.f);
-      m_colliders.addCollider(glm::vec2(0.f, m_size.y / 2.f),
+      m_colliders.AddCollider(glm::vec2(0.f), m_size / 2.f);
+      m_colliders.AddCollider(glm::vec2(0.f, m_size.y / 2.f),
                               glm::vec2(m_size.x / 2.f, m_size.y));
-      m_colliders.addCollider(glm::vec2(m_size.x / 2.f, 0.f),
+      m_colliders.AddCollider(glm::vec2(m_size.x / 2.f, 0.f),
                               glm::vec2(m_size.x, m_size.y / 2.f));
       break;
     case BatleCity::Block::EBlockType::Nothing:
@@ -102,75 +102,75 @@ BrickWall::BrickWall(const EBlockType wall_type, const glm::vec2& position,
   }
 }
 
-void BrickWall::renderBlock(const ESubBlockLocation subBlock_location) const {
-  glm::vec2 offset = getOffsetBySubBlockLocation(subBlock_location);
+void BrickWall::RenderBlock(const ESubBlockLocation subBlock_location) const {
+  glm::vec2 offset = GetOffsetBySubBlockLocation(subBlock_location);
 
   switch (m_subBlock_types[static_cast<size_t>(subBlock_location)]) {
     case EBlockType::All:
-      m_left_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_left_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                    m_rotation, m_layer);
-      m_left_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_left_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                 m_layer);
-      m_right_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_right_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                     m_rotation, m_layer);
-      m_right_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_right_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                  m_layer);
       break;
     case EBlockType::Left:
-      m_left_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_left_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                    m_rotation, m_layer);
-      m_left_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_left_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                 m_layer);
       break;
     case EBlockType::Bottom:
-      m_left_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_left_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                    m_rotation, m_layer);
-      m_right_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_right_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                     m_rotation, m_layer);
       break;
     case EBlockType::Right:
-      m_right_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_right_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                     m_rotation, m_layer);
-      m_right_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_right_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                  m_layer);
       break;
     case EBlockType::Top:
-      m_left_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_left_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                 m_layer);
-      m_right_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_right_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                  m_layer);
       break;
     case EBlockType::LeftBottom:
-      m_left_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_left_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                    m_rotation, m_layer);
       break;
     case EBlockType::RightBottom:
-      m_right_bottom_sprite->render(m_position + offset, m_size / 2.f,
+      m_right_bottom_sprite->Render(m_position + offset, m_size / 2.f,
                                     m_rotation, m_layer);
       break;
     case EBlockType::RightTop:
-      m_right_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_right_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                  m_layer);
       break;
     case EBlockType::LeftTop:
-      m_left_top_sprite->render(m_position + offset, m_size / 2.f, m_rotation,
+      m_left_top_sprite->Render(m_position + offset, m_size / 2.f, m_rotation,
                                 m_layer);
       break;
   }
 }
 
-bool BrickWall::onCollision(EGameObjectType game_object_type,
+bool BrickWall::OnCollision(EGameObjectType game_object_type,
                             std::shared_ptr<IGameObject> object,
                             std::shared_ptr<Physics::AABB> target_collider,
                             const glm::vec2& direction) {
   if (game_object_type == EGameObjectType::Bullet) {
-    ESubBlockLocation location = getSubBlockLocationByCollider(target_collider);
-    changeBrickWallAfterCollisionWithBullet(location, direction);
+    ESubBlockLocation location = GetSubBlockLocationByCollider(target_collider);
+    ChangeBrickWallAfterCollisionWithBullet(location, direction);
   }
   return true;
 }
 
-glm::vec2 BrickWall::getOffsetBySubBlockLocation(
+glm::vec2 BrickWall::GetOffsetBySubBlockLocation(
     ESubBlockLocation subBlock_location) const noexcept {
   glm::vec2 offset(0.f);
   switch (subBlock_location) {
@@ -189,7 +189,7 @@ glm::vec2 BrickWall::getOffsetBySubBlockLocation(
   return offset;
 }
 
-BrickWall::ESubBlockLocation BrickWall::getSubBlockLocationByCollider(
+BrickWall::ESubBlockLocation BrickWall::GetSubBlockLocationByCollider(
     std::shared_ptr<Physics::AABB>& collider) const noexcept {
   if (collider->getLeftBottom().x >= 0.f &&
       collider->getLeftBottom().x < m_size.x / 2.f &&
@@ -215,7 +215,7 @@ BrickWall::ESubBlockLocation BrickWall::getSubBlockLocationByCollider(
   return ESubBlockLocation::LeftBottom;
 }
 
-size_t BrickWall::getColliderIndexBySubBlockLocation(
+size_t BrickWall::GetColliderIndexBySubBlockLocation(
     ESubBlockLocation subBlock_location) const noexcept {
   switch (m_block_type) {
     case BatleCity::Block::EBlockType::All:
@@ -296,36 +296,36 @@ size_t BrickWall::getColliderIndexBySubBlockLocation(
   return 0;
 }
 
-void BrickWall::changeBrickWallAfterCollisionWithBullet(
+void BrickWall::ChangeBrickWallAfterCollisionWithBullet(
     ESubBlockLocation& subBlock_location, const glm::vec2& direction) {
   size_t subBlock_index = static_cast<size_t>(subBlock_location);
-  size_t collider_index = getColliderIndexBySubBlockLocation(subBlock_location);
+  size_t collider_index = GetColliderIndexBySubBlockLocation(subBlock_location);
 
   switch (m_subBlock_types[subBlock_index]) {
     case BatleCity::Block::EBlockType::All:
       if (direction == glm::vec2(-1.f, 0.f)) {
-        m_colliders[collider_index].setRightTopPoint(
+        m_colliders[collider_index].SetRightTopPoint(
             glm::vec2((m_colliders[collider_index].getRightTop().x +
                        m_colliders[collider_index].getLeftBottom().x) /
                           2.f,
                       m_colliders[collider_index].getRightTop().y));
         m_subBlock_types[subBlock_index] = EBlockType::Left;
       } else if (direction == glm::vec2(1.f, 0.f)) {
-        m_colliders[collider_index].setLeftBottomPoint(
+        m_colliders[collider_index].SetLeftBottomPoint(
             glm::vec2((m_colliders[collider_index].getRightTop().x +
                        m_colliders[collider_index].getLeftBottom().x) /
                           2.f,
                       m_colliders[collider_index].getLeftBottom().y));
         m_subBlock_types[subBlock_index] = EBlockType::Right;
       } else if (direction == glm::vec2(0.f, 1.f)) {
-        m_colliders[collider_index].setLeftBottomPoint(
+        m_colliders[collider_index].SetLeftBottomPoint(
             glm::vec2(m_colliders[collider_index].getLeftBottom().x,
                       (m_colliders[collider_index].getRightTop().y +
                        m_colliders[collider_index].getLeftBottom().y) /
                           2.f));
         m_subBlock_types[subBlock_index] = EBlockType::Top;
       } else if (direction == glm::vec2(0.f, -1.f)) {
-        m_colliders[collider_index].setRightTopPoint(
+        m_colliders[collider_index].SetRightTopPoint(
             glm::vec2(m_colliders[collider_index].getRightTop().x,
                       (m_colliders[collider_index].getRightTop().y +
                        m_colliders[collider_index].getLeftBottom().y) /
@@ -336,17 +336,17 @@ void BrickWall::changeBrickWallAfterCollisionWithBullet(
     case BatleCity::Block::EBlockType::Top:
       if (direction == glm::vec2(0.f, 1.f) ||
           direction == glm::vec2(0.f, -1.f)) {
-        m_colliders[collider_index].disable();
+        m_colliders[collider_index].Disable();
         m_subBlock_types[subBlock_index] = EBlockType::Nothing;
       } else if (direction == glm::vec2(1.f, 0.f)) {
-        m_colliders[collider_index].setLeftBottomPoint(
+        m_colliders[collider_index].SetLeftBottomPoint(
             glm::vec2((m_colliders[collider_index].getRightTop().x +
                        m_colliders[collider_index].getLeftBottom().x) /
                           2.f,
                       m_colliders[collider_index].getLeftBottom().y));
         m_subBlock_types[subBlock_index] = EBlockType::RightTop;
       } else if (direction == glm::vec2(-1.f, 0.f)) {
-        m_colliders[collider_index].setRightTopPoint(
+        m_colliders[collider_index].SetRightTopPoint(
             glm::vec2((m_colliders[collider_index].getRightTop().x +
                        m_colliders[collider_index].getLeftBottom().x) /
                           2.f,
@@ -357,17 +357,17 @@ void BrickWall::changeBrickWallAfterCollisionWithBullet(
     case BatleCity::Block::EBlockType::Right:
       if (direction == glm::vec2(-1.f, 0.f) ||
           direction == glm::vec2(1.f, 0.f)) {
-        m_colliders[collider_index].disable();
+        m_colliders[collider_index].Disable();
         m_subBlock_types[subBlock_index] = EBlockType::Nothing;
       } else if (direction == glm::vec2(0.f, -1.f)) {
-        m_colliders[collider_index].setRightTopPoint(
+        m_colliders[collider_index].SetRightTopPoint(
             glm::vec2(m_colliders[collider_index].getRightTop().x,
                       (m_colliders[collider_index].getRightTop().y +
                        m_colliders[collider_index].getLeftBottom().y) /
                           2.f));
         m_subBlock_types[subBlock_index] = EBlockType::RightBottom;
       } else if (direction == glm::vec2(0.f, 1.f)) {
-        m_colliders[collider_index].setLeftBottomPoint(
+        m_colliders[collider_index].SetLeftBottomPoint(
             glm::vec2(m_colliders[collider_index].getLeftBottom().x,
                       (m_colliders[collider_index].getRightTop().y +
                        m_colliders[collider_index].getLeftBottom().y) /
@@ -378,17 +378,17 @@ void BrickWall::changeBrickWallAfterCollisionWithBullet(
     case BatleCity::Block::EBlockType::Bottom:
       if (direction == glm::vec2(0.f, 1.f) ||
           direction == glm::vec2(0.f, -1.f)) {
-        m_colliders[collider_index].disable();
+        m_colliders[collider_index].Disable();
         m_subBlock_types[subBlock_index] = EBlockType::Nothing;
       } else if (direction == glm::vec2(1.f, 0.f)) {
-        m_colliders[collider_index].setLeftBottomPoint(
+        m_colliders[collider_index].SetLeftBottomPoint(
             glm::vec2((m_colliders[collider_index].getRightTop().x +
                        m_colliders[collider_index].getLeftBottom().x) /
                           2.f,
                       m_colliders[collider_index].getLeftBottom().y));
         m_subBlock_types[subBlock_index] = EBlockType::RightBottom;
       } else if (direction == glm::vec2(-1.f, 0.f)) {
-        m_colliders[collider_index].setRightTopPoint(
+        m_colliders[collider_index].SetRightTopPoint(
             glm::vec2((m_colliders[collider_index].getRightTop().x +
                        m_colliders[collider_index].getLeftBottom().x) /
                           2.f,
@@ -399,17 +399,17 @@ void BrickWall::changeBrickWallAfterCollisionWithBullet(
     case BatleCity::Block::EBlockType::Left:
       if (direction == glm::vec2(-1.f, 0.f) ||
           direction == glm::vec2(1.f, 0.f)) {
-        m_colliders[collider_index].disable();
+        m_colliders[collider_index].Disable();
         m_subBlock_types[subBlock_index] = EBlockType::Nothing;
       } else if (direction == glm::vec2(0.f, -1.f)) {
-        m_colliders[collider_index].setRightTopPoint(
+        m_colliders[collider_index].SetRightTopPoint(
             glm::vec2(m_colliders[collider_index].getRightTop().x,
                       (m_colliders[collider_index].getRightTop().y +
                        m_colliders[collider_index].getLeftBottom().y) /
                           2.f));
         m_subBlock_types[subBlock_index] = EBlockType::LeftBottom;
       } else if (direction == glm::vec2(0.f, 1.f)) {
-        m_colliders[collider_index].setLeftBottomPoint(
+        m_colliders[collider_index].SetLeftBottomPoint(
             glm::vec2(m_colliders[collider_index].getLeftBottom().x,
                       (m_colliders[collider_index].getRightTop().y +
                        m_colliders[collider_index].getLeftBottom().y) /
@@ -418,7 +418,7 @@ void BrickWall::changeBrickWallAfterCollisionWithBullet(
       }
       break;
     default:
-      m_colliders[collider_index].disable();
+      m_colliders[collider_index].Disable();
       m_subBlock_types[subBlock_index] = EBlockType::Nothing;
       break;
   }

@@ -1,13 +1,13 @@
-#include "ResourceManager.h"
+#include <BatleCity/Resources/ResourceManager.h>
 
-#include "../Render/AnimatedSprite2D.h"
-#include "../Render/ShaderProgram.h"
-#include "../Render/Sprite2D.h"
-#include "../Render/Texture2D.h"
+#include <BatleCity/Render/AnimatedSprite2D.h>
+#include <BatleCity/Render/ShaderProgram.h>
+#include <BatleCity/Render/Sprite2D.h>
+#include <BatleCity/Render/Texture2D.h>
 
-#include "../Game/GameStates/IGameState.h"
-#include "../Game/GameStates/Level.h"
-#include "../Game/GameStates/StartScreen.h"
+#include <BatleCity/Game/GameStates/IGameState.h>
+#include <BatleCity/Game/GameStates/Level.h>
+#include <BatleCity/Game/GameStates/StartScreen.h>
 
 #include <fstream>
 #include <iostream>
@@ -21,7 +21,6 @@
 namespace Resources {
 void ResourceManager::SetExecutablePath(const std::string& executable_path) {
   size_t finded_index = executable_path.find_last_of("/\\");
-
   m_path = executable_path.substr(0, finded_index);
 }
 

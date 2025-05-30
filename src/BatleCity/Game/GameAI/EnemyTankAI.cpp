@@ -14,11 +14,11 @@ EnemyTankAI::EnemyTankAI(std::shared_ptr<const Level> level_ptr) noexcept
 
 void EnemyTankAI::ActiveOnTank(std::shared_ptr<EnemyTank> enemy_tank) noexcept {
   std::swap(m_enemy_tank, enemy_tank);
-  m_eagle_position = findEaglePosition();
+  m_eagle_position = FindEaglePosition();
   if (!m_eagle_position) {
     std::cerr << "ERROR: Can't find eagle" << std::endl;
   }
-  m_path_to_eagle = calculatePathToEagle();
+  m_path_to_eagle = CalculatePathToEagle();
 
   // if (m_path_to_eagle.has_value()) {
   //     for (const auto& point : *m_path_to_eagle) {
@@ -30,7 +30,7 @@ void EnemyTankAI::ActiveOnTank(std::shared_ptr<EnemyTank> enemy_tank) noexcept {
   // }
 }
 
-std::optional<EnemyTankAI::Point> EnemyTankAI::findEaglePosition()
+std::optional<EnemyTankAI::Point> EnemyTankAI::FindEaglePosition()
     const noexcept {
   const auto& level = m_level->GetLevelDescription();
   for (uint16_t y = 0; y < level.size(); ++y) {
@@ -43,33 +43,33 @@ std::optional<EnemyTankAI::Point> EnemyTankAI::findEaglePosition()
   return std::nullopt;
 }
 
-std::optional<EnemyTankAI::Path> EnemyTankAI::calculatePathToEagle()
+std::optional<EnemyTankAI::Path> EnemyTankAI::CalculatePathToEagle()
     const noexcept {
   if (!m_eagle_position) return std::nullopt;
 
-  Point tank_pos = getIndexesTankPosition();
-  auto [distance_map, last_point] = calculateDistanceMap(tank_pos);
+  Point tank_pos = GetIndexesTankPosition();
+  auto [distance_map, last_point] = CalculateDistanceMap(tank_pos);
 
   if (distance_map[m_eagle_position->second][m_eagle_position->first] ==
       INT_MAX) {
     return std::nullopt;
   }
 
-  return reconstructPath(distance_map, tank_pos, *m_eagle_position);
+  return ReconstructPath(distance_map, tank_pos, *m_eagle_position);
 }
 
-EnemyTankAI::Point EnemyTankAI::getIndexesTankPosition() const noexcept {
+EnemyTankAI::Point EnemyTankAI::GetIndexesTankPosition() const noexcept {
   float block_size = m_level->getBlockSize();
   float x =
-      (m_enemy_tank->getPosition().x - m_level->getLeftOffset()) / block_size;
+      (m_enemy_tank->GetPosition().x - m_level->getLeftOffset()) / block_size;
   float y = (m_level->GetGameStateHeight() - m_level->getTopOffset() -
-             m_enemy_tank->gSetSize().y - m_enemy_tank->getPosition().y) /
+             m_enemy_tank->SetSize().y - m_enemy_tank->GetPosition().y) /
             block_size;
   return {static_cast<int>(std::round(x)), static_cast<int>(std::round(y))};
 }
 
 std::pair<std::vector<std::vector<int64_t>>, EnemyTankAI::Point>
-EnemyTankAI::calculateDistanceMap(const Point& start_pos) const noexcept {
+EnemyTankAI::CalculateDistanceMap(const Point& start_pos) const noexcept {
   const auto& level = m_level->GetLevelDescription();
   size_t height = level.size();
   size_t width = level[0].size();
@@ -122,7 +122,7 @@ EnemyTankAI::calculateDistanceMap(const Point& start_pos) const noexcept {
   return {std::move(dist), last_point};
 }
 
-EnemyTankAI::Path EnemyTankAI::reconstructPath(
+EnemyTankAI::Path EnemyTankAI::ReconstructPath(
     const std::vector<std::vector<int64_t>>& dist, const Point& start,
     const Point& end) const noexcept {
   if (dist[end.second][end.first] == INT_MAX) {
@@ -188,9 +188,9 @@ void EnemyTankAI::Update(double delta) noexcept {
 
   float block_size = m_level->getBlockSize();
   float tank_x =
-      (m_enemy_tank->getPosition().x - m_level->getLeftOffset()) / block_size;
+      (m_enemy_tank->GetPosition().x - m_level->getLeftOffset()) / block_size;
   float tank_y = (m_level->GetGameStateHeight() - m_level->getTopOffset() -
-                  m_enemy_tank->gSetSize().y - m_enemy_tank->getPosition().y) /
+                  m_enemy_tank->SetSize().y - m_enemy_tank->GetPosition().y) /
                  block_size;
 
   const auto& target_point = m_path_to_eagle->at(m_current_path_index);

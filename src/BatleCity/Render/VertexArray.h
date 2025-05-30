@@ -21,8 +21,8 @@ class VertexArray {
 
   void addLayoutBuffer(const VertexBuffer& buffer,
                        const VertexBufferLayout& layout_buffer);
-  void bind() const;
-  void unbind() const;
+  void Bind() const;
+  void Unbind() const;
 
  private:
   GLuint m_vertex_array_id = 0;

@@ -15,7 +15,7 @@ class Ice : public Block {
       const glm::vec2& size, const float rotation, const float layer);
 
  private:
-  void renderBlock(const ESubBlockLocation subBlock_location) const override;
+  void RenderBlock(const ESubBlockLocation subBlock_location) const override;
 
   std::shared_ptr<RenderEngine::Sprite2D> m_sprite;
 };

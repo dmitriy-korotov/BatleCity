@@ -14,7 +14,7 @@ class IRenderObjectRect2D {
  public:
   IRenderObjectRect2D(std::shared_ptr<ShaderProgram> shader_program);
 
-  virtual void render(const glm::vec2& position, const glm::vec2& size,
+  virtual void Render(const glm::vec2& position, const glm::vec2& size,
                       const float rotation, const float layer) const = 0;
   virtual ~IRenderObjectRect2D();
 
@@ -27,4 +27,4 @@ class IRenderObjectRect2D {
 };
 }  // namespace RenderEngine
 
-#endif  // !I_RENDER_OBJECT_RECT_2D
+#endif  // !I_Render_OBJECT_RECT_2D

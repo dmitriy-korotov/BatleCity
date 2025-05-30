@@ -17,24 +17,24 @@ GameObjectCollider::GameObjectCollider(
 
   GLuint indexes[] = {0, 1, 2, 3, 0};
 
-  m_VAO.bind();
+  m_VAO.Bind();
 
-  m_vertex_colors_buffer.init(colors, 3 * 4 * sizeof(GLfloat));
+  m_vertex_colors_buffer.Init(colors, 3 * 4 * sizeof(GLfloat));
   RenderEngine::VertexBufferLayout vertex_colors_layout;
-  vertex_colors_layout.addBufferLayoutElementFloat(3, GL_FALSE);
+  vertex_colors_layout.AddBufferLayoutElementFloat(3, GL_FALSE);
   m_VAO.addLayoutBuffer(m_vertex_colors_buffer, vertex_colors_layout);
 
-  m_EBO.init(indexes, 5);
+  m_EBO.Init(indexes, 5);
 }
 
-void GameObjectCollider::addCollider(const glm::vec2& bottom_left,
+void GameObjectCollider::AddCollider(const glm::vec2& bottom_left,
                                      const glm::vec2& right_top) {
   m_rect_colliders.emplace_back(bottom_left, right_top);
 }
 
-void GameObjectCollider::deleteAllColliders() { m_rect_colliders.clear(); }
+void GameObjectCollider::DeleteAllColliders() { m_rect_colliders.clear(); }
 
-void GameObjectCollider::render(const glm::vec2& position,
+void GameObjectCollider::Render(const glm::vec2& position,
                                 const glm::vec2& size, const float rotation,
                                 const float layer) const {
   m_shader_program->Use();
@@ -42,7 +42,7 @@ void GameObjectCollider::render(const glm::vec2& position,
 
   for (const auto& rect_collider : m_rect_colliders) {
     glm::mat4 model_matrix(1.f);
-    if (rect_collider.isActive()) {
+    if (rect_collider.IsActive()) {
       model_matrix = glm::translate(
           model_matrix,
           glm::vec3(position + rect_collider.getLeftBottom(), 0.f));

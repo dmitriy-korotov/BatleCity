@@ -16,13 +16,13 @@ class Bullet : public IDynamicGameObject {
   Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& size,
          float layer, double max_velocity);
 
-  void fire(const glm::vec2& position, const glm::vec2& direction,
+  void Fire(const glm::vec2& position, const glm::vec2& direction,
             double velocity);
 
   void Update(double delta) override;
-  void render() const override;
+  void Render() const override;
 
-  bool onCollision(EGameObjectType game_object_type,
+  bool OnCollision(EGameObjectType game_object_type,
                    std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction = glm::vec2(0.f)) override;

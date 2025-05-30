@@ -20,7 +20,7 @@ VertexBuffer& VertexBuffer::operator=(
   return *this;
 }
 
-void VertexBuffer::init(const void* data, const size_t size) {
+void VertexBuffer::Init(const void* data, const size_t size) {
   glGenBuffers(1, &m_buffer_id);
   glBindBuffer(GL_ARRAY_BUFFER, m_buffer_id);
   glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
@@ -31,7 +31,7 @@ void VertexBuffer::Update(const void* data, const size_t size) const {
   glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 }
 
-void VertexBuffer::bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_buffer_id); }
+void VertexBuffer::Bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_buffer_id); }
 
-void VertexBuffer::unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+void VertexBuffer::Unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 }  // namespace RenderEngine

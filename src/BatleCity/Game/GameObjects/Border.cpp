@@ -9,10 +9,10 @@ Border::Border(const glm::vec2& position, const glm::vec2& size,
             layer),
       m_sprite(
           Game::Instance().GetResourcesManager()->GetSprite("Border_8x8")) {
-  m_colliders.addCollider(glm::vec2(0.f), m_size);
+  m_colliders.AddCollider(glm::vec2(0.f), m_size);
 }
 
-void Border::render() const {
-  m_sprite->render(m_position, m_size, m_rotation, m_layer);
+void Border::Render() const {
+  m_sprite->Render(m_position, m_size, m_rotation, m_layer);
 }
 }  // namespace BatleCity

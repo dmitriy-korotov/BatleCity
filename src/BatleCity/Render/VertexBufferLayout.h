@@ -18,14 +18,14 @@ class VertexBufferLayout {
   VertexBufferLayout() = default;
   ~VertexBufferLayout() = default;
 
-  inline GLuint getStride() const { return m_stride; }
-  void reserve(const std::size_t count);
-  void addBufferLayoutElementFloat(const GLuint count,
+  inline GLuint GetStride() const { return m_stride; }
+  void Reserve(const std::size_t count);
+  void AddBufferLayoutElementFloat(const GLuint count,
                                    const GLboolean normalized);
-  const std::vector<VertexBufferLayoutElement>& getLayoutElements() const;
+  const std::vector<VertexBufferLayoutElement>& GetLayoutElements() const;
 
  private:
-  std::vector<VertexBufferLayoutElement> m_layout_elements_of_buffer;
+  std::vector<VertexBufferLayoutElement> m_layoutElementsOfBuffer;
   GLuint m_stride = 0;
 };
 }  // namespace RenderEngine

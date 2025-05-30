@@ -32,7 +32,7 @@ void PhysicsEngine::Update(double delta) {
     const auto newPosition = GetNewPosition(object, delta);
 
     const auto mapObjects =
-        m_currentLevel->GetObjectsFromArea(newPosition, object->gSetSize());
+        m_currentLevel->GetObjectsFromArea(newPosition, object->SetSize());
     auto isIntersection =
         IsInersectionWithObjects(object, newPosition, mapObjects);
 
@@ -41,17 +41,17 @@ void PhysicsEngine::Update(double delta) {
         continue;
       }
       const auto [first, second] = IsIntersection(
-          object->getColliders(), newPosition, otherObject->getColliders(),
-          otherObject->getPosition());
+          object->GetColliders(), newPosition, otherObject->GetColliders(),
+          otherObject->GetPosition());
       if (first || second) {
-        isIntersection |= object->onCollision(otherObject->getGameObjectType(),
+        isIntersection |= object->OnCollision(otherObject->GetGameObjectType(),
                                               otherObject, second);
-        otherObject->onCollision(object->getGameObjectType(), object, first);
+        otherObject->OnCollision(object->GetGameObjectType(), object, first);
       }
     }
 
     if (!isIntersection) {
-      object->setPosition(newPosition);
+      object->SetPosition(newPosition);
     }
     it = std::next(it);
   }
@@ -70,19 +70,19 @@ void PhysicsEngine::AddDynamicGameObject(
 glm::vec2 PhysicsEngine::GetNewPosition(
     const std::shared_ptr<BatleCity::IDynamicGameObject>& game_object,
     double delta) {
-  const glm::vec2 objectDirection = game_object->getDirection();
+  const glm::vec2 objectDirection = game_object->GetDirection();
   glm::vec2 newPosition(0.f);
 
   if (objectDirection.x == 0.f) {
     newPosition.x = static_cast<float>(
-        static_cast<int>(game_object->getPosition().x / 4.f + 0.5f) * 4);
-    newPosition.y = game_object->getPosition().y +
+        static_cast<int>(game_object->GetPosition().x / 4.f + 0.5f) * 4);
+    newPosition.y = game_object->GetPosition().y +
                     objectDirection.y *
                         static_cast<float>(game_object->GetVelocity() * delta);
   } else {
     newPosition.y = static_cast<float>(
-        static_cast<int>(game_object->getPosition().y / 4.f + 0.5f) * 4);
-    newPosition.x = game_object->getPosition().x +
+        static_cast<int>(game_object->GetPosition().y / 4.f + 0.5f) * 4);
+    newPosition.x = game_object->GetPosition().x +
                     objectDirection.x *
                         static_cast<float>(game_object->GetVelocity() * delta);
   }
@@ -96,7 +96,7 @@ PhysicsEngine::IsIntersection(const std::vector<AABB>& first_object,
                               const glm::vec2& position_object2) {
   for (const auto& first_collision : first_object) {
     for (const auto& second_collision : second_object) {
-      if (first_collision.isActive() && second_collision.isActive()) {
+      if (first_collision.IsActive() && second_collision.IsActive()) {
         if (first_collision.getLeftBottom().x + position_object1.x >=
             second_collision.getRightTop().x + position_object2.x) {
           continue;
@@ -129,14 +129,14 @@ bool PhysicsEngine::IsInersectionWithObjects(
     const std::vector<std::shared_ptr<BatleCity::IGameObject>>& other_objects) {
   for (const auto& object : other_objects) {
     auto colliders_pair =
-        IsIntersection(current_game_object->getColliders(), newPosition,
-                       object->getColliders(), object->getPosition());
+        IsIntersection(current_game_object->GetColliders(), newPosition,
+                       object->GetColliders(), object->GetPosition());
     if (colliders_pair.first != nullptr && colliders_pair.second != nullptr) {
-      const bool is_stoped = current_game_object->onCollision(
-          object->getGameObjectType(), object, colliders_pair.first);
-      object->onCollision(current_game_object->getGameObjectType(),
+      const bool is_stoped = current_game_object->OnCollision(
+          object->GetGameObjectType(), object, colliders_pair.first);
+      object->OnCollision(current_game_object->GetGameObjectType(),
                           current_game_object, colliders_pair.second,
-                          current_game_object->getDirection());
+                          current_game_object->GetDirection());
       if (is_stoped) return true;
     }
   }

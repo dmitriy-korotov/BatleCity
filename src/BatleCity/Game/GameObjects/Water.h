@@ -17,7 +17,7 @@ class Water : public Block {
   void Update(const double delta) override;
 
  private:
-  void renderBlock(const ESubBlockLocation subBlock_location) const override;
+  void RenderBlock(const ESubBlockLocation subBlock_location) const override;
 
   RenderEngine::SpriteAnimator m_sprite;
 };

@@ -29,14 +29,14 @@ Sprite2D::Sprite2D(std::shared_ptr<Texture2D> ptr_texture,
 
   GLuint indexes[] = {0, 1, 2, 2, 3, 0};
 
-  m_VAO.bind();
+  m_VAO.Bind();
 
-  m_texture_coords_buffer.init(texture_coords, 2 * 4 * sizeof(GLfloat));
+  m_texture_coords_buffer.Init(texture_coords, 2 * 4 * sizeof(GLfloat));
   VertexBufferLayout texture_coords_layout;
-  texture_coords_layout.addBufferLayoutElementFloat(2, false);
+  texture_coords_layout.AddBufferLayoutElementFloat(2, false);
   m_VAO.addLayoutBuffer(m_texture_coords_buffer, texture_coords_layout);
 
-  m_EBO.init(indexes, 2 * 3 * sizeof(GLuint));
+  m_EBO.Init(indexes, 2 * 3 * sizeof(GLuint));
 }
 
 Sprite2D::~Sprite2D() {}
@@ -65,7 +65,7 @@ double Sprite2D::getDurationStateAnimation(
   return 0;
 }
 
-void Sprite2D::render(const glm::vec2& position, const glm::vec2& size,
+void Sprite2D::Render(const glm::vec2& position, const glm::vec2& size,
                       const float rotation, const float layer) const {
   glm::mat4 model_matrix(1.f);
 
@@ -81,7 +81,7 @@ void Sprite2D::render(const glm::vec2& position, const glm::vec2& size,
   m_shader_program->setFloat("layer", layer);
   m_shader_program->SetMatrix4("model_matrix", model_matrix);
 
-  m_texture->bind();
+  m_texture->Bind();
   BatleCity::Game::Instance().GetRenderer()->DrawElements(
       GL_TRIANGLES, m_VAO, m_EBO, *m_shader_program);
 }

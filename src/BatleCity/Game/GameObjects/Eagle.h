@@ -17,11 +17,11 @@ class Eagle : public IGameObject {
   Eagle(const glm::vec2& positiion, const glm::vec2& size, const float rotation,
         const float layer);
 
-  EEagleState getState() const noexcept { return m_eagle_state; }
+  EEagleState GetState() const noexcept { return m_eagle_state; }
 
-  void render() const final;
+  void Render() const final;
   void Update(const double delta) final;
-  bool onCollision(EGameObjectType game_object_type,
+  bool OnCollision(EGameObjectType game_object_type,
                    std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction = glm::vec2(0.f)) final;

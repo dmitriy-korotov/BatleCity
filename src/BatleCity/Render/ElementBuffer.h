@@ -20,10 +20,10 @@ class ElementBuffer {
 
   unsigned int getCount() const { return m_count; }
 
-  void init(const void* data, const unsigned int count);
+  void Init(const void* data, const unsigned int count);
   void Update(const void* data, const std::size_t size) const;
-  void bind() const;
-  void unbind() const;
+  void Bind() const;
+  void Unbind() const;
 
  private:
   GLuint m_buffer_id = 0;

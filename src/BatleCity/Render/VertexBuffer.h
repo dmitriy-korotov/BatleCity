@@ -18,10 +18,10 @@ class VertexBuffer {
   VertexBuffer(VertexBuffer&& outher_vertex_buffer) noexcept;
   VertexBuffer& operator=(VertexBuffer&& outher_vertex_buffer) noexcept;
 
-  void init(const void* data, const size_t size);
+  void Init(const void* data, const size_t size);
   void Update(const void* data, const size_t size) const;
-  void bind() const;
-  void unbind() const;
+  void Bind() const;
+  void Unbind() const;
 
  private:
   GLuint m_buffer_id = 0;

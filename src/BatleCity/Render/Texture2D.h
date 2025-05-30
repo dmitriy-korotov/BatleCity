@@ -34,7 +34,7 @@ class Texture2D {
   inline unsigned int height() const { return m_height; }
   inline unsigned int channels() const { return m_mode; }
 
-  void bind() const;
+  void Bind() const;
   void addSubTexture(const std::string& subTexture_name,
                      const glm::vec2& left_bottom_uv,
                      const glm::vec2& right_top_uv);

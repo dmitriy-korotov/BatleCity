@@ -71,7 +71,7 @@ Texture2D& Texture2D::operator=(Texture2D&& outher_texture) noexcept {
   return *this;
 }
 
-void Texture2D::bind() const { glBindTexture(GL_TEXTURE_2D, m_ID); }
+void Texture2D::Bind() const { glBindTexture(GL_TEXTURE_2D, m_ID); }
 
 void Texture2D::addSubTexture(const std::string& subTexture_name,
                               const glm::vec2& left_bottom_uv,

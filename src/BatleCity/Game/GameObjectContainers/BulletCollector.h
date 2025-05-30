@@ -14,12 +14,12 @@ class BulletCollector {
   BulletCollector(BulletCollector&&) = default;
   ~BulletCollector() = default;
 
-  bool has(std::size_t id) const;
+  bool Has(std::size_t id) const;
 
-  void addBullet(std::shared_ptr<Bullet> bullet);
+  void AddBullet(std::shared_ptr<Bullet> bullet);
 
   void UpdateBullets(double delta);
-  void renderBullets() const;
+  void RenderBullets() const;
 
  private:
   std::unordered_set<std::shared_ptr<Bullet>> m_bullets;

@@ -112,8 +112,8 @@ static std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(
 }
 
 namespace BatleCity {
-std::shared_ptr<RenderEngine::ShaderProgram>
-    Level::m_gameObjectsShaderProgram = nullptr;
+std::shared_ptr<RenderEngine::ShaderProgram> Level::m_gameObjectsShaderProgram =
+    nullptr;
 std::shared_ptr<RenderEngine::ShaderProgram> Level::m_collidersShaderProgram =
     nullptr;
 
@@ -150,7 +150,7 @@ void Level::LoadMap() const {
               current_row_element,
               glm::vec2(current_offset_x, current_offset_y),
               glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f);
-          if (object && object->getGameObjectType() ==
+          if (object && object->GetGameObjectType() ==
                             IGameObject::EGameObjectType::Eagle) {
             m_eagle = std::static_pointer_cast<Eagle>(object);
           }
@@ -264,7 +264,8 @@ void Level::InitPhysics() const {
   try {
     Game::Instance().GetPhysicsEngine()->SetCurrentLevel(shared_from_this());
   } catch (const std::exception& ex) {
-    std::cerr << "ERROR: shared_from_this exception (Level): " << ex.what() << std::endl;
+    std::cerr << "ERROR: shared_from_this exception (Level): " << ex.what()
+              << std::endl;
   }
 }
 
@@ -386,7 +387,7 @@ std::vector<std::shared_ptr<BatleCity::IGameObject>> Level::GetObjectsFromArea(
     for (unsigned int y_index = start_Y; y_index < end_Y; ++y_index) {
       const auto& object =
           m_staticObjectsMap[static_cast<size_t>(y_index) * m_width_blocks +
-                               x_index];
+                             x_index];
       if (object) {
         objects_in_area.emplace_back(object);
       }
@@ -412,11 +413,9 @@ std::vector<std::shared_ptr<BatleCity::IGameObject>> Level::GetObjectsFromArea(
   return objects_in_area;
 }
 
-void Level::UpdateTank(
-    std::shared_ptr<Tank>& tank, KeyboardType& keyboard,
-    const std::vector<uint16_t>& tankActions2Keys) noexcept {
-  if (keyboard[tankActions2Keys[static_cast<size_t>(
-          ETankActions::MoveTop)]]) {
+void Level::UpdateTank(std::shared_ptr<Tank>& tank, KeyboardType& keyboard,
+                       const std::vector<uint16_t>& tankActions2Keys) noexcept {
+  if (keyboard[tankActions2Keys[static_cast<size_t>(ETankActions::MoveTop)]]) {
     tank->SetOrientation(IDynamicGameObject::EOrientation::Top);
     if (keyboard[tankActions2Keys[static_cast<size_t>(
             ETankActions::SlowDown)]]) {
@@ -455,8 +454,7 @@ void Level::UpdateTank(
     tank->SetVelocity(0);
   }
 
-  if (keyboard[tankActions2Keys[static_cast<size_t>(
-          ETankActions::Fire)]]) {
+  if (keyboard[tankActions2Keys[static_cast<size_t>(ETankActions::Fire)]]) {
     reinterpret_cast<const std::shared_ptr<Tank>&>(tank)->fair();
   }
 }
@@ -484,7 +482,7 @@ void Level::UpdateDynamicMapObjects(double delta) noexcept {
 }
 
 void Level::Update(const double delta, KeyboardType& keyboard) {
-  if (m_eagle && m_eagle->getState() == Eagle::EEagleState::Dead) {
+  if (m_eagle && m_eagle->GetState() == Eagle::EEagleState::Dead) {
     m_isFinished = true;
   }
   if (m_player1 && m_player2) {
@@ -524,32 +522,33 @@ void Level::Update(const double delta, KeyboardType& keyboard) {
   Game::Instance().GetPhysicsEngine()->Update(delta);
 }
 
-void Level::render() const {
+void Level::Render() const {
   for (const auto& object : m_staticObjectsMap) {
     if (object) {
-      object->render();
+      object->Render();
       object->RenderColliders();
     }
   }
   for (const auto& tank : m_enemyTanks) {
     if (tank) {
-      tank->render();
+      tank->Render();
       tank->RenderColliders();
     }
   }
   if (m_player1) {
-    m_player1->render();
+    m_player1->Render();
     m_player1->RenderColliders();
   }
   if (m_player2) {
-    m_player2->render();
+    m_player2->Render();
     m_player2->RenderColliders();
   }
 
   if (IsFinished()) {
     const auto size = glm::vec2(150.f, 150.f);
-    const auto pos = glm::vec2(GetGameStateWidth(), GetGameStateHeight()) / 2.f - size / 2.f;
-    m_game_over->render(pos, size, 0.f, 5);
+    const auto pos =
+        glm::vec2(GetGameStateWidth(), GetGameStateHeight()) / 2.f - size / 2.f;
+    m_game_over->Render(pos, size, 0.f, 5);
   }
 }
 }  // namespace BatleCity

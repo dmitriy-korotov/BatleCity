@@ -14,7 +14,7 @@ class BetonWall : public Block {
   BetonWall(const EBlockType wall_type, const glm::vec2& position,
             const glm::vec2& size, const float rotation, const float layer);
 
-  void renderBlock(const ESubBlockLocation subBlock_location) const override;
+  void RenderBlock(const ESubBlockLocation subBlock_location) const override;
 
  private:
   std::shared_ptr<RenderEngine::Sprite2D> m_sprite;

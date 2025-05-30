@@ -3,7 +3,7 @@
 #include <vector>
 
 namespace BatleCity {
-bool BulletCollector::has(std::size_t id) const {
+bool BulletCollector::Has(std::size_t id) const {
   for (const auto& bullet : m_bullets) {
     if (bullet->GetID() == id) {
       return true;
@@ -12,7 +12,7 @@ bool BulletCollector::has(std::size_t id) const {
   return false;
 }
 
-void BulletCollector::addBullet(std::shared_ptr<Bullet> bullet) {
+void BulletCollector::AddBullet(std::shared_ptr<Bullet> bullet) {
   m_bullets.insert(std::move(bullet));
 }
 
@@ -34,9 +34,9 @@ void BulletCollector::UpdateBullets(double delta) {
   }
 }
 
-void BulletCollector::renderBullets() const {
+void BulletCollector::RenderBullets() const {
   for (const auto& bullet : m_bullets) {
-    bullet->render();
+    bullet->Render();
     bullet->RenderColliders();
   }
 }

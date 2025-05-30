@@ -16,7 +16,7 @@ void IDynamicGameObject::move(const glm::vec2& offset) { m_position += offset; }
 
 void IDynamicGameObject::SetVelocity(double velocity) { m_velocity = velocity; }
 
-void IDynamicGameObject::setDirection(const glm::vec2& direction) {
+void IDynamicGameObject::SetDirection(const glm::vec2& direction) {
   m_direction = direction;
 }
 
@@ -28,11 +28,11 @@ double IDynamicGameObject::GetMaxVelocity() const { return m_max_velocity; }
 
 double IDynamicGameObject::GetVelocity() const { return m_velocity; }
 
-const glm::vec2& IDynamicGameObject::getDirection() const {
+const glm::vec2& IDynamicGameObject::GetDirection() const {
   return m_direction;
 }
 
-IDynamicGameObject::EOrientation IDynamicGameObject::getOrientation()
+IDynamicGameObject::EOrientation IDynamicGameObject::GetOrientation()
     const noexcept {
   return m_current_orientation;
 }

@@ -1,5 +1,4 @@
 #include <BatleCity/System/Window.h>
-#include <GLFW/glfw3.h>
 
 #include <iostream>
 
@@ -11,8 +10,7 @@ Window::Window(unsigned int _width, unsigned int _height,
     glfwGetError(&message);
     std::cerr << "ERROR: " << message << std::endl;
   }
-  m_window =
-      glfwCreateWindow(_width, _height, _name.c_str(), nullptr, nullptr);
+  m_window = glfwCreateWindow(_width, _height, _name.c_str(), nullptr, nullptr);
   if (!m_window) {
     const char* message;
     glfwGetError(&message);
@@ -52,8 +50,7 @@ void Window::SetResizeCallBack(void (*_resize_call_back)(GLFWwindow*, int,
 void Window::SetKeyCallBack(void (*_key_call_back)(GLFWwindow*, int, int, int,
                                                    int)) noexcept {
   m_key_call_back = _key_call_back;
-  glfwSetKeyCallback(m_window,
-                     reinterpret_cast<GLFWkeyfun&>(_key_call_back));
+  glfwSetKeyCallback(m_window, reinterpret_cast<GLFWkeyfun&>(_key_call_back));
 }
 
 void Window::CallResizeCallBack(int width, int height) const noexcept {

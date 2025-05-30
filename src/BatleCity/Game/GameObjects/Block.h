@@ -33,8 +33,8 @@ class Block : public IGameObject {
         const float layer);
 
   void Update(const double delta) override;
-  void render() const override;
-  bool onCollision(EGameObjectType game_object_type,
+  void Render() const override;
+  bool OnCollision(EGameObjectType game_object_type,
                    std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction) override;
@@ -49,7 +49,7 @@ class Block : public IGameObject {
 
   enum class ESubBlockState : uint8_t { Enable, Destroy };
 
-  virtual void renderBlock(const ESubBlockLocation subBlock_location) const;
+  virtual void RenderBlock(const ESubBlockLocation subBlock_location) const;
 
   EBlockType m_block_type;
 };

@@ -16,7 +16,7 @@ void Renderer::DrawElements(const unsigned int primitive_type,
                             const ElementBuffer& element_buffer,
                             const ShaderProgram& shader_program) {
   shader_program.Use();
-  vertex_array.bind();
+  vertex_array.Bind();
   glDrawElements(primitive_type, element_buffer.getCount(), GL_UNSIGNED_INT,
                  nullptr);
 }

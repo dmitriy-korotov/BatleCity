@@ -6,9 +6,9 @@
 #include "GameStates/Level.h"
 #include "GameStates/StartScreen.h"
 
-#include <BatleCity/Resources/ResourceManager.h>
 #include <BatleCity/Physics/PhysicsEngine.h>
 #include <BatleCity/Render/Renderer.h>
+#include <BatleCity/Resources/ResourceManager.h>
 
 #include "../System/Window.h"
 
@@ -105,15 +105,15 @@ void Game::SetKey(const int key, const int action) { m_keys[key] = action; }
 
 void Game::ResetWindowSizeToCurrentGameState() noexcept {
   m_window->CallResizeCallBack(m_window->GetWindowWidth(),
-                                   m_window->GetWindowHeight());
+                               m_window->GetWindowHeight());
 }
 
 void Game::Update(const double delta) {
   if (m_currentGameState->GetGameStateType() ==
       IGameState::EGameStates::StartScreen) {
     if (m_keys[GLFW_KEY_ENTER]) {
-      switch (std::static_pointer_cast<StartScreen>(m_currentGameState)
-                  ->select()) {
+      switch (
+          std::static_pointer_cast<StartScreen>(m_currentGameState)->select()) {
         case StartScreen::EMenuPuncts::LevelTwoPlayers:
           m_level->SetLevelType(Level::ELevelType::TwoPlayers);
           break;
@@ -142,7 +142,7 @@ void Game::Update(const double delta) {
 void Game::Render() {
   m_renderer->Clear(GL_COLOR_BUFFER_BIT);
   m_renderer->Clear(GL_DEPTH_BUFFER_BIT);
-  m_currentGameState->render();
+  m_currentGameState->Render();
 }
 
 size_t Game::GetCurrentGameWidth() const {

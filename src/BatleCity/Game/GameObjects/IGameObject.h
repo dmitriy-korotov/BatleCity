@@ -37,31 +37,31 @@ class IGameObject {
 
   virtual std::size_t GetID() const noexcept;
 
-  virtual bool onCollision(EGameObjectType game_object_type,
+  virtual bool OnCollision(EGameObjectType game_object_type,
                            std::shared_ptr<IGameObject> object,
                            std::shared_ptr<Physics::AABB> target_collider,
                            const glm::vec2& direction = glm::vec2(0.f)) = 0;
   virtual void Update(const double daleta) = 0;
-  virtual void render() const = 0;
+  virtual void Render() const = 0;
 
   void RenderColliders() const;
 
-  inline void setPosition(const glm::vec2& positiion) noexcept {
+  inline void SetPosition(const glm::vec2& positiion) noexcept {
     m_position = positiion;
   }
   inline void SetSize(const glm::vec2& size) noexcept { m_size = size; }
   inline void setRotation(const float rotation) noexcept {
     m_rotation = rotation;
   }
-  inline void setLayer(const float layer) noexcept { m_layer = layer; }
+  inline void SetLayer(const float layer) noexcept { m_layer = layer; }
 
-  inline const std::vector<Physics::AABB>& getColliders() const noexcept {
-    return m_colliders.getColliders();
+  inline const std::vector<Physics::AABB>& GetColliders() const noexcept {
+    return m_colliders.GetColliders();
   }
-  inline const glm::vec2& getPosition() const noexcept { return m_position; }
-  inline const glm::vec2& gSetSize() const noexcept { return m_size; }
-  inline float getRotation() const noexcept { return m_rotation; }
-  inline EGameObjectType getGameObjectType() const noexcept {
+  inline const glm::vec2& GetPosition() const noexcept { return m_position; }
+  inline const glm::vec2& SetSize() const noexcept { return m_size; }
+  inline float GetRotation() const noexcept { return m_rotation; }
+  inline EGameObjectType GetGameObjectType() const noexcept {
     return m_game_object_type;
   }
 

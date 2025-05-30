@@ -201,24 +201,24 @@ void StartScreen::Update(double delta, KeyboardType& keyboard) {
   }
 }
 
-void StartScreen::render() const {
+void StartScreen::Render() const {
   for (const auto& current_start_screen_element : m_startScreenElements) {
     if (current_start_screen_element.first) {
-      current_start_screen_element.first->render(
+      current_start_screen_element.first->Render(
           current_start_screen_element.second, glm::vec2(BLOCK_SIZE), 0.f, 0.f);
     }
   }
 
   for (const auto& current_menu_selection : m_menu_selections) {
     if (current_menu_selection.first) {
-      current_menu_selection.first->render(
+      current_menu_selection.first->Render(
           current_menu_selection.second,
           glm::vec2(MENU_SELECTION_WIDTH, MENU_SELECTION_HEIGHT), 0.f, 0.f);
     }
   }
 
   if (m_menu_selector.first) {
-    m_menu_selector.first->render(m_menu_selector.second,
+    m_menu_selector.first->Render(m_menu_selector.second,
                                   glm::vec2(BLOCK_SIZE * 2), 0.f, 0.f);
   }
 }

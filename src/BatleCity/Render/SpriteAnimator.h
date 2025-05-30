@@ -17,7 +17,7 @@ class SpriteAnimator {
 
   void setState(const std::string& state_name);
   void Update(const double delta);
-  void render(const glm::vec2& position, const glm::vec2& size,
+  void Render(const glm::vec2& position, const glm::vec2& size,
               const float rotation, const float layer) const;
 
   double getDurationAnimation(const std::string& animation_name) const;

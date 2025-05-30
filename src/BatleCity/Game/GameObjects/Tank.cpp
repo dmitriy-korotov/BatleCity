@@ -30,7 +30,7 @@ Tank::Tank(ETankType tank_type, const glm::vec2& positiion,
                          System::Timer()},
       m_min_velocity(max_velocity / 2),
       m_delay_between_shots(delay_between_shots) {
-  setPosition(m_position);
+  SetPosition(m_position);
 
   m_respawn_animation.first.setState("default");
   m_respawn_animation.second.SetCallBack([&]() {
@@ -45,7 +45,7 @@ Tank::Tank(ETankType tank_type, const glm::vec2& positiion,
 
   m_timer_for_shots.SetCallBack([&]() { m_is_fair = false; });
 
-  m_colliders.addCollider(glm::vec2(0.f), m_size);
+  m_colliders.AddCollider(glm::vec2(0.f), m_size);
 }
 
 void Tank::SetOrientation(const EOrientation orietation) {
@@ -106,18 +106,18 @@ void Tank::Update(const double delta) {
   }
 }
 
-void Tank::render() const {
+void Tank::Render() const {
   if (m_is_respawn) {
-    m_respawn_animation.first.render(m_position, m_size, m_rotation, m_layer);
+    m_respawn_animation.first.Render(m_position, m_size, m_rotation, m_layer);
   } else {
     if (!m_is_destroy) {
       if (m_has_shild) {
-        m_shield_animation.first.render(m_position, m_size, m_rotation,
+        m_shield_animation.first.Render(m_position, m_size, m_rotation,
                                         m_layer);
       }
-      m_tank_sprite.render(m_position, m_size, m_rotation, m_layer);
+      m_tank_sprite.Render(m_position, m_size, m_rotation, m_layer);
     }
-    m_bullets.renderBullets();
+    m_bullets.RenderBullets();
   }
 }
 
@@ -127,15 +127,16 @@ void Tank::fair() const {
     auto bullet =
         std::make_shared<Bullet>(GetID(), m_current_orientation, m_size / 2.f,
                                  m_layer + 0.1f, 3 * m_max_velocity);
-    bullet->fire(m_position, m_direction, bullet->GetMaxVelocity());
-    m_bullets.addBullet(bullet);
-    Game::Instance().GetPhysicsEngine()->AddDynamicGameObject(std::move(bullet));
+    bullet->Fire(m_position, m_direction, bullet->GetMaxVelocity());
+    m_bullets.AddBullet(bullet);
+    Game::Instance().GetPhysicsEngine()->AddDynamicGameObject(
+        std::move(bullet));
 
     m_timer_for_shots.Start(m_delay_between_shots);
   }
 }
 
-bool Tank::onCollision(EGameObjectType game_object_type,
+bool Tank::OnCollision(EGameObjectType game_object_type,
                        std::shared_ptr<IGameObject> object,
                        std::shared_ptr<Physics::AABB> target_collider,
                        const glm::vec2& direction) {
@@ -143,10 +144,10 @@ bool Tank::onCollision(EGameObjectType game_object_type,
       game_object_type == EGameObjectType::Ice) {
     return false;
   } else if (game_object_type == EGameObjectType::Bullet) {
-    if (!m_bullets.has(object->GetID())) {
+    if (!m_bullets.Has(object->GetID())) {
       if (HP == 1) {
         m_is_destroy = true;
-        m_colliders.deleteAllColliders();
+        m_colliders.DeleteAllColliders();
       } else {
         HP -= 1;
       }

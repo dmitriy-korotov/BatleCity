@@ -54,10 +54,10 @@ class Tank : public IDynamicGameObject {
   void SetOrientation(const EOrientation orientation) override;
 
   void Update(const double delta) override;
-  void render() const override;
+  void Render() const override;
 
   void fair() const;
-  bool onCollision(EGameObjectType game_object_type,
+  bool OnCollision(EGameObjectType game_object_type,
                    std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction = glm::vec2(0.f)) override;

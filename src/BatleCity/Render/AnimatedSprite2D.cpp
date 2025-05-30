@@ -53,7 +53,7 @@ void AnimatedSprite2D::Update(const uint64_t delta) {
   }
 }
 
-void AnimatedSprite2D::render(const glm::vec2& position, const glm::vec2& size,
+void AnimatedSprite2D::Render(const glm::vec2& position, const glm::vec2& size,
                               const float rotation) const {
   if (m_need_rerender) {
     RenderEngine::Texture2D::SubTexture2D current_subTexture =
@@ -79,6 +79,6 @@ void AnimatedSprite2D::render(const glm::vec2& position, const glm::vec2& size,
     m_need_rerender = false;
   }
 
-  Sprite2D::render(position, size, rotation);
+  Sprite2D::Render(position, size, rotation);
 }
 }  // namespace RenderEngine

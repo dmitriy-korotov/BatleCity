@@ -4,7 +4,6 @@
 
 #include <memory>
 #include <optional>
-#include <string>
 #include <vector>
 
 namespace BatleCity {
@@ -26,15 +25,15 @@ class EnemyTankAI {
   void Update(double delta) noexcept;
 
  private:
-  std::optional<Point> findEaglePosition() const noexcept;
-  std::optional<Path> calculatePathToEagle() const noexcept;
+  std::optional<Point> FindEaglePosition() const noexcept;
+  std::optional<Path> CalculatePathToEagle() const noexcept;
   std::pair<std::vector<std::vector<int64_t>>, EnemyTankAI::Point>
-  calculateDistanceMap(const Point& start_pos) const noexcept;
-  Path getPathFromDynamic(std::vector<std::vector<int64_t>>& dp,
+  CalculateDistanceMap(const Point& start_pos) const noexcept;
+  Path GetPathFromDynamic(std::vector<std::vector<int64_t>>& dp,
                           const Point& last_visited_point,
                           const Point& tank_position) const noexcept;
-  Point getIndexesTankPosition() const noexcept;
-  EnemyTankAI::Path reconstructPath(
+  Point GetIndexesTankPosition() const noexcept;
+  EnemyTankAI::Path ReconstructPath(
       const std::vector<std::vector<int64_t>>& dist, const Point& start,
       const Point& end) const noexcept;
 

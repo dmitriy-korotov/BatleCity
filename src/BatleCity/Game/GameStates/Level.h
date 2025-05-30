@@ -49,7 +49,7 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
 
   bool start() const noexcept override;
   void Update(const double delta, KeyboardType& keyboard) override;
-  void render() const override;
+  void Render() const override;
 
   const std::vector<std::string>& GetLevelDescription() const noexcept;
   static uint8_t getLeftOffset() noexcept;
@@ -95,8 +95,7 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
 
   static std::shared_ptr<RenderEngine::ShaderProgram>
       m_gameObjectsShaderProgram;
-  static std::shared_ptr<RenderEngine::ShaderProgram>
-      m_collidersShaderProgram;
+  static std::shared_ptr<RenderEngine::ShaderProgram> m_collidersShaderProgram;
 
   static const std::vector<uint16_t> m_player1_keys;
   static const std::vector<uint16_t> m_player2_keys;

@@ -29,7 +29,7 @@ class Sprite2D : IRenderObjectRect2D {
   Sprite2D& operator=(Sprite2D&&) = delete;
 
   bool isAnimated() const;
-  void render(const glm::vec2& position, const glm::vec2& size,
+  void Render(const glm::vec2& position, const glm::vec2& size,
               const float rotation, const float layer) const override;
   void addState(const std::string& state_name,
                 std::vector<std::pair<std::string, double>>&& frames);

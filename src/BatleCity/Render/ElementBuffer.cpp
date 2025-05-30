@@ -20,7 +20,7 @@ ElementBuffer& ElementBuffer::operator=(
   return *this;
 }
 
-void ElementBuffer::init(const void* data, const unsigned int count) {
+void ElementBuffer::Init(const void* data, const unsigned int count) {
   m_count = count;
 
   glGenBuffers(1, &m_buffer_id);
@@ -34,9 +34,9 @@ void ElementBuffer::Update(const void* data, const size_t size) const {
   glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data);
 }
 
-void ElementBuffer::bind() const {
+void ElementBuffer::Bind() const {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffer_id);
 }
 
-void ElementBuffer::unbind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
+void ElementBuffer::Unbind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 }  // namespace RenderEngine

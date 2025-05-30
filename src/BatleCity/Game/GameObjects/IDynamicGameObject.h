@@ -14,13 +14,13 @@ class IDynamicGameObject : public IGameObject {
 
   void move(const glm::vec2& offset);
   virtual void SetVelocity(double velocity);
-  void setDirection(const glm::vec2& direction);
+  void SetDirection(const glm::vec2& direction);
   virtual void SetOrientation(const EOrientation orientation);
 
   double GetMaxVelocity() const;
   double GetVelocity() const;
-  const glm::vec2& getDirection() const;
-  EOrientation getOrientation() const noexcept;
+  const glm::vec2& GetDirection() const;
+  EOrientation GetOrientation() const noexcept;
 
   inline bool IsDestroy() const noexcept { return m_is_destroy; };
 

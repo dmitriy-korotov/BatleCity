@@ -15,20 +15,20 @@ class BrickWall : public Block {
   BrickWall(const EBlockType wall_type, const glm::vec2& position,
             const glm::vec2& size, const float rotation, const float layer);
 
-  void renderBlock(const ESubBlockLocation subBlock_location) const override;
-  bool onCollision(EGameObjectType game_object_type,
+  void RenderBlock(const ESubBlockLocation subBlock_location) const override;
+  bool OnCollision(EGameObjectType game_object_type,
                    std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,
                    const glm::vec2& direction) override;
 
  private:
-  glm::vec2 getOffsetBySubBlockLocation(
+  glm::vec2 GetOffsetBySubBlockLocation(
       ESubBlockLocation subBlockLocation) const noexcept;
-  ESubBlockLocation getSubBlockLocationByCollider(
+  ESubBlockLocation GetSubBlockLocationByCollider(
       std::shared_ptr<Physics::AABB>& collider) const noexcept;
-  size_t getColliderIndexBySubBlockLocation(
+  size_t GetColliderIndexBySubBlockLocation(
       ESubBlockLocation subBlock_location) const noexcept;
-  void changeBrickWallAfterCollisionWithBullet(
+  void ChangeBrickWallAfterCollisionWithBullet(
       ESubBlockLocation& subBlock_location, const glm::vec2& direction);
 
   std::shared_ptr<RenderEngine::Sprite2D> m_left_bottom_sprite = nullptr;

@@ -14,7 +14,7 @@ class Border : public Block {
   Border(const glm::vec2& position, const glm::vec2& size, const float rotation,
          const float layer);
 
-  void render() const override;
+  void Render() const override;
 
  private:
   std::shared_ptr<RenderEngine::Sprite2D> m_sprite;

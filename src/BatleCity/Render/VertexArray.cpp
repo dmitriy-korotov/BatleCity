@@ -25,11 +25,11 @@ VertexArray& VertexArray::operator=(
 
 void VertexArray::addLayoutBuffer(const VertexBuffer& buffer,
                                   const VertexBufferLayout& layout_buffer) {
-  bind();
-  buffer.bind();
+  Bind();
+  buffer.Bind();
 
   std::vector<VertexBufferLayoutElement> layout_elements =
-      layout_buffer.getLayoutElements();
+      layout_buffer.GetLayoutElements();
 
   for (size_t i = 0; i < layout_elements.size(); ++i) {
     VertexBufferLayoutElement current_layout_element = layout_elements[i];
@@ -39,13 +39,13 @@ void VertexArray::addLayoutBuffer(const VertexBuffer& buffer,
     glVertexAttribPointer(current_attrib_index, current_layout_element.count,
                           current_layout_element.type,
                           current_layout_element.normalized,
-                          layout_buffer.getStride(), offset);
+                          layout_buffer.GetStride(), offset);
     offset += current_layout_element.size;
   }
   m_count_buffers += layout_elements.size();
 }
 
-void VertexArray::bind() const { glBindVertexArray(m_vertex_array_id); }
+void VertexArray::Bind() const { glBindVertexArray(m_vertex_array_id); }
 
-void VertexArray::unbind() const { glBindVertexArray(0); }
+void VertexArray::Unbind() const { glBindVertexArray(0); }
 }  // namespace RenderEngine
