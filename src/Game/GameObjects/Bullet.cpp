@@ -103,10 +103,11 @@ bool Bullet::onCollision(EGameObjectType game_object_type,
     m_velocity = 0;
     m_sprite.reset();
     m_is_fire = false;
-    m_is_exploded = true;
-    m_explosion_animation.second.start(
+    if (game_object_type != EGameObjectType::Bullet) {
+      m_is_exploded = true;
+      m_explosion_animation.second.start(
         m_explosion_animation.first.getDurationAnimation("default"));
-
+    }
     return true;
   }
   return false;

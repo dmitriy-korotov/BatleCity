@@ -114,14 +114,13 @@ void Tank::render() const {
                                         m_layer);
       }
       m_tank_sprite.render(m_position, m_size, m_rotation, m_layer);
-
-      m_bullets.renderBullets();
     }
+    m_bullets.renderBullets();
   }
 }
 
 void Tank::fair() const {
-  if (!m_is_respawn && !m_is_fair) {
+  if (!m_is_destroy && !m_is_respawn && !m_is_fair) {
     m_is_fair = true;
     auto bullet = std::make_shared<Bullet>(getID(), m_current_orientation, m_size / 2.f,
                                            m_layer + 0.1f, 3 * m_max_velocity);
@@ -144,6 +143,7 @@ bool Tank::onCollision(EGameObjectType game_object_type,
     if (!m_bullets.has(object->getID())) {
       if (HP == 1) {
         m_is_destroy = true;
+        m_colliders.deleteAllColliders();
       } else {
         HP -= 1;
       }

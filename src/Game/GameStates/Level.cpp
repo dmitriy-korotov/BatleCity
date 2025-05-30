@@ -272,6 +272,8 @@ void Level::initPhysics() const {
 }
 
 void Level::createTanks() const noexcept {
+  m_player1.reset();
+  m_player2.reset();
   switch (m_level_type) {
     case BatleCity::Level::ELevelType::TwoPlayers:
       m_player2 =
@@ -492,6 +494,15 @@ void Level::updateDynamicMapObjects(double delta) noexcept {
 void Level::update(const double delta, std::array<bool, 349>& keyboard) {
   if (m_eagle && m_eagle->getState() == Eagle::EEagleState::Dead) {
     m_is_finished = true;
+  }
+  if (m_player1 && m_player2) {
+    m_is_finished |= m_player1->isDestroy() && m_player2->isDestroy();
+  }
+  if (m_player1 && !m_player2) {
+    m_is_finished |= m_player1->isDestroy();
+  }
+  if (m_player2 && !m_player1) {
+    m_is_finished |= m_player2->isDestroy();
   }
   if (m_is_finished) {
     return;

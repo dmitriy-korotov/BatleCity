@@ -3325,6 +3325,62 @@
 				"DDDDD0E2DDDDD"
 			]
 		},
+
+        {
+            "type"        : "level",
+            "name"        : "Level2_v2",
+			"description" : [
+				"BBBBBBBBBBBBB",
+				"B1B1B1B1B1B1B",
+				"B4B4B4B4B4B4B",
+				"B4B4B4B4B4B4B",
+				"B4B4B494B4B4B",
+				"B4B4B3B3B4B4B",
+				"B3B3B1B1B3B3B",
+				"1B11B3B3B11B1",
+				"8B33B111B33B8",
+				"B1B1B4A4B1B1B",
+				"B4B4B4A4B4B4B",
+				"B4B4B333B4B4B",
+				"B4B4BH1GB4B4B",
+				"BBBBB0E2BBBBB"
+			]
+		},
+
+        {
+            "type"        : "level",
+            "name"        : "Level2_v3",
+			"description" : [
+				"BBBBBBBBBBBBB",
+				"B1B1B1B1B1B1B",
+				"B4B4B4B4B4B4B",
+				"B4B4B4B4B4B4B",
+				"B4B4B494B4B4B",
+				"B4B4B3B3B4B4B",
+				"B3B3B1B1B3B3B",
+				"1B11B3B3B11B1",
+				"8B33B111B33B8",
+				"B1B1B4A4B1B1B",
+				"B4B4B4A4B4B4B",
+				"B4B4B333B4B4B",
+				"B4B4BH1GB4B4B",
+				"BBBBB012BBBBB",
+                "BBBBBBBBBBBBB",
+				"B1B1B1B1B1B1B",
+				"B4B4B4B4B4B4B",
+				"B4B4B4B4B4B4B",
+				"B4B4B494B4B4B",
+				"B4B4B3B3B4B4B",
+				"B3B3B1B1B3B3B",
+				"1B11B3B3B11B1",
+				"8B33B111B33B8",
+				"B1B1B4A4B1B1B",
+				"B4B4B4A4B4B4B",
+				"B4B4B333B4B4B",
+				"B4B4BH1GB4B4B",
+				"BBBBB0E2BBBBB"
+			]
+		},
 		
 		{
             "type"        : "level",

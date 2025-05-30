@@ -35,11 +35,11 @@ void GameObjectCollider::deleteAllColliders() { m_rect_colliders.clear(); }
 void GameObjectCollider::render(const glm::vec2& position,
                                 const glm::vec2& size, const float rotation,
                                 const float layer) const {
-  glm::mat4 model_matrix(1.f);
   m_shader_program->use();
   m_shader_program->setFloat("layer", layer);
 
   for (const auto& rect_collider : m_rect_colliders) {
+    glm::mat4 model_matrix(1.f);
     if (rect_collider.isActive()) {
       model_matrix = glm::translate(
           model_matrix,

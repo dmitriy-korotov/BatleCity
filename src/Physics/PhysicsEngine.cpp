@@ -51,6 +51,8 @@ void PhysicsEngine::update(double delta) {
         if (second) {
           is_intersection |= dynamic_game_object->onCollision(
               other_game_object->getGameObjectType(), other_game_object, second);
+          other_game_object->onCollision(
+              dynamic_game_object->getGameObjectType(), dynamic_game_object, first);
         }
       }
 

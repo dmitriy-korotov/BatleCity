@@ -5,6 +5,7 @@
 #include <iostream>
 #include <queue>
 #include <algorithm>
+#include <random>
 
 namespace BatleCity {
 
@@ -98,7 +99,7 @@ EnemyTankAI::calculateDistanceMap(const Point& start_pos) const noexcept {
                 if (is_passable && dist[next.second][next.first] == INT_MAX) {
                     int weight = 1;
                     if (level[next.second][next.first] != PERMITTED_FOR_PATH_SYMBOL) {
-                      weight += 2;
+                      weight += 1;
                     }
                     dist[next.second][next.first] = dist[current.second][current.first] + weight;
                     prev[next.second][next.first] = current;
@@ -123,29 +124,43 @@ EnemyTankAI::Path EnemyTankAI::reconstructPath(
     Path path;
     Point current = end;
     int block_size = m_level->getBlockSize();
+    std::random_device rd;
+    std::mt19937 gen(rd());
 
     while (current != start) {
         path.emplace_back(current.first * block_size, current.second * block_size);
         
         const auto& level = m_level->getLevelDescription();
         const std::vector<Point> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-        Point prev_point = current;
-        int64_t min_dist = INT_MAX;
+        std::vector<Point> valid_neighbors;
 
+        // Собираем все валидные соседние точки с меньшим расстоянием
         for (const auto& dir : directions) {
             Point neighbor = {current.first + dir.first, current.second + dir.second};
             
             if (neighbor.first >= 0 && neighbor.first < level[0].size() &&
                 neighbor.second >= 0 && neighbor.second < level.size()) {
                 
-                if (dist[neighbor.second][neighbor.first] < min_dist) {
-                    min_dist = dist[neighbor.second][neighbor.first];
-                    prev_point = neighbor;
+                if (dist[neighbor.second][neighbor.first] < dist[current.second][current.first]) {
+                    valid_neighbors.push_back(neighbor);
                 }
             }
         }
-        
-        current = prev_point;
+
+        // Если нет валидных соседей, прерываем цикл
+        if (valid_neighbors.empty()) {
+            break;
+        }
+
+        // Случайным образом выбираем следующую точку из валидных соседей
+        std::uniform_int_distribution<> dis(0, valid_neighbors.size() - 1);
+        current = valid_neighbors[dis(gen)];
+    }
+
+    // Добавляем стартовую точку, если еще не добавлена
+    if (!path.empty() && path.back().first != start.first * block_size && 
+                         path.back().second != start.second * block_size) {
+        path.emplace_back(start.first * block_size, start.second * block_size);
     }
 
     std::reverse(path.begin(), path.end());
