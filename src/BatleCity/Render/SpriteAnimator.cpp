@@ -1,5 +1,7 @@
 #include "SpriteAnimator.h"
 
+#include <BatleCity/Game/Game.h>
+
 #include "../Resources/ResourceManager.h"
 #include "Texture2D.h"
 
@@ -52,8 +54,9 @@ void SpriteAnimator::update(const double delta) {
 void SpriteAnimator::render(const glm::vec2& position, const glm::vec2& size,
                             const float rotation, const float layer) const {
   if (m_is_need_rerender) {
-    m_currnet_sprite = Resources::ResourceManager::getSprite(
-        m_current_state->second[m_current_frame].first);
+    m_currnet_sprite =
+        BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+            m_current_state->second[m_current_frame].first);
     m_is_need_rerender = false;
   }
   m_currnet_sprite->render(position, size, rotation, layer);

@@ -32,7 +32,7 @@ void EnemyTankAI::activeOnTank(std::shared_ptr<EnemyTank> enemy_tank) noexcept {
 
 std::optional<EnemyTankAI::Point> EnemyTankAI::findEaglePosition()
     const noexcept {
-  const auto& level = m_level->getLevelDescription();
+  const auto& level = m_level->GetLevelDescription();
   for (uint16_t y = 0; y < level.size(); ++y) {
     for (uint16_t x = 0; x < level[y].size(); ++x) {
       if (level[y][x] == EAGLE_SYMBOL) {
@@ -70,7 +70,7 @@ EnemyTankAI::Point EnemyTankAI::getIndexesTankPosition() const noexcept {
 
 std::pair<std::vector<std::vector<int64_t>>, EnemyTankAI::Point>
 EnemyTankAI::calculateDistanceMap(const Point& start_pos) const noexcept {
-  const auto& level = m_level->getLevelDescription();
+  const auto& level = m_level->GetLevelDescription();
   size_t height = level.size();
   size_t width = level[0].size();
 
@@ -138,7 +138,7 @@ EnemyTankAI::Path EnemyTankAI::reconstructPath(
   while (current != start) {
     path.emplace_back(current.first * block_size, current.second * block_size);
 
-    const auto& level = m_level->getLevelDescription();
+    const auto& level = m_level->GetLevelDescription();
     const std::vector<Point> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     std::vector<Point> valid_neighbors;
 

@@ -5,6 +5,8 @@
 
 #include <glm/vec2.hpp>
 
+#include <BatleCity/Game/Game.h>
+
 #include "GameObjectCollider.h"
 
 #include <vector>

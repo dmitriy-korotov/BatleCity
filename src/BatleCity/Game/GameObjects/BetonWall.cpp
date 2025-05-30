@@ -8,7 +8,8 @@ BetonWall::BetonWall(const EBlockType wall_type, const glm::vec2& position,
                      const float layer)
     : Block(EGameObjectType::BetonWall, wall_type, position, size, rotation,
             layer),
-      m_sprite(Resources::ResourceManager::getSprite("BetonWall_8x8")) {}
+      m_sprite(
+          Game::Instance().GetResourcesManager()->GetSprite("BetonWall_8x8")) {}
 
 void BetonWall::renderBlock(const ESubBlockLocation subBlock_location) const {
   switch (subBlock_location) {

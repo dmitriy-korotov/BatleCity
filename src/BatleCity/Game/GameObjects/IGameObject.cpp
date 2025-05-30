@@ -1,5 +1,7 @@
 #include "IGameObject.h"
 
+#include <BatleCity/Game/Game.h>
+
 #include "../../Resources/ResourceManager.h"
 
 namespace BatleCity {
@@ -9,7 +11,7 @@ IGameObject::IGameObject(EGameObjectType game_object_type,
                          const glm::vec2& position, const glm::vec2& size,
                          const float rotation, const float layer)
     : m_game_object_type(game_object_type),
-      m_colliders(Resources::ResourceManager::getShaderProgram(
+      m_colliders(Game::Instance().GetResourcesManager()->GetShaderProgram(
           "colliderShaderProgram")),
       m_size(size),
       m_position(position),

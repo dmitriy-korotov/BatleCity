@@ -9,6 +9,10 @@ namespace System {
 class Window;
 }
 
+namespace Resources {
+class ResourceManager;
+}
+
 namespace RenderEngine {
 class ShaderProgram;
 class AnimatedSprite2D;
@@ -26,6 +30,7 @@ class Game final {
   static Game& Instance();
 
   std::shared_ptr<RenderEngine::Renderer> GetRenderer();
+  std::shared_ptr<Resources::ResourceManager> GetResourcesManager();
 
   bool StartOn(std::shared_ptr<System::Window> window);
   void Finish();
@@ -52,6 +57,7 @@ class Game final {
   std::shared_ptr<IGameState> m_current_game_state = nullptr;
 
   std::shared_ptr<RenderEngine::Renderer> m_renderer = nullptr;
+  std::shared_ptr<Resources::ResourceManager> m_resources_manager = nullptr;
 };
 }  // namespace BatleCity
 

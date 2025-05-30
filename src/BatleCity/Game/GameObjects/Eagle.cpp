@@ -7,8 +7,9 @@ Eagle::Eagle(const glm::vec2& position, const glm::vec2& size,
              const float rotation, const float layer)
     : IGameObject(EGameObjectType::Eagle, position, size, rotation, layer),
       m_eagle_state(EEagleState::Elive),
-      m_eagle_sprites{Resources::ResourceManager::getSprite("Eagle_Elive"),
-                      Resources::ResourceManager::getSprite("Eagle_Dead")} {
+      m_eagle_sprites{
+          Game::Instance().GetResourcesManager()->GetSprite("Eagle_Elive"),
+          Game::Instance().GetResourcesManager()->GetSprite("Eagle_Dead")} {
   m_colliders.addCollider(glm::vec2(0.f), m_size);
 }
 

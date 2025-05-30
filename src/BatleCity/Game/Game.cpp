@@ -27,10 +27,15 @@ Game& Game::Instance() {
 Game::Game() {
   m_keys.fill(false);
   m_renderer = std::make_shared<RenderEngine::Renderer>();
+  m_resources_manager = std::make_shared<Resources::ResourceManager>();
 }
 
 std::shared_ptr<RenderEngine::Renderer> Game::GetRenderer() {
   return m_renderer;
+}
+
+std::shared_ptr<Resources::ResourceManager> Game::GetResourcesManager() {
+  return m_resources_manager;
 }
 
 bool Game::StartOn(std::shared_ptr<System::Window> window) {
@@ -50,20 +55,20 @@ bool Game::StartOn(std::shared_ptr<System::Window> window) {
   std::cout << "OpenGL version: " << m_renderer->GetStringOpenGL(GL_VERSION)
             << "\n\n";
 
-  if (!Resources::ResourceManager::loadAllResourcesJSON("res/resources.json")) {
+  if (!m_resources_manager->LoadAllResourcesJSON("res/resources.json")) {
     std::cerr
         << "ERROR: => Can't load all resources from JSON:\tres/resources.json"
         << std::endl;
     return false;
   }
 
-  m_start_screen = Resources::ResourceManager::getStartScreen("StartScreen1");
+  m_start_screen = m_resources_manager->GetStartScreen("StartScreen1");
   if (m_start_screen == nullptr) {
     std::cerr << "ERROR: Can't load start screen" << std::endl;
     return false;
   }
 
-  m_level = Resources::ResourceManager::getLevel("Level2");
+  m_level = m_resources_manager->GetLevel("Level2");
   if (m_level == nullptr) {
     std::cerr << "ERROR: Can't load level" << std::endl;
     return false;
@@ -88,7 +93,7 @@ void Game::Finish() {
   m_level.reset();
   m_current_game_state.reset();
 
-  Resources::ResourceManager::unloadAllResources();
+  m_resources_manager->UnloadAllResources();
   Physics::PhysicsEngine::Terminate();
 }
 

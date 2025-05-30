@@ -8,27 +8,31 @@ Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type,
     : IDynamicGameObject(EGameObjectType::Bullet, glm::vec2(0.f), size, 0.f,
                          layer, glm::vec2(0.f, 1.f), 0, max_velocity),
       m_owner_id(owner_id),
-      m_explosion_animation{
-          Resources::ResourceManager::getSprite("ExplosionAnimation"),
-          System::Timer()} {
+      m_explosion_animation{Game::Instance().GetResourcesManager()->GetSprite(
+                                "ExplosionAnimation"),
+                            System::Timer()} {
   switch (bullet_type) {
     case BatleCity::Bullet::EOrientation::Top:
-      m_sprite = Resources::ResourceManager::getSprite("Bullet_Top_8x8");
+      m_sprite =
+          Game::Instance().GetResourcesManager()->GetSprite("Bullet_Top_8x8");
       m_colliders.addCollider(glm::vec2(m_size.x / 1.4f, m_size.y * 1.6f),
                               glm::vec2(m_size.x * 1.2f, m_size.y * 2.2f));
       break;
     case BatleCity::Bullet::EOrientation::Bottom:
-      m_sprite = Resources::ResourceManager::getSprite("Bullet_Bottom_8x8");
+      m_sprite = Game::Instance().GetResourcesManager()->GetSprite(
+          "Bullet_Bottom_8x8");
       m_colliders.addCollider(glm::vec2(m_size.x / 1.4f, -m_size.y / 3.5f),
                               glm::vec2(m_size.x * 1.2f, m_size.y / 3.f));
       break;
     case BatleCity::Bullet::EOrientation::Left:
-      m_sprite = Resources::ResourceManager::getSprite("Bullet_Left_8x8");
+      m_sprite =
+          Game::Instance().GetResourcesManager()->GetSprite("Bullet_Left_8x8");
       m_colliders.addCollider(glm::vec2(-m_size.x / 4.f, m_size.y / 1.2f),
                               glm::vec2(m_size.x / 2.5f, m_size.y * 1.3f));
       break;
     case BatleCity::Bullet::EOrientation::Right:
-      m_sprite = Resources::ResourceManager::getSprite("Bullet_Right_8x8");
+      m_sprite =
+          Game::Instance().GetResourcesManager()->GetSprite("Bullet_Right_8x8");
       m_colliders.addCollider(glm::vec2(m_size.x * 1.7f, m_size.y / 1.2f),
                               glm::vec2(m_size.x * 2.3f, m_size.y * 1.3f));
       break;

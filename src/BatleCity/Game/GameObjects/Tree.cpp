@@ -6,7 +6,7 @@ namespace BatleCity {
 Tree::Tree(const EBlockType tree_type, const glm::vec2& position,
            const glm::vec2& size, const float rotation, const float layer)
     : Block(EGameObjectType::Tree, tree_type, position, size, rotation, layer),
-      m_sprite(Resources::ResourceManager::getSprite("Tree_8x8")) {
+      m_sprite(Game::Instance().GetResourcesManager()->GetSprite("Tree_8x8")) {
   m_colliders.addCollider(glm::vec2(0.f), m_size);
 }
 

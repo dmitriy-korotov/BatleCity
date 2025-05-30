@@ -1,6 +1,4 @@
 #include <cstdlib>
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
 
 #include <BatleCity/Resources/ResourceManager.h>
 
@@ -72,7 +70,7 @@ int main(const int argc, const char** argv) {
 
   window->MakeContextCurrent();
 
-  Resources::ResourceManager::setExecutablePath(argv[0]);
+  BatleCity::Game::Instance().GetResourcesManager()->SetExecutablePath(argv[0]);
 
   if (!BatleCity::Game::Instance().StartOn(window)) {
     std::cerr << "ERROR: Can't start game" << std::endl;

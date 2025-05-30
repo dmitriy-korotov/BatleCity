@@ -19,31 +19,25 @@
 #include "stb_image.h"
 
 namespace Resources {
-ResourceManager::MapShaderProgram ResourceManager::m_shader_programs;
-ResourceManager::MapTexture2D ResourceManager::m_textures;
-ResourceManager::MapSprite2D ResourceManager::m_sprites;
-ResourceManager::MapGameStates ResourceManager::m_game_states;
-std::string ResourceManager::m_path;
-
-void ResourceManager::setExecutablePath(const std::string& executable_path) {
+void ResourceManager::SetExecutablePath(const std::string& executable_path) {
   size_t finded_index = executable_path.find_last_of("/\\");
 
   m_path = executable_path.substr(0, finded_index);
 }
 
-void ResourceManager::unloadAllResources() {
+void ResourceManager::UnloadAllResources() {
   m_shader_programs.clear();
   m_sprites.clear();
   m_textures.clear();
   m_game_states.clear();
 }
 
-std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::loadShaderProrgam(
+std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::LoadShaderProrgam(
     const std::string& shader_name,
     const std::string& path_to_vertex_shader_source,
     const std::string& path_to_fragment_shader_source) {
   std::string virtex_source =
-      getFileString(m_path + "/" + path_to_vertex_shader_source);
+      GetFileString(m_path + "/" + path_to_vertex_shader_source);
   if (virtex_source.empty()) {
     std::cerr << "Can't load vertex shader: " << path_to_vertex_shader_source
               << std::endl;
@@ -51,7 +45,7 @@ std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::loadShaderProrgam(
   }
 
   std::string fragment_source =
-      getFileString(m_path + "/" + path_to_fragment_shader_source);
+      GetFileString(m_path + "/" + path_to_fragment_shader_source);
   if (fragment_source.empty()) {
     std::cerr << "Can't load fragment shader: "
               << path_to_fragment_shader_source << std::endl;
@@ -64,7 +58,7 @@ std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::loadShaderProrgam(
       .first->second;
 }
 
-std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTexture(
+std::shared_ptr<RenderEngine::Texture2D> ResourceManager::LoadTexture(
     const std::string& texture_name,
     const std::string& relative_path_to_texture) {
   int channels = 0;
@@ -93,7 +87,7 @@ std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTexture(
   return new_texture;
 }
 
-std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::getShaderProgram(
+std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::GetShaderProgram(
     const std::string& shader_name) {
   MapShaderProgram::const_iterator it = m_shader_programs.find(shader_name);
 
@@ -105,7 +99,7 @@ std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::getShaderProgram(
   return it->second;
 }
 
-std::shared_ptr<RenderEngine::Texture2D> ResourceManager::getTexture(
+std::shared_ptr<RenderEngine::Texture2D> ResourceManager::GetTexture(
     const std::string& texture_name) {
   MapTexture2D::const_iterator it = m_textures.find(texture_name);
 
@@ -116,17 +110,17 @@ std::shared_ptr<RenderEngine::Texture2D> ResourceManager::getTexture(
   return it->second;
 }
 
-std::shared_ptr<RenderEngine::Sprite2D> ResourceManager::loadSprite(
+std::shared_ptr<RenderEngine::Sprite2D> ResourceManager::LoadSprite(
     const std::string& sprite_name, const std::string& shader_program_name,
     const std::string& texture_name, const std::string& subTexture_name) {
   std::shared_ptr<RenderEngine::ShaderProgram> shader_program =
-      getShaderProgram(shader_program_name);
+      GetShaderProgram(shader_program_name);
   if (shader_program == nullptr) {
     std::cerr << "Can't load sprite: " << sprite_name << std::endl;
     return nullptr;
   }
 
-  std::shared_ptr<RenderEngine::Texture2D> texture = getTexture(texture_name);
+  std::shared_ptr<RenderEngine::Texture2D> texture = GetTexture(texture_name);
   if (texture == nullptr) {
     std::cerr << "Can't load sptite: " << sprite_name << std::endl;
     return nullptr;
@@ -138,7 +132,7 @@ std::shared_ptr<RenderEngine::Sprite2D> ResourceManager::loadSprite(
       .first->second;
 }
 
-std::shared_ptr<RenderEngine::Sprite2D> ResourceManager::getSprite(
+std::shared_ptr<RenderEngine::Sprite2D> ResourceManager::GetSprite(
     const std::string& sprite_name) {
   MapSprite2D::const_iterator it = m_sprites.find(sprite_name);
 
@@ -149,13 +143,13 @@ std::shared_ptr<RenderEngine::Sprite2D> ResourceManager::getSprite(
   return it->second;
 }
 
-std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTextureAtlas(
+std::shared_ptr<RenderEngine::Texture2D> ResourceManager::LoadTextureAtlas(
     const std::string& texture_name,
     const std::vector<std::string> subTexture_names,
     const std::string& relative_path_to_texture,
     const unsigned int width_subTexture, const unsigned int height_subtexture) {
   std::shared_ptr<RenderEngine::Texture2D> texture =
-      loadTexture(texture_name, relative_path_to_texture);
+      LoadTexture(texture_name, relative_path_to_texture);
   if (texture == nullptr) {
     std::cerr << "Can't load texture atlas: " << relative_path_to_texture
               << std::endl;
@@ -191,7 +185,7 @@ std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTextureAtlas(
   return texture;
 }
 
-std::shared_ptr<BatleCity::IGameState> ResourceManager::loadLevel(
+std::shared_ptr<BatleCity::IGameState> ResourceManager::LoadLevel(
     std::string&& level_name, std::vector<std::string>&& level_description) {
   if (level_description.empty()) {
     std::cerr << "Level description is empty can't load level" << std::endl;
@@ -203,7 +197,7 @@ std::shared_ptr<BatleCity::IGameState> ResourceManager::loadLevel(
       .first->second;
 }
 
-std::shared_ptr<BatleCity::IGameState> ResourceManager::loadStartScreen(
+std::shared_ptr<BatleCity::IGameState> ResourceManager::LoadStartScreen(
     std::string&& start_screen_name,
     std::vector<std::string>&& start_screen_description,
     unsigned int left_offset, unsigned int bottom_offset,
@@ -221,7 +215,7 @@ std::shared_ptr<BatleCity::IGameState> ResourceManager::loadStartScreen(
       .first->second;
 }
 
-std::shared_ptr<BatleCity::StartScreen> ResourceManager::getStartScreen(
+std::shared_ptr<BatleCity::StartScreen> ResourceManager::GetStartScreen(
     const std::string& start_sccreen_name) {
   const auto& game_state = m_game_states.find(start_sccreen_name);
   if (game_state == m_game_states.end()) {
@@ -242,7 +236,7 @@ std::shared_ptr<BatleCity::StartScreen> ResourceManager::getStartScreen(
       game_state->second);
 }
 
-std::shared_ptr<BatleCity::Level> ResourceManager::getLevel(
+std::shared_ptr<BatleCity::Level> ResourceManager::GetLevel(
     const std::string& level_name) {
   const auto& game_state = m_game_states.find(level_name);
   if (game_state == m_game_states.end()) {
@@ -263,10 +257,10 @@ std::shared_ptr<BatleCity::Level> ResourceManager::getLevel(
       game_state->second);
 }
 
-bool ResourceManager::loadAllResourcesJSON(
+bool ResourceManager::LoadAllResourcesJSON(
     const std::string& path_to_JSON_file) {
   const std::string JSON_string =
-      ResourceManager::getFileString(m_path + "/" + path_to_JSON_file);
+      ResourceManager::GetFileString(m_path + "/" + path_to_JSON_file);
   if (JSON_string.empty()) {
     std::cerr << "JSON file is empty: " << path_to_JSON_file << std::endl;
     return false;
@@ -282,26 +276,26 @@ bool ResourceManager::loadAllResourcesJSON(
     return false;
   }
 
-  if (!ResourceManager::loadShaderProgramsJSON(document)) {
+  if (!ResourceManager::LoadShaderProgramsJSON(document)) {
     return false;
   }
-  if (!ResourceManager::loadTextureAtlasesJSON(document)) {
+  if (!ResourceManager::LoadTextureAtlasesJSON(document)) {
     return false;
   }
-  if (!ResourceManager::loadSpritesJSON(document)) {
+  if (!ResourceManager::LoadSpritesJSON(document)) {
     return false;
   }
-  if (!ResourceManager::loadStartScreensJSON(document)) {
+  if (!ResourceManager::LoadStartScreensJSON(document)) {
     return false;
   }
-  if (!ResourceManager::loadLevelsJSON(document)) {
+  if (!ResourceManager::LoadLevelsJSON(document)) {
     return false;
   }
 
   return true;
 }
 
-std::string ResourceManager::getFileString(const std::string& path) {
+std::string ResourceManager::GetFileString(const std::string& path) {
   std::ifstream file(path, std::ios::in | std::ios::binary);
   if (!file.is_open()) {
     std::cerr << "Can't load data from file: " << path << std::endl;
@@ -313,7 +307,7 @@ std::string ResourceManager::getFileString(const std::string& path) {
   return buffer.str();
 }
 
-bool ResourceManager::loadShaderProgramsJSON(
+bool ResourceManager::LoadShaderProgramsJSON(
     const rapidjson::Document& document) {
   auto shader_programs_iterator = document.FindMember("shaders");
   if (shader_programs_iterator != document.MemberEnd()) {
@@ -325,7 +319,7 @@ bool ResourceManager::loadShaderProgramsJSON(
           current_shader_program["filePath_v"].GetString();
       std::string fragment_shader_path =
           current_shader_program["filePath_f"].GetString();
-      auto shader_program = loadShaderProrgam(std::move(shader_program_name),
+      auto shader_program = LoadShaderProrgam(std::move(shader_program_name),
                                               std::move(vertex_shader_path),
                                               std::move(fragment_shader_path));
       if (shader_program == nullptr) {
@@ -337,7 +331,7 @@ bool ResourceManager::loadShaderProgramsJSON(
   return true;
 }
 
-bool ResourceManager::loadTextureAtlasesJSON(
+bool ResourceManager::LoadTextureAtlasesJSON(
     const rapidjson::Document& document) {
   auto texture_atlases_iterator = document.FindMember("textureAtlases");
   if (texture_atlases_iterator != document.MemberEnd()) {
@@ -360,7 +354,7 @@ bool ResourceManager::loadTextureAtlasesJSON(
         subTexture_names.emplace_back(current_name.GetString());
       }
 
-      auto texture_atlas = loadTextureAtlas(
+      auto texture_atlas = LoadTextureAtlas(
           std::move(texture_atlas_name), std::move(subTexture_names),
           std::move(texture_atlas_path), std::move(subTexture_width),
           std::move(subTexture_height));
@@ -373,7 +367,7 @@ bool ResourceManager::loadTextureAtlasesJSON(
   return true;
 }
 
-bool ResourceManager::loadSpritesJSON(const rapidjson::Document& document) {
+bool ResourceManager::LoadSpritesJSON(const rapidjson::Document& document) {
   auto sprites_iterator = document.FindMember("sprites");
   if (sprites_iterator != document.MemberEnd()) {
     for (const auto& current_sprite : sprites_iterator->value.GetArray()) {
@@ -385,7 +379,7 @@ bool ResourceManager::loadSpritesJSON(const rapidjson::Document& document) {
       std::string subTexture_name = current_sprite["subTexture"].GetString();
 
       auto sprite =
-          loadSprite(sprite_name, std::move(shader_program_name),
+          LoadSprite(sprite_name, std::move(shader_program_name),
                      std::move(texture_atlas_name), std::move(subTexture_name));
       if (!sprite) {
         std::cerr << "Can't load sprite from JSON: " << sprite_name
@@ -415,7 +409,7 @@ bool ResourceManager::loadSpritesJSON(const rapidjson::Document& document) {
   return true;
 }
 
-bool ResourceManager::loadStartScreensJSON(
+bool ResourceManager::LoadStartScreensJSON(
     const rapidjson::Document& document) {
   auto start_screen_iterator = document.FindMember("start_screens");
   if (start_screen_iterator != document.MemberEnd()) {
@@ -445,7 +439,7 @@ bool ResourceManager::loadStartScreensJSON(
           row.append("F");
         }
       }
-      loadStartScreen(std::move(name_start_screen), std::move(description),
+      LoadStartScreen(std::move(name_start_screen), std::move(description),
                       left_offset, bottom_offset, menu_position_x,
                       menu_position_y);
     }
@@ -453,7 +447,7 @@ bool ResourceManager::loadStartScreensJSON(
   return true;
 }
 
-bool ResourceManager::loadLevelsJSON(const rapidjson::Document& document) {
+bool ResourceManager::LoadLevelsJSON(const rapidjson::Document& document) {
   auto levels_iterator = document.FindMember("levels");
   if (levels_iterator != document.MemberEnd()) {
     for (const auto& level : levels_iterator->value.GetArray()) {
@@ -477,7 +471,7 @@ bool ResourceManager::loadLevelsJSON(const rapidjson::Document& document) {
           row.append("D");
         }
       }
-      loadLevel(std::move(name_level), std::move(description));
+      LoadLevel(std::move(name_level), std::move(description));
     }
   }
   return true;

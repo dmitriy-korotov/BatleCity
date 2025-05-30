@@ -51,7 +51,7 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   void update(const double delta, std::array<bool, 349>& keyboard) override;
   void render() const override;
 
-  const std::vector<std::string>& getLevelDescription() const noexcept;
+  const std::vector<std::string>& GetLevelDescription() const noexcept;
   static uint8_t getLeftOffset() noexcept;
   static uint8_t getRightOffset() noexcept;
   static uint8_t getBottomOffset() noexcept;

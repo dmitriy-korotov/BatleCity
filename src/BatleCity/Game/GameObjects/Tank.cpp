@@ -2,6 +2,8 @@
 
 #include "Bullet.h"
 
+#include <BatleCity/Game/Game.h>
+
 #include "../../Render/Sprite2D.h"
 
 #include "../../Resources/ResourceManager.h"
@@ -16,16 +18,16 @@ Tank::Tank(ETankType tank_type, const glm::vec2& positiion,
 
     : IDynamicGameObject(EGameObjectType::Tank, positiion, size, 0.f, layer,
                          direction, velocity, max_velocity),
-      m_tank_sprite(Resources::ResourceManager::getSprite(
+      m_tank_sprite(Game::Instance().GetResourcesManager()->GetSprite(
           m_all_kinds_tank_sprites[static_cast<size_t>(tank_type)])),
-      m_respawn_animation{
-          RenderEngine::SpriteAnimator(
-              Resources::ResourceManager::getSprite("RespawnAnimation")),
-          System::Timer()},
-      m_shield_animation{
-          RenderEngine::SpriteAnimator(
-              Resources::ResourceManager::getSprite("ShieldAnimation")),
-          System::Timer()},
+      m_respawn_animation{RenderEngine::SpriteAnimator(
+                              Game::Instance().GetResourcesManager()->GetSprite(
+                                  "RespawnAnimation")),
+                          System::Timer()},
+      m_shield_animation{RenderEngine::SpriteAnimator(
+                             Game::Instance().GetResourcesManager()->GetSprite(
+                                 "ShieldAnimation")),
+                         System::Timer()},
       m_min_velocity(max_velocity / 2),
       m_delay_between_shots(delay_between_shots) {
   setPosition(m_position);

@@ -5,6 +5,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <BatleCity/Game/Game.h>
+
 #include "../../Render/Sprite2D.h"
 
 #include "../../Resources/ResourceManager.h"
@@ -18,66 +20,57 @@ static std::shared_ptr<RenderEngine::Sprite2D>
 createStartScreenElementFromDescription(char description) {
   switch (description) {
     case '0':
-      return Resources::ResourceManager::getSprite("BrickWall_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_8x8");
     case '1':
-      return Resources::ResourceManager::getSprite("BrickWall_Left_Top_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Left_Top_8x8");
     case '2':
-      return Resources::ResourceManager::getSprite("BrickWall_Right_Top_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Right_Top_8x8");
     case '3':
-      return Resources::ResourceManager::getSprite("BrickWall_Top_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Top_8x8");
     case '4':
-      return Resources::ResourceManager::getSprite("BrickWall_Left_Bottom_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Left_Bottom_8x8");
     case '5':
-      return Resources::ResourceManager::getSprite("BrickWall_Left_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Left_8x8");
     case '6':
-      return Resources::ResourceManager::getSprite(
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Right_Top_Left_Bottom_8x8");
-      break;
     case '7':
-      return Resources::ResourceManager::getSprite(
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Without_Right_Bottom_8x8");
-      break;
     case '8':
-      return Resources::ResourceManager::getSprite(
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Right_Bottom_8x8");
-      break;
     case '9':
-      return Resources::ResourceManager::getSprite(
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Left_Top_Right_Bottom_8x8");
-      break;
     case 'A':
-      return Resources::ResourceManager::getSprite("BrickWall_Right_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Right_8x8");
     case 'B':
-      return Resources::ResourceManager::getSprite(
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Without_Left_Bottom_8x8");
-      break;
     case 'C':
-      return Resources::ResourceManager::getSprite("BrickWall_Bottom_8x8");
-      break;
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Bottom_8x8");
     case 'D':
-      return Resources::ResourceManager::getSprite(
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Without_Right_Top_8x8");
-      break;
     case 'E':
-      return Resources::ResourceManager::getSprite(
+      return BatleCity::Game::Instance().GetResourcesManager()->GetSprite(
           "BrickWall_Without_Left_Top_8x8");
-      break;
     case 'F':
       return nullptr;
-      break;
     default:
       std::cerr
-          << "ERROR: Start srceen element with such description not found: "
+          << "WARNING: Start srceen element with such description not found: "
           << description << std::endl;
       return nullptr;
-      break;
   }
 }
 
@@ -91,8 +84,8 @@ StartScreen::StartScreen(
     uint16_t menu_position_y)
     : IGameState(EGameStates::StartScreen) {
   if (!m_start_srcreen_elements_shader_program) {
-    setShaderProgram(
-        Resources::ResourceManager::getShaderProgram(SHADER_PROGRAM_NAME));
+    setShaderProgram(Game::Instance().GetResourcesManager()->GetShaderProgram(
+        SHADER_PROGRAM_NAME));
   }
 
   if (start_screen_description.empty()) {
@@ -123,23 +116,26 @@ StartScreen::StartScreen(
     // menu selections
     m_menu_selections.emplace_back(
         std::make_pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>(
-            Resources::ResourceManager::getSprite("One_Player_Selection"),
+            Game::Instance().GetResourcesManager()->GetSprite(
+                "One_Player_Selection"),
             glm::vec2(menu_position_x, menu_position_y)));
 
     m_menu_selections.emplace_back(
         std::make_pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>(
-            Resources::ResourceManager::getSprite("Two_Players_Selection"),
+            Game::Instance().GetResourcesManager()->GetSprite(
+                "Two_Players_Selection"),
             glm::vec2(menu_position_x, menu_position_y - BLOCK_SIZE * 2)));
 
     // m_menu_selections.emplace_back(
     //     std::make_pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>(
-    //         Resources::ResourceManager::getSprite("Construction_Selection"),
+    //         Game::Instance().GetResourcesManager()->GetSprite("Construction_Selection"),
     //         glm::vec2(menu_position_x, menu_position_y - BLOCK_SIZE * 4)));
 
     // menu selector
     m_menu_selector =
         std::make_pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>(
-            Resources::ResourceManager::getSprite(SELECTOR_SPRITE_NAME),
+            Game::Instance().GetResourcesManager()->GetSprite(
+                SELECTOR_SPRITE_NAME),
             glm::vec2(menu_position_x - BLOCK_SIZE * 3, menu_position_y));
   }
 }

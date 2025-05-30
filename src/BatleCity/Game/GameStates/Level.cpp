@@ -8,6 +8,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <BatleCity/Game/Game.h>
+
 #include "../GameObjects/BetonWall.h"
 #include "../GameObjects/Border.h"
 #include "../GameObjects/BrickWall.h"
@@ -188,12 +190,14 @@ Level::Level(std::vector<std::string>&& level_description)
     : IGameState(EGameStates::Level),
       m_description(std::move(level_description)) {
   if (!m_game_obgects_shader_program) {
-    setGameObjectsShaderProgram(Resources::ResourceManager::getShaderProgram(
-        GAME_OBJECTS_SHADER_PROGRAM_NAME));
+    setGameObjectsShaderProgram(
+        Game::Instance().GetResourcesManager()->GetShaderProgram(
+            GAME_OBJECTS_SHADER_PROGRAM_NAME));
   }
   if (!m_colliders_shader_program) {
-    setCollidersShaderProgram(Resources::ResourceManager::getShaderProgram(
-        COLLIDERS_SHADER_PROGRAM_NAME));
+    setCollidersShaderProgram(
+        Game::Instance().GetResourcesManager()->GetShaderProgram(
+            COLLIDERS_SHADER_PROGRAM_NAME));
   }
 
   if (m_description.empty()) {
@@ -219,7 +223,7 @@ Level::Level(std::vector<std::string>&& level_description)
     LoadMap();
   }
 
-  m_game_over = Resources::ResourceManager::getSprite("GameOver");
+  m_game_over = Game::Instance().GetResourcesManager()->GetSprite("GameOver");
 }
 
 void Level::setGameObjectsShaderProgram(
@@ -236,7 +240,7 @@ void Level::setLevelType(ELevelType level_type) noexcept {
   m_level_type = level_type;
 }
 
-const std::vector<std::string>& Level::getLevelDescription() const noexcept {
+const std::vector<std::string>& Level::GetLevelDescription() const noexcept {
   return m_description;
 }
 

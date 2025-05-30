@@ -24,84 +24,76 @@ class AnimatedSprite2D;
 }  // namespace RenderEngine
 
 namespace Resources {
-class ResourceManager {
+class ResourceManager final {
  public:
-  static void setExecutablePath(const std::string& executable_path);
-  static void unloadAllResources();
+  void SetExecutablePath(const std::string& executable_path);
+  void UnloadAllResources();
 
-  ResourceManager() = delete;
-  ResourceManager(const ResourceManager&) = delete;
-  ResourceManager(ResourceManager&&) = delete;
-  ResourceManager& operator=(const ResourceManager&) = delete;
-  ResourceManager& operator=(ResourceManager&&) = delete;
-  ~ResourceManager() = delete;
-
-  static std::shared_ptr<RenderEngine::ShaderProgram> loadShaderProrgam(
+  std::shared_ptr<RenderEngine::ShaderProgram> LoadShaderProrgam(
       const std::string& shader_name,
       const std::string& path_to_vertex_shader_source,
       const std::string& path_to_fragment_shader_source);
-  static std::shared_ptr<RenderEngine::ShaderProgram> getShaderProgram(
+  std::shared_ptr<RenderEngine::ShaderProgram> GetShaderProgram(
       const std::string& shader_name);
 
-  static std::shared_ptr<RenderEngine::Texture2D> loadTexture(
+  std::shared_ptr<RenderEngine::Texture2D> LoadTexture(
       const std::string& texture_name,
       const std::string& relative_path_to_texture);
-  static std::shared_ptr<RenderEngine::Texture2D> getTexture(
+  std::shared_ptr<RenderEngine::Texture2D> GetTexture(
       const std::string& texture_name);
 
-  static std::shared_ptr<RenderEngine::Sprite2D> loadSprite(
+  std::shared_ptr<RenderEngine::Sprite2D> LoadSprite(
       const std::string& sprite_name, const std::string& shader_program_name,
       const std::string& texture_name,
       const std::string& subTexture_name = "default");
-  static std::shared_ptr<RenderEngine::Sprite2D> getSprite(
+  std::shared_ptr<RenderEngine::Sprite2D> GetSprite(
       const std::string& sprite_name);
 
-  static std::shared_ptr<RenderEngine::Texture2D> loadTextureAtlas(
+  std::shared_ptr<RenderEngine::Texture2D> LoadTextureAtlas(
       const std::string& texture_name,
       const std::vector<std::string> subTexture_names,
       const std::string& relative_path_to_texture,
       const unsigned int width_subTexture,
       const unsigned int height_subtexture);
 
-  static std::shared_ptr<BatleCity::IGameState> loadLevel(
+  std::shared_ptr<BatleCity::IGameState> LoadLevel(
       std::string&& level_name, std::vector<std::string>&& level_description);
-  static std::shared_ptr<BatleCity::IGameState> loadStartScreen(
+  std::shared_ptr<BatleCity::IGameState> LoadStartScreen(
       std::string&& start_screeen_name,
       std::vector<std::string>&& start_screen_description,
       unsigned int left_offset, unsigned int bottom_offset,
       unsigned int menu_position_x, unsigned int menu_position_y);
-  static std::shared_ptr<BatleCity::StartScreen> getStartScreen(
+  std::shared_ptr<BatleCity::StartScreen> GetStartScreen(
       const std::string& start_screen_name);
-  static std::shared_ptr<BatleCity::Level> getLevel(
-      const std::string& level_name);
+  std::shared_ptr<BatleCity::Level> GetLevel(const std::string& level_name);
 
-  static bool loadAllResourcesJSON(const std::string& path_to_JSON_file);
+  bool LoadAllResourcesJSON(const std::string& path_to_JSON_file);
 
  private:
-  static std::string getFileString(const std::string& path);
-  static bool loadShaderProgramsJSON(const rapidjson::Document& document);
-  static bool loadTextureAtlasesJSON(const rapidjson::Document& document);
-  static bool loadSpritesJSON(const rapidjson::Document& document);
-  static bool loadLevelsJSON(const rapidjson::Document& document);
-  static bool loadStartScreensJSON(const rapidjson::Document& document);
+  std::string GetFileString(const std::string& path);
+  bool LoadShaderProgramsJSON(const rapidjson::Document& document);
+  bool LoadTextureAtlasesJSON(const rapidjson::Document& document);
+  bool LoadSpritesJSON(const rapidjson::Document& document);
+  bool LoadLevelsJSON(const rapidjson::Document& document);
+  bool LoadStartScreensJSON(const rapidjson::Document& document);
 
   typedef std::map<std::string, std::shared_ptr<RenderEngine::ShaderProgram>>
       MapShaderProgram;
-  static MapShaderProgram m_shader_programs;
+  MapShaderProgram m_shader_programs;
 
   typedef std::map<std::string, std::shared_ptr<RenderEngine::Texture2D>>
       MapTexture2D;
-  static MapTexture2D m_textures;
+  MapTexture2D m_textures;
 
   typedef std::map<std::string, std::shared_ptr<RenderEngine::Sprite2D>>
       MapSprite2D;
-  static MapSprite2D m_sprites;
+  MapSprite2D m_sprites;
 
   typedef std::map<std::string, std::shared_ptr<BatleCity::IGameState>>
       MapGameStates;
-  static MapGameStates m_game_states;
+  MapGameStates m_game_states;
 
-  static std::string m_path;
+  std::string m_path;
 };
 }  // namespace Resources
 

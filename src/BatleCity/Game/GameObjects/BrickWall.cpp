@@ -8,14 +8,14 @@ BrickWall::BrickWall(const EBlockType wall_type, const glm::vec2& position,
                      const float layer)
     : Block(EGameObjectType::BrickWall, wall_type, position, size, rotation,
             layer),
-      m_left_bottom_sprite(
-          Resources::ResourceManager::getSprite("BrickWall_Left_Bottom_8x8")),
-      m_left_top_sprite(
-          Resources::ResourceManager::getSprite("BrickWall_Left_Top_8x8")),
-      m_right_bottom_sprite(
-          Resources::ResourceManager::getSprite("BrickWall_Right_Bottom_8x8")),
-      m_right_top_sprite(
-          Resources::ResourceManager::getSprite("BrickWall_Right_Top_8x8")) {
+      m_left_bottom_sprite(Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Left_Bottom_8x8")),
+      m_left_top_sprite(Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Left_Top_8x8")),
+      m_right_bottom_sprite(Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Right_Bottom_8x8")),
+      m_right_top_sprite(Game::Instance().GetResourcesManager()->GetSprite(
+          "BrickWall_Right_Top_8x8")) {
   m_colliders.deleteAllColliders();
 
   switch (wall_type) {
