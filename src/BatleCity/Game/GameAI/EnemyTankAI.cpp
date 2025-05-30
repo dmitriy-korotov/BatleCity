@@ -12,7 +12,7 @@ namespace BatleCity {
 EnemyTankAI::EnemyTankAI(std::shared_ptr<const Level> level_ptr) noexcept
     : m_level(std::move(level_ptr)) {}
 
-void EnemyTankAI::activeOnTank(std::shared_ptr<EnemyTank> enemy_tank) noexcept {
+void EnemyTankAI::ActiveOnTank(std::shared_ptr<EnemyTank> enemy_tank) noexcept {
   std::swap(m_enemy_tank, enemy_tank);
   m_eagle_position = findEaglePosition();
   if (!m_eagle_position) {
@@ -62,7 +62,7 @@ EnemyTankAI::Point EnemyTankAI::getIndexesTankPosition() const noexcept {
   float block_size = m_level->getBlockSize();
   float x =
       (m_enemy_tank->getPosition().x - m_level->getLeftOffset()) / block_size;
-  float y = (m_level->getGameStateHeight() - m_level->getTopOffset() -
+  float y = (m_level->GetGameStateHeight() - m_level->getTopOffset() -
              m_enemy_tank->gSetSize().y - m_enemy_tank->getPosition().y) /
             block_size;
   return {static_cast<int>(std::round(x)), static_cast<int>(std::round(y))};
@@ -175,11 +175,11 @@ EnemyTankAI::Path EnemyTankAI::reconstructPath(
   return path;
 }
 
-void EnemyTankAI::update(double delta) noexcept {
+void EnemyTankAI::Update(double delta) noexcept {
   if (!m_enemy_tank || !m_path_to_eagle ||
       m_current_path_index >= m_path_to_eagle->size()) {
     if (m_enemy_tank) {
-      m_enemy_tank->setVelocity(0);
+      m_enemy_tank->SetVelocity(0);
     }
     return;
   }
@@ -189,7 +189,7 @@ void EnemyTankAI::update(double delta) noexcept {
   float block_size = m_level->getBlockSize();
   float tank_x =
       (m_enemy_tank->getPosition().x - m_level->getLeftOffset()) / block_size;
-  float tank_y = (m_level->getGameStateHeight() - m_level->getTopOffset() -
+  float tank_y = (m_level->GetGameStateHeight() - m_level->getTopOffset() -
                   m_enemy_tank->gSetSize().y - m_enemy_tank->getPosition().y) /
                  block_size;
 
@@ -198,16 +198,16 @@ void EnemyTankAI::update(double delta) noexcept {
   float target_y = target_point.second / block_size;
 
   if (std::abs(tank_x - target_x) > std::abs(tank_y - target_y)) {
-    m_enemy_tank->setOrientation(tank_x < target_x
+    m_enemy_tank->SetOrientation(tank_x < target_x
                                      ? EnemyTank::EOrientation::Right
                                      : EnemyTank::EOrientation::Left);
   } else {
-    m_enemy_tank->setOrientation(tank_y < target_y
+    m_enemy_tank->SetOrientation(tank_y < target_y
                                      ? EnemyTank::EOrientation::Bottom
                                      : EnemyTank::EOrientation::Top);
   }
 
-  m_enemy_tank->setVelocity(m_enemy_tank->getMaxVelocity());
+  m_enemy_tank->SetVelocity(m_enemy_tank->GetMaxVelocity());
 
   float threshold = 0.03f;
   if (std::abs(tank_x - target_x) < threshold &&

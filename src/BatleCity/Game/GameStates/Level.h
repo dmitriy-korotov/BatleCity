@@ -32,23 +32,23 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   Level(Level&&) = default;
   Level& operator=(Level&&) = default;
 
-  size_t getGameStateWidth() const noexcept override;
-  size_t getGameStateHeight() const noexcept override;
+  size_t GetGameStateWidth() const noexcept override;
+  size_t GetGameStateHeight() const noexcept override;
   const glm::vec2& getPlayer1Respawn() const { return m_player1_respawn; }
   const glm::vec2& getPlayer2Respawn() const { return m_player2_respawn; }
-  const glm::vec2& getEnemy1Respawn() const { return m_enemy1_respawn; }
-  const glm::vec2& getEnemy2Respawn() const { return m_enemy2_respawn; }
-  const glm::vec2& getEnemy3Respawn() const { return m_enemy3_respawn; }
+  const glm::vec2& getEnemy1Respawn() const { return m_enemyRespawn_1; }
+  const glm::vec2& getEnemy2Respawn() const { return m_enemyRespawn_2; }
+  const glm::vec2& getEnemy3Respawn() const { return m_enemyRespawn_3; }
 
-  std::vector<std::shared_ptr<BatleCity::IGameObject>> getObjectsFromArea(
+  std::vector<std::shared_ptr<BatleCity::IGameObject>> GetObjectsFromArea(
       const glm::vec2& position, const glm::vec2& size) const;
 
-  void setLevelType(ELevelType level_type) noexcept;
+  void SetLevelType(ELevelType level_type) noexcept;
 
-  bool isFinished() const noexcept { return m_is_finished; }
+  bool IsFinished() const noexcept { return m_isFinished; }
 
   bool start() const noexcept override;
-  void update(const double delta, std::array<bool, 349>& keyboard) override;
+  void Update(const double delta, KeyboardType& keyboard) override;
   void render() const override;
 
   const std::vector<std::string>& GetLevelDescription() const noexcept;
@@ -70,21 +70,21 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   };
 
   void LoadMap() const;
-  bool setProjectiomMatrix() const noexcept;
-  void initPhysics() const;
-  void startAI() const noexcept;
-  void createEnemyTanks() const noexcept;
-  void createTanks() const noexcept;
+  void SetProjectiomMatrix() const noexcept;
+  void InitPhysics() const;
+  void StartAI() const noexcept;
+  void CreateEnemyTank() const noexcept;
+  void CreateTanks() const noexcept;
 
-  void updateTank(std::shared_ptr<Tank>& tank, std::array<bool, 349>& keyboard,
+  void UpdateTank(std::shared_ptr<Tank>& tank, KeyboardType& keyboard,
                   const std::vector<uint16_t>& keys) noexcept;
-  void updateStaticMapObjects(double delta) noexcept;
-  void updateDynamicMapObjects(double delta) noexcept;
+  void UpdateStaticMapObjects(double delta) noexcept;
+  void UpdateDynamicMapObjects(double delta) noexcept;
 
  private:
-  static void setGameObjectsShaderProgram(
+  static void SetGameObjectsShaderProgram(
       std::shared_ptr<RenderEngine::ShaderProgram>&& shader_program) noexcept;
-  static void setCollidersShaderProgram(
+  static void SetCollidersShaderProgram(
       std::shared_ptr<RenderEngine::ShaderProgram>&& shader_program) noexcept;
 
   static constexpr uint8_t BLOCK_SIZE = 16;
@@ -94,9 +94,9 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   static constexpr uint8_t TOP_BORDER_HEIGHT = BLOCK_SIZE / 2;
 
   static std::shared_ptr<RenderEngine::ShaderProgram>
-      m_game_obgects_shader_program;
+      m_gameObjectsShaderProgram;
   static std::shared_ptr<RenderEngine::ShaderProgram>
-      m_colliders_shader_program;
+      m_collidersShaderProgram;
 
   static const std::vector<uint16_t> m_player1_keys;
   static const std::vector<uint16_t> m_player2_keys;
@@ -108,20 +108,20 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
 
   mutable glm::vec2 m_player1_respawn = glm::vec2(0.f);
   mutable glm::vec2 m_player2_respawn = glm::vec2(0.f);
-  mutable glm::vec2 m_enemy1_respawn = glm::vec2(0.f);
-  mutable glm::vec2 m_enemy2_respawn = glm::vec2(0.f);
-  mutable glm::vec2 m_enemy3_respawn = glm::vec2(0.f);
+  mutable glm::vec2 m_enemyRespawn_1 = glm::vec2(0.f);
+  mutable glm::vec2 m_enemyRespawn_2 = glm::vec2(0.f);
+  mutable glm::vec2 m_enemyRespawn_3 = glm::vec2(0.f);
 
-  mutable std::vector<std::shared_ptr<IGameObject>> m_static_map_objects;
+  mutable std::vector<std::shared_ptr<IGameObject>> m_staticObjectsMap;
 
   mutable std::shared_ptr<Tank> m_player1 = nullptr;
   mutable std::shared_ptr<Tank> m_player2 = nullptr;
-  mutable std::vector<std::shared_ptr<IDynamicGameObject>> m_enemy_tanks;
+  mutable std::vector<std::shared_ptr<IDynamicGameObject>> m_enemyTanks;
 
-  mutable System::Timer m_spawn_enemy_timer;
+  mutable System::Timer m_spawnEnemyTimer;
   mutable std::shared_ptr<RenderEngine::Sprite2D> m_game_over = nullptr;
   mutable std::shared_ptr<Eagle> m_eagle = nullptr;
-  mutable bool m_is_finished = false;
+  mutable bool m_isFinished = false;
 };
 }  // namespace BatleCity
 

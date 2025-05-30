@@ -50,10 +50,10 @@ class Tank : public IDynamicGameObject {
        const glm::vec2& direction = glm::vec2(0.f, 1.f), double velocity = 0,
        float layer = 0.f);
 
-  void setVelocity(double velocity) override;
-  void setOrientation(const EOrientation orientation) override;
+  void SetVelocity(double velocity) override;
+  void SetOrientation(const EOrientation orientation) override;
 
-  void update(const double delta) override;
+  void Update(const double delta) override;
   void render() const override;
 
   void fair() const;

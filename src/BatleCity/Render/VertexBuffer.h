@@ -19,7 +19,7 @@ class VertexBuffer {
   VertexBuffer& operator=(VertexBuffer&& outher_vertex_buffer) noexcept;
 
   void init(const void* data, const size_t size);
-  void update(const void* data, const size_t size) const;
+  void Update(const void* data, const size_t size) const;
   void bind() const;
   void unbind() const;
 

@@ -20,7 +20,7 @@ class Eagle : public IGameObject {
   EEagleState getState() const noexcept { return m_eagle_state; }
 
   void render() const final;
-  void update(const double delta) final;
+  void Update(const double delta) final;
   bool onCollision(EGameObjectType game_object_type,
                    std::shared_ptr<IGameObject> object,
                    std::shared_ptr<Physics::AABB> target_collider,

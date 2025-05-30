@@ -9,6 +9,10 @@ namespace System {
 class Window;
 }
 
+namespace Physics {
+class PhysicsEngine;
+}
+
 namespace Resources {
 class ResourceManager;
 }
@@ -25,12 +29,15 @@ class IGameState;
 class Level;
 class StartScreen;
 
+using KeyboardType = std::array<bool, 349>;
+
 class Game final {
  public:
   static Game& Instance();
 
   std::shared_ptr<RenderEngine::Renderer> GetRenderer();
   std::shared_ptr<Resources::ResourceManager> GetResourcesManager();
+  std::shared_ptr<Physics::PhysicsEngine> GetPhysicsEngine();
 
   bool StartOn(std::shared_ptr<System::Window> window);
   void Finish();
@@ -47,17 +54,17 @@ class Game final {
   void ResetWindowSizeToCurrentGameState() noexcept;
 
  private:
-  std::shared_ptr<System::Window> m_window_ptr = nullptr;
+  KeyboardType m_keys;
 
-  std::array<bool, 349> m_keys;
+  std::shared_ptr<System::Window> m_window = nullptr;
 
-  std::shared_ptr<StartScreen> m_start_screen = nullptr;
   std::shared_ptr<Level> m_level = nullptr;
-
-  std::shared_ptr<IGameState> m_current_game_state = nullptr;
+  std::shared_ptr<StartScreen> m_startScreen = nullptr;
+  std::shared_ptr<IGameState> m_currentGameState = nullptr;
 
   std::shared_ptr<RenderEngine::Renderer> m_renderer = nullptr;
-  std::shared_ptr<Resources::ResourceManager> m_resources_manager = nullptr;
+  std::shared_ptr<Resources::ResourceManager> m_resourcesManager = nullptr;
+  std::shared_ptr<Physics::PhysicsEngine> m_physicsEngine = nullptr;
 };
 }  // namespace BatleCity
 

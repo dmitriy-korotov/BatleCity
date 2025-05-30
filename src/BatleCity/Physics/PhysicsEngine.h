@@ -3,7 +3,7 @@
 #define PHYSICS_ENGINE_H
 
 #include <memory>
-#include <unordered_set>
+#include <unordered_map>
 #include <vector>
 
 #include "../Game/GameObjects/IDynamicGameObject.h"
@@ -13,43 +13,36 @@
 #include "AxisAlignedBoundingBox.h"
 
 namespace Physics {
-class PhysicsEngine {
+class PhysicsEngine final {
  public:
-  PhysicsEngine() = delete;
-  PhysicsEngine(const PhysicsEngine&) = delete;
-  PhysicsEngine& operator=(const PhysicsEngine&) = delete;
-  PhysicsEngine(PhysicsEngine&&) = delete;
-  PhysicsEngine& operator=(PhysicsEngine&&) = delete;
-  ~PhysicsEngine() = delete;
-
-  static void init();
-  static void Terminate();
-  static void update(double delta);
-  static void removeAllDynamicObjects();
-  static void addDynamicGameObject(
-      std::shared_ptr<BatleCity::IDynamicGameObject> dynamic_game_object);
-  static void setCurrentLevel(
-      std::shared_ptr<const BatleCity::Level> current_level);
+  void Init();
+  void Terminate();
+  void Update(double delta);
+  void RemoveAllDynamicObjects();
+  void AddDynamicGameObject(
+      std::shared_ptr<BatleCity::IDynamicGameObject> object);
+  void SetCurrentLevel(std::shared_ptr<const BatleCity::Level> current_level);
 
  private:
-  static glm::vec2 getNewPosition(
+  glm::vec2 GetNewPosition(
       const std::shared_ptr<BatleCity::IDynamicGameObject>& game_object,
       double delta);
 
-  static std::pair<std::shared_ptr<AABB>, std::shared_ptr<AABB>> isIntersection(
+  std::pair<std::shared_ptr<AABB>, std::shared_ptr<AABB>> IsIntersection(
       const std::vector<AABB>& first_object, const glm::vec2& position_object1,
       const std::vector<AABB>& second_object,
       const glm::vec2& position_object2);
 
-  static bool isInersectionWithObjects(
+  bool IsInersectionWithObjects(
       const std::shared_ptr<BatleCity::IDynamicGameObject>& current_game_object,
       const glm::vec2& new_position,
       const std::vector<std::shared_ptr<BatleCity::IGameObject>>&
           other_objects);
 
-  static std::unordered_set<std::shared_ptr<BatleCity::IDynamicGameObject>>
-      m_dynamic_game_objects;
-  static std::shared_ptr<const BatleCity::Level> m_current_level;
+  std::unordered_map<std::size_t,
+                     std::shared_ptr<BatleCity::IDynamicGameObject>>
+      m_dynamicGameObjects;
+  std::shared_ptr<const BatleCity::Level> m_currentLevel;
 };
 }  // namespace Physics
 

@@ -35,7 +35,7 @@ void AnimatedSprite2D::setState(const std::string& state_name) {
   }
 }
 
-void AnimatedSprite2D::update(const uint64_t delta) {
+void AnimatedSprite2D::Update(const uint64_t delta) {
   if (m_current_state != m_states.end()) {
     m_current_time_animation += delta;
 
@@ -75,7 +75,7 @@ void AnimatedSprite2D::render(const glm::vec2& position, const glm::vec2& size,
 
     //					2 - amount coords in one point; 4
     //- amount points
-    m_texture_coords_buffer.update(texture_coords, 2 * 4 * sizeof(GLfloat));
+    m_texture_coords_buffer.Update(texture_coords, 2 * 4 * sizeof(GLfloat));
     m_need_rerender = false;
   }
 

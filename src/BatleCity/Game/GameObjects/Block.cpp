@@ -146,7 +146,7 @@ void Block::render() const {
   }
 }
 
-void Block::update(const double delta) {}
+void Block::Update(const double delta) {}
 
 bool Block::onCollision(EGameObjectType game_object_type,
                         std::shared_ptr<IGameObject> object,

@@ -16,7 +16,7 @@ class Timer final {
  private:
   std::function<void()> m_call_back_function = []() {};
 
-  bool m_is_active = false;
+  bool m_is_Active = false;
   double m_duration = 0;
 };
 }  // namespace System

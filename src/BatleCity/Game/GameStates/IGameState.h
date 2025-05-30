@@ -2,8 +2,7 @@
 #ifndef I_GAME_STATE_H
 #define I_GAME_STATE_H
 
-#include <array>
-#include <memory>
+#include <BatleCity/Game/Game.h>
 
 namespace RenderEngine {
 class ShaderProgram;
@@ -12,17 +11,17 @@ class ShaderProgram;
 namespace BatleCity {
 class IGameState {
  public:
-  enum class EGameStates { StartScreen, Level, Pause, EndScreen };
+  enum class EGameStates { StartScreen, Level, PaUse, EndScreen };
 
   explicit IGameState(EGameStates game_state);
   virtual ~IGameState(){};
-  virtual size_t getGameStateWidth() const noexcept = 0;
-  virtual size_t getGameStateHeight() const noexcept = 0;
+  virtual size_t GetGameStateWidth() const noexcept = 0;
+  virtual size_t GetGameStateHeight() const noexcept = 0;
   virtual bool start() const noexcept = 0;
-  virtual void update(const double delta, std::array<bool, 349>& keyboard) = 0;
+  virtual void Update(const double delta, KeyboardType& keyboard) = 0;
   virtual void render() const = 0;
 
-  EGameStates getGameStateType() const noexcept;
+  EGameStates GetGameStateType() const noexcept;
 
  protected:
   EGameStates m_game_state = EGameStates::StartScreen;

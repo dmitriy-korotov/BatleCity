@@ -113,8 +113,8 @@ static std::shared_ptr<BatleCity::IGameObject> createGameObjectFromDescription(
 
 namespace BatleCity {
 std::shared_ptr<RenderEngine::ShaderProgram>
-    Level::m_game_obgects_shader_program = nullptr;
-std::shared_ptr<RenderEngine::ShaderProgram> Level::m_colliders_shader_program =
+    Level::m_gameObjectsShaderProgram = nullptr;
+std::shared_ptr<RenderEngine::ShaderProgram> Level::m_collidersShaderProgram =
     nullptr;
 
 const std::vector<uint16_t> Level::m_player1_keys = {
@@ -137,13 +137,13 @@ void Level::LoadMap() const {
           m_player2_respawn = {current_offset_x, current_offset_y};
           break;
         case 'M':
-          m_enemy1_respawn = {current_offset_x, current_offset_y};
+          m_enemyRespawn_1 = {current_offset_x, current_offset_y};
           break;
         case 'N':
-          m_enemy2_respawn = {current_offset_x, current_offset_y};
+          m_enemyRespawn_2 = {current_offset_x, current_offset_y};
           break;
         case 'O':
-          m_enemy3_respawn = {current_offset_x, current_offset_y};
+          m_enemyRespawn_3 = {current_offset_x, current_offset_y};
           break;
         default: {
           auto object = createGameObjectFromDescription(
@@ -154,7 +154,7 @@ void Level::LoadMap() const {
                             IGameObject::EGameObjectType::Eagle) {
             m_eagle = std::static_pointer_cast<Eagle>(object);
           }
-          m_static_map_objects.emplace_back(object);
+          m_staticObjectsMap.emplace_back(object);
           break;
         }
       }
@@ -164,23 +164,23 @@ void Level::LoadMap() const {
   }
 
   // border bottom
-  m_static_map_objects.emplace_back(std::make_shared<Border>(
+  m_staticObjectsMap.emplace_back(std::make_shared<Border>(
       glm::vec2(BLOCK_SIZE, 0.f),
       glm::vec2(m_width_pixels, BOTTOM_BORDER_HEIGHT), 0.f, 0.f));
 
   // border top
-  m_static_map_objects.emplace_back(std::make_shared<Border>(
+  m_staticObjectsMap.emplace_back(std::make_shared<Border>(
       glm::vec2(BLOCK_SIZE, m_height_pixels + BLOCK_SIZE / 2.f),
       glm::vec2(m_width_pixels, TOP_BORDER_HEIGHT), 0.f, 0.f));
 
   // border left
-  m_static_map_objects.emplace_back(std::make_shared<Border>(
+  m_staticObjectsMap.emplace_back(std::make_shared<Border>(
       glm::vec2(0.f, 0.f),
       glm::vec2(LEFT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
       0.f));
 
   // // border right
-  m_static_map_objects.emplace_back(std::make_shared<Border>(
+  m_staticObjectsMap.emplace_back(std::make_shared<Border>(
       glm::vec2(BLOCK_SIZE * (m_width_blocks + 1), 0.f),
       glm::vec2(RIGHT_BORDER_WIDTH, BLOCK_SIZE * (m_height_blocks + 1)), 0.f,
       0.f));
@@ -189,13 +189,13 @@ void Level::LoadMap() const {
 Level::Level(std::vector<std::string>&& level_description)
     : IGameState(EGameStates::Level),
       m_description(std::move(level_description)) {
-  if (!m_game_obgects_shader_program) {
-    setGameObjectsShaderProgram(
+  if (!m_gameObjectsShaderProgram) {
+    SetGameObjectsShaderProgram(
         Game::Instance().GetResourcesManager()->GetShaderProgram(
             GAME_OBJECTS_SHADER_PROGRAM_NAME));
   }
-  if (!m_colliders_shader_program) {
-    setCollidersShaderProgram(
+  if (!m_collidersShaderProgram) {
+    SetCollidersShaderProgram(
         Game::Instance().GetResourcesManager()->GetShaderProgram(
             COLLIDERS_SHADER_PROGRAM_NAME));
   }
@@ -212,12 +212,12 @@ Level::Level(std::vector<std::string>&& level_description)
                          BLOCK_SIZE / 2.f};
     m_player2_respawn = {(m_width_blocks / 2 + 3) * BLOCK_SIZE,
                          BLOCK_SIZE / 2.f};
-    m_enemy1_respawn = {BLOCK_SIZE, m_height_pixels - BLOCK_SIZE / 2.f};
-    m_enemy2_respawn = {(m_width_blocks / 2) * BLOCK_SIZE,
+    m_enemyRespawn_1 = {BLOCK_SIZE, m_height_pixels - BLOCK_SIZE / 2.f};
+    m_enemyRespawn_2 = {(m_width_blocks / 2) * BLOCK_SIZE,
                         m_height_pixels - BLOCK_SIZE / 2.f};
-    m_enemy3_respawn = {m_width_pixels, m_height_pixels - BLOCK_SIZE / 2.f};
+    m_enemyRespawn_3 = {m_width_pixels, m_height_pixels - BLOCK_SIZE / 2.f};
 
-    m_static_map_objects.reserve(
+    m_staticObjectsMap.reserve(
         static_cast<size_t>(m_width_blocks * m_height_blocks + 4));
 
     LoadMap();
@@ -226,17 +226,17 @@ Level::Level(std::vector<std::string>&& level_description)
   m_game_over = Game::Instance().GetResourcesManager()->GetSprite("GameOver");
 }
 
-void Level::setGameObjectsShaderProgram(
+void Level::SetGameObjectsShaderProgram(
     std::shared_ptr<RenderEngine::ShaderProgram>&& shader_program) noexcept {
-  m_game_obgects_shader_program = std::move(shader_program);
+  m_gameObjectsShaderProgram = std::move(shader_program);
 }
 
-void Level::setCollidersShaderProgram(
+void Level::SetCollidersShaderProgram(
     std::shared_ptr<RenderEngine::ShaderProgram>&& shader_program) noexcept {
-  m_colliders_shader_program = std::move(shader_program);
+  m_collidersShaderProgram = std::move(shader_program);
 }
 
-void Level::setLevelType(ELevelType level_type) noexcept {
+void Level::SetLevelType(ELevelType level_type) noexcept {
   m_level_type = level_type;
 }
 
@@ -254,29 +254,21 @@ uint8_t Level::getTopOffset() noexcept { return TOP_BORDER_HEIGHT; }
 
 uint8_t Level::getBlockSize() noexcept { return BLOCK_SIZE; }
 
-void Level::initPhysics() const {
-  std::for_each(
-      m_enemy_tanks.cbegin(), m_enemy_tanks.cend(),
-      [](std::shared_ptr<IDynamicGameObject> dynamic_game_object) -> void {
-        Physics::PhysicsEngine::addDynamicGameObject(
-            std::move(dynamic_game_object));
-      });
+void Level::InitPhysics() const {
   if (m_player1) {
-    Physics::PhysicsEngine::addDynamicGameObject(m_player1);
+    Game::Instance().GetPhysicsEngine()->AddDynamicGameObject(m_player1);
   }
   if (m_player2) {
-    Physics::PhysicsEngine::addDynamicGameObject(m_player2);
+    Game::Instance().GetPhysicsEngine()->AddDynamicGameObject(m_player2);
   }
-
   try {
-    Physics::PhysicsEngine::setCurrentLevel(shared_from_this());
+    Game::Instance().GetPhysicsEngine()->SetCurrentLevel(shared_from_this());
   } catch (const std::exception& ex) {
-    std::cerr << "ERROR: shared_from_this exception (Level):" << std::endl;
-    std::cerr << ex.what() << std::endl;
+    std::cerr << "ERROR: shared_from_this exception (Level): " << ex.what() << std::endl;
   }
 }
 
-void Level::createTanks() const noexcept {
+void Level::CreateTanks() const noexcept {
   m_player1.reset();
   m_player2.reset();
   switch (m_level_type) {
@@ -293,82 +285,78 @@ void Level::createTanks() const noexcept {
   }
 }
 
-void Level::createEnemyTanks() const noexcept {
+void Level::CreateEnemyTank() const noexcept {
   try {
-    auto spawn_number = std::rand() % 3;
-    glm::vec2 spawn_pos;
-    if (spawn_number == 0) {
-      spawn_pos = m_enemy1_respawn;
-    } else if (spawn_number == 1) {
-      spawn_pos = m_enemy2_respawn;
+    auto spawnNumber = std::rand() % 3;
+    glm::vec2 spawnPos;
+    if (spawnNumber == 0) {
+      spawnPos = m_enemyRespawn_1;
+    } else if (spawnNumber == 1) {
+      spawnPos = m_enemyRespawn_2;
     } else {
-      spawn_pos = m_enemy3_respawn;
+      spawnPos = m_enemyRespawn_3;
     }
     auto enemy = std::make_shared<EnemyTank>(
-        shared_from_this(), Tank::ETankType::WhiteTank3, spawn_pos,
+        shared_from_this(), Tank::ETankType::WhiteTank3, spawnPos,
         glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.03f, 1000);
-    enemy->active();
-    Physics::PhysicsEngine::addDynamicGameObject(enemy);
-    m_enemy_tanks.emplace_back(std::move(enemy));
+    enemy->Active();
+    Game::Instance().GetPhysicsEngine()->AddDynamicGameObject(enemy);
+    m_enemyTanks.emplace_back(std::move(enemy));
   } catch (const std::exception& ex) {
-    std::cerr << "ERROR: Can't create enemy tanks: " << ex.what() << std::endl;
+    std::cerr << "ERROR: Can't create enemy tank: " << ex.what() << std::endl;
   }
 }
 
-void Level::startAI() const noexcept {
-  auto callback = [this]() {
-    createEnemyTanks();
-    m_spawn_enemy_timer.Start(5000);
+constexpr auto kRespawnDelay = 5000;
+
+void Level::StartAI() const noexcept {
+  auto creationCallback = [this]() {
+    CreateEnemyTank();
+    m_spawnEnemyTimer.Start(kRespawnDelay);
   };
-  callback();
-  m_spawn_enemy_timer.SetCallBack(std::move(callback));
+  creationCallback();
+  m_spawnEnemyTimer.SetCallBack(std::move(creationCallback));
 }
 
-bool Level::setProjectiomMatrix() const noexcept {
+void Level::SetProjectiomMatrix() const noexcept {
+  assert(m_gameObjectsShaderProgram);
+  assert(m_collidersShaderProgram);
+
   glm::mat4 projection_matrix = glm::ortho<float>(
-      0.f, getGameStateWidth(), 0.f, getGameStateHeight(), -100.f, 100.f);
+      0.f, GetGameStateWidth(), 0.f, GetGameStateHeight(), -100.f, 100.f);
 
-  if (m_game_obgects_shader_program) {
-    m_game_obgects_shader_program->use();
-    m_game_obgects_shader_program->setMatrix4("clip_matrix", projection_matrix);
-  } else {
-    return false;
-  }
+  m_gameObjectsShaderProgram->Use();
+  m_gameObjectsShaderProgram->SetMatrix4("clip_matrix", projection_matrix);
 
-  if (m_colliders_shader_program) {
-    m_colliders_shader_program->use();
-    m_colliders_shader_program->setMatrix4("clip_matrix", projection_matrix);
-  } else {
-    return false;
-  }
-
-  return true;
+  m_collidersShaderProgram->Use();
+  m_collidersShaderProgram->SetMatrix4("clip_matrix", projection_matrix);
 }
 
 bool Level::start() const noexcept {
-  m_enemy_tanks.clear();
-  m_static_map_objects.clear();
+  // cleanup previus game session
+  m_isFinished = false;
+  m_enemyTanks.clear();
+  m_staticObjectsMap.clear();
   LoadMap();
-  Physics::PhysicsEngine::removeAllDynamicObjects();
-  m_is_finished = false;
-  if (!setProjectiomMatrix()) {
-    return false;
-  }
-  createTanks();  //	1
-  startAI();      //	2		this ordering really important
-  initPhysics();  //	3
+  Game::Instance().GetPhysicsEngine()->RemoveAllDynamicObjects();
+
+  // setup new game session
+  SetProjectiomMatrix();
+  CreateTanks();
+  StartAI();
+  InitPhysics();
   return true;
 }
 
-size_t Level::getGameStateWidth() const noexcept {
+size_t Level::GetGameStateWidth() const noexcept {
   return static_cast<size_t>(BLOCK_SIZE * (m_width_blocks + 3));
 }
 
-size_t Level::getGameStateHeight() const noexcept {
+size_t Level::GetGameStateHeight() const noexcept {
   return static_cast<size_t>(BLOCK_SIZE * (m_height_blocks + 1));
 }
 
-std::vector<std::shared_ptr<BatleCity::IGameObject>> Level::getObjectsFromArea(
+std::vector<std::shared_ptr<BatleCity::IGameObject>> Level::GetObjectsFromArea(
     const glm::vec2& position, const glm::vec2& size) const {
   std::vector<std::shared_ptr<BatleCity::IGameObject>> objects_in_area;
 
@@ -397,7 +385,7 @@ std::vector<std::shared_ptr<BatleCity::IGameObject>> Level::getObjectsFromArea(
   for (unsigned int x_index = start_X; x_index < end_X; ++x_index) {
     for (unsigned int y_index = start_Y; y_index < end_Y; ++y_index) {
       const auto& object =
-          m_static_map_objects[static_cast<size_t>(y_index) * m_width_blocks +
+          m_staticObjectsMap[static_cast<size_t>(y_index) * m_width_blocks +
                                x_index];
       if (object) {
         objects_in_area.emplace_back(object);
@@ -407,163 +395,160 @@ std::vector<std::shared_ptr<BatleCity::IGameObject>> Level::getObjectsFromArea(
 
   if (end_X == 13) {
     objects_in_area.emplace_back(
-        m_static_map_objects[m_static_map_objects.size() - 1]);
+        m_staticObjectsMap[m_staticObjectsMap.size() - 1]);
   }
   if (start_Y == 0) {
     objects_in_area.emplace_back(
-        m_static_map_objects[m_static_map_objects.size() - 3]);
+        m_staticObjectsMap[m_staticObjectsMap.size() - 3]);
   }
   if (start_X == 0) {
     objects_in_area.emplace_back(
-        m_static_map_objects[m_static_map_objects.size() - 2]);
+        m_staticObjectsMap[m_staticObjectsMap.size() - 2]);
   }
   if (end_Y == 14) {
     objects_in_area.emplace_back(
-        m_static_map_objects[m_static_map_objects.size() - 4]);
+        m_staticObjectsMap[m_staticObjectsMap.size() - 4]);
   }
   return objects_in_area;
 }
 
-void Level::updateTank(
-    std::shared_ptr<Tank>& tank, std::array<bool, 349>& keyboard,
-    const std::vector<uint16_t>& keys_for_this_tank_actions) noexcept {
-  if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+void Level::UpdateTank(
+    std::shared_ptr<Tank>& tank, KeyboardType& keyboard,
+    const std::vector<uint16_t>& tankActions2Keys) noexcept {
+  if (keyboard[tankActions2Keys[static_cast<size_t>(
           ETankActions::MoveTop)]]) {
-    tank->setOrientation(IDynamicGameObject::EOrientation::Top);
-    if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+    tank->SetOrientation(IDynamicGameObject::EOrientation::Top);
+    if (keyboard[tankActions2Keys[static_cast<size_t>(
             ETankActions::SlowDown)]]) {
-      tank->setVelocity(tank->getMaxVelocity() / 2);
+      tank->SetVelocity(tank->GetMaxVelocity() / 2);
     } else {
-      tank->setVelocity(tank->getMaxVelocity());
+      tank->SetVelocity(tank->GetMaxVelocity());
     }
-  } else if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+  } else if (keyboard[tankActions2Keys[static_cast<size_t>(
                  ETankActions::MoveRight)]]) {
-    tank->setOrientation(IDynamicGameObject::EOrientation::Right);
-    if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+    tank->SetOrientation(IDynamicGameObject::EOrientation::Right);
+    if (keyboard[tankActions2Keys[static_cast<size_t>(
             ETankActions::SlowDown)]]) {
-      tank->setVelocity(tank->getMaxVelocity() / 2);
+      tank->SetVelocity(tank->GetMaxVelocity() / 2);
     } else {
-      tank->setVelocity(tank->getMaxVelocity());
+      tank->SetVelocity(tank->GetMaxVelocity());
     }
-  } else if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+  } else if (keyboard[tankActions2Keys[static_cast<size_t>(
                  ETankActions::MoveBottom)]]) {
-    tank->setOrientation(IDynamicGameObject::EOrientation::Bottom);
-    if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+    tank->SetOrientation(IDynamicGameObject::EOrientation::Bottom);
+    if (keyboard[tankActions2Keys[static_cast<size_t>(
             ETankActions::SlowDown)]]) {
-      tank->setVelocity(tank->getMaxVelocity() / 2);
+      tank->SetVelocity(tank->GetMaxVelocity() / 2);
     } else {
-      tank->setVelocity(tank->getMaxVelocity());
+      tank->SetVelocity(tank->GetMaxVelocity());
     }
-  } else if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+  } else if (keyboard[tankActions2Keys[static_cast<size_t>(
                  ETankActions::MoveLeft)]]) {
-    tank->setOrientation(IDynamicGameObject::EOrientation::Left);
-    if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+    tank->SetOrientation(IDynamicGameObject::EOrientation::Left);
+    if (keyboard[tankActions2Keys[static_cast<size_t>(
             ETankActions::SlowDown)]]) {
-      tank->setVelocity(tank->getMaxVelocity() / 2);
+      tank->SetVelocity(tank->GetMaxVelocity() / 2);
     } else {
-      tank->setVelocity(tank->getMaxVelocity());
+      tank->SetVelocity(tank->GetMaxVelocity());
     }
   } else {
-    tank->setVelocity(0);
+    tank->SetVelocity(0);
   }
 
-  if (keyboard[keys_for_this_tank_actions[static_cast<size_t>(
+  if (keyboard[tankActions2Keys[static_cast<size_t>(
           ETankActions::Fire)]]) {
     reinterpret_cast<const std::shared_ptr<Tank>&>(tank)->fair();
   }
 }
 
-void Level::updateStaticMapObjects(double delta) noexcept {
-  for (const auto& current_static_map_object : m_static_map_objects) {
-    if (current_static_map_object) {
-      current_static_map_object->update(delta);
+void Level::UpdateStaticMapObjects(double delta) noexcept {
+  for (const auto& object : m_staticObjectsMap) {
+    if (object) {
+      object->Update(delta);
     }
   }
 }
 
-void Level::updateDynamicMapObjects(double delta) noexcept {
-  for (const auto& current_dynamic_map_object : m_enemy_tanks) {
-    if (current_dynamic_map_object) {
-      current_dynamic_map_object->update(delta);
+void Level::UpdateDynamicMapObjects(double delta) noexcept {
+  for (const auto& tank : m_enemyTanks) {
+    if (tank) {
+      tank->Update(delta);
     }
   }
-
   if (m_player1) {
-    m_player1->update(delta);
+    m_player1->Update(delta);
   }
   if (m_player2) {
-    m_player2->update(delta);
+    m_player2->Update(delta);
   }
 }
 
-void Level::update(const double delta, std::array<bool, 349>& keyboard) {
+void Level::Update(const double delta, KeyboardType& keyboard) {
   if (m_eagle && m_eagle->getState() == Eagle::EEagleState::Dead) {
-    m_is_finished = true;
+    m_isFinished = true;
   }
   if (m_player1 && m_player2) {
-    m_is_finished |= m_player1->isDestroy() && m_player2->isDestroy();
+    m_isFinished |= m_player1->IsDestroy() && m_player2->IsDestroy();
   }
   if (m_player1 && !m_player2) {
-    m_is_finished |= m_player1->isDestroy();
+    m_isFinished |= m_player1->IsDestroy();
   }
   if (m_player2 && !m_player1) {
-    m_is_finished |= m_player2->isDestroy();
+    m_isFinished |= m_player2->IsDestroy();
   }
-  if (m_is_finished) {
+  if (m_isFinished) {
     return;
   }
 
-  updateStaticMapObjects(delta);
-  updateDynamicMapObjects(delta);
+  UpdateStaticMapObjects(delta);
+  UpdateDynamicMapObjects(delta);
 
   if (keyboard[GLFW_KEY_F]) {
-    IGameObject::enableRenderingColliders();
+    IGameObject::EnableRenderingColliders();
   }
   if (keyboard[GLFW_KEY_G]) {
-    IGameObject::disableRenderingColliders();
+    IGameObject::DisableRenderingColliders();
   }
 
   switch (m_level_type) {
     case BatleCity::Level::ELevelType::TwoPlayers:
-      updateTank(m_player2, keyboard, m_player2_keys);
+      UpdateTank(m_player2, keyboard, m_player2_keys);
       [[fallthrough]];
     case BatleCity::Level::ELevelType::OnePlayer:
-      updateTank(m_player1, keyboard, m_player1_keys);
+      UpdateTank(m_player1, keyboard, m_player1_keys);
       break;
   }
 
-  m_spawn_enemy_timer.Update(delta);
+  m_spawnEnemyTimer.Update(delta);
 
-  Physics::PhysicsEngine::update(delta);
+  Game::Instance().GetPhysicsEngine()->Update(delta);
 }
 
 void Level::render() const {
-  for (const auto& current_static_map_object : m_static_map_objects) {
-    if (current_static_map_object) {
-      current_static_map_object->render();
-      current_static_map_object->renderColliders();
+  for (const auto& object : m_staticObjectsMap) {
+    if (object) {
+      object->render();
+      object->RenderColliders();
     }
   }
-  for (const auto& current_dynamic_map_object : m_enemy_tanks) {
-    if (current_dynamic_map_object) {
-      current_dynamic_map_object->render();
-      current_dynamic_map_object->renderColliders();
+  for (const auto& tank : m_enemyTanks) {
+    if (tank) {
+      tank->render();
+      tank->RenderColliders();
     }
   }
-
   if (m_player1) {
     m_player1->render();
-    m_player1->renderColliders();
+    m_player1->RenderColliders();
   }
   if (m_player2) {
     m_player2->render();
-    m_player2->renderColliders();
+    m_player2->RenderColliders();
   }
 
-  if (m_is_finished) {
-    auto size = glm::vec2(150.f, 150.f);
-    auto pos =
-        glm::vec2(getGameStateWidth(), getGameStateHeight()) / 2.f - size / 2.f;
+  if (IsFinished()) {
+    const auto size = glm::vec2(150.f, 150.f);
+    const auto pos = glm::vec2(GetGameStateWidth(), GetGameStateHeight()) / 2.f - size / 2.f;
     m_game_over->render(pos, size, 0.f, 5);
   }
 }

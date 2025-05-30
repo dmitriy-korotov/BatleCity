@@ -37,7 +37,7 @@ class Window final {
   void PollEvents() const noexcept;
 
  private:
-  GLFWwindow* m_window_ptr = nullptr;
+  GLFWwindow* m_window = nullptr;
 
   std::function<void(GLFWwindow*, int, int)> m_window_resize_call_back;
   std::function<void(GLFWwindow*, int, int, int, int)> m_key_call_back;

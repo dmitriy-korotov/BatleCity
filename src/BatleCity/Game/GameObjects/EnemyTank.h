@@ -14,8 +14,8 @@ class EnemyTank : public Tank, public std::enable_shared_from_this<EnemyTank> {
             const glm::vec2& direction = glm::vec2(0.f, 1.f),
             double velocity = 0, float layer = 0.f);
 
-  void active() noexcept;
-  void update(double delta) override;
+  void Active() noexcept;
+  void Update(double delta) override;
 
  private:
   EnemyTankAI m_AI;

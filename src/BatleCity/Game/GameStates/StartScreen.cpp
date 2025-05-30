@@ -96,7 +96,7 @@ StartScreen::StartScreen(
     m_width_pixels = m_width_blocks * BLOCK_SIZE + left_offset * 2;
     m_height_pixels = m_height_blocks * BLOCK_SIZE + bottom_offset * 2;
 
-    m_start_screen_elements.reserve(
+    m_startScreenElements.reserve(
         static_cast<size_t>(m_width_blocks * m_height_blocks));
 
     unsigned int current_offset_y =
@@ -104,7 +104,7 @@ StartScreen::StartScreen(
     for (const std::string& current_row : start_screen_description) {
       unsigned int current_offset_x = left_offset;
       for (const char current_row_element : current_row) {
-        m_start_screen_elements.emplace_back(
+        m_startScreenElements.emplace_back(
             std::make_pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>(
                 createStartScreenElementFromDescription(current_row_element),
                 glm::vec2(current_offset_x, current_offset_y)));
@@ -145,13 +145,13 @@ void StartScreen::setShaderProgram(
   m_start_srcreen_elements_shader_program = std::move(shader_program);
 }
 
-bool StartScreen::setProjectiomMatrix() const noexcept {
+bool StartScreen::SetProjectiomMatrix() const noexcept {
   glm::mat4 projection_matrix = glm::ortho<float>(
-      0.f, getGameStateWidth(), 0.f, getGameStateHeight(), -100.f, 100.f);
+      0.f, GetGameStateWidth(), 0.f, GetGameStateHeight(), -100.f, 100.f);
 
   if (m_start_srcreen_elements_shader_program) {
-    m_start_srcreen_elements_shader_program->use();
-    m_start_srcreen_elements_shader_program->setMatrix4("clip_matrix",
+    m_start_srcreen_elements_shader_program->Use();
+    m_start_srcreen_elements_shader_program->SetMatrix4("clip_matrix",
                                                         projection_matrix);
   } else {
     return false;
@@ -159,13 +159,13 @@ bool StartScreen::setProjectiomMatrix() const noexcept {
   return true;
 }
 
-bool StartScreen::start() const noexcept { return setProjectiomMatrix(); }
+bool StartScreen::start() const noexcept { return SetProjectiomMatrix(); }
 
-size_t StartScreen::getGameStateWidth() const noexcept {
+size_t StartScreen::GetGameStateWidth() const noexcept {
   return m_width_pixels;
 }
 
-size_t StartScreen::getGameStateHeight() const noexcept {
+size_t StartScreen::GetGameStateHeight() const noexcept {
   return m_height_pixels;
 }
 
@@ -179,7 +179,7 @@ StartScreen::EMenuPuncts StartScreen::select() const noexcept {
   }
 }
 
-void StartScreen::update(double delta, std::array<bool, 349>& keyboard) {
+void StartScreen::Update(double delta, KeyboardType& keyboard) {
   if (keyboard[GLFW_KEY_S] || keyboard[GLFW_KEY_DOWN]) {
     bool is_above_than_bottom_selection =
         m_menu_selector.second.y >
@@ -202,7 +202,7 @@ void StartScreen::update(double delta, std::array<bool, 349>& keyboard) {
 }
 
 void StartScreen::render() const {
-  for (const auto& current_start_screen_element : m_start_screen_elements) {
+  for (const auto& current_start_screen_element : m_startScreenElements) {
     if (current_start_screen_element.first) {
       current_start_screen_element.first->render(
           current_start_screen_element.second, glm::vec2(BLOCK_SIZE), 0.f, 0.f);

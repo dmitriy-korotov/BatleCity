@@ -18,7 +18,7 @@ class ShaderProgram {
 
   inline bool isCompiled() const { return m_is_compiled; }
 
-  void use() const;
+  void Use() const;
 
   ShaderProgram() = delete;
   ShaderProgram(const ShaderProgram&) = delete;
@@ -28,7 +28,7 @@ class ShaderProgram {
 
   void setInt(const std::string& name, GLuint value) const;
   void setFloat(const std::string& name, GLfloat value) const;
-  void setMatrix4(const std::string& name, const glm::mat4& matrix) const;
+  void SetMatrix4(const std::string& name, const glm::mat4& matrix) const;
 
  private:
   // VARIEBLES

@@ -35,16 +35,16 @@ class IGameObject {
 
   virtual ~IGameObject() {}
 
-  virtual std::size_t getID() const noexcept;
+  virtual std::size_t GetID() const noexcept;
 
   virtual bool onCollision(EGameObjectType game_object_type,
                            std::shared_ptr<IGameObject> object,
                            std::shared_ptr<Physics::AABB> target_collider,
                            const glm::vec2& direction = glm::vec2(0.f)) = 0;
-  virtual void update(const double daleta) = 0;
+  virtual void Update(const double daleta) = 0;
   virtual void render() const = 0;
 
-  void renderColliders() const;
+  void RenderColliders() const;
 
   inline void setPosition(const glm::vec2& positiion) noexcept {
     m_position = positiion;
@@ -65,10 +65,10 @@ class IGameObject {
     return m_game_object_type;
   }
 
-  inline static void enableRenderingColliders() noexcept {
+  inline static void EnableRenderingColliders() noexcept {
     m_is_rendering_colliders = true;
   }
-  inline static void disableRenderingColliders() noexcept {
+  inline static void DisableRenderingColliders() noexcept {
     m_is_rendering_colliders = false;
   }
 

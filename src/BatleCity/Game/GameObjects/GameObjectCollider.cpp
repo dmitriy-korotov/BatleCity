@@ -37,7 +37,7 @@ void GameObjectCollider::deleteAllColliders() { m_rect_colliders.clear(); }
 void GameObjectCollider::render(const glm::vec2& position,
                                 const glm::vec2& size, const float rotation,
                                 const float layer) const {
-  m_shader_program->use();
+  m_shader_program->Use();
   m_shader_program->setFloat("layer", layer);
 
   for (const auto& rect_collider : m_rect_colliders) {
@@ -61,7 +61,7 @@ void GameObjectCollider::render(const glm::vec2& position,
           glm::vec3(rect_collider.getRightTop() - rect_collider.getLeftBottom(),
                     1.f));
 
-      m_shader_program->setMatrix4("model_matrix", model_matrix);
+      m_shader_program->SetMatrix4("model_matrix", model_matrix);
 
       Game::Instance().GetRenderer()->DrawElements(GL_LINE_STRIP, m_VAO, m_EBO,
                                                    *m_shader_program);

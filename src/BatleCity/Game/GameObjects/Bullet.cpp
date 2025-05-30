@@ -58,10 +58,10 @@ void Bullet::fire(const glm::vec2& position, const glm::vec2& direction,
   }
 }
 
-void Bullet::update(double delta) {
+void Bullet::Update(double delta) {
   if (m_is_exploded) {
     m_explosion_animation.second.Update(delta);
-    m_explosion_animation.first.update(delta);
+    m_explosion_animation.first.Update(delta);
   }
 }
 
@@ -99,7 +99,7 @@ bool Bullet::onCollision(EGameObjectType game_object_type,
       game_object_type != EGameObjectType::Tree &&
       game_object_type != EGameObjectType::Ice) {
     if (game_object_type == EGameObjectType::Tank &&
-        object->getID() == m_owner_id) {
+        object->GetID() == m_owner_id) {
       return false;
     }
 

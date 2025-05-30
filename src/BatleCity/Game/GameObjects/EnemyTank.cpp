@@ -11,20 +11,20 @@ EnemyTank::EnemyTank(std::shared_ptr<const Level> level_ptr,
     : Tank(tank_type, position, size, max_velocity, delay_between_shots,
            direction, velocity, layer),
       m_AI(std::move(level_ptr)) {
-  setOrientation(EOrientation::Bottom);
+  SetOrientation(EOrientation::Bottom);
 }
 
-void EnemyTank::active() noexcept {
+void EnemyTank::Active() noexcept {
   try {
-    m_AI.activeOnTank(shared_from_this());
+    m_AI.ActiveOnTank(shared_from_this());
   } catch (const std::exception& ex) {
     std::cerr << "ERROR: shared_from_this exception (Tank):" << std::endl;
     std::cerr << ex.what() << std::endl;
   }
 }
 
-void EnemyTank::update(double delta) {
-  Tank::update(delta);
-  m_AI.update(delta);
+void EnemyTank::Update(double delta) {
+  Tank::Update(delta);
+  m_AI.Update(delta);
 }
 }  // namespace BatleCity

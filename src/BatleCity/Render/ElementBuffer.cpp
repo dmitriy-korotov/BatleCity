@@ -29,7 +29,7 @@ void ElementBuffer::init(const void* data, const unsigned int count) {
                GL_STATIC_DRAW);
 }
 
-void ElementBuffer::update(const void* data, const size_t size) const {
+void ElementBuffer::Update(const void* data, const size_t size) const {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffer_id);
   glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data);
 }

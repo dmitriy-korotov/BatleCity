@@ -19,7 +19,7 @@ class Bullet : public IDynamicGameObject {
   void fire(const glm::vec2& position, const glm::vec2& direction,
             double velocity);
 
-  void update(double delta) override;
+  void Update(double delta) override;
   void render() const override;
 
   bool onCollision(EGameObjectType game_object_type,

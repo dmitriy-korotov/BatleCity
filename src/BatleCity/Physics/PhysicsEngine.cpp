@@ -3,104 +3,94 @@
 #include <memory>
 
 namespace Physics {
-std::unordered_set<std::shared_ptr<BatleCity::IDynamicGameObject>>
-    PhysicsEngine::m_dynamic_game_objects;
-std::shared_ptr<const BatleCity::Level> PhysicsEngine::m_current_level;
+void PhysicsEngine::Init() {}
 
-void PhysicsEngine::init() {}
-
-void PhysicsEngine::removeAllDynamicObjects() {
-  m_dynamic_game_objects.clear();
-}
+void PhysicsEngine::RemoveAllDynamicObjects() { m_dynamicGameObjects.clear(); }
 
 void PhysicsEngine::Terminate() {
-  m_dynamic_game_objects.clear();
-  m_current_level.reset();
+  m_dynamicGameObjects.clear();
+  m_currentLevel.reset();
 }
 
-void PhysicsEngine::update(double delta) {
-  std::vector<std::shared_ptr<BatleCity::IDynamicGameObject>>
-      destroyed_game_objects;
-  destroyed_game_objects.reserve(m_dynamic_game_objects.size());
+void PhysicsEngine::Update(double delta) {
+  assert(m_currentLevel);
 
-  for (auto& dynamic_game_object : m_dynamic_game_objects) {
-    if (dynamic_game_object->isDestroy()) {
-      destroyed_game_objects.emplace_back(dynamic_game_object);
+  auto it = std::begin(m_dynamicGameObjects);
+  while (it != std::end(m_dynamicGameObjects)) {
+    const auto id = it->first;
+    const auto& object = it->second;
+
+    if (object->IsDestroy()) {
+      it = m_dynamicGameObjects.erase(it);
       continue;
     }
-    if (dynamic_game_object->getVelocity() > 0) {
-      bool is_intersection = false;
-      const glm::vec2 new_position = getNewPosition(dynamic_game_object, delta);
+    if (object->GetVelocity() <= 0) {
+      it = std::next(it);
+      continue;
+    }
 
-      if (m_current_level) {
-        auto objects = m_current_level->getObjectsFromArea(
-            new_position, dynamic_game_object->gSetSize());
-        is_intersection = isInersectionWithObjects(dynamic_game_object,
-                                                   new_position, objects);
+    const auto newPosition = GetNewPosition(object, delta);
+
+    const auto mapObjects =
+        m_currentLevel->GetObjectsFromArea(newPosition, object->gSetSize());
+    auto isIntersection =
+        IsInersectionWithObjects(object, newPosition, mapObjects);
+
+    for (const auto& [otherObjectID, otherObject] : m_dynamicGameObjects) {
+      if (id == otherObjectID) {
+        continue;
       }
-
-      for (auto& other_game_object : m_dynamic_game_objects) {
-        if (dynamic_game_object.get() == other_game_object.get()) {
-          continue;
-        }
-        const auto [first, second] =
-            isIntersection(dynamic_game_object->getColliders(), new_position,
-                           other_game_object->getColliders(),
-                           other_game_object->getPosition());
-        if (second) {
-          is_intersection |= dynamic_game_object->onCollision(
-              other_game_object->getGameObjectType(), other_game_object,
-              second);
-          other_game_object->onCollision(
-              dynamic_game_object->getGameObjectType(), dynamic_game_object,
-              first);
-        }
-      }
-
-      if (!is_intersection) {
-        dynamic_game_object->setPosition(new_position);
+      const auto [first, second] = IsIntersection(
+          object->getColliders(), newPosition, otherObject->getColliders(),
+          otherObject->getPosition());
+      if (first || second) {
+        isIntersection |= object->onCollision(otherObject->getGameObjectType(),
+                                              otherObject, second);
+        otherObject->onCollision(object->getGameObjectType(), object, first);
       }
     }
-  }
-  for (const auto& destroyed_game_object : destroyed_game_objects) {
-    m_dynamic_game_objects.erase(destroyed_game_object);
+
+    if (!isIntersection) {
+      object->setPosition(newPosition);
+    }
+    it = std::next(it);
   }
 }
 
-void PhysicsEngine::setCurrentLevel(
+void PhysicsEngine::SetCurrentLevel(
     std::shared_ptr<const BatleCity::Level> current_level) {
-  m_current_level.swap(current_level);
+  m_currentLevel.swap(current_level);
 }
 
-void PhysicsEngine::addDynamicGameObject(
-    std::shared_ptr<BatleCity::IDynamicGameObject> dynamic_game_object) {
-  m_dynamic_game_objects.insert(std::move(dynamic_game_object));
+void PhysicsEngine::AddDynamicGameObject(
+    std::shared_ptr<BatleCity::IDynamicGameObject> object) {
+  m_dynamicGameObjects.emplace(object->GetID(), std::move(object));
 }
 
-glm::vec2 PhysicsEngine::getNewPosition(
+glm::vec2 PhysicsEngine::GetNewPosition(
     const std::shared_ptr<BatleCity::IDynamicGameObject>& game_object,
     double delta) {
-  const glm::vec2 game_object_direction = game_object->getDirection();
-  glm::vec2 new_position(0.f);
+  const glm::vec2 objectDirection = game_object->getDirection();
+  glm::vec2 newPosition(0.f);
 
-  if (game_object_direction.x == 0.f) {
-    new_position.x = static_cast<float>(
+  if (objectDirection.x == 0.f) {
+    newPosition.x = static_cast<float>(
         static_cast<int>(game_object->getPosition().x / 4.f + 0.5f) * 4);
-    new_position.y = game_object->getPosition().y +
-                     game_object_direction.y *
-                         static_cast<float>(game_object->getVelocity() * delta);
+    newPosition.y = game_object->getPosition().y +
+                    objectDirection.y *
+                        static_cast<float>(game_object->GetVelocity() * delta);
   } else {
-    new_position.y = static_cast<float>(
+    newPosition.y = static_cast<float>(
         static_cast<int>(game_object->getPosition().y / 4.f + 0.5f) * 4);
-    new_position.x = game_object->getPosition().x +
-                     game_object_direction.x *
-                         static_cast<float>(game_object->getVelocity() * delta);
+    newPosition.x = game_object->getPosition().x +
+                    objectDirection.x *
+                        static_cast<float>(game_object->GetVelocity() * delta);
   }
-  return new_position;
+  return newPosition;
 }
 
 std::pair<std::shared_ptr<AABB>, std::shared_ptr<AABB>>
-PhysicsEngine::isIntersection(const std::vector<AABB>& first_object,
+PhysicsEngine::IsIntersection(const std::vector<AABB>& first_object,
                               const glm::vec2& position_object1,
                               const std::vector<AABB>& second_object,
                               const glm::vec2& position_object2) {
@@ -133,13 +123,13 @@ PhysicsEngine::isIntersection(const std::vector<AABB>& first_object,
                                                                       nullptr);
 }
 
-bool PhysicsEngine::isInersectionWithObjects(
+bool PhysicsEngine::IsInersectionWithObjects(
     const std::shared_ptr<BatleCity::IDynamicGameObject>& current_game_object,
-    const glm::vec2& new_position,
+    const glm::vec2& newPosition,
     const std::vector<std::shared_ptr<BatleCity::IGameObject>>& other_objects) {
   for (const auto& object : other_objects) {
     auto colliders_pair =
-        isIntersection(current_game_object->getColliders(), new_position,
+        IsIntersection(current_game_object->getColliders(), newPosition,
                        object->getColliders(), object->getPosition());
     if (colliders_pair.first != nullptr && colliders_pair.second != nullptr) {
       const bool is_stoped = current_game_object->onCollision(

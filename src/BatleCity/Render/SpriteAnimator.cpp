@@ -33,7 +33,7 @@ double SpriteAnimator::getDurationAnimation(
   return m_animated_sprite->getDurationStateAnimation(animation_name);
 }
 
-void SpriteAnimator::update(const double delta) {
+void SpriteAnimator::Update(const double delta) {
   if (m_current_state != m_animated_sprite->m_states.end()) {
     m_current_time_animation += delta;
 

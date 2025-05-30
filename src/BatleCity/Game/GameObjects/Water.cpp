@@ -34,5 +34,5 @@ void Water::renderBlock(const ESubBlockLocation subBlock_location) const {
   }
 }
 
-void Water::update(const double delta) { m_sprite.update(delta); }
+void Water::Update(const double delta) { m_sprite.Update(delta); }
 }  // namespace BatleCity

@@ -63,7 +63,7 @@ ShaderProgram& ShaderProgram::operator=(
   return *this;
 }
 
-void ShaderProgram::use() const { glUseProgram(m_ID); }
+void ShaderProgram::Use() const { glUseProgram(m_ID); }
 
 ShaderProgram::~ShaderProgram() { glDeleteProgram(m_ID); }
 
@@ -76,7 +76,7 @@ void ShaderProgram::setFloat(const std::string& name,
   glUniform1f(glGetUniformLocation(m_ID, name.c_str()), value);
 }
 
-void ShaderProgram::setMatrix4(const std::string& name,
+void ShaderProgram::SetMatrix4(const std::string& name,
                                const glm::mat4& matrix) const {
   glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE,
                      &matrix[0][0]);

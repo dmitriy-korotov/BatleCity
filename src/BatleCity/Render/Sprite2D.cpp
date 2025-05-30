@@ -76,10 +76,10 @@ void Sprite2D::render(const glm::vec2& position, const glm::vec2& size,
   model_matrix = glm::translate(model_matrix, glm::vec3(-0.5f * size, 0.f));
   model_matrix = glm::scale(model_matrix, glm::vec3(size, 1.f));
 
-  m_shader_program->use();
+  m_shader_program->Use();
   m_shader_program->setInt("tex", 0);
   m_shader_program->setFloat("layer", layer);
-  m_shader_program->setMatrix4("model_matrix", model_matrix);
+  m_shader_program->SetMatrix4("model_matrix", model_matrix);
 
   m_texture->bind();
   BatleCity::Game::Instance().GetRenderer()->DrawElements(

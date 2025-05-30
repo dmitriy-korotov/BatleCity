@@ -22,8 +22,8 @@ class EnemyTankAI {
   EnemyTankAI(EnemyTankAI&&) = default;
   EnemyTankAI& operator=(EnemyTankAI&&) = default;
 
-  void activeOnTank(std::shared_ptr<EnemyTank> enemy_tank) noexcept;
-  void update(double delta) noexcept;
+  void ActiveOnTank(std::shared_ptr<EnemyTank> enemy_tank) noexcept;
+  void Update(double delta) noexcept;
 
  private:
   std::optional<Point> findEaglePosition() const noexcept;

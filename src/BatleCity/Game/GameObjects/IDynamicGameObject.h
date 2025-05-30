@@ -1,6 +1,6 @@
 #include "IGameObject.h"
-#ifndef I_DYNAMIC_GAME_OBJECT
-#define I_DYNAMIC_GAME_OBJECT
+#ifndef I_object
+#define I_object
 
 namespace BatleCity {
 class IDynamicGameObject : public IGameObject {
@@ -13,16 +13,16 @@ class IDynamicGameObject : public IGameObject {
                      double velocity, double max_velocity);
 
   void move(const glm::vec2& offset);
-  virtual void setVelocity(double velocity);
+  virtual void SetVelocity(double velocity);
   void setDirection(const glm::vec2& direction);
-  virtual void setOrientation(const EOrientation orientation);
+  virtual void SetOrientation(const EOrientation orientation);
 
-  double getMaxVelocity() const;
-  double getVelocity() const;
+  double GetMaxVelocity() const;
+  double GetVelocity() const;
   const glm::vec2& getDirection() const;
   EOrientation getOrientation() const noexcept;
 
-  inline bool isDestroy() const noexcept { return m_is_destroy; };
+  inline bool IsDestroy() const noexcept { return m_is_destroy; };
 
  protected:
   EOrientation m_current_orientation = EOrientation::Top;
@@ -33,4 +33,4 @@ class IDynamicGameObject : public IGameObject {
 };
 }  // namespace BatleCity
 
-#endif  // !I_DYNAMIC_GAME_OBJECT
+#endif  // !I_object

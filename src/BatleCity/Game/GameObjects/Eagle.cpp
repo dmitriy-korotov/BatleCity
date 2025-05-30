@@ -18,7 +18,7 @@ void Eagle::render() const {
       m_position, m_size, m_rotation, m_layer);
 }
 
-void Eagle::update(const double delta) {}
+void Eagle::Update(const double delta) {}
 
 bool Eagle::onCollision(EGameObjectType game_object_type,
                         std::shared_ptr<IGameObject> object,

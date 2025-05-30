@@ -48,7 +48,7 @@ Tank::Tank(ETankType tank_type, const glm::vec2& positiion,
   m_colliders.addCollider(glm::vec2(0.f), m_size);
 }
 
-void Tank::setOrientation(const EOrientation orietation) {
+void Tank::SetOrientation(const EOrientation orietation) {
   if (!m_is_respawn) {
     if (m_current_orientation == orietation) {
       return;
@@ -83,26 +83,26 @@ void Tank::setOrientation(const EOrientation orietation) {
   }
 }
 
-void Tank::setVelocity(double velocity) {
+void Tank::SetVelocity(double velocity) {
   if (!m_is_respawn) m_velocity = velocity;
 }
 
-void Tank::update(const double delta) {
+void Tank::Update(const double delta) {
   if (m_is_fair) {
     m_timer_for_shots.Update(delta);
   }
   if (m_is_respawn) {
-    m_respawn_animation.first.update(delta);
+    m_respawn_animation.first.Update(delta);
     m_respawn_animation.second.Update(delta);
   } else {
     if (m_velocity > 0) {
-      m_tank_sprite.update(delta);
+      m_tank_sprite.Update(delta);
     }
     if (m_has_shild) {
-      m_shield_animation.first.update(delta);
+      m_shield_animation.first.Update(delta);
       m_shield_animation.second.Update(delta);
     }
-    m_bullets.updateBullets(delta);
+    m_bullets.UpdateBullets(delta);
   }
 }
 
@@ -125,11 +125,11 @@ void Tank::fair() const {
   if (!m_is_destroy && !m_is_respawn && !m_is_fair) {
     m_is_fair = true;
     auto bullet =
-        std::make_shared<Bullet>(getID(), m_current_orientation, m_size / 2.f,
+        std::make_shared<Bullet>(GetID(), m_current_orientation, m_size / 2.f,
                                  m_layer + 0.1f, 3 * m_max_velocity);
-    bullet->fire(m_position, m_direction, bullet->getMaxVelocity());
+    bullet->fire(m_position, m_direction, bullet->GetMaxVelocity());
     m_bullets.addBullet(bullet);
-    Physics::PhysicsEngine::addDynamicGameObject(std::move(bullet));
+    Game::Instance().GetPhysicsEngine()->AddDynamicGameObject(std::move(bullet));
 
     m_timer_for_shots.Start(m_delay_between_shots);
   }
@@ -143,7 +143,7 @@ bool Tank::onCollision(EGameObjectType game_object_type,
       game_object_type == EGameObjectType::Ice) {
     return false;
   } else if (game_object_type == EGameObjectType::Bullet) {
-    if (!m_bullets.has(object->getID())) {
+    if (!m_bullets.has(object->GetID())) {
       if (HP == 1) {
         m_is_destroy = true;
         m_colliders.deleteAllColliders();

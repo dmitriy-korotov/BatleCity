@@ -18,7 +18,7 @@ class BulletCollector {
 
   void addBullet(std::shared_ptr<Bullet> bullet);
 
-  void updateBullets(double delta);
+  void UpdateBullets(double delta);
   void renderBullets() const;
 
  private:

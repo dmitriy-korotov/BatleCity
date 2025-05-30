@@ -15,15 +15,15 @@ struct AxisAlignedBoundingBox {
                const glm::vec2& _right_top) noexcept;
   void setLeftBottomPoint(const glm::vec2& _left_bottom) noexcept;
   void setRightTopPoint(const glm::vec2& _right_top) noexcept;
-  inline void disable() noexcept { m_is_active = false; }
+  inline void disable() noexcept { m_is_Active = false; }
   inline const glm::vec2& getLeftBottom() const noexcept {
     return m_left_bottom;
   }
   inline const glm::vec2& getRightTop() const noexcept { return m_right_top; }
-  inline bool isActive() const noexcept { return m_is_active; }
+  inline bool isActive() const noexcept { return m_is_Active; }
 
  private:
-  bool m_is_active = true;
+  bool m_is_Active = true;
   glm::vec2 m_left_bottom;
   glm::vec2 m_right_top;
 };

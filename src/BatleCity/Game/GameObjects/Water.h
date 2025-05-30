@@ -14,7 +14,7 @@ class Water : public Block {
   Water(const EBlockType water_type, const glm::vec2& position,
         const glm::vec2& size, const float rotation, const float layer);
 
-  void update(const double delta) override;
+  void Update(const double delta) override;
 
  private:
   void renderBlock(const ESubBlockLocation subBlock_location) const override;

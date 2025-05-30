@@ -16,7 +16,7 @@ class SpriteAnimator {
   SpriteAnimator(std::shared_ptr<Sprite2D> sprite_ptr);
 
   void setState(const std::string& state_name);
-  void update(const double delta);
+  void Update(const double delta);
   void render(const glm::vec2& position, const glm::vec2& size,
               const float rotation, const float layer) const;
 

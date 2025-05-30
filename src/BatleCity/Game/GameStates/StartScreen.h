@@ -32,12 +32,12 @@ class StartScreen : public IGameState {
               uint16_t menu_position_x, uint16_t menu_position_y);
   ~StartScreen(){};
 
-  size_t getGameStateWidth() const noexcept override;
-  size_t getGameStateHeight() const noexcept override;
+  size_t GetGameStateWidth() const noexcept override;
+  size_t GetGameStateHeight() const noexcept override;
 
   bool start() const noexcept override;
   void render() const override;
-  void update(double delta, std::array<bool, 349>& keyboard) override;
+  void Update(double delta, KeyboardType& keyboard) override;
 
   EMenuPuncts select() const noexcept;
 
@@ -45,13 +45,13 @@ class StartScreen : public IGameState {
   static void setShaderProgram(
       std::shared_ptr<RenderEngine::ShaderProgram>&& shader_program) noexcept;
 
-  bool setProjectiomMatrix() const noexcept;
+  bool SetProjectiomMatrix() const noexcept;
 
   static std::shared_ptr<RenderEngine::ShaderProgram>
       m_start_srcreen_elements_shader_program;
 
   std::vector<std::pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>>
-      m_start_screen_elements;
+      m_startScreenElements;
 
   std::vector<std::pair<std::shared_ptr<RenderEngine::Sprite2D>, glm::vec2>>
       m_menu_selections;
