@@ -30,7 +30,7 @@ class Bullet : public IDynamicGameObject {
  private:
   std::size_t m_owner_id = 0;
   std::shared_ptr<RenderEngine::Sprite2D> m_sprite = nullptr;
-  std::pair<RenderEngine::SpriteAnimator, my_system::Timer>
+  std::pair<RenderEngine::SpriteAnimator, System::Timer>
       m_explosion_animation;
   bool m_is_fire = false;
   bool m_is_exploded = false;

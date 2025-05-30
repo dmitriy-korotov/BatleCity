@@ -23,7 +23,7 @@ class PhysicsEngine {
   ~PhysicsEngine() = delete;
 
   static void init();
-  static void terminate();
+  static void Terminate();
   static void update(double delta);
   static void removeAllDynamicObjects();
   static void addDynamicGameObject(

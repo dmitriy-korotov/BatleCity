@@ -47,7 +47,7 @@ class IGameObject {
   inline void setPosition(const glm::vec2& positiion) noexcept {
     m_position = positiion;
   }
-  inline void setSize(const glm::vec2& size) noexcept { m_size = size; }
+  inline void SetSize(const glm::vec2& size) noexcept { m_size = size; }
   inline void setRotation(const float rotation) noexcept {
     m_rotation = rotation;
   }
@@ -57,7 +57,7 @@ class IGameObject {
     return m_colliders.getColliders();
   }
   inline const glm::vec2& getPosition() const noexcept { return m_position; }
-  inline const glm::vec2& getSize() const noexcept { return m_size; }
+  inline const glm::vec2& gSetSize() const noexcept { return m_size; }
   inline float getRotation() const noexcept { return m_rotation; }
   inline EGameObjectType getGameObjectType() const noexcept {
     return m_game_object_type;

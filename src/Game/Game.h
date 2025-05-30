@@ -5,7 +5,7 @@
 #include <array>
 #include <memory>
 
-namespace my_system {
+namespace System {
 class Window;
 }
 
@@ -25,7 +25,7 @@ class Game {
   Game();
   ~Game();
 
-  bool init(std::shared_ptr<my_system::Window> window_ptr);
+  bool init(std::shared_ptr<System::Window> window_ptr);
   void setKey(const int key, const int action);
   void update(const double delta);
   void render();
@@ -36,7 +36,7 @@ class Game {
  private:
   void resetWindowSizeToCurrentGameState() noexcept;
 
-  std::shared_ptr<my_system::Window> m_window_ptr = nullptr;
+  std::shared_ptr<System::Window> m_window_ptr = nullptr;
 
   std::array<bool, 349> m_keys;
 

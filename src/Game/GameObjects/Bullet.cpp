@@ -10,7 +10,7 @@ Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& 
       m_owner_id(owner_id),
       m_explosion_animation{
           Resources::ResourceManager::getSprite("ExplosionAnimation"),
-          my_system::Timer()} {
+          System::Timer()} {
   switch (bullet_type) {
     case BatleCity::Bullet::EOrientation::Top:
       m_sprite = Resources::ResourceManager::getSprite("Bullet_Top_8x8");

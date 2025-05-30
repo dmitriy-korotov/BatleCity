@@ -58,7 +58,7 @@ EnemyTankAI::Point EnemyTankAI::getIndexesTankPosition() const noexcept {
     float block_size = m_level->getBlockSize();
     float x = (m_enemy_tank->getPosition().x - m_level->getLeftOffset()) / block_size;
     float y = (m_level->getGameStateHeight() - m_level->getTopOffset() - 
-               m_enemy_tank->getSize().y - m_enemy_tank->getPosition().y) / block_size;
+               m_enemy_tank->gSetSize().y - m_enemy_tank->getPosition().y) / block_size;
     return {static_cast<int>(std::round(x)), static_cast<int>(std::round(y))};
 }
 
@@ -180,7 +180,7 @@ void EnemyTankAI::update(double delta) noexcept {
     float block_size = m_level->getBlockSize();
     float tank_x = (m_enemy_tank->getPosition().x - m_level->getLeftOffset()) / block_size;
     float tank_y = (m_level->getGameStateHeight() - m_level->getTopOffset() - 
-                   m_enemy_tank->getSize().y - m_enemy_tank->getPosition().y) / block_size;
+                   m_enemy_tank->gSetSize().y - m_enemy_tank->getPosition().y) / block_size;
 
     const auto& target_point = m_path_to_eagle->at(m_current_path_index);
     float target_x = target_point.first / block_size;

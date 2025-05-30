@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-namespace my_system {
+namespace System {
 Timer::Timer() {}
 
 void Timer::start(const double duration) {
@@ -25,4 +25,4 @@ void Timer::reset() noexcept {
   m_is_active = false;
   m_duration = 0;
 }
-}  // namespace my_system
+}  // namespace System

@@ -16,6 +16,7 @@
 #include <iostream>
 #include <memory>
 
+
 static glm::ivec2 G_WINDOW_SIZE(13 * 16, 14 * 16);
 
 std::unique_ptr<BatleCity::Game> g_game = std::make_unique<BatleCity::Game>();
@@ -56,24 +57,24 @@ void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action,
 }
 
 int main(const int argc, const char** argv) {
-  if (!my_system::Window::initWindows()) {
+  if (!System::Window::InitWindows()) {
     std::cout << "ERROR: Windows init failed" << std::endl;
     return EXIT_FAILURE;
   }
 
-  std::shared_ptr<my_system::Window> window_ptr =
-      std::make_shared<my_system::Window>(G_WINDOW_SIZE.x, G_WINDOW_SIZE.y,
+  std::shared_ptr<System::Window> window =
+      std::make_shared<System::Window>(G_WINDOW_SIZE.x, G_WINDOW_SIZE.y,
                                           "BatleCity");
-  if (!window_ptr->isCreated()) {
+  if (!window->IsCreated()) {
     std::cout << "ERROR: Window creating failed" << std::endl;
-    my_system::Window::terminate();
+    System::Window::Terminate();
     return EXIT_FAILURE;
   }
 
-  window_ptr->setResizeCallBack(glfwWindowSizeCallback);
-  window_ptr->setKeyCallBack(glfwKeyCallback);
+  window->SetResizeCallBack(glfwWindowSizeCallback);
+  window->SetKeyCallBack(glfwKeyCallback);
 
-  window_ptr->makeContextCurrent();
+  window->MakeContextCurrent();
 
   if (!gladLoadGL()) {
     std::cout << "ERROR: Can't load GLAD" << std::endl;
@@ -90,11 +91,11 @@ int main(const int argc, const char** argv) {
     Resources::ResourceManager::setExecutablePath(argv[0]);
     Physics::PhysicsEngine::init();
 
-    if (!g_game->init(window_ptr)) {
+    if (!g_game->init(window)) {
       std::cerr << "ERROR: Can't inital game" << std::endl;
       return -1;
     }
-    window_ptr->setSize(3 * static_cast<int>(g_game->getCurrentGameWidth()),
+    window->SetSize(3 * static_cast<int>(g_game->getCurrentGameWidth()),
                         3 * static_cast<int>(g_game->getCurrentGameHeight()));
 
     auto last_time = std::chrono::high_resolution_clock::now();
@@ -102,7 +103,7 @@ int main(const int argc, const char** argv) {
     RenderEngine::Renderer::setClearColor(0.f, 0.f, 0.f);
     RenderEngine::Renderer::setDepthTest(true);
 
-    while (!window_ptr->ShouldClose()) {
+    while (!window->ShouldClose()) {
       RenderEngine::Renderer::clear(GL_COLOR_BUFFER_BIT);
       RenderEngine::Renderer::clear(GL_DEPTH_BUFFER_BIT);
 
@@ -116,18 +117,18 @@ int main(const int argc, const char** argv) {
       g_game->update(duration);
       g_game->render();
 
-      window_ptr->swapBuffers();
+      window->SwapBuffers();
 
-      window_ptr->pollEvents();
+      window->PollEvents();
     }
   }
 
   g_game.reset();
 
   Resources::ResourceManager::unloadAllResources();
-  Physics::PhysicsEngine::terminate();
+  Physics::PhysicsEngine::Terminate();
 
-  my_system::Window::terminate();
+  System::Window::Terminate();
 
   return EXIT_SUCCESS;
 }

@@ -5,9 +5,9 @@
 #include <GLFW/glfw3.h>
 
 #include <functional>
-#include <iostream>
+#include <string>
 
-namespace my_system {
+namespace System {
 class Window {
  public:
   Window(const Window&) = delete;
@@ -18,27 +18,26 @@ class Window {
   Window& operator=(Window&& _right) noexcept;
   ~Window();
 
-  static bool initWindows() noexcept;
-  static void setHint(uint64_t _target, uint64_t _value) noexcept;
-  static void terminate() noexcept;
+  static bool InitWindows() noexcept;
+  static void Terminate() noexcept;
 
-  void setResizeCallBack(void (*_resize_call_back)(GLFWwindow*, int,
+  void SetResizeCallBack(void (*_resize_call_back)(GLFWwindow*, int,
                                                    int)) noexcept;
-  void setKeyCallBack(void (*_key_call_back)(GLFWwindow*, int, int, int,
+  void SetKeyCallBack(void (*_key_call_back)(GLFWwindow*, int, int, int,
                                              int)) noexcept;
-  void callResizeCallBack(int width, int height) const noexcept;
-  void callKeyCallBack(int key, int scancode, int action,
+  void CallResizeCallBack(int width, int height) const noexcept;
+  void CallKeyCallBack(int key, int scancode, int action,
                        int mode) const noexcept;
 
-  unsigned int getWindowWidth() const noexcept;
-  unsigned int getWindowHeight() const noexcept;
+  unsigned int GetWindowWidth() const noexcept;
+  unsigned int GetWindowHeight() const noexcept;
 
-  bool isCreated() const noexcept;
-  void makeContextCurrent() const noexcept;
-  void setSize(unsigned int _width, unsigned int _height) const noexcept;
+  bool IsCreated() const noexcept;
+  void MakeContextCurrent() const noexcept;
+  void SetSize(unsigned int _width, unsigned int _height) const noexcept;
   bool ShouldClose() const noexcept;
-  void swapBuffers() const noexcept;
-  void pollEvents() const noexcept;
+  void SwapBuffers() const noexcept;
+  void PollEvents() const noexcept;
 
  private:
   GLFWwindow* m_window_ptr = nullptr;
@@ -46,6 +45,6 @@ class Window {
   std::function<void(GLFWwindow*, int, int)> m_window_resize_call_back;
   std::function<void(GLFWwindow*, int, int, int, int)> m_key_call_back;
 };
-}  // namespace my_system
+}  // namespace System
 
 #endif  // !WINDOW_H

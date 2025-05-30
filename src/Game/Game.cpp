@@ -20,7 +20,7 @@ Game::Game() { m_keys.fill(false); }
 
 Game::~Game() { }
 
-bool Game::init(std::shared_ptr<my_system::Window> window_ptr) {
+bool Game::init(std::shared_ptr<System::Window> window_ptr) {
   if (m_window_ptr) {
     std::cerr << "ERROR: Game already initializated" << std::endl;
     return false;
@@ -54,8 +54,8 @@ bool Game::init(std::shared_ptr<my_system::Window> window_ptr) {
 void Game::setKey(const int key, const int action) { m_keys[key] = action; }
 
 void Game::resetWindowSizeToCurrentGameState() noexcept {
-  m_window_ptr->callResizeCallBack(m_window_ptr->getWindowWidth(),
-                                   m_window_ptr->getWindowHeight());
+  m_window_ptr->CallResizeCallBack(m_window_ptr->GetWindowWidth(),
+                                   m_window_ptr->GetWindowHeight());
 }
 
 void Game::update(const double delta) {

@@ -5,7 +5,7 @@
 #include <functional>
 #include <iostream>
 
-namespace my_system {
+namespace System {
 class Timer {
  public:
   Timer();
@@ -22,6 +22,6 @@ class Timer {
   bool m_is_active = false;
   double m_duration = 0;
 };
-}  // namespace my_system
+}  // namespace System
 
 #endif  // !TIMER_H

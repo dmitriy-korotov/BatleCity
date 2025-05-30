@@ -118,7 +118,7 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   mutable std::shared_ptr<Tank> m_player2 = nullptr;
   mutable std::vector<std::shared_ptr<IDynamicGameObject>> m_enemy_tanks;
 
-  mutable my_system::Timer m_spawn_enemy_timer;
+  mutable System::Timer m_spawn_enemy_timer;
   mutable std::shared_ptr<RenderEngine::Sprite2D> m_game_over = nullptr;
   mutable std::shared_ptr<Eagle> m_eagle = nullptr;
   mutable bool m_is_finished = false;

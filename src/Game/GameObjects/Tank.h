@@ -7,7 +7,7 @@
 
 #include "../GameObjectContainers/BulletCollector.h"
 
-namespace my_system {
+namespace System {
 class Timer;
 }
 
@@ -64,10 +64,10 @@ class Tank : public IDynamicGameObject {
 
  private:
   RenderEngine::SpriteAnimator m_tank_sprite;
-  std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_respawn_animation;
-  std::pair<RenderEngine::SpriteAnimator, my_system::Timer> m_shield_animation;
+  std::pair<RenderEngine::SpriteAnimator, System::Timer> m_respawn_animation;
+  std::pair<RenderEngine::SpriteAnimator, System::Timer> m_shield_animation;
 
-  mutable my_system::Timer m_timer_for_shots;
+  mutable System::Timer m_timer_for_shots;
   mutable BulletCollector m_bullets;
   mutable bool m_is_fair = false;
   double m_delay_between_shots = 0;

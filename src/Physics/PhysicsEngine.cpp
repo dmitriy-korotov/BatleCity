@@ -13,7 +13,7 @@ void PhysicsEngine::removeAllDynamicObjects() {
   m_dynamic_game_objects.clear();
 }
 
-void PhysicsEngine::terminate() {
+void PhysicsEngine::Terminate() {
   m_dynamic_game_objects.clear();
   m_current_level.reset();
 }
@@ -34,7 +34,7 @@ void PhysicsEngine::update(double delta) {
 
       if (m_current_level) {
         auto objects = m_current_level->getObjectsFromArea(
-            new_position, dynamic_game_object->getSize());
+            new_position, dynamic_game_object->gSetSize());
         is_intersection = isInersectionWithObjects(dynamic_game_object,
                                                    new_position, objects);
       }

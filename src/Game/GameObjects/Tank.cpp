@@ -21,11 +21,11 @@ Tank::Tank(ETankType tank_type, const glm::vec2& positiion,
       m_respawn_animation{
           RenderEngine::SpriteAnimator(
               Resources::ResourceManager::getSprite("RespawnAnimation")),
-          my_system::Timer()},
+          System::Timer()},
       m_shield_animation{
           RenderEngine::SpriteAnimator(
               Resources::ResourceManager::getSprite("ShieldAnimation")),
-          my_system::Timer()},
+          System::Timer()},
       m_min_velocity(max_velocity / 2),
       m_delay_between_shots(delay_between_shots) {
   setPosition(m_position);
