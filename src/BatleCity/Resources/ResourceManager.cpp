@@ -31,6 +31,10 @@ void ResourceManager::UnloadAllResources() {
   m_game_states.clear();
 }
 
+std::string ResourceManager::GetResourcesPath() const {
+  return m_path;
+}
+
 std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::LoadShaderProrgam(
     const std::string& shader_name,
     const std::string& path_to_vertex_shader_source,

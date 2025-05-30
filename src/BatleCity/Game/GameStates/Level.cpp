@@ -224,6 +224,11 @@ Level::Level(std::vector<std::string>&& level_description)
   }
 
   m_game_over = Game::Instance().GetResourcesManager()->GetSprite("GameOver");
+
+  m_music = std::make_shared<sf::Music>();
+  if (!m_music->openFromFile(Game::Instance().GetResourcesManager()->GetResourcesPath() + "/res/music-2.wav")) {
+    std::cerr << "ERROR: Can't open music file" << std::endl;
+  }
 }
 
 void Level::SetGameObjectsShaderProgram(
@@ -340,6 +345,10 @@ bool Level::start() const noexcept {
   m_staticObjectsMap.clear();
   LoadMap();
   Game::Instance().GetPhysicsEngine()->RemoveAllDynamicObjects();
+
+  m_music->setVolume(10);
+  m_music->play();
+  m_music->setLoop(true);
 
   // setup new game session
   SetProjectiomMatrix();

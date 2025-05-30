@@ -4,6 +4,8 @@
 
 #include <glm/vec2.hpp>
 
+#include <SFML/Audio.hpp>
+
 #include "IGameState.h"
 
 #include "../../Render/Sprite2D.h"
@@ -121,6 +123,8 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   mutable std::shared_ptr<RenderEngine::Sprite2D> m_game_over = nullptr;
   mutable std::shared_ptr<Eagle> m_eagle = nullptr;
   mutable bool m_isFinished = false;
+
+  std::shared_ptr<sf::Music> m_music = nullptr;
 };
 }  // namespace BatleCity
 

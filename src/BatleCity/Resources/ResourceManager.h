@@ -28,6 +28,8 @@ class ResourceManager final {
  public:
   void SetExecutablePath(const std::string& executable_path);
   void UnloadAllResources();
+  
+  std::string GetResourcesPath() const;
 
   std::shared_ptr<RenderEngine::ShaderProgram> LoadShaderProrgam(
       const std::string& shader_name,
