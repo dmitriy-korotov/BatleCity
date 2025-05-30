@@ -123,6 +123,7 @@ void Game::Update(const double delta) {
         case StartScreen::EMenuPuncts::Constructor:
           std::cout << "Constructor is not implemented yet" << std::endl;
       }
+      m_currentGameState->Reset();
       m_currentGameState = m_level;
       m_currentGameState->start();
       ResetWindowSizeToCurrentGameState();
@@ -131,6 +132,7 @@ void Game::Update(const double delta) {
   if (m_currentGameState->GetGameStateType() ==
       IGameState::EGameStates::Level) {
     if (m_keys[GLFW_KEY_Q]) {
+      m_currentGameState->Reset();
       m_currentGameState = m_startScreen;
       m_currentGameState->start();
       ResetWindowSizeToCurrentGameState();

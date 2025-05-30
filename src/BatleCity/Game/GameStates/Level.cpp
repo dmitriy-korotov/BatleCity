@@ -224,11 +224,6 @@ Level::Level(std::vector<std::string>&& level_description)
   }
 
   m_game_over = Game::Instance().GetResourcesManager()->GetSprite("GameOver");
-
-  m_music = std::make_shared<sf::Music>();
-  if (!m_music->openFromFile(Game::Instance().GetResourcesManager()->GetResourcesPath() + "/res/music-2.wav")) {
-    std::cerr << "ERROR: Can't open music file" << std::endl;
-  }
 }
 
 void Level::SetGameObjectsShaderProgram(
@@ -339,23 +334,32 @@ void Level::SetProjectiomMatrix() const noexcept {
 }
 
 bool Level::start() const noexcept {
-  // cleanup previus game session
-  m_isFinished = false;
-  m_enemyTanks.clear();
-  m_staticObjectsMap.clear();
-  LoadMap();
-  Game::Instance().GetPhysicsEngine()->RemoveAllDynamicObjects();
-
+  // setup new game session
+  if (!m_music) {
+    m_music = std::make_shared<sf::Music>();
+    if (!m_music->openFromFile(Game::Instance().GetResourcesManager()->GetResourcesPath() + "/res/music-2.wav")) {
+      std::cerr << "ERROR: Can't open music file" << std::endl;
+    }
+  }
   m_music->setVolume(10);
   m_music->play();
   m_music->setLoop(true);
-
-  // setup new game session
+  LoadMap();
   SetProjectiomMatrix();
   CreateTanks();
   StartAI();
   InitPhysics();
   return true;
+}
+
+void Level::Reset() noexcept {
+  m_isFinished = false;
+  m_enemyTanks.clear();
+  m_staticObjectsMap.clear();
+  if (m_music && m_music->getStatus() == sf::Music::Playing) {
+    m_music->stop();
+  }
+  Game::Instance().GetPhysicsEngine()->RemoveAllDynamicObjects();
 }
 
 size_t Level::GetGameStateWidth() const noexcept {

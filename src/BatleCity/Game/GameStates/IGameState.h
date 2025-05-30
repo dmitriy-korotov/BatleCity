@@ -18,6 +18,7 @@ class IGameState {
   virtual size_t GetGameStateWidth() const noexcept = 0;
   virtual size_t GetGameStateHeight() const noexcept = 0;
   virtual bool start() const noexcept = 0;
+  virtual void Reset() noexcept = 0;
   virtual void Update(const double delta, KeyboardType& keyboard) = 0;
   virtual void Render() const = 0;
 

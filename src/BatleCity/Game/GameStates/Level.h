@@ -50,6 +50,7 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   bool IsFinished() const noexcept { return m_isFinished; }
 
   bool start() const noexcept override;
+  void Reset() noexcept override;
   void Update(const double delta, KeyboardType& keyboard) override;
   void Render() const override;
 
@@ -124,7 +125,7 @@ class Level : public IGameState, public std::enable_shared_from_this<Level> {
   mutable std::shared_ptr<Eagle> m_eagle = nullptr;
   mutable bool m_isFinished = false;
 
-  std::shared_ptr<sf::Music> m_music = nullptr;
+  mutable std::shared_ptr<sf::Music> m_music = nullptr;
 };
 }  // namespace BatleCity
 
