@@ -37,10 +37,10 @@ Bullet::Bullet(std::size_t owner_id, EOrientation bullet_type, const glm::vec2& 
   }
 
   m_explosion_animation.first.setState("default");
-  m_explosion_animation.second.setCallBack([&]() {
+  m_explosion_animation.second.SetCallBack([&]() {
     m_is_destroy = true;
     m_is_exploded = false;
-    m_explosion_animation.second.reset();
+    m_explosion_animation.second.Reset();
   });
 }
 
@@ -56,7 +56,7 @@ void Bullet::fire(const glm::vec2& position, const glm::vec2& direction,
 
 void Bullet::update(double delta) {
   if (m_is_exploded) {
-    m_explosion_animation.second.update(delta);
+    m_explosion_animation.second.Update(delta);
     m_explosion_animation.first.update(delta);
   }
 }
@@ -105,7 +105,7 @@ bool Bullet::onCollision(EGameObjectType game_object_type,
     m_is_fire = false;
     if (game_object_type != EGameObjectType::Bullet) {
       m_is_exploded = true;
-      m_explosion_animation.second.start(
+      m_explosion_animation.second.Start(
         m_explosion_animation.first.getDurationAnimation("default"));
     }
     return true;

@@ -8,7 +8,7 @@
 #include <string>
 
 namespace System {
-class Window {
+class Window final {
  public:
   Window(const Window&) = delete;
   Window& operator=(const Window&) = delete;

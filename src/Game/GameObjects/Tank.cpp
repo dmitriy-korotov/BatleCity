@@ -31,17 +31,17 @@ Tank::Tank(ETankType tank_type, const glm::vec2& positiion,
   setPosition(m_position);
 
   m_respawn_animation.first.setState("default");
-  m_respawn_animation.second.setCallBack([&]() {
+  m_respawn_animation.second.SetCallBack([&]() {
     m_is_respawn = false;
     m_has_shild = true;
-    m_shield_animation.second.start(3000);
+    m_shield_animation.second.Start(3000);
   });
-  m_respawn_animation.second.start(1500);
+  m_respawn_animation.second.Start(1500);
 
   m_shield_animation.first.setState("default");
-  m_shield_animation.second.setCallBack([&]() { m_has_shild = false; });
+  m_shield_animation.second.SetCallBack([&]() { m_has_shild = false; });
 
-  m_timer_for_shots.setCallBack([&]() { m_is_fair = false; });
+  m_timer_for_shots.SetCallBack([&]() { m_is_fair = false; });
 
   m_colliders.addCollider(glm::vec2(0.f), m_size);
 }
@@ -87,18 +87,18 @@ void Tank::setVelocity(double velocity) {
 
 void Tank::update(const double delta) {
   if (m_is_fair) {
-    m_timer_for_shots.update(delta);
+    m_timer_for_shots.Update(delta);
   }
   if (m_is_respawn) {
     m_respawn_animation.first.update(delta);
-    m_respawn_animation.second.update(delta);
+    m_respawn_animation.second.Update(delta);
   } else {
     if (m_velocity > 0) {
       m_tank_sprite.update(delta);
     }
     if (m_has_shild) {
       m_shield_animation.first.update(delta);
-      m_shield_animation.second.update(delta);
+      m_shield_animation.second.Update(delta);
     }
     m_bullets.updateBullets(delta);
   }
@@ -128,7 +128,7 @@ void Tank::fair() const {
     m_bullets.addBullet(bullet);
     Physics::PhysicsEngine::addDynamicGameObject(std::move(bullet));
 
-    m_timer_for_shots.start(m_delay_between_shots);
+    m_timer_for_shots.Start(m_delay_between_shots);
   }
 }
 

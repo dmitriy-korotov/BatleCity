@@ -1,5 +1,7 @@
 #include "EnemyTank.h"
 
+#include <iostream>
+
 namespace BatleCity {
 EnemyTank::EnemyTank(std::shared_ptr<const Level> level_ptr,
                      ETankType tank_type, const glm::vec2& position,

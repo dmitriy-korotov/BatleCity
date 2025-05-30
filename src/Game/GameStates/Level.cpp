@@ -313,10 +313,10 @@ void Level::createEnemyTanks() const noexcept {
 void Level::startAI() const noexcept {
   auto callback = [this]() {
     createEnemyTanks();
-    m_spawn_enemy_timer.start(5000);
+    m_spawn_enemy_timer.Start(5000);
   };
   callback();
-  m_spawn_enemy_timer.setCallBack(std::move(callback));
+  m_spawn_enemy_timer.SetCallBack(std::move(callback));
 }
 
 bool Level::setProjectiomMatrix() const noexcept {
@@ -527,7 +527,7 @@ void Level::update(const double delta, std::array<bool, 349>& keyboard) {
       break;
   }
 
-  m_spawn_enemy_timer.update(delta);
+  m_spawn_enemy_timer.Update(delta);
 
   Physics::PhysicsEngine::update(delta);
 }

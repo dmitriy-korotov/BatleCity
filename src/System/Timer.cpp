@@ -1,14 +1,12 @@
 #include "Timer.h"
 
 namespace System {
-Timer::Timer() {}
-
-void Timer::start(const double duration) {
+void Timer::Start(const double duration) {
   m_is_active = true;
   m_duration = duration;
 }
 
-void Timer::update(const double delta) {
+void Timer::Update(const double delta) {
   if (m_is_active) {
     m_duration -= delta;
     if (m_duration <= 0) {
@@ -17,11 +15,11 @@ void Timer::update(const double delta) {
   }
 }
 
-void Timer::setCallBack(const std::function<void()>& function) {
+void Timer::SetCallBack(const std::function<void()>& function) {
   m_call_back_function = function;
 }
 
-void Timer::reset() noexcept {
+void Timer::Reset() noexcept {
   m_is_active = false;
   m_duration = 0;
 }

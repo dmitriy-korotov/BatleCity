@@ -3,18 +3,15 @@
 #define TIMER_H
 
 #include <functional>
-#include <iostream>
 
 namespace System {
-class Timer {
+class Timer final {
  public:
-  Timer();
+  void Start(const double duration);
+  void Update(const double delta);
+  void SetCallBack(const std::function<void()>& function);
 
-  void start(const double duration);
-  void update(const double delta);
-  void setCallBack(const std::function<void()>& function);
-
-  void reset() noexcept;
+  void Reset() noexcept;
 
  private:
   std::function<void()> m_call_back_function = []() {};
